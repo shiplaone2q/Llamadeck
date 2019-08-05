@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  llamadeck-llamacpp:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.llamacpp
+    image: llamadeck:llamacpp-cuda
+    container_name: llamadeck-llamacpp
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data/llamacpp:/data
+      - ./models:/models  # Mount models directory

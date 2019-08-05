@@ -1,0 +1,48 @@
+package server
+
+import (
+	"context"
+	"crypto/subtle"
+	"fmt"
+	"llamadeck/pkg/auth"
+	"llamadeck/pkg/config"
+	"llamadeck/pkg/database"
+	"log"
+	"net/http"
+	"os"
+	"strings"
+	"time"
+)
+
+// contextKey is a custom type for context keys to avoid collisions
+type contextKey string
+
+const (
+	apiKeyContextKey contextKey = "apiKey"
+	userContextKey   contextKey = "user"
+)
+
+type APIAuthMiddleware struct {
+	authStore             database.AuthStore
+	requireInferenceAuth  bool
+	requireManagementAuth bool
+	managementKeys        map[string]bool // Config-based management keys
+	sessions              *auth.SessionStore
+}
+
+// NewAPIAuthMiddleware creates a new APIAuthMiddleware with the given configuration
+func NewAPIAuthMiddleware(authCfg config.AuthConfig, authStore database.AuthStore) *APIAuthMiddleware {
+	// Load management keys from config into managementKeys map
+	managementKeys := make(map[string]bool)
+	for _, key := range authCfg.ManagementKeys {
+		managementKeys[key] = true
+	}
+
+	// Handle legacy auto-generation for management keys if none provided and auth is required
+	var generated bool = false
+	const banner = "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+	if authCfg.RequireManagementAuth && len(authCfg.ManagementKeys) == 0 {
+		key, err := auth.GenerateKey("llamadeck-mgmt")
+		if err != nil {
+			log.Printf("Warning: Failed to generate management key: %v", err)

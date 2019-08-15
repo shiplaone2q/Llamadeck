@@ -97,3 +97,7 @@ func New(name string, globalConfig *config.AppConfig, opts *Options, onStatusCha
 func syncPresetIni(name string, opts *Options, instancesDir string) error {
 	if opts == nil || opts.PresetIni == nil || *opts.PresetIni == "" {
 		// A stale file would still be handed to the backend via --models-preset
+		presetPath := filepath.Join(instancesDir, name, "preset.ini")
+		if err := os.Remove(presetPath); err != nil && !os.IsNotExist(err) {
+			return fmt.Errorf("failed to remove preset.ini: %w", err)
+		}

@@ -32,3 +32,7 @@ func TestGetNodeHealth(t *testing.T) {
 			http.Error(w, "unauthorized", http.StatusUnauthorized)
 			return
 		}
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer remote.Close()
+

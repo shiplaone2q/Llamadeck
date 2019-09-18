@@ -60,3 +60,7 @@ function ApiKeysSection() {
     setNewKeyPlainText(null);
   };
 
+  const handleCopyKey = async () => {
+    if (newKeyPlainText) {
+      await navigator.clipboard.writeText(newKeyPlainText);
+      setCopiedKey(true);

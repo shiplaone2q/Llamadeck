@@ -16,3 +16,6 @@ interface NodeRowProps {
   address: string;
   isLocal: boolean;
 }
+
+function NodeStatus({ health }: { health: NodeHealth | undefined }) {
+  if (!health) {

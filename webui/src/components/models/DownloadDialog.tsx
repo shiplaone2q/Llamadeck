@@ -42,3 +42,7 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
         const fetchedNodes = await nodesApi.list()
         setNodes(fetchedNodes)
 
+        const nodeNames = Object.keys(fetchedNodes)
+        if (nodeNames.length > 0) {
+          if (!selectedNode || !nodeNames.includes(selectedNode)) {
+            setSelectedNode(nodeNames[0])

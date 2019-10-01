@@ -94,3 +94,5 @@ func (im *instanceManager) persistInstance(inst *instance.Instance) error {
 func (im *instanceManager) Shutdown() {
 	im.shutdownOnce.Do(func() {
 		// 1. Stop lifecycle manager (stops timeout checker)
+		im.lifecycle.stop()
+

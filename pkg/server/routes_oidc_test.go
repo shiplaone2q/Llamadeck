@@ -10,3 +10,5 @@ import (
 )
 
 // TestRoutesOIDCBypassManagementAuth verifies the router (not just the
+// handlers) serves whoami and the OIDC endpoints without a management key.
+func TestRoutesOIDCBypassManagementAuth(t *testing.T) {

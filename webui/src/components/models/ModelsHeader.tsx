@@ -7,3 +7,4 @@ import DownloadDialog from './DownloadDialog'
 export default function ModelsHeader() {
   const { models, activeJobs } = useModels()
   const [downloadDialogOpen, setDownloadDialogOpen] = useState(false)
+

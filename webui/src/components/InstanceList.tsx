@@ -12,3 +12,7 @@ interface InstanceListProps {
 const MemoizedInstanceCard = memo(InstanceCard)
 
 function InstanceList({ editInstance }: InstanceListProps) {
+  const { instances, loading, error, startInstance, stopInstance, deleteInstance } = useInstances()
+
+  if (loading) {
+    return (

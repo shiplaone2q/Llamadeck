@@ -12,3 +12,7 @@ services:
     volumes:
       - ./data/llamacpp:/data
       - ./models:/models  # Mount models directory
+      - ~/.cache/llama.cpp:/root/.cache/llama.cpp  # Llama.cpp cache
+    environment:
+      # Set data directory for persistence
+      - LLAMADECK_DATA_DIR=/data

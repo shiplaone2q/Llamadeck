@@ -66,3 +66,6 @@ func TestGroupsFromClaims(t *testing.T) {
 		{"empty array", `{"groups":[]}`, "groups", []string{}, true, false},
 		{"scalar string", `{"groups":"admins"}`, "groups", []string{"admins"}, true, false},
 		{"claim absent", `{"sub":"u1","roles":["admins"]}`, "groups", nil, false, false},
+		{"object shape", `{"groups":{"admins":true}}`, "groups", nil, true, true},
+	}
+	for _, tt := range tests {

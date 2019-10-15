@@ -30,3 +30,4 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Python
+        uses: actions/setup-python@v4

@@ -20,3 +20,5 @@ func newModelsTestHandler(t *testing.T) (*server.Handler, *models.Manager, strin
 	cache := t.TempDir()
 	t.Setenv("LLAMA_CACHE", cache)
 	t.Setenv("HF_ENDPOINT", "http://127.0.0.1:1")
+	mm := models.NewManager(cache, time.Second, "test")
+	t.Cleanup(mm.Close)

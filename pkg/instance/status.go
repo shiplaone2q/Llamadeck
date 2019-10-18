@@ -37,3 +37,5 @@ var statusToName = map[Status]string{
 func (s Status) MarshalJSON() ([]byte, error) {
 	name, ok := statusToName[s]
 	if !ok {
+		name = "stopped" // Default to "stopped" for unknown status
+	}

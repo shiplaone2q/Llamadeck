@@ -1,0 +1,13 @@
+name: TypeScript Type Check
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - "*"
+    paths:
+      - "webui/**"
+      - ".github/workflows/typescript.yaml"
+  pull_request:

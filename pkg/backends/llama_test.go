@@ -130,3 +130,4 @@ func TestLlamaCppBuildCommandArgs_EmptyArrays(t *testing.T) {
 	}
 }
 
+func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {

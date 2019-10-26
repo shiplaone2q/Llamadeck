@@ -14,3 +14,7 @@ interface NumberInputProps {
 }
 
 const NumberInput: React.FC<NumberInputProps> = ({
+  id,
+  label,
+  value,
+  onChange,

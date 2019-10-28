@@ -39,3 +39,5 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
   helperText,
   allowEmptyValues = false
 }) => {
+  // Convert the value object to an array of key-value pairs for editing
+  const pairsFromValue = value

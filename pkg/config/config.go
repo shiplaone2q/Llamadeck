@@ -30,3 +30,7 @@ func LoadConfig(configPath string) (AppConfig, error) {
 	}
 	if data != nil {
 		data = expandEnvVars(data)
+		if err := yaml.Unmarshal(data, &cfg); err != nil {
+			return cfg, err
+		}
+	}

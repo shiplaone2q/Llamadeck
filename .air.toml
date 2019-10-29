@@ -1,0 +1,10 @@
+#:schema https://json.schemastore.org/any.json
+
+# Live-reload loop for development: `air` (https://github.com/air-verse/air)
+# Rebuilds ./tmp/llamadeck and restarts the server on every .go save.
+
+root = "."
+tmp_dir = "tmp"
+
+[build]
+cmd = "go build -o ./tmp/llamadeck ./cmd/server"

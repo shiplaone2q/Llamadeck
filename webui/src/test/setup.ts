@@ -16,3 +16,6 @@ class LocalStorageMock implements Storage {
 
   getItem(key: string): string | null {
     return this.store.get(key) ?? null
+  }
+
+  key(index: number): string | null {

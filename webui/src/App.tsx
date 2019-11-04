@@ -40,3 +40,6 @@ function App() {
     if (editingInstance) {
       void updateInstance(editingInstance.name, options);
     } else {
+      void createInstance(name, options);
+    }
+  };

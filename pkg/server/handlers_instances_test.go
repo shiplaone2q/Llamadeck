@@ -18,3 +18,6 @@ import (
 
 // newInstancesTestRouter wires the instance endpoints to a real manager over
 // an in-memory DB, bypassing auth middleware.
+func newInstancesTestRouter(t *testing.T) http.Handler {
+	t.Helper()
+

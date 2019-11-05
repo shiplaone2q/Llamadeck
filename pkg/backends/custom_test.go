@@ -57,3 +57,5 @@ func TestOptionsGetHealthPath(t *testing.T) {
 			"bare": {HealthPath: "ready"},
 		},
 		LlamaCpp: config.BackendSettings{HealthPath: "/llm-ready"},
+	}
+

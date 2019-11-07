@@ -170,3 +170,5 @@ func (im *instanceManager) CreateInstance(name string, options *instance.Options
 		im.ports.release(allocatedPort)
 		return nil, fmt.Errorf("failed to add instance to registry: %w", err)
 	}
+
+	// Persist instance (best-effort, don't fail if persistence fails)

@@ -30,3 +30,5 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
     if (trimmedLine.startsWith('[') || trimmedLine.startsWith(';') || trimmedLine === '') {
       setShowSuggestions(false)
       return
+    }
+

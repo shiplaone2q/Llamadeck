@@ -32,3 +32,6 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
       return
     }
 
+    const equalIndex = trimmedLine.indexOf('=')
+    if (equalIndex !== -1) {
+      setShowSuggestions(false)

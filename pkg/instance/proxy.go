@@ -48,3 +48,6 @@ func newProxy(instance *Instance) (*proxy, error) {
 	p := &proxy{
 		instance:     instance,
 		timeProvider: realTimeProvider{},
+	}
+
+	var err error

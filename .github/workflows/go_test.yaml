@@ -1,0 +1,12 @@
+name: Go Tests
+on:
+  push:
+    branches:
+      - "*"
+    paths:
+      - "pkg/**"
+      - "cmd/**"
+      - "go.mod"
+      - "go.sum"
+      - "webui/webui.go"
+      - ".github/workflows/go_test.yaml"

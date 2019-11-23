@@ -46,3 +46,5 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
         if (nodeNames.length > 0) {
           if (!selectedNode || !nodeNames.includes(selectedNode)) {
             setSelectedNode(nodeNames[0])
+          }
+        } else if (selectedNode) {

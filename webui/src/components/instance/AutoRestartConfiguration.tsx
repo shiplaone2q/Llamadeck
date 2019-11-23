@@ -24,3 +24,6 @@ const AutoRestartConfiguration: React.FC<AutoRestartConfigurationProps> = ({
     const maxRestarts = formData.max_restarts ?? 3
     const restartDelay = formData.restart_delay ?? 5
     const restartsText = maxRestarts === 0 ? 'unlimited' : `up to ${maxRestarts}`
+    return `Enabled (restarts: ${restartsText}, delay: ${restartDelay}s)`
+  }
+

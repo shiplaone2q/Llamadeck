@@ -19,3 +19,6 @@ func (db *sqliteDB) GetPermissions(ctx context.Context, keyID int) ([]auth.KeyPe
 	rows, err := db.QueryContext(ctx, query, keyID)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query key permissions: %w", err)
+	}
+	defer rows.Close()
+

@@ -11,3 +11,5 @@ on:
       - "webui/**"
       - ".github/workflows/typescript.yaml"
   pull_request:
+    branches:
+      - main

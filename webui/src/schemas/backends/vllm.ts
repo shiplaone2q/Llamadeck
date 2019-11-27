@@ -1,0 +1,32 @@
+import { z } from 'zod'
+
+// Define the vLLM backend options schema
+export const VllmBackendOptionsSchema = z.object({
+  // Basic connection options (auto-assigned by llamadeck)
+  host: z.string().optional(),
+  port: z.number().optional(),
+
+  // Model and engine configuration
+  model: z.string().optional(),
+  tokenizer: z.string().optional(),
+  skip_tokenizer_init: z.boolean().optional(),
+  revision: z.string().optional(),
+  code_revision: z.string().optional(),
+  tokenizer_revision: z.string().optional(),
+  tokenizer_mode: z.string().optional(),
+  trust_remote_code: z.boolean().optional(),
+  download_dir: z.string().optional(),
+  load_format: z.string().optional(),
+  config_format: z.string().optional(),
+  dtype: z.string().optional(),
+  kv_cache_dtype: z.string().optional(),
+  quantization_param_path: z.string().optional(),
+  seed: z.number().optional(),
+  max_model_len: z.number().optional(),
+  guided_decoding_backend: z.string().optional(),
+  distributed_executor_backend: z.string().optional(),
+  worker_use_ray: z.boolean().optional(),
+  ray_workers_use_nsight: z.boolean().optional(),
+
+  // Performance and serving configuration
+  block_size: z.number().optional(),

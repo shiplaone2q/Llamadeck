@@ -35,3 +35,4 @@ def send_message(message):
     Returns:
         str: The AI response or error message
     """
+

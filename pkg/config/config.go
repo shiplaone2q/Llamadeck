@@ -34,3 +34,7 @@ func LoadConfig(configPath string) (AppConfig, error) {
 			return cfg, err
 		}
 	}
+
+	// If local node is not defined in nodes, add it with default config
+	if _, ok := cfg.Nodes[cfg.LocalNode]; !ok {
+		cfg.Nodes[cfg.LocalNode] = NodeConfig{}

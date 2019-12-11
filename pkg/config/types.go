@@ -34,3 +34,5 @@ type BackendConfig struct {
 // AppConfig represents the configuration for llamadeck
 type AppConfig struct {
 	Server    ServerConfig          `yaml:"server" json:"server"`
+	Backends  BackendConfig         `yaml:"backends" json:"backends"`
+	Instances InstancesConfig       `yaml:"instances" json:"instances"`

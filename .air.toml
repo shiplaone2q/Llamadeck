@@ -8,3 +8,5 @@ tmp_dir = "tmp"
 
 [build]
 cmd = "go build -o ./tmp/llamadeck ./cmd/server"
+entrypoint = ["./tmp/llamadeck"]
+full_bin = "LLAMADECK_CONFIG_PATH=llamadeck.dev.yaml ./tmp/llamadeck"

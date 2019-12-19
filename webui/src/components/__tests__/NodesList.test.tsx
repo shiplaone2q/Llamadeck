@@ -41,3 +41,6 @@ vi.mock('@/contexts/ConfigContext', () => ({
 const mockNodes = {
   'worker-2': { address: 'http://worker-2:8080' },
   main: { address: '' },
+  'worker-1': { address: 'http://worker-1:8080' },
+};
+

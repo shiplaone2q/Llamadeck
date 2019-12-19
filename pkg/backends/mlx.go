@@ -38,3 +38,5 @@ type MlxServerOptions struct {
 
 // UnmarshalJSON implements custom JSON unmarshaling to collect unknown fields into ExtraArgs
 func (o *MlxServerOptions) UnmarshalJSON(data []byte) error {
+	// First unmarshal into a map to capture all fields
+	var raw map[string]any

@@ -1,0 +1,38 @@
+package models
+
+import (
+	"os"
+	"path/filepath"
+	"strings"
+	"testing"
+)
+
+func TestHFRepoDirName(t *testing.T) {
+	fm := NewFileManager("/cache")
+
+	tests := []struct {
+		name     string
+		repo     string
+		expected string
+	}{
+		{
+			name:     "simple repo",
+			repo:     "bartowski/Llama-3.2-3B-GGUF",
+			expected: "models--bartowski--Llama-3.2-3B-GGUF",
+		},
+		{
+			name:     "nested repo",
+			repo:     "bartowski/Qwen/Qwen3-30B-GGUF",
+			expected: "models--bartowski--Qwen--Qwen3-30B-GGUF",
+		},
+		{
+			name:     "org model",
+			repo:     "org/model",
+			expected: "models--org--model",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := fm.HFRepoDirName(tt.repo)
+			if result != tt.expected {

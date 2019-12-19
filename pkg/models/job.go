@@ -64,3 +64,5 @@ func (s *JobStore) Create(repo, tag string) (*Job, error) {
 	jobID, err := s.generateJobID()
 	if err != nil {
 		return nil, fmt.Errorf("failed to generate job ID: %w", err)
+	}
+

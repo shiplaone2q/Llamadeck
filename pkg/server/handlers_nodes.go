@@ -39,3 +39,4 @@ type NodeHealthResponse struct {
 // @Tags Nodes
 // @Security ApiKeyAuth
 // @Produces json
+// @Success 200 {object} map[string]NodeResponse "Map of nodes"

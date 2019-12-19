@@ -941,3 +941,7 @@ const docTemplate = `{
                             "type": "string"
                         }
                     },
+                    "503": {
+                        "description": "Instance is not running",
+                        "schema": {
+                            "type": "string"

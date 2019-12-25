@@ -69,3 +69,5 @@ func TestGroupsFromClaims(t *testing.T) {
 		{"object shape", `{"groups":{"admins":true}}`, "groups", nil, true, true},
 	}
 	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var raw map[string]json.RawMessage

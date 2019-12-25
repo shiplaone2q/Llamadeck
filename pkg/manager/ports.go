@@ -48,3 +48,6 @@ func (p *portAllocator) allocate(instanceName string) (int, error) {
 	defer p.mu.Unlock()
 
 	port, err := p.findFirstFreeBit()
+	if err != nil {
+		return 0, err
+	}

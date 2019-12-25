@@ -45,3 +45,7 @@ func TestJobStore_FailJob(t *testing.T) {
 
 	job, _ := store.Create("org/model", "Q4_K_M")
 
+	errorMsg := "download failed: network timeout"
+	store.Fail(job.ID, errorMsg)
+
+	retrieved, _ := store.Get(job.ID)

@@ -12,3 +12,5 @@ interface ArrayInputProps {
   disabled?: boolean
   className?: string
 }
+
+const ArrayInput: React.FC<ArrayInputProps> = ({

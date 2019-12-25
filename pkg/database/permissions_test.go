@@ -36,3 +36,5 @@ func insertTestInstance(t *testing.T, db *sqliteDB, id int, name string) {
 func TestGetInstancePermission(t *testing.T) {
 	db := newTestDB(t)
 	insertTestInstance(t, db, 10, "model-a")
+
+	now := time.Now().Unix()

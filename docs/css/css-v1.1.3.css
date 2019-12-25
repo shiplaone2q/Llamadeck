@@ -384,3 +384,6 @@
   background-color: var(--nt-group-0-dark-bg);
 }
 .nt-group-0 .period {
+  color: var(--nt-group-0-main);
+  background-color: var(--nt-group-0-main-bg);
+}

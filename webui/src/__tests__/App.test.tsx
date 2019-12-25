@@ -74,3 +74,7 @@ function renderApp() {
     <AuthProvider>
       <InstancesProvider>
         <App />
+      </InstancesProvider>
+    </AuthProvider>
+  )
+}

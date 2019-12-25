@@ -22,3 +22,5 @@ func newModelsTestHandler(t *testing.T) (*server.Handler, *models.Manager, strin
 	t.Setenv("HF_ENDPOINT", "http://127.0.0.1:1")
 	mm := models.NewManager(cache, time.Second, "test")
 	t.Cleanup(mm.Close)
+	h := server.NewHandler(nil, mm, config.AppConfig{LocalNode: "local"}, nil, nil)
+	return h, mm, cache

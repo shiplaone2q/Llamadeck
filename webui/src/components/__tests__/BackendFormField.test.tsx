@@ -42,3 +42,7 @@ describe('BackendFormField - models_preset Field States', () => {
       expect(screen.getByText('Auto')).toBeInTheDocument()
       expect(screen.getByRole('alert')).toBeInTheDocument()
       expect(screen.getByText('Preset defined')).toBeInTheDocument()
+      expect(screen.getByText('Will be auto-set to the preset.ini created in Preset Editor')).toBeInTheDocument()
+    })
+
+    it('shows plain help text instead of callout when custom path is set', () => {

@@ -88,3 +88,5 @@ func (h *Handler) LlamaCppUIProxy() http.HandlerFunc {
 // @Produce json
 // @Param name path string true "Instance Name"
 // @Success 200 {object} map[string]any "Proxied response"
+// @Failure 400 {string} string "Invalid instance"
+// @Failure 404 {string} string "Instance does not exist"

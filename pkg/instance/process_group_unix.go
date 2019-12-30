@@ -7,3 +7,4 @@ import (
 	"syscall"
 )
 
+func setProcAttrs(cmd *exec.Cmd) {

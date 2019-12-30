@@ -41,3 +41,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
 }) => {
   // Convert the value object to an array of key-value pairs for editing
   const pairsFromValue = value
+    ? Object.entries(value).map(([key, val]) => ({ key, value: val }))
+    : []
+
+  const [pairs, setPairs] = useState<KeyValuePair[]>(

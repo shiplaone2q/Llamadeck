@@ -36,3 +36,6 @@ def send_message(message):
         str: The AI response or error message
     """
 
+    headers = {
+        "Content-Type": "application/json",
+    }

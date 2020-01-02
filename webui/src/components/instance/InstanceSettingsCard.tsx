@@ -28,3 +28,4 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
   onChange
 }) => {
   const [nodes, setNodes] = useState<NodesMap>({})
+  const [loadingNodes, setLoadingNodes] = useState(true)

@@ -15,3 +15,7 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
 
   const getIcon = () => {
     switch (health.state) {
+      case "ready":
+        return <CheckCircle className="h-3 w-3" />;
+      case "starting":
+        return <Loader2 className="h-3 w-3 animate-spin" />;

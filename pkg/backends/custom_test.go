@@ -59,3 +59,7 @@ func TestOptionsGetHealthPath(t *testing.T) {
 		LlamaCpp: config.BackendSettings{HealthPath: "/llm-ready"},
 	}
 
+	tests := []struct {
+		name     string
+		options  backends.Options
+		expected string

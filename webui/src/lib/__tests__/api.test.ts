@@ -12,3 +12,4 @@ describe('API Error Handling', () => {
   })
 
   it('converts HTTP errors to meaningful messages', async () => {
+    const mockResponse = new Response('Instance already exists', {

@@ -46,3 +46,7 @@ class HealthService {
             state: 'ready',
             instanceStatus: 'running',
             lastChecked: new Date(),
+            source: 'http'
+          }
+
+          this.updateCache(instanceName, health)

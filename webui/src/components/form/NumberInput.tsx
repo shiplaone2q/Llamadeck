@@ -18,3 +18,4 @@ const NumberInput: React.FC<NumberInputProps> = ({
   label,
   value,
   onChange,
+  placeholder,

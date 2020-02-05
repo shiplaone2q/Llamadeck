@@ -9,3 +9,5 @@ func BoolPtr(b bool) *bool {
 
 func IntPtr(i int) *int {
 	return &i
+}
+

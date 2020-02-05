@@ -28,3 +28,5 @@ import {
 export const BackendOptionsSchema = z.union([
   CustomBackendOptionsSchema,
   LlamaCppBackendOptionsSchema,
+  MlxBackendOptionsSchema,
+  VllmBackendOptionsSchema,

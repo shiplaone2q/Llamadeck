@@ -17,3 +17,5 @@ type CustomServerOptions struct {
 	Port  int      `json:"port,omitempty"`
 	Args  []string `json:"args,omitempty"`
 }
+
+func (o *CustomServerOptions) GetModel() string {

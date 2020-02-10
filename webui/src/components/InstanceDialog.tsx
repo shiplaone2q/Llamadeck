@@ -122,3 +122,6 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
         "Instance name can only contain letters, numbers, periods, hyphens, and underscores"
       );
     } else {
+      setNameError("");
+    }
+  };

@@ -10,3 +10,4 @@ func TestSessionStoreLifecycle(t *testing.T) {
 
 	sess := store.Create("user-1", "Alice", "alice@example.com")
 	if sess.ID == "" {
+		t.Fatal("expected session ID to be set")

@@ -43,3 +43,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
       clearError()
       clearOIDCError()
     }
+  }, [apiKey, error, oidcError, clearError, clearOIDCError])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()

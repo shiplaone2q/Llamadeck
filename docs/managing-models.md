@@ -53,3 +53,4 @@ Safetensors is the standard model format used by HuggingFace. Downloads include 
 ### Using the Web UI
 
 1. Open the Llamadeck web interface
+2. Navigate to the **Models** tab

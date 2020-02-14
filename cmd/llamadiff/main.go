@@ -58,3 +58,7 @@ func main() {
 		fieldName, ok := testFlagAndGetField(flag.Flag)
 		if ok {
 			working = append(working, flag.Flag)
+			if fieldName != "" {
+				fieldToFlags[fieldName] = append(fieldToFlags[fieldName], flag.Flag)
+			}
+		} else {

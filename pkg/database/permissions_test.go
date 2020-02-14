@@ -38,3 +38,6 @@ func TestGetInstancePermission(t *testing.T) {
 	insertTestInstance(t, db, 10, "model-a")
 
 	now := time.Now().Unix()
+	key := &auth.APIKey{
+		KeyHash:        "hash",
+		Name:           "k1",

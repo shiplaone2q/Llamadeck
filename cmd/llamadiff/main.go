@@ -54,3 +54,7 @@ func main() {
 			ignored = append(ignored, flag.Flag)
 			continue
 		}
+
+		fieldName, ok := testFlagAndGetField(flag.Flag)
+		if ok {
+			working = append(working, flag.Flag)

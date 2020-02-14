@@ -39,3 +39,4 @@ func (s Status) MarshalJSON() ([]byte, error) {
 	if !ok {
 		name = "stopped" // Default to "stopped" for unknown status
 	}
+	return json.Marshal(name)

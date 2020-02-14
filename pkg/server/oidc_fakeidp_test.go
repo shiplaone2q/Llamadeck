@@ -1,0 +1,52 @@
+package server
+
+import (
+	"crypto"
+	"crypto/rand"
+	"crypto/rsa"
+	"crypto/sha256"
+	"encoding/base64"
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"net/url"
+	"testing"
+	"time"
+
+	"llamadeck/pkg/config"
+)
+
+// fakeIdP is a minimal OpenID Connect provider: discovery, a JWKS endpoint,
+// and a token endpoint that mints RS256 id_tokens. The nonce embedded in
+// issued tokens is test-controlled so the callback's nonce check can be
+// exercised both ways.
+type fakeIdP struct {
+	server   *httptest.Server
+	key      *rsa.PrivateKey
+	clientID string
+	nonce    string
+}
+
+func newFakeIdP(t *testing.T) *fakeIdP {
+	t.Helper()
+
+	key, err := rsa.GenerateKey(rand.Reader, 2048)
+	if err != nil {
+		t.Fatalf("generating signing key: %v", err)
+	}
+
+	idp := &fakeIdP{key: key, clientID: "llamadeck-test"}
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/.well-known/openid-configuration", func(w http.ResponseWriter, _ *http.Request) {
+		writeJSONTest(w, map[string]any{
+			"issuer":                                idp.server.URL,
+			"authorization_endpoint":                idp.server.URL + "/auth",
+			"token_endpoint":                        idp.server.URL + "/token",
+			"jwks_uri":                              idp.server.URL + "/keys",
+			"response_types_supported":              []string{"code"},
+			"subject_types_supported":               []string{"public"},
+			"id_token_signing_alg_values_supported": []string{"RS256"},
+		})
+	})
+

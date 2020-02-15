@@ -30,3 +30,4 @@ function NodesList() {
           setNodes(data);
           setError(null);
         }
+      } catch (err) {

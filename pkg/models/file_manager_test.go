@@ -36,3 +36,5 @@ func TestHFRepoDirName(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			result := fm.HFRepoDirName(tt.repo)
 			if result != tt.expected {
+				t.Errorf("HFRepoDirName(%q) = %q, want %q", tt.repo, result, tt.expected)
+			}

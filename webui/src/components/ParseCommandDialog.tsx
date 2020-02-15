@@ -32,3 +32,5 @@ const ParseCommandDialog: React.FC<ParseCommandDialogProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   const handleParse = async () => {
+    if (!command.trim()) {
+      setError("Command cannot be empty");

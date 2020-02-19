@@ -53,3 +53,7 @@ Copy the **Management API Key** from the terminal - you'll need it to access the
 By default, Llamadeck will start on `http://localhost:8080`.
 
 ## Access the Web UI
+
+Open your web browser and navigate to:
+
+```

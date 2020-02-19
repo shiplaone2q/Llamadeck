@@ -5,3 +5,5 @@ import { healthService } from '@/lib/healthService'
 
 export function useInstanceHealth(instanceName: string, instanceStatus: InstanceStatus): HealthStatus | undefined {
   const [health, setHealth] = useState<HealthStatus | undefined>()
+
+  useEffect(() => {

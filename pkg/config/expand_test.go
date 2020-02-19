@@ -38,3 +38,6 @@ func TestExpandEnvVars(t *testing.T) {
 		},
 		{
 			name:     "variable with empty default",
+			input:    "val: ${MY_VAR:-}",
+			envVars:  nil,
+			expected: "val: ",

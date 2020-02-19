@@ -34,3 +34,7 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
   const [instancesMap, setInstancesMap] = useState<Map<string, Instance>>(new Map())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  // Convert map to array for consumers
+  const instances = Array.from(instancesMap.values())
+

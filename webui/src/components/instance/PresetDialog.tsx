@@ -23,3 +23,5 @@ interface PresetDialogProps {
 const PresetDialog: React.FC<PresetDialogProps> = ({
   open,
   onOpenChange,
+  formData,
+  onChange

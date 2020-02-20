@@ -22,3 +22,4 @@ describe('nodeHealthService', () => {
   it('maps a healthy response to a healthy state', async () => {
     const health = await nodeHealthService.performHealthCheck('main');
     expect(health.state).toBe('healthy');
+    expect(health.error).toBeUndefined();

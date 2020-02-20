@@ -173,3 +173,5 @@ func (im *instanceManager) CreateInstance(name string, options *instance.Options
 
 	// Persist instance (best-effort, don't fail if persistence fails)
 	if err := im.persistInstance(inst); err != nil {
+		log.Printf("Warning: failed to persist instance %s: %v", name, err)
+	}

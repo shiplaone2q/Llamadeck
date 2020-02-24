@@ -74,3 +74,5 @@ func extractArgs(command string, executableNames []string, subcommandNames []str
 	tokens := strings.Fields(command)
 	if len(tokens) == 0 {
 		return nil, "", fmt.Errorf("no tokens found")
+	}
+

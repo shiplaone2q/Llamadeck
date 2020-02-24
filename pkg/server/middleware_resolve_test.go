@@ -24,3 +24,4 @@ func (s *stubAuthStore) GetInstancePermission(ctx context.Context, keyID, instan
 
 func newResolveMiddleware(store database.AuthStore) *APIAuthMiddleware {
 	return NewAPIAuthMiddleware(config.AuthConfig{}, store)
+}

@@ -132,3 +132,7 @@ func TestCreateInstance_FailsWithPortConflict(t *testing.T) {
 		t.Error("Expected error for port conflict")
 	}
 	if !strings.Contains(err.Error(), "port") && !strings.Contains(err.Error(), "in use") {
+		t.Errorf("Expected port conflict error, got: %v", err)
+	}
+}
+

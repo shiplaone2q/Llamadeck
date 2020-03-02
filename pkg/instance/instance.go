@@ -101,3 +101,6 @@ func syncPresetIni(name string, opts *Options, instancesDir string) error {
 		if err := os.Remove(presetPath); err != nil && !os.IsNotExist(err) {
 			return fmt.Errorf("failed to remove preset.ini: %w", err)
 		}
+		return nil
+	}
+

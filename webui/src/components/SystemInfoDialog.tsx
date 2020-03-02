@@ -63,3 +63,4 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
   const fetchBackendInfo = useCallback(async (backend: BackendTypeValue) => {
     if (backend !== BackendType.LLAMA_CPP) {
       setBackendInfo(null)
+      setError(null)

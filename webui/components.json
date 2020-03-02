@@ -3,3 +3,5 @@
   "style": "new-york",
   "rsc": false,
   "tsx": true,
+  "tailwind": {
+    "config": "",

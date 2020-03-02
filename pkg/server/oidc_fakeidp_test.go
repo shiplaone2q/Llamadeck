@@ -50,3 +50,4 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 		})
 	})
 
+	mux.HandleFunc("/keys", func(w http.ResponseWriter, _ *http.Request) {

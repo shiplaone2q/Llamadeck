@@ -24,3 +24,7 @@ func newModelsTestHandler(t *testing.T) (*server.Handler, *models.Manager, strin
 	t.Cleanup(mm.Close)
 	h := server.NewHandler(nil, mm, config.AppConfig{LocalNode: "local"}, nil, nil)
 	return h, mm, cache
+}
+
+func TestDownloadModel_InvalidFormat(t *testing.T) {
+	h, mm, _ := newModelsTestHandler(t)

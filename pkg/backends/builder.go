@@ -22,3 +22,6 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 		if !field.CanInterface() {
 			continue
 		}
+
+		jsonTag := fieldType.Tag.Get("json")
+		if jsonTag == "" || jsonTag == "-" {

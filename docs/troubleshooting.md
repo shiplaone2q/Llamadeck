@@ -44,3 +44,7 @@ Issues specific to Llamadeck deployment and operation.
      - **MLX**: Ensure `mlx-lm` Python package is installed
      - **vLLM**: Ensure `vllm` Python package is installed
 
+3. **Check model path and format:**
+     - Use absolute paths to model files
+     - Verify model format matches backend (GGUF for llama.cpp, etc.)
+

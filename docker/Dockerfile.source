@@ -12,3 +12,7 @@ RUN npm ci
 # Copy webui source
 COPY webui/ ./
 
+# Build webui
+RUN npm run build
+
+# Go build stage

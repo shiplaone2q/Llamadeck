@@ -23,3 +23,5 @@ class NodeHealthService {
     let health: NodeHealth;
     try {
       const response = await nodesApi.getHealth(nodeName);
+      health = {
+        state: response.status,

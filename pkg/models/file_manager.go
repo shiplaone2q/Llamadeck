@@ -39,3 +39,5 @@ func sanitizePathComponent(component string) string {
 		component = "unknown"
 	}
 	return component
+}
+

@@ -34,3 +34,6 @@ func newLifecycleManager(
 		checkInterval = 5 * time.Minute // Default to 5 minutes
 	}
 
+	return &lifecycleManager{
+		registry:      registry,
+		manager:       manager,

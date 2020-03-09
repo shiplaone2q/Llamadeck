@@ -38,3 +38,6 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
   // Convert map to array for consumers
   const instances = Array.from(instancesMap.values())
 
+  const clearError = useCallback(() => {
+    setError(null)
+  }, [])

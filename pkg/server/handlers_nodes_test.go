@@ -37,3 +37,7 @@ func TestGetNodeHealth(t *testing.T) {
 	defer remote.Close()
 
 	tests := []struct {
+		name           string
+		nodes          map[string]config.NodeConfig
+		localNode      string
+		requestName    string

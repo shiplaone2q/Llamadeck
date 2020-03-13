@@ -67,3 +67,4 @@ func TestScanCache(t *testing.T) {
 	}
 
 	if len(models) != 1 {
+		t.Fatalf("expected 1 model, got %d", len(models))

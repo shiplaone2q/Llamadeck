@@ -134,3 +134,4 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 	jsonData := `{
 		"model": "/path/to/model.gguf",
 		"port": 8080,
+		"host": "localhost", 

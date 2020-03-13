@@ -36,3 +36,6 @@ type AppConfig struct {
 	Server    ServerConfig          `yaml:"server" json:"server"`
 	Backends  BackendConfig         `yaml:"backends" json:"backends"`
 	Instances InstancesConfig       `yaml:"instances" json:"instances"`
+	Database  DatabaseConfig        `yaml:"database" json:"database"`
+	Auth      AuthConfig            `yaml:"auth" json:"auth"`
+	LocalNode string                `yaml:"local_node,omitempty" json:"local_node,omitempty"`

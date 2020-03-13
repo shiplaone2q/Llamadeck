@@ -25,3 +25,6 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
   onOpenChange,
   formData,
   onChange
+}) => {
+  const fileInputRef = useRef<HTMLInputElement>(null)
+

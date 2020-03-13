@@ -10,3 +10,4 @@ CREATE TABLE IF NOT EXISTS instances (
     status TEXT NOT NULL CHECK(status IN ('stopped', 'running', 'failed', 'restarting', 'shutting_down')) DEFAULT 'stopped',
 
     -- Timestamps (created_at stored as Unix timestamp for compatibility with existing JSON format)
+    created_at INTEGER NOT NULL,

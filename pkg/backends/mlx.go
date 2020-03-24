@@ -40,3 +40,6 @@ type MlxServerOptions struct {
 func (o *MlxServerOptions) UnmarshalJSON(data []byte) error {
 	// First unmarshal into a map to capture all fields
 	var raw map[string]any
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}

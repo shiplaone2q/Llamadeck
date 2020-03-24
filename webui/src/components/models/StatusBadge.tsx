@@ -5,3 +5,4 @@ interface StatusBadgeProps {
   status: DownloadJob['status']
 }
 
+export default function StatusBadge({ status }: StatusBadgeProps) {

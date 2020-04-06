@@ -44,3 +44,7 @@ const mockNodes = {
   'worker-1': { address: 'http://worker-1:8080' },
 };
 
+const healthy: NodeHealth = {
+  state: 'healthy',
+  latencyMs: 12,
+  lastChecked: new Date(),

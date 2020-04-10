@@ -63,3 +63,5 @@ func TestOptionsGetHealthPath(t *testing.T) {
 		name     string
 		options  backends.Options
 		expected string
+	}{
+		{

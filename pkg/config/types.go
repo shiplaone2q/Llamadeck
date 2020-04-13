@@ -39,3 +39,4 @@ type AppConfig struct {
 	Database  DatabaseConfig        `yaml:"database" json:"database"`
 	Auth      AuthConfig            `yaml:"auth" json:"auth"`
 	LocalNode string                `yaml:"local_node,omitempty" json:"local_node,omitempty"`
+	Nodes     map[string]NodeConfig `yaml:"nodes,omitempty" json:"nodes,omitempty"`

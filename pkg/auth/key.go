@@ -12,3 +12,6 @@ const (
 	PermissionModeAllowAll    PermissionMode = "allow_all"
 	PermissionModePerInstance PermissionMode = "per_instance"
 )
+
+type APIKey struct {
+	ID             int

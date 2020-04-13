@@ -8,3 +8,6 @@ docs/
 
 # Development files
 .vscode/
+.idea/
+
+# Build artifacts

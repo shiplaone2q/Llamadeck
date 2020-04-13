@@ -30,3 +30,4 @@ export const VllmBackendOptionsSchema = z.object({
 
   // Performance and serving configuration
   block_size: z.number().optional(),
+  enable_prefix_caching: z.boolean().optional(),

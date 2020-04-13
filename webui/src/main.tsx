@@ -5,3 +5,5 @@ import { InstancesProvider } from './contexts/InstancesContext'
 import './index.css'
 import { AuthProvider } from './contexts/AuthContext'
 import { ConfigProvider } from './contexts/ConfigContext'
+
+const rootElement = document.getElementById('root')

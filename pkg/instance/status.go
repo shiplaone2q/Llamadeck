@@ -40,3 +40,7 @@ func (s Status) MarshalJSON() ([]byte, error) {
 		name = "stopped" // Default to "stopped" for unknown status
 	}
 	return json.Marshal(name)
+}
+
+// UnmarshalJSON implements json.Unmarshaler for Status enum
+func (s *Status) UnmarshalJSON(data []byte) error {

@@ -84,3 +84,6 @@ Configure backend and execution options:
 
 Configure advanced backend options:
 
+11. Expand **Advanced Backend Options** for additional backend-specific settings
+12. Add **Extra Args** as key-value pairs for custom command-line arguments
+13. Click **"Create Instance"** to save the instance  

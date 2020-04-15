@@ -41,3 +41,4 @@ func TestExpandEnvVars(t *testing.T) {
 			input:    "val: ${MY_VAR:-}",
 			envVars:  nil,
 			expected: "val: ",
+		},

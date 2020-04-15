@@ -47,3 +47,5 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!apiKey.trim()) {

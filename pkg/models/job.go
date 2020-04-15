@@ -66,3 +66,7 @@ func (s *JobStore) Create(repo, tag string) (*Job, error) {
 		return nil, fmt.Errorf("failed to generate job ID: %w", err)
 	}
 
+	job := &Job{
+		ID:        jobID,
+		Repo:      repo,
+		Tag:       tag,

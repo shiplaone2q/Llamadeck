@@ -39,3 +39,7 @@ def send_message(message):
     headers = {
         "Content-Type": "application/json",
     }
+
+    if API_KEY:
+        headers["Authorization"] = f"Bearer {API_KEY}"
+

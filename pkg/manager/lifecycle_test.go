@@ -37,3 +37,7 @@ func TestInstanceTimeoutLogic(t *testing.T) {
 
 	// Now it should timeout
 	if !inst.ShouldTimeout() {
+		t.Error("Instance should timeout after idle period")
+	}
+}
+

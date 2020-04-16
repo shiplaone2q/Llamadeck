@@ -29,3 +29,7 @@ func newResolveMiddleware(store database.AuthStore) *APIAuthMiddleware {
 func withKey(ctx context.Context, key *auth.APIKey) context.Context {
 	return context.WithValue(ctx, apiKeyContextKey, key)
 }
+
+func TestResolveInstancePermission(t *testing.T) {
+	const instID = 7
+

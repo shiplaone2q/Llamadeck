@@ -45,3 +45,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
     : []
 
   const [pairs, setPairs] = useState<KeyValuePair[]>(
+    pairsFromValue.length > 0 ? pairsFromValue : [{ key: '', value: '' }]
+  )
+
+  // Sync internal state when value prop changes

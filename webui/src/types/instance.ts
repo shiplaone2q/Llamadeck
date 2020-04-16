@@ -7,3 +7,4 @@ export const BackendType = {
   MLX_LM: 'mlx_lm',
   VLLM: 'vllm',
   CUSTOM: 'custom',
+  // MLX_VLM: 'mlx_vlm',  // Future expansion

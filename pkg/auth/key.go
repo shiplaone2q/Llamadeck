@@ -15,3 +15,6 @@ const (
 
 type APIKey struct {
 	ID             int
+	KeyHash        string
+	Name           string
+	UserID         string

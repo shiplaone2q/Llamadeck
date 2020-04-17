@@ -48,3 +48,7 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
             setSelectedNode(nodeNames[0])
           }
         } else if (selectedNode) {
+          setSelectedNode(undefined)
+        }
+      } catch (error) {
+        console.error('Failed to fetch nodes:', error)

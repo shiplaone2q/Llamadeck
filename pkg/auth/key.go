@@ -18,3 +18,6 @@ type APIKey struct {
 	KeyHash        string
 	Name           string
 	UserID         string
+	PermissionMode PermissionMode
+	ExpiresAt      *int64
+	CreatedAt      int64

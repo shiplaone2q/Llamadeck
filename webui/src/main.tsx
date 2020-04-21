@@ -7,3 +7,5 @@ import { AuthProvider } from './contexts/AuthContext'
 import { ConfigProvider } from './contexts/ConfigContext'
 
 const rootElement = document.getElementById('root')
+if (!rootElement) throw new Error('Failed to find the root element')
+

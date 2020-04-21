@@ -51,3 +51,4 @@ func newHFTestServer(t *testing.T, fx hfFixture) *httptest.Server {
 			idx := strings.Index(trimmed, "/resolve/")
 			filePath := trimmed[idx+len("/resolve/"):]
 			if slash := strings.Index(filePath, "/"); slash != -1 {
+				filePath = filePath[slash+1:]

@@ -25,3 +25,4 @@ class NodeHealthService {
       const response = await nodesApi.getHealth(nodeName);
       health = {
         state: response.status,
+        latencyMs: response.latency_ms,

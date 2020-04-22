@@ -10,3 +10,5 @@ func NewProgressTracker(jobStore *JobStore) *ProgressTracker {
 	}
 }
 
+func (pt *ProgressTracker) Track(jobID string, progress <-chan int64) {
+	for bytes := range progress {

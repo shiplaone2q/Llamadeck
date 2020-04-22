@@ -33,3 +33,6 @@ func withKey(ctx context.Context, key *auth.APIKey) context.Context {
 func TestResolveInstancePermission(t *testing.T) {
 	const instID = 7
 
+	perInstanceKey := &auth.APIKey{ID: 1, PermissionMode: auth.PermissionModePerInstance}
+	allowAllKey := &auth.APIKey{ID: 2, PermissionMode: auth.PermissionModeAllowAll}
+

@@ -28,3 +28,7 @@ func newModelsTestHandler(t *testing.T) (*server.Handler, *models.Manager, strin
 
 func TestDownloadModel_InvalidFormat(t *testing.T) {
 	h, mm, _ := newModelsTestHandler(t)
+
+	for _, format := range []string{"bogus", "GGUF"} {
+		body := `{"repo":"org/model","format":"` + format + `"}`
+		req := httptest.NewRequest(http.MethodPost, "/api/v1/models/download", strings.NewReader(body))

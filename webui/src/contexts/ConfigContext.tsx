@@ -10,3 +10,7 @@ interface ConfigContextType {
 }
 
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined)
+
+interface ConfigProviderProps {
+  children: ReactNode
+}

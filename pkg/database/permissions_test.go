@@ -41,3 +41,6 @@ func TestGetInstancePermission(t *testing.T) {
 	key := &auth.APIKey{
 		KeyHash:        "hash",
 		Name:           "k1",
+		UserID:         "system",
+		PermissionMode: auth.PermissionModePerInstance,
+		CreatedAt:      now,

@@ -19,3 +19,5 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
         return <CheckCircle className="h-3 w-3" />;
       case "starting":
         return <Loader2 className="h-3 w-3 animate-spin" />;
+      case "restarting":
+        return <Loader2 className="h-3 w-3 animate-spin" />;

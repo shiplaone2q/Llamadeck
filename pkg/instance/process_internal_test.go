@@ -28,3 +28,5 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 	host, portStr, err := net.SplitHostPort(server.Listener.Addr().String())
 	if err != nil {
 		t.Fatalf("failed to parse test server address: %v", err)
+	}
+	port, err := strconv.Atoi(portStr)

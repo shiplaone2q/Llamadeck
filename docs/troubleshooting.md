@@ -48,3 +48,7 @@ Issues specific to Llamadeck deployment and operation.
      - Use absolute paths to model files
      - Verify model format matches backend (GGUF for llama.cpp, etc.)
 
+4. **Verify backend command configuration:**
+     - Check that the backend `command` is correctly configured in the global config
+     - For virtual environments, specify the full path to the command (e.g., `/path/to/venv/bin/mlx_lm.server`)
+     - See the [Configuration Guide](configuration.md) for backend configuration details

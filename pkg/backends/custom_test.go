@@ -67,3 +67,6 @@ func TestOptionsGetHealthPath(t *testing.T) {
 		{
 			name:     "custom configured path",
 			options:  backends.Options{BackendType: backends.BackendTypeCustom, CustomServerOptions: &backends.CustomServerOptions{Name: "x"}},
+			expected: "/ready",
+		},
+		{

@@ -11,3 +11,7 @@ docs/
 .idea/
 
 # Build artifacts
+webui/node_modules/
+webui/dist/
+webui/.next/
+*.log

@@ -136,3 +136,7 @@ func TestCreateInstance_FailsWithPortConflict(t *testing.T) {
 	}
 }
 
+func TestInstanceOperations_FailWithNonExistentInstance(t *testing.T) {
+	manager := createTestManager(t)
+
+	options := &instance.Options{

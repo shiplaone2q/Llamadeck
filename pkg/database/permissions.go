@@ -23,3 +23,5 @@ func (db *sqliteDB) GetPermissions(ctx context.Context, keyID int) ([]auth.KeyPe
 	defer rows.Close()
 
 	var permissions []auth.KeyPermission
+	for rows.Next() {
+		var perm auth.KeyPermission

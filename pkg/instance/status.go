@@ -44,3 +44,7 @@ func (s Status) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements json.Unmarshaler for Status enum
 func (s *Status) UnmarshalJSON(data []byte) error {
+	var str string
+	if err := json.Unmarshal(data, &str); err != nil {
+		return err
+	}

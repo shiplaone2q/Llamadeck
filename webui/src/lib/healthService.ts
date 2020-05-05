@@ -50,3 +50,7 @@ class HealthService {
           }
 
           this.updateCache(instanceName, health)
+          return health
+
+        } catch (httpError) {
+          // HTTP health check failed - instance is still starting

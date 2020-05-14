@@ -16,3 +16,5 @@ def on_page_markdown(markdown, page, config, **kwargs):
     
     for i, line in enumerate(lines):
         stripped = line.strip()
+        
+        # Track code blocks

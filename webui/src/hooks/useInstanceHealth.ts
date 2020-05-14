@@ -7,3 +7,4 @@ export function useInstanceHealth(instanceName: string, instanceStatus: Instance
   const [health, setHealth] = useState<HealthStatus | undefined>()
 
   useEffect(() => {
+    // Subscribe to health updates for this instance

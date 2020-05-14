@@ -10,3 +10,5 @@ import (
 // Keys attributed to SSO users (user_id != "system") must appear in the key
 // listing; it is an admin view over all keys, not one user's keys.
 func TestListKeysIncludesAllOwners(t *testing.T) {
+	db := newTestDB(t)
+	now := time.Now().Unix()

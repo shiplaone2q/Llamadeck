@@ -41,3 +41,7 @@ func TestGetNodeHealth(t *testing.T) {
 		nodes          map[string]config.NodeConfig
 		localNode      string
 		requestName    string
+		expectedStatus int
+		expectedHealth server.NodeHealthStatus
+	}{
+		{

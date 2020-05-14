@@ -9,3 +9,5 @@ require (
 	github.com/go-chi/cors v1.2.2
 	github.com/golang-migrate/migrate/v4 v4.20.1
 	github.com/mattn/go-sqlite3 v1.14.24
+	github.com/swaggo/http-swagger v1.3.4
+	github.com/swaggo/swag v1.16.5

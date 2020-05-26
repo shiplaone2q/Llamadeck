@@ -120,3 +120,5 @@ instances:
 		t.Error("Expected auto restart to be false")
 	}
 	if cfg.Instances.DefaultMaxRestarts != 10 {
+		t.Errorf("Expected max restarts 10, got %d", cfg.Instances.DefaultMaxRestarts)
+	}

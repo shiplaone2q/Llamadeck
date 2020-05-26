@@ -75,3 +75,7 @@ describe('InstanceModal - Form Logic and Validation', () => {
       await user.click(advancedTab)
 
       await waitFor(() => {
+        expect(screen.getByTestId('dialog-save-button')).not.toBeDisabled()
+      })
+    })
+

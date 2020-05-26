@@ -8,3 +8,5 @@ export const BackendType = {
   VLLM: 'vllm',
   CUSTOM: 'custom',
   // MLX_VLM: 'mlx_vlm',  // Future expansion
+} as const
+

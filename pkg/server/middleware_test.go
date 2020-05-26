@@ -52,3 +52,5 @@ func TestInferenceAuthMiddleware(t *testing.T) {
 			method:         "POST",
 			expectedStatus: http.StatusOK,
 		},
+	}
+

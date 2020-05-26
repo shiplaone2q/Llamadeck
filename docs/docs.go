@@ -945,3 +945,4 @@ const docTemplate = `{
                         "description": "Instance is not running",
                         "schema": {
                             "type": "string"
+                        }

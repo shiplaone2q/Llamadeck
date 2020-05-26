@@ -18,3 +18,7 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
   const backendSettings = useBackendSettings(formData.backend_type)
 
   const getCommandPlaceholder = () => {
+    if (backendSettings?.command) {
+      return backendSettings.command
+    }
+

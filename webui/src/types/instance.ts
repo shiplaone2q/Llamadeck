@@ -10,3 +10,4 @@ export const BackendType = {
   // MLX_VLM: 'mlx_vlm',  // Future expansion
 } as const
 
+export type BackendTypeValue = typeof BackendType[keyof typeof BackendType]

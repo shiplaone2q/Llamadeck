@@ -20,3 +20,5 @@ export const useInstanceDefaults = () => {
 // Helper hook to get specific backend settings by backend type
 export const useBackendSettings = (backendType: string | undefined) => {
   const { config } = useConfig()
+
+  if (!config?.backends || !backendType) {

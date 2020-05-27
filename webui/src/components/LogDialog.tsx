@@ -80,3 +80,5 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
     }
   }, [open, instanceName, fetchLogs, lineCount])
 
+  // Auto-refresh effect
+  useEffect(() => {

@@ -75,3 +75,6 @@ func fetchLlamaCppModels(inst *instance.Instance) ([]LlamaCppModel, error) {
 }
 
 // OpenAIListInstances godoc
+// @Summary List instances in OpenAI-compatible format
+// @Description Returns a list of instances in a format compatible with OpenAI API
+// @Tags OpenAI

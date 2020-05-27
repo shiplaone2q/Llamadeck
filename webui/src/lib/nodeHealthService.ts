@@ -26,3 +26,4 @@ class NodeHealthService {
       health = {
         state: response.status,
         latencyMs: response.latency_ms,
+        error: response.error,

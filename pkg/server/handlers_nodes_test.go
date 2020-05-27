@@ -45,3 +45,4 @@ func TestGetNodeHealth(t *testing.T) {
 		expectedHealth server.NodeHealthStatus
 	}{
 		{
+			name:           "local node is healthy without network call",

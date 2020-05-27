@@ -176,3 +176,7 @@ func (im *instanceManager) CreateInstance(name string, options *instance.Options
 		log.Printf("Warning: failed to persist instance %s: %v", name, err)
 	}
 
+	return inst, nil
+}
+
+// GetInstance retrieves an instance by its name.

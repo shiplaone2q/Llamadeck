@@ -29,3 +29,5 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
 }) => {
   const [nodes, setNodes] = useState<NodesMap>({})
   const [loadingNodes, setLoadingNodes] = useState(true)
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: fetch nodes once on mount; intentionally not re-run when formData/onChange change

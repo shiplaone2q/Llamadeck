@@ -101,3 +101,6 @@ func (p *process) start() error {
 				return fmt.Errorf("port %d is still occupied by a surviving process; refusing to start a second server on it", port)
 			}
 			log.Printf("Instance %s: port %d still in use, waiting for it to be released...", p.instance.Name, port)
+			time.Sleep(500 * time.Millisecond)
+		}
+	}

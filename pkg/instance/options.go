@@ -54,3 +54,5 @@ func newOptions(opts *Options) *options {
 }
 
 // get returns a copy of the current options
+func (o *options) get() *Options {
+	o.mu.RLock()

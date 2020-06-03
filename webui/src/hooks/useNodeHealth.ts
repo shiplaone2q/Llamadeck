@@ -3,3 +3,4 @@ import { useEffect, useState } from 'react';
 import { nodeHealthService } from '@/lib/nodeHealthService';
 import type { NodeHealth } from '@/types/node';
 
+export function useNodeHealth(nodeName: string): NodeHealth | undefined {

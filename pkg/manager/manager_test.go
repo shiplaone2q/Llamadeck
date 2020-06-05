@@ -45,3 +45,6 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 	_, err = manager1.CreateInstance("test-instance", options)
 	if err != nil {
 		t.Fatalf("CreateInstance failed: %v", err)
+	}
+
+	// Shutdown first manager to close database connection

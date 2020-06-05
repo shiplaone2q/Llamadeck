@@ -8,3 +8,6 @@ Welcome to the Llamadeck documentation!
 
 **{{HEADLINE}}**
 
+## Features
+
+{{FEATURES}}  

@@ -19,3 +19,6 @@ func (h *Handler) VersionHandler() http.HandlerFunc {
 		versionInfo := fmt.Sprintf("Version: %s\nCommit: %s\nBuild Time: %s\n", h.cfg.Version, h.cfg.CommitHash, h.cfg.BuildTime)
 		writeText(w, http.StatusOK, versionInfo)
 	}
+}
+
+// ConfigHandler godoc

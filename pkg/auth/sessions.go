@@ -1,0 +1,19 @@
+package auth
+
+import (
+	"crypto/rand"
+	"encoding/hex"
+	"sync"
+	"time"
+)
+
+// Session is an authenticated browser session created by OIDC login.
+type Session struct {
+	ID        string
+	Sub       string
+	Name      string
+	Email     string
+	ExpiresAt time.Time
+}
+
+// SessionStore keeps sessions in memory. Sessions do not survive restarts

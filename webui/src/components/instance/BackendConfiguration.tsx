@@ -14,3 +14,5 @@ interface BackendConfigurationProps {
 const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
   formData,
   onBackendFieldChange,
+  showAdvanced = false
+}) => {

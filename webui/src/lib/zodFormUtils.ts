@@ -41,3 +41,7 @@ const basicLlamaCppFieldsConfig: Record<string, {
   models_preset: {
     label: 'Models Preset Path',
     placeholder: '/path/to/preset.ini',
+    description: 'Optional: Path to preset.ini for router mode. Leave empty for normal operation, or use Preset tab to auto-generate'
+  }
+}
+

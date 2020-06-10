@@ -37,3 +37,6 @@ func newLifecycleManager(
 	return &lifecycleManager{
 		registry:      registry,
 		manager:       manager,
+		ticker:        time.NewTicker(checkInterval),
+		checkInterval: checkInterval,
+		enableLRU:     enableLRU,

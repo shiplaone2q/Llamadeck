@@ -7,3 +7,4 @@ interface ExtraArgsInputProps {
   value: Record<string, string> | undefined
   onChange: (value: Record<string, string> | undefined) => void
   description?: string
+  disabled?: boolean

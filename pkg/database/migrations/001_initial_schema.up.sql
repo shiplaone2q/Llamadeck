@@ -11,3 +11,6 @@ CREATE TABLE IF NOT EXISTS instances (
 
     -- Timestamps (created_at stored as Unix timestamp for compatibility with existing JSON format)
     created_at INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL,
+
+    -- All instance options stored as a single JSON blob

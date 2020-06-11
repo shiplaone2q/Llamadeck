@@ -23,3 +23,4 @@ describe('nodeHealthService', () => {
     const health = await nodeHealthService.performHealthCheck('main');
     expect(health.state).toBe('healthy');
     expect(health.error).toBeUndefined();
+  });

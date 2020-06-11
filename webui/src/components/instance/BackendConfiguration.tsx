@@ -16,3 +16,4 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
   onBackendFieldChange,
   showAdvanced = false
 }) => {
+  const basicBackendFields = getBasicBackendFields(formData.backend_type)

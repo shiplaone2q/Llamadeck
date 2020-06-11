@@ -41,3 +41,4 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
   const clearError = useCallback(() => {
     setError(null)
   }, [])
+

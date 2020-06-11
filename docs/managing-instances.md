@@ -87,3 +87,7 @@ Configure advanced backend options:
 11. Expand **Advanced Backend Options** for additional backend-specific settings
 12. Add **Extra Args** as key-value pairs for custom command-line arguments
 13. Click **"Create Instance"** to save the instance  
+
+### Custom Backends
+
+Custom backend instances reference a `backends.custom.<name>` entry from the [configuration](configuration.md#custom-backends); each configured name appears in the backend dropdown. Their options:

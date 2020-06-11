@@ -40,3 +40,4 @@ type NodeHealthResponse struct {
 // @Security ApiKeyAuth
 // @Produces json
 // @Success 200 {object} map[string]NodeResponse "Map of nodes"
+// @Failure 500 {string} string "Internal Server Error"

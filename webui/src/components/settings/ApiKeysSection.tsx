@@ -64,3 +64,4 @@ function ApiKeysSection() {
     if (newKeyPlainText) {
       await navigator.clipboard.writeText(newKeyPlainText);
       setCopiedKey(true);
+      setTimeout(() => setCopiedKey(false), 2000);

@@ -138,3 +138,6 @@ func NewDownloader(cacheDir string, timeout time.Duration, version string, fileM
 
 func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (string, error) {
 	if branch == "" {
+		branch = "main"
+	}
+

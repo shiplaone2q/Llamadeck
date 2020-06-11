@@ -52,3 +52,5 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
         }
       } catch (error) {
         console.error('Failed to fetch nodes:', error)
+      } finally {
+        setLoadingNodes(false)

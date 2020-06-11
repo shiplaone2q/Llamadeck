@@ -62,3 +62,7 @@ func main() {
 				fieldToFlags[fieldName] = append(fieldToFlags[fieldName], flag.Flag)
 			}
 		} else {
+			missing = append(missing, flag)
+		}
+	}
+

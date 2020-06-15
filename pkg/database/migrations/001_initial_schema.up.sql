@@ -17,3 +17,6 @@ CREATE TABLE IF NOT EXISTS instances (
     options_json TEXT NOT NULL,
 
     -- Future: OIDC user ID for ownership
+    owner_user_id TEXT NULL
+);
+

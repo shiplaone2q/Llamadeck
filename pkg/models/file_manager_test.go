@@ -43,3 +43,4 @@ func TestHFRepoDirName(t *testing.T) {
 }
 
 func TestHFValidateBlobPath(t *testing.T) {
+	cache := t.TempDir()

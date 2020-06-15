@@ -20,3 +20,7 @@ export interface BackendConfig {
   custom?: Record<string, BackendSettings>
 }
 
+export interface ServerConfig {
+  host: string
+  port: number
+  allowed_origins: string[]

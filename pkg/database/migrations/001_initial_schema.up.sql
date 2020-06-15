@@ -14,3 +14,6 @@ CREATE TABLE IF NOT EXISTS instances (
     updated_at INTEGER NOT NULL,
 
     -- All instance options stored as a single JSON blob
+    options_json TEXT NOT NULL,
+
+    -- Future: OIDC user ID for ownership

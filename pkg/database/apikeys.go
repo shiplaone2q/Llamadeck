@@ -62,3 +62,6 @@ func (db *sqliteDB) CreateKey(ctx context.Context, key *auth.APIKey, permissions
 func (db *sqliteDB) GetKeyByID(ctx context.Context, id int) (*auth.APIKey, error) {
 	query := `
 		SELECT id, key_hash, name, user_id, permission_mode, expires_at, created_at, updated_at, last_used_at
+		FROM api_keys
+		WHERE id = ?
+	`

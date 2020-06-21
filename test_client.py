@@ -43,3 +43,7 @@ def send_message(message):
     if API_KEY:
         headers["Authorization"] = f"Bearer {API_KEY}"
 
+    data = {
+        "model": MODEL_NAME,
+        "messages": [
+            {

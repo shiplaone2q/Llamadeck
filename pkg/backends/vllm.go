@@ -42,3 +42,7 @@ type VllmServerOptions struct {
 	Seed                       int    `json:"seed,omitempty"`
 	MaxModelLen                int    `json:"max_model_len,omitempty"`
 	GuidedDecodingBackend      string `json:"guided_decoding_backend,omitempty"`
+	DistributedExecutorBackend string `json:"distributed_executor_backend,omitempty"`
+	WorkerUseRay               bool   `json:"worker_use_ray,omitempty"`
+	RayWorkersUseNSight        bool   `json:"ray_workers_use_nsight,omitempty"`
+

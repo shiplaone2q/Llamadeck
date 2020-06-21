@@ -20,3 +20,6 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
 
   const extraArgs = (formData.backend_options as Record<string, unknown>)?.extra_args as Record<string, string> | undefined
   const advancedOptionsCount = advancedBackendFields.filter(fieldKey => {
+    const value = (formData.backend_options as Record<string, unknown>)?.[fieldKey]
+    return value !== undefined && value !== null && value !== ''
+  }).length

@@ -76,3 +76,5 @@ func extractArgs(command string, executableNames []string, subcommandNames []str
 		return nil, "", fmt.Errorf("no tokens found")
 	}
 
+	// Skip executable
+	start := 0

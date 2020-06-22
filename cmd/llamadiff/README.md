@@ -9,3 +9,6 @@ Run the validator:
 ```bash
 go run cmd/llamadiff/main.go
 ```
+
+The tool will output a report showing:
+- **Working**: Flags that are correctly parsed and mapped to struct fields

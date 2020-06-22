@@ -82,3 +82,5 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
 
   // Auto-refresh effect
   useEffect(() => {
+    if (autoRefresh && isRunning && open) {
+      refreshIntervalRef.current = setInterval(() => {

@@ -52,3 +52,7 @@ Issues specific to Llamadeck deployment and operation.
      - Check that the backend `command` is correctly configured in the global config
      - For virtual environments, specify the full path to the command (e.g., `/path/to/venv/bin/mlx_lm.server`)
      - See the [Configuration Guide](configuration.md) for backend configuration details
+     - Test the backend directly (see [Backend-Specific Issues](#backend-specific-issues) below)
+
+### Backend-Specific Issues
+

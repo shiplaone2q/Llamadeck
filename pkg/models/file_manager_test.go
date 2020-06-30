@@ -44,3 +44,5 @@ func TestHFRepoDirName(t *testing.T) {
 
 func TestHFValidateBlobPath(t *testing.T) {
 	cache := t.TempDir()
+	t.Setenv("LLAMA_CACHE", cache)
+	fm := NewFileManager(cache)

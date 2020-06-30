@@ -40,3 +40,7 @@ type AppConfig struct {
 	Auth      AuthConfig            `yaml:"auth" json:"auth"`
 	LocalNode string                `yaml:"local_node,omitempty" json:"local_node,omitempty"`
 	Nodes     map[string]NodeConfig `yaml:"nodes,omitempty" json:"nodes,omitempty"`
+
+	// Directory where all llamadeck data will be stored (database, instances, logs, etc.)
+	DataDir string `yaml:"data_dir" json:"data_dir"`
+

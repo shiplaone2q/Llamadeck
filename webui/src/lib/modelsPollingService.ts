@@ -30,3 +30,4 @@ class ModelsPollingService {
       // Stop polling if no more subscribers
       if (this.callbacks.size === 0) {
         this.stopPolling()
+      }

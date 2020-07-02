@@ -51,3 +51,6 @@ func (p *portAllocator) allocate(instanceName string) (int, error) {
 	if err != nil {
 		return 0, err
 	}
+
+	p.setBit(port)
+	p.allocated[port] = instanceName

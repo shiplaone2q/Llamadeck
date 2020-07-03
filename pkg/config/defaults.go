@@ -49,3 +49,7 @@ func getDefaultConfig(dataDir string) AppConfig {
 					},
 					Environment: map[string]string{},
 				},
+			},
+			MLX: BackendSettings{
+				Command:    "mlx_lm.server",
+				Args:       []string{},

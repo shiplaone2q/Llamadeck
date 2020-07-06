@@ -180,3 +180,4 @@ func (im *instanceManager) CreateInstance(name string, options *instance.Options
 }
 
 // GetInstance retrieves an instance by its name.
+// For remote instances, this fetches the live state from the remote node and updates the local stub.

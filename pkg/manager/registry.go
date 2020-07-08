@@ -31,3 +31,5 @@ func (r *instanceRegistry) get(name string) (*instance.Instance, bool) {
 	return inst, exists
 }
 
+// List returns a snapshot copy of all instances to prevent external mutation.
+func (r *instanceRegistry) list() []*instance.Instance {

@@ -21,3 +21,6 @@ class LocalStorageMock implements Storage {
   key(index: number): string | null {
     return Array.from(this.store.keys())[index] ?? null
   }
+
+  removeItem(key: string): void {
+    this.store.delete(key)

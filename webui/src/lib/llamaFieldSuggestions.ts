@@ -8,3 +8,6 @@ import {
 export interface FieldSuggestion {
   name: string
   type: 'text' | 'number' | 'boolean' | 'array'
+}
+
+function snakeToKebab(snake: string): string {

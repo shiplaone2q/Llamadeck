@@ -5,3 +5,5 @@
   "tsx": true,
   "tailwind": {
     "config": "",
+    "css": "src/index.css",
+    "baseColor": "slate",

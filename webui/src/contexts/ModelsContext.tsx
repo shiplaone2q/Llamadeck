@@ -46,3 +46,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
     try {
       setLoading(true)
       setError(null)
+      const modelsData = await llamaCppModelsApi.listModels(node)
+      setModels(modelsData)
+    } catch (err) {

@@ -76,3 +76,6 @@ func (h *Handler) forwardToNode(nodeName string, w http.ResponseWriter, r *http.
 type authTransport struct {
 	base   http.RoundTripper
 	apiKey string
+}
+
+func (t *authTransport) RoundTrip(req *http.Request) (*http.Response, error) {

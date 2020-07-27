@@ -15,3 +15,7 @@ updates:
     groups:
       go-dependencies:
         patterns:
+          - "*"
+    labels:
+      - "dependencies"
+

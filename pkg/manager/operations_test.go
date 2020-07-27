@@ -140,3 +140,6 @@ func TestInstanceOperations_FailWithNonExistentInstance(t *testing.T) {
 	manager := createTestManager(t)
 
 	options := &instance.Options{
+		BackendOptions: backends.Options{
+			BackendType: backends.BackendTypeLlamaCpp,
+			LlamaServerOptions: &backends.LlamaServerOptions{

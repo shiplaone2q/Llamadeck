@@ -54,3 +54,4 @@ func TestInferenceAuthMiddleware(t *testing.T) {
 		},
 	}
 
+	for _, tt := range tests {

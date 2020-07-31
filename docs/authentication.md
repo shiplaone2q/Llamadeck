@@ -27,3 +27,4 @@ Management API keys bypass all permission checks entirely.
 For each instance granted to a per-instance key, you pick one of three access levels. A key can always **use a running instance** — the level only affects what happens when the instance is **stopped** at request time.
 
 | Level | What the key can do |
+|---|---|

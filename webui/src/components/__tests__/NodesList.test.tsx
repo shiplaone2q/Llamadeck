@@ -48,3 +48,7 @@ const healthy: NodeHealth = {
   state: 'healthy',
   latencyMs: 12,
   lastChecked: new Date(),
+};
+
+function renderNodesList() {
+  return render(

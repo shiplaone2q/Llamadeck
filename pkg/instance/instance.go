@@ -104,3 +104,5 @@ func syncPresetIni(name string, opts *Options, instancesDir string) error {
 		return nil
 	}
 
+	instanceDir := filepath.Join(instancesDir, name)
+	if err := os.MkdirAll(instanceDir, 0755); err != nil {

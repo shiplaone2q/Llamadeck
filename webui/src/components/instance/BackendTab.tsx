@@ -43,3 +43,7 @@ const BackendTab: React.FC<BackendTabProps> = ({
       onChange('backend_type', BackendType.CUSTOM)
       onBackendFieldChange('name', name)
       onChange('docker_enabled', customBackends[name]?.docker?.enabled ?? false)
+      return
+    }
+    onChange('backend_type', value)
+  }

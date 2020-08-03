@@ -36,3 +36,6 @@ func TestResolveInstancePermission(t *testing.T) {
 	perInstanceKey := &auth.APIKey{ID: 1, PermissionMode: auth.PermissionModePerInstance}
 	allowAllKey := &auth.APIKey{ID: 2, PermissionMode: auth.PermissionModeAllowAll}
 
+	tests := []struct {
+		name      string
+		ctx       context.Context

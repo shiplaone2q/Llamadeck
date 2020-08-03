@@ -12,3 +12,7 @@ import (
 func TestListKeysIncludesAllOwners(t *testing.T) {
 	db := newTestDB(t)
 	now := time.Now().Unix()
+
+	for _, owner := range []string{"system", "alice@example.com"} {
+		key := &auth.APIKey{
+			KeyHash:        "hash-" + owner,

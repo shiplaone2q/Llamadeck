@@ -72,3 +72,4 @@ func TestGroupsFromClaims(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			var raw map[string]json.RawMessage
 			if err := json.Unmarshal([]byte(tt.payload), &raw); err != nil {
+				t.Fatalf("fixture JSON invalid: %v", err)

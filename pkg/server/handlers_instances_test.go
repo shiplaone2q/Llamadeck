@@ -22,3 +22,4 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 	t.Helper()
 
 	cfg := &config.AppConfig{
+		Backends: config.BackendConfig{

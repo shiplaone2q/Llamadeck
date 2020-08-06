@@ -48,3 +48,6 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 	}
 
 	// Shutdown first manager to close database connection
+	manager1.Shutdown()
+
+	// Load instances from database

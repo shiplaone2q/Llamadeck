@@ -18,3 +18,5 @@ def on_page_markdown(markdown, page, config, **kwargs):
         stripped = line.strip()
         
         # Track code blocks
+        if stripped.startswith('```'):
+            in_code_block = not in_code_block

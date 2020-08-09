@@ -38,3 +38,7 @@ func LoadConfig(configPath string) (AppConfig, error) {
 	// If local node is not defined in nodes, add it with default config
 	if _, ok := cfg.Nodes[cfg.LocalNode]; !ok {
 		cfg.Nodes[cfg.LocalNode] = NodeConfig{}
+	}
+
+	// 4. Override with environment variables
+	loadEnvVars(&cfg)

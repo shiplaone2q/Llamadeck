@@ -46,3 +46,7 @@ type VllmServerOptions struct {
 	WorkerUseRay               bool   `json:"worker_use_ray,omitempty"`
 	RayWorkersUseNSight        bool   `json:"ray_workers_use_nsight,omitempty"`
 
+	// Performance and serving configuration
+	BlockSize                int     `json:"block_size,omitempty"`
+	EnablePrefixCaching      bool    `json:"enable_prefix_caching,omitempty"`
+	DisableSlidingWindow     bool    `json:"disable_sliding_window,omitempty"`

@@ -946,3 +946,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "string"
                         }
+                    }
+                }
+            }
+        },

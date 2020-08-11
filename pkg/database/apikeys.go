@@ -69,3 +69,5 @@ func (db *sqliteDB) GetKeyByID(ctx context.Context, id int) (*auth.APIKey, error
 	var key auth.APIKey
 	var expiresAt sql.NullInt64
 	var lastUsedAt sql.NullInt64
+
+	err := db.QueryRowContext(ctx, query, id).Scan(

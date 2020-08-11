@@ -29,3 +29,6 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
   const [nodes, setNodes] = useState<NodesMap>({});
   const [loadingNodes, setLoadingNodes] = useState(true);
 
+  useEffect(() => {
+    const fetchNodes = async () => {
+      try {

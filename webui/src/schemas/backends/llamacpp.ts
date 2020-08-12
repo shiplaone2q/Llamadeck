@@ -73,3 +73,6 @@ export const LlamaCppBackendOptionsSchema = z.object({
   model: z.string().optional(), // -m, --model FNAME
   model_url: z.string().optional(), // -mu, --model-url MODEL_URL
   docker_repo: z.string().optional(), // -dr, --docker-repo [<repo>/]<model>[:quant]
+  hf_repo: z.string().optional(), // -hf, -hfr, --hf-repo <user>/<model>[:quant]
+  hf_repo_draft: z.string().optional(), // -hfd, -hfrd, --hf-repo-draft <user>/<model>[:quant]
+  hf_file: z.string().optional(), // -hff, --hf-file FILE

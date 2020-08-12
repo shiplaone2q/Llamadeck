@@ -14,3 +14,7 @@ const ConfigContext = createContext<ConfigContextType | undefined>(undefined)
 interface ConfigProviderProps {
   children: ReactNode
 }
+
+export const ConfigProvider = ({ children }: ConfigProviderProps) => {
+  const { isAuthenticated } = useAuth()
+  const [config, setConfig] = useState<AppConfig | null>(null)

@@ -30,3 +30,6 @@ export const BackendOptionsSchema = z.union([
   LlamaCppBackendOptionsSchema,
   MlxBackendOptionsSchema,
   VllmBackendOptionsSchema,
+])
+
+// Define the main create instance options schema

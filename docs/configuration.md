@@ -67,3 +67,4 @@ instances:
   on_demand_start_timeout: 120     # Default on-demand start timeout in seconds
   timeout_check_interval: 5        # Idle instance timeout check in minutes
   group_limits: {}                 # Per-group running instance limits (e.g., {large: 1, small: 3})
+

@@ -32,3 +32,5 @@ func TestDownloadModel_InvalidFormat(t *testing.T) {
 	for _, format := range []string{"bogus", "GGUF"} {
 		body := `{"repo":"org/model","format":"` + format + `"}`
 		req := httptest.NewRequest(http.MethodPost, "/api/v1/models/download", strings.NewReader(body))
+		rec := httptest.NewRecorder()
+		h.DownloadModel()(rec, req)

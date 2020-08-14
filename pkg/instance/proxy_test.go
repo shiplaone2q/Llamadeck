@@ -34,3 +34,4 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 			},
 		},
 	}
+

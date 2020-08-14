@@ -11,3 +11,4 @@ func IntPtr(i int) *int {
 	return &i
 }
 
+// Helper functions for testing command arguments

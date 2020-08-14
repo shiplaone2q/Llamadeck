@@ -92,3 +92,4 @@ func (rm *remoteManager) setInstanceNode(instanceName, nodeName string) error {
 
 	node, exists := rm.nodeMap[nodeName]
 	if !exists {
+		return fmt.Errorf("node %s not found", nodeName)

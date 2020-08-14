@@ -23,3 +23,6 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 
 	cfg := &config.AppConfig{
 		Backends: config.BackendConfig{
+			LlamaCpp: config.BackendSettings{
+				Command: "sh",
+				Args:    []string{"-c", "sleep 999999"},

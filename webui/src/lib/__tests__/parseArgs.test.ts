@@ -8,3 +8,4 @@ describe('parseArgs', () => {
 
   it('collapses repeated whitespace', () => {
     expect(parseArgs('  serve   --port   {port}  ')).toEqual(['serve', '--port', '{port}'])
+  })

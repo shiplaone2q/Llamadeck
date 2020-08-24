@@ -225,3 +225,7 @@ func TestUnmarshalJSON(t *testing.T) {
 		"name": "test-instance",
 		"status": "running",
 		"options": {
+			"auto_restart": false,
+			"max_restarts": 5,
+			"backend_type": "llama_cpp",
+			"backend_options": {

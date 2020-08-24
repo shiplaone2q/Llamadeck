@@ -11,3 +11,6 @@ Welcome to the Llamadeck documentation!
 ## Features
 
 {{FEATURES}}  
+
+## Quick Links
+

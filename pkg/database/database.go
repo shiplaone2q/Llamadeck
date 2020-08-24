@@ -22,3 +22,4 @@ type InstanceStore interface {
 }
 
 // AuthStore defines the interface for authentication operations
+type AuthStore interface {

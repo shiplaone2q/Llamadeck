@@ -104,3 +104,6 @@ func (p *process) start() error {
 			time.Sleep(500 * time.Millisecond)
 		}
 	}
+
+	setProcAttrs(p.cmd)
+

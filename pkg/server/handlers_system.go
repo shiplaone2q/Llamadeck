@@ -22,3 +22,6 @@ func (h *Handler) VersionHandler() http.HandlerFunc {
 }
 
 // ConfigHandler godoc
+// @Summary Get server configuration
+// @Description Returns the current server configuration (sanitized)
+// @Tags System

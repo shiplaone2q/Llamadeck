@@ -12,3 +12,6 @@ func IntPtr(i int) *int {
 }
 
 // Helper functions for testing command arguments
+
+// Contains checks if a slice contains a specific item
+func Contains(slice []string, item string) bool {

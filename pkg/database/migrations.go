@@ -22,3 +22,6 @@ func RunMigrations(db *sqliteDB) error {
 	// Create migration source from embedded files
 	sourceDriver, err := iofs.New(migrationFiles, "migrations")
 	if err != nil {
+		return fmt.Errorf("failed to create migration source: %w", err)
+	}
+

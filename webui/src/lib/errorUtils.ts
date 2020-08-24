@@ -6,3 +6,6 @@ export async function parseErrorResponse(response: Response): Promise<string> {
 
   try {
     const errorText = await response.text()
+    if (errorText) {
+      errorMessage += `: ${errorText}`
+    }

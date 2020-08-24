@@ -106,3 +106,5 @@ func syncPresetIni(name string, opts *Options, instancesDir string) error {
 
 	instanceDir := filepath.Join(instancesDir, name)
 	if err := os.MkdirAll(instanceDir, 0755); err != nil {
+		return fmt.Errorf("failed to create instance directory: %w", err)
+	}

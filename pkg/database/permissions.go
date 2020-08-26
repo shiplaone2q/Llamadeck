@@ -28,3 +28,7 @@ func (db *sqliteDB) GetPermissions(ctx context.Context, keyID int) ([]auth.KeyPe
 		err := rows.Scan(&perm.KeyID, &perm.InstanceID, &perm.CanStart, &perm.CanEvict)
 		if err != nil {
 			return nil, fmt.Errorf("failed to scan key permission: %w", err)
+		}
+		permissions = append(permissions, perm)
+	}
+

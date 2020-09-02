@@ -25,3 +25,5 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 
 		jsonTag := fieldType.Tag.Get("json")
 		if jsonTag == "" || jsonTag == "-" {
+			continue
+		}

@@ -70,3 +70,5 @@ func TestOptionsGetHealthPath(t *testing.T) {
 			expected: "/ready",
 		},
 		{
+			name:     "missing leading slash is prefixed",
+			options:  backends.Options{BackendType: backends.BackendTypeCustom, CustomServerOptions: &backends.CustomServerOptions{Name: "bare"}},

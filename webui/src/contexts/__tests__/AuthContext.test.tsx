@@ -17,3 +17,7 @@ function renderLogin() {
     <AuthProvider>
       <LoginDialog open />
     </AuthProvider>
+  )
+}
+
+describe('AuthContext OIDC callback errors', () => {

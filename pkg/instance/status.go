@@ -49,3 +49,6 @@ func (s *Status) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
+	status, ok := nameToStatus[str]
+	if !ok {
+		log.Printf("Unknown instance status: %s", str)

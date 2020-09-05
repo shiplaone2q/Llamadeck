@@ -33,3 +33,7 @@ func (r *instanceRegistry) get(name string) (*instance.Instance, bool) {
 
 // List returns a snapshot copy of all instances to prevent external mutation.
 func (r *instanceRegistry) list() []*instance.Instance {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+
+	result := make([]*instance.Instance, 0, len(r.instances))

@@ -27,3 +27,4 @@ const AutoRestartConfiguration: React.FC<AutoRestartConfigurationProps> = ({
     return `Enabled (restarts: ${restartsText}, delay: ${restartDelay}s)`
   }
 
+  return (

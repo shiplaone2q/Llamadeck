@@ -8,3 +8,6 @@ export const CustomBackendOptionsSchema = z.object({
   host: z.string().optional(),
   port: z.number().optional(),
   model: z.string().optional(),
+  args: z.array(z.string()).optional(),
+})
+

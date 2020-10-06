@@ -40,3 +40,7 @@ Note: MLX backend is only available on macOS with Apple Silicon (M1, M2, M3, etc
 **For vLLM backend:**
 
 vLLM provides high-throughput distributed serving for LLMs. Install vLLM:
+
+```bash
+# Install in a virtual environment
+python -m venv vllm-env

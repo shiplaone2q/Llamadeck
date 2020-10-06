@@ -80,3 +80,7 @@ describe('InstanceModal - Form Logic and Validation', () => {
     })
 
     it('validates instance name format', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <InstanceDialog

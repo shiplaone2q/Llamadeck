@@ -45,3 +45,5 @@ function InstanceCard({
 
     void (async () => {
       try {
+        const fetchedModels = await llamaCppApi.getModels(instance.name);
+        setModels(fetchedModels);

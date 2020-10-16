@@ -49,3 +49,4 @@ func TestJobStore_FailJob(t *testing.T) {
 	store.Fail(job.ID, errorMsg)
 
 	retrieved, _ := store.Get(job.ID)
+	if retrieved.Status != JobStatusFailed {

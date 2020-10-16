@@ -51,3 +51,7 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 	manager1.Shutdown()
 
 	// Load instances from database
+	db2, err := database.Open(&database.Config{
+		Path:               appConfig.Database.Path,
+		MaxOpenConnections: appConfig.Database.MaxOpenConnections,
+		MaxIdleConnections: appConfig.Database.MaxIdleConnections,

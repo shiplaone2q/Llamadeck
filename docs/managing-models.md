@@ -55,3 +55,5 @@ Safetensors is the standard model format used by HuggingFace. Downloads include 
 1. Open the Llamadeck web interface
 2. Navigate to the **Models** tab
 3. Click **Download Model**
+4. Select the **Format**: **GGUF** or **Safetensors**
+5. Enter the model identifier:

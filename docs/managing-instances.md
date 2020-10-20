@@ -92,3 +92,4 @@ Configure advanced backend options:
 
 Custom backend instances reference a `backends.custom.<name>` entry from the [configuration](configuration.md#custom-backends); each configured name appears in the backend dropdown. Their options:
 
+- `name` (required): the config entry to use.

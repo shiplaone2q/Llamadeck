@@ -44,3 +44,7 @@ func TestGetInstancePermission(t *testing.T) {
 		UserID:         "system",
 		PermissionMode: auth.PermissionModePerInstance,
 		CreatedAt:      now,
+		UpdatedAt:      now,
+	}
+	perms := []auth.KeyPermission{
+		{InstanceID: 10, CanStart: true, CanEvict: false},

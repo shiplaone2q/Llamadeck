@@ -34,3 +34,6 @@ Thank you for considering contributing to Llamadeck! This document outlines the 
 
    # Or with automatic rebuild on save (https://github.com/air-verse/air)
    air
+   ```
+   Server will be available at `http://localhost:8080`
+   

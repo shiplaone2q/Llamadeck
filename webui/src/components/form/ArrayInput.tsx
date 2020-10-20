@@ -15,3 +15,6 @@ interface ArrayInputProps {
 
 const ArrayInput: React.FC<ArrayInputProps> = ({
   id,
+  label,
+  value,
+  onChange,

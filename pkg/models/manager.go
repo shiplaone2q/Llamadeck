@@ -45,3 +45,5 @@ func (m *Manager) sweepStaleTempFiles() {
 		if err != nil {
 			log.Printf("stale temp sweep: %s: %v", path, err)
 			return nil
+		}
+		if !d.Type().IsRegular() {

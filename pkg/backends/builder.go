@@ -27,3 +27,4 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 		if jsonTag == "" || jsonTag == "-" {
 			continue
 		}
+

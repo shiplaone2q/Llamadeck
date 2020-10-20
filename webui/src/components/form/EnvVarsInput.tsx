@@ -5,3 +5,4 @@ interface EnvVarsInputProps {
   id: string
   label: string
   value: Record<string, string> | undefined
+  onChange: (value: Record<string, string> | undefined) => void

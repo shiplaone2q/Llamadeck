@@ -31,3 +31,6 @@ class ModelsPollingService {
       if (this.callbacks.size === 0) {
         this.stopPolling()
       }
+    }
+  }
+

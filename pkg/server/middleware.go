@@ -46,3 +46,6 @@ func NewAPIAuthMiddleware(authCfg config.AuthConfig, authStore database.AuthStor
 		key, err := auth.GenerateKey("llamadeck-mgmt")
 		if err != nil {
 			log.Printf("Warning: Failed to generate management key: %v", err)
+			// Fallback to PID-based key for safety
+			key = fmt.Sprintf("sk-management-fallback-%d", os.Getpid())
+		}

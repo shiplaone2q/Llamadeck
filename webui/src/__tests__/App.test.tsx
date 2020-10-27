@@ -78,3 +78,5 @@ function renderApp() {
     </AuthProvider>
   )
 }
+
+describe('App Component - Critical Business Logic Only', () => {

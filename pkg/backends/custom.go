@@ -22,3 +22,6 @@ func (o *CustomServerOptions) GetModel() string {
 	if o == nil {
 		return ""
 	}
+	return o.Model
+}
+

@@ -18,3 +18,5 @@ interface ConfigProviderProps {
 export const ConfigProvider = ({ children }: ConfigProviderProps) => {
   const { isAuthenticated } = useAuth()
   const [config, setConfig] = useState<AppConfig | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)

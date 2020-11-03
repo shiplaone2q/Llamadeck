@@ -25,3 +25,6 @@ func (h *Handler) VersionHandler() http.HandlerFunc {
 // @Summary Get server configuration
 // @Description Returns the current server configuration (sanitized)
 // @Tags System
+// @Security ApiKeyAuth
+// @Produces application/json
+// @Success 200 {object} config.AppConfig "Sanitized configuration"

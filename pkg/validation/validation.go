@@ -6,3 +6,5 @@ import (
 )
 
 var validNamePattern = regexp.MustCompile(`^[a-zA-Z0-9._-]+$`)
+
+type ValidationError error

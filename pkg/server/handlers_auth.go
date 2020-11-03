@@ -86,3 +86,6 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 		}
 		if len(req.Name) > 100 {
 			writeError(w, http.StatusBadRequest, "invalid_name", "Name must be 100 characters or less")
+			return
+		}
+		if req.PermissionMode != auth.PermissionModeAllowAll && req.PermissionMode != auth.PermissionModePerInstance {

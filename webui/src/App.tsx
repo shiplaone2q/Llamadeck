@@ -44,3 +44,7 @@ function App() {
     }
   };
 
+  const handleShowSystemInfo = () => {
+    setIsSystemInfoModalOpen(true);
+  };
+

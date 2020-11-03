@@ -17,3 +17,5 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
   showAdvanced = false
 }) => {
   const basicBackendFields = getBasicBackendFields(formData.backend_type)
+  const advancedBackendFields = getAdvancedBackendFields(formData.backend_type)
+

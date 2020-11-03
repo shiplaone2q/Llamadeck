@@ -26,3 +26,5 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 			LlamaCpp: config.BackendSettings{
 				Command: "sh",
 				Args:    []string{"-c", "sleep 999999"},
+			},
+			MLX: config.BackendSettings{

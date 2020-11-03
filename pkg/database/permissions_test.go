@@ -48,3 +48,6 @@ func TestGetInstancePermission(t *testing.T) {
 	}
 	perms := []auth.KeyPermission{
 		{InstanceID: 10, CanStart: true, CanEvict: false},
+	}
+	if err := db.CreateKey(context.Background(), key, perms); err != nil {
+		t.Fatalf("CreateKey: %v", err)

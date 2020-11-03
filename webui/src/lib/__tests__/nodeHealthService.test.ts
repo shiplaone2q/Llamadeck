@@ -24,3 +24,6 @@ describe('nodeHealthService', () => {
     expect(health.state).toBe('healthy');
     expect(health.error).toBeUndefined();
   });
+
+  it('maps an unreachable response to an unreachable state with error', async () => {
+    global.fetch = vi.fn(() =>

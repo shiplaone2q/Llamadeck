@@ -5,3 +5,4 @@ declare global {
     readonly VITE_APP_VERSION?: string
   }
 
+  interface ImportMeta {

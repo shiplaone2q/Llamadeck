@@ -3,3 +3,4 @@ import ApiKeysSection from "./ApiKeysSection";
 
 interface SettingsDialogProps {
   open: boolean;
+  onOpenChange: (open: boolean) => void;

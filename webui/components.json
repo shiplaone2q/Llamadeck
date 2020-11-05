@@ -8,3 +8,4 @@
     "css": "src/index.css",
     "baseColor": "slate",
     "cssVariables": true,
+    "prefix": ""

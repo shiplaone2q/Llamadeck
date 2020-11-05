@@ -52,3 +52,4 @@ func (s *Status) UnmarshalJSON(data []byte) error {
 	status, ok := nameToStatus[str]
 	if !ok {
 		log.Printf("Unknown instance status: %s", str)
+		status = Stopped // Default to Stopped on unknown status

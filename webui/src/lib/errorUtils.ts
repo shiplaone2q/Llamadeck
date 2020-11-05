@@ -9,3 +9,5 @@ export async function parseErrorResponse(response: Response): Promise<string> {
     if (errorText) {
       errorMessage += `: ${errorText}`
     }
+  } catch {
+    // If we can't read the error, just use status

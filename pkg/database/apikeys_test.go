@@ -16,3 +16,6 @@ func TestListKeysIncludesAllOwners(t *testing.T) {
 	for _, owner := range []string{"system", "alice@example.com"} {
 		key := &auth.APIKey{
 			KeyHash:        "hash-" + owner,
+			Name:           "key-" + owner,
+			UserID:         owner,
+			PermissionMode: auth.PermissionModeAllowAll,

@@ -8,3 +8,5 @@ export interface DownloadJob {
   repo: string
   tag: string
   status: 'queued' | 'downloading' | 'completed' | 'failed' | 'cancelled'
+  progress: {
+    bytes_downloaded: number

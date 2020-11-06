@@ -30,3 +30,6 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 		t.Fatalf("failed to parse test server address: %v", err)
 	}
 	port, err := strconv.Atoi(portStr)
+	if err != nil {
+		t.Fatalf("failed to parse test server port: %v", err)
+	}

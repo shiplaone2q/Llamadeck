@@ -54,3 +54,5 @@ class HealthService {
 
         } catch (httpError) {
           // HTTP health check failed - instance is still starting
+          // Any error (503, connection refused, timeout, etc.) means "starting"
+          const health: HealthStatus = {

@@ -21,3 +21,5 @@ func TestValidateInstanceName(t *testing.T) {
 		{"mixed valid chars", "test-instance_123", false},
 		{"single char", "a", false},
 		{"max length", strings.Repeat("a", 50), false},
+
+		{"empty name", "", true},

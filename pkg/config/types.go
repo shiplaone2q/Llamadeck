@@ -44,3 +44,5 @@ type AppConfig struct {
 	// Directory where all llamadeck data will be stored (database, instances, logs, etc.)
 	DataDir string `yaml:"data_dir" json:"data_dir"`
 
+	Version    string `yaml:"-" json:"version"`
+	CommitHash string `yaml:"-" json:"commit_hash"`

@@ -181,3 +181,7 @@ func (im *instanceManager) CreateInstance(name string, options *instance.Options
 
 // GetInstance retrieves an instance by its name.
 // For remote instances, this fetches the live state from the remote node and updates the local stub.
+//
+// If the local registry has the instance but the remote reports it as gone,
+// the local tracking (registry, persistence, node map) is cleaned up and
+// ErrInstanceNotFound is returned. If the remote fails for any other reason

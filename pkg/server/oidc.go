@@ -120,3 +120,6 @@ func (s *OIDCService) webRootPath(r *http.Request) string {
 	base, ok := strings.CutSuffix(u.Path, callbackPath)
 	if !ok || base == "" {
 		return "/"
+	}
+	return base + "/"
+}

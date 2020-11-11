@@ -64,3 +64,5 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
     if (backend !== BackendType.LLAMA_CPP) {
       setBackendInfo(null)
       setError(null)
+      return
+    }

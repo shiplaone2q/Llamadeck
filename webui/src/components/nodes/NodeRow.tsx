@@ -26,3 +26,5 @@ function NodeStatus({ health }: { health: NodeHealth | undefined }) {
       </span>
     );
   }
+
+  if (health.state === 'healthy') {

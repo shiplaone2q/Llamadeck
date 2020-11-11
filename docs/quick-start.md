@@ -57,3 +57,6 @@ By default, Llamadeck will start on `http://localhost:8080`.
 Open your web browser and navigate to:
 
 ```
+http://localhost:8080
+```
+

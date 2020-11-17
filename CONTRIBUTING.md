@@ -37,3 +37,7 @@ Thank you for considering contributing to Llamadeck! This document outlines the 
    ```
    Server will be available at `http://localhost:8080`
    
+   ```bash
+   # In a separate terminal, start frontend dev server
+   cd webui && npm run dev
+   ```

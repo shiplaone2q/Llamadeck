@@ -20,3 +20,7 @@ def on_page_markdown(markdown, page, config, **kwargs):
         # Track code blocks
         if stripped.startswith('```'):
             in_code_block = not in_code_block
+            processed_lines.append(line)
+            continue
+            
+        # Skip processing inside code blocks

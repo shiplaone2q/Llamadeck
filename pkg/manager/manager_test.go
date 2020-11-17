@@ -55,3 +55,4 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 		Path:               appConfig.Database.Path,
 		MaxOpenConnections: appConfig.Database.MaxOpenConnections,
 		MaxIdleConnections: appConfig.Database.MaxIdleConnections,
+		ConnMaxLifetime:    appConfig.Database.ConnMaxLifetime,

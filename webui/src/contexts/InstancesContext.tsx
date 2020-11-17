@@ -45,3 +45,4 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
   const fetchInstances = useCallback(async () => {
     if (!isAuthenticated) {
       setLoading(false)
+      return

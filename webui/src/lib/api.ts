@@ -83,3 +83,4 @@ export const serverApi = {
   // GET /backends/llama-cpp/devices
   getDevices: () => apiCall<string>("/backends/llama-cpp/devices", {}, "text"),
 
+  // GET /config

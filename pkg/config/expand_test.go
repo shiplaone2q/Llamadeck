@@ -42,3 +42,4 @@ func TestExpandEnvVars(t *testing.T) {
 			envVars:  nil,
 			expected: "val: ",
 		},
+		{

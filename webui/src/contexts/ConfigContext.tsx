@@ -20,3 +20,7 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
   const [config, setConfig] = useState<AppConfig | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const loadedRef = useRef(false)
+
+  useEffect(() => {
+    if (!isAuthenticated || loadedRef.current) {

@@ -8,3 +8,5 @@ export default function ModelsHeader() {
   const { models, activeJobs } = useModels()
   const [downloadDialogOpen, setDownloadDialogOpen] = useState(false)
 
+  const totalCount = (models?.length || 0) + (activeJobs?.length || 0)
+

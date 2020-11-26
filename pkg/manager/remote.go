@@ -98,3 +98,7 @@ func (rm *remoteManager) setInstanceNode(instanceName, nodeName string) error {
 	rm.instanceToNode[instanceName] = node
 	return nil
 }
+
+// RemoveInstance removes the instance-to-node mapping.
+func (rm *remoteManager) removeInstance(instanceName string) {
+	rm.mu.Lock()

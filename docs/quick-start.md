@@ -60,3 +60,4 @@ Open your web browser and navigate to:
 http://localhost:8080
 ```
 
+Login with the management API key from the terminal output.

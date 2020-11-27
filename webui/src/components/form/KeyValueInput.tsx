@@ -49,3 +49,4 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
   )
 
   // Sync internal state when value prop changes
+  useEffect(() => {

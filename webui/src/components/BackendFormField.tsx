@@ -45,3 +45,5 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
         <Alert className="border-primary/40 bg-primary/10 text-primary">
           <FileCode />
           <AlertTitle>Preset defined</AlertTitle>
+          <AlertDescription className="text-muted-foreground">
+            Will be auto-set to the preset.ini created in Preset Editor

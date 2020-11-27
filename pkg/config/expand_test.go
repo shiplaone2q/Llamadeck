@@ -43,3 +43,5 @@ func TestExpandEnvVars(t *testing.T) {
 			expected: "val: ",
 		},
 		{
+			name:     "variable with default when empty",
+			input:    "val: ${MY_VAR:-fallback}",

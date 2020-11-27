@@ -105,3 +105,7 @@ function TestComponent() {
         Restart Instance1
       </button>
       <button
+        type="button"
+        onClick={() => void deleteInstance("instance2")}
+        data-testid="delete-instance"
+      >

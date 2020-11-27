@@ -49,3 +49,6 @@ func NewAPIAuthMiddleware(authCfg config.AuthConfig, authStore database.AuthStor
 			// Fallback to PID-based key for safety
 			key = fmt.Sprintf("sk-management-fallback-%d", os.Getpid())
 		}
+		managementKeys[key] = true
+		generated = true
+		fmt.Printf("%s\n⚠️  MANAGEMENT AUTHENTICATION REQUIRED\n%s\n", banner, banner)

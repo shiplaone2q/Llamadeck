@@ -26,3 +26,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   )
+}
+
+function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+  return (

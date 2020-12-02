@@ -122,3 +122,6 @@ instances:
 	if cfg.Instances.DefaultMaxRestarts != 10 {
 		t.Errorf("Expected max restarts 10, got %d", cfg.Instances.DefaultMaxRestarts)
 	}
+	if cfg.Instances.DefaultRestartDelay != 30 {
+		t.Errorf("Expected restart delay 30, got %d", cfg.Instances.DefaultRestartDelay)
+	}

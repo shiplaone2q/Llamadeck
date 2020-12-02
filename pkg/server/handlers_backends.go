@@ -90,3 +90,4 @@ func (h *Handler) LlamaCppUIProxy() http.HandlerFunc {
 // @Success 200 {object} map[string]any "Proxied response"
 // @Failure 400 {string} string "Invalid instance"
 // @Failure 404 {string} string "Instance does not exist"
+// @Failure 500 {string} string "Internal Server Error"

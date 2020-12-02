@@ -45,3 +45,4 @@ const basicLlamaCppFieldsConfig: Record<string, {
   }
 }
 
+// MLX backend-specific basic fields

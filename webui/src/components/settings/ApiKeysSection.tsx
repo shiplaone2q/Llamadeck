@@ -67,3 +67,6 @@ function ApiKeysSection() {
       setTimeout(() => setCopiedKey(false), 2000);
     }
   };
+
+  const handleDeleteKey = async (id: number, name: string) => {
+    if (!confirm(`Are you sure you want to delete the key '${name}'?\n\nThis action cannot be undone.`)) {

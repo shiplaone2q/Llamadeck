@@ -25,3 +25,7 @@ func RunMigrations(db *sqliteDB) error {
 		return fmt.Errorf("failed to create migration source: %w", err)
 	}
 
+	// Create database driver for migrations
+	dbDriver, err := sqlite3.WithInstance(db.DB, &sqlite3.Config{})
+	if err != nil {
+		return fmt.Errorf("failed to create database driver: %w", err)

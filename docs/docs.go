@@ -952,3 +952,6 @@ const docTemplate = `{
         },
         "/api/v1/instances/{name}/restart": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []

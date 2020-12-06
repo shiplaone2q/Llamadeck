@@ -68,3 +68,7 @@ instances:
   timeout_check_interval: 5        # Idle instance timeout check in minutes
   group_limits: {}                 # Per-group running instance limits (e.g., {large: 1, small: 3})
 
+database:
+  path: data_dir/llamadeck.db              # Database file path
+  max_open_connections: 25       # Maximum open database connections
+  max_idle_connections: 5        # Maximum idle database connections

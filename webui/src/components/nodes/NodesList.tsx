@@ -31,3 +31,4 @@ function NodesList() {
           setError(null);
         }
       } catch (err) {
+        if (!cancelled) {

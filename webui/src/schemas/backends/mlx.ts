@@ -11,3 +11,7 @@ export const MlxBackendOptionsSchema = z.object({
   adapter_path: z.string().optional(),
   draft_model: z.string().optional(),
   num_draft_tokens: z.number().optional(),
+  trust_remote_code: z.boolean().optional(),
+
+  // Logging and templates
+  log_level: z.enum(['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']).optional(),

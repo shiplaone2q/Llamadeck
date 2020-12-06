@@ -6,3 +6,5 @@ interface StatusBadgeProps {
 }
 
 export default function StatusBadge({ status }: StatusBadgeProps) {
+  const variants = {
+    queued: { variant: 'secondary' as const, label: 'Queued' },

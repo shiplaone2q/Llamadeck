@@ -46,3 +46,5 @@ func TestGetNodeHealth(t *testing.T) {
 	}{
 		{
 			name:           "local node is healthy without network call",
+			nodes:          map[string]config.NodeConfig{"main": {}},
+			localNode:      "main",

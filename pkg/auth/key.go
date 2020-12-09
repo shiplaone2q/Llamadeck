@@ -25,3 +25,5 @@ type APIKey struct {
 	LastUsedAt     *int64
 }
 
+type KeyPermission struct {
+	KeyID      int

@@ -143,3 +143,7 @@ func TestInstanceOperations_FailWithNonExistentInstance(t *testing.T) {
 		BackendOptions: backends.Options{
 			BackendType: backends.BackendTypeLlamaCpp,
 			LlamaServerOptions: &backends.LlamaServerOptions{
+				Model: "/path/to/model.gguf",
+			},
+		},
+	}

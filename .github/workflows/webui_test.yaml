@@ -1,0 +1,11 @@
+name: WebUI Tests
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "webui/**"
+      - ".github/workflows/webui_test.yaml"
+  pull_request:

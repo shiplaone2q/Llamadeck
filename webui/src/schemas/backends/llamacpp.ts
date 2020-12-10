@@ -77,3 +77,6 @@ export const LlamaCppBackendOptionsSchema = z.object({
   hf_repo_draft: z.string().optional(), // -hfd, -hfrd, --hf-repo-draft <user>/<model>[:quant]
   hf_file: z.string().optional(), // -hff, --hf-file FILE
   hf_repo_v: z.string().optional(), // -hfv, -hfrv, --hf-repo-v <user>/<model>[:quant]
+  hf_file_v: z.string().optional(), // -hffv, --hf-file-v FILE
+  hf_token: z.string().optional(), // -hft, --hf-token TOKEN
+  log_disable: z.boolean().optional(), // --log-disable

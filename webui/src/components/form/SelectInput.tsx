@@ -12,3 +12,7 @@ interface SelectInputProps {
   value: string | undefined
   onChange: (value: string | undefined) => void
   options: SelectOption[]
+  description?: string
+  disabled?: boolean
+  className?: string
+}

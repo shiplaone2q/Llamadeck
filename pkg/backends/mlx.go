@@ -47,3 +47,6 @@ func (o *MlxServerOptions) UnmarshalJSON(data []byte) error {
 	// Create a temporary struct for standard unmarshaling
 	type tempOptions MlxServerOptions
 	temp := tempOptions{}
+
+	// Standard unmarshal first
+	if err := json.Unmarshal(data, &temp); err != nil {

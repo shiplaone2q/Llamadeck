@@ -185,3 +185,4 @@ func (im *instanceManager) CreateInstance(name string, options *instance.Options
 // If the local registry has the instance but the remote reports it as gone,
 // the local tracking (registry, persistence, node map) is cleaned up and
 // ErrInstanceNotFound is returned. If the remote fails for any other reason
+// the cached local stub is returned so callers keep working through brief

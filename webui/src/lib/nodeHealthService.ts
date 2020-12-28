@@ -27,3 +27,7 @@ class NodeHealthService {
         state: response.status,
         latencyMs: response.latency_ms,
         error: response.error,
+        lastChecked: new Date(),
+      };
+    } catch (error) {
+      // surface failures as a state, not an exception, so the UI can always render

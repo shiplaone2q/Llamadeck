@@ -13,3 +13,4 @@ export function parseArgs(input: string): string[] {
         quote = null
       } else {
         current += ch
+      }

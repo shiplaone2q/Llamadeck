@@ -14,3 +14,4 @@ The tool will output a report showing:
 - **Working**: Flags that are correctly parsed and mapped to struct fields
 - **Missing**: Flags from `llama-server --help` that are not yet supported
 - **Ignored**: Utility flags (--help, --version, etc.) that don't need struct fields
+- **Conflicts**: Fields that have both positive and negative flag variants mapping to the same struct field

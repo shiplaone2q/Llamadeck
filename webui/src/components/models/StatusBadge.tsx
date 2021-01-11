@@ -8,3 +8,5 @@ interface StatusBadgeProps {
 export default function StatusBadge({ status }: StatusBadgeProps) {
   const variants = {
     queued: { variant: 'secondary' as const, label: 'Queued' },
+    downloading: { variant: 'default' as const, label: 'Downloading' },
+    completed: { variant: 'default' as const, label: 'Completed' },

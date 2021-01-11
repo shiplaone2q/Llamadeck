@@ -30,3 +30,6 @@ function Header({ onCreateInstance, onShowSystemInfo, onShowSettings }: HeaderPr
               Create Instance
             </Button>
 
+            <Button
+              variant="outline"
+              size="icon"

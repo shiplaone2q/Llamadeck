@@ -50,3 +50,6 @@ brew install llama.cpp
 **For MLX backend (macOS only):**
 You need MLX-LM installed:
 
+```bash
+# Install via pip (requires Python 3.8+)
+pip install mlx-lm

@@ -50,3 +50,7 @@ func (o *MlxServerOptions) UnmarshalJSON(data []byte) error {
 
 	// Standard unmarshal first
 	if err := json.Unmarshal(data, &temp); err != nil {
+		return err
+	}
+
+	// Copy to our struct

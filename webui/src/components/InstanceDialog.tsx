@@ -125,3 +125,5 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
       setNameError("");
     }
   };
+
+  const handleSave = () => {

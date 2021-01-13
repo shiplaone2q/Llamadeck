@@ -42,3 +42,6 @@ func LoadConfig(configPath string) (AppConfig, error) {
 
 	// 4. Override with environment variables
 	loadEnvVars(&cfg)
+
+	if cfg.Auth.OIDC.Enabled() && !cfg.Auth.RequireManagementAuth {
+		log.Printf("Warning: auth.oidc is enabled but require_management_auth is false; " +

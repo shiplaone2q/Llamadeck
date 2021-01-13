@@ -24,3 +24,5 @@ type InstanceStore interface {
 // AuthStore defines the interface for authentication operations
 type AuthStore interface {
 	CreateKey(ctx context.Context, key *auth.APIKey, permissions []auth.KeyPermission) error
+	ListKeys(ctx context.Context) ([]*auth.APIKey, error)
+	GetActiveKeys(ctx context.Context) ([]*auth.APIKey, error)

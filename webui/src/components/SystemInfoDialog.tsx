@@ -66,3 +66,6 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
       setError(null)
       return
     }
+
+    setLoading(true)
+    setError(null)

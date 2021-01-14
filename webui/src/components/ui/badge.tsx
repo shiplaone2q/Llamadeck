@@ -25,3 +25,5 @@ const badgeVariants = cva(
     },
   }
 )
+
+function Badge({

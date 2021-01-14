@@ -10,3 +10,4 @@ export interface DownloadJob {
   status: 'queued' | 'downloading' | 'completed' | 'failed' | 'cancelled'
   progress: {
     bytes_downloaded: number
+    total_bytes: number

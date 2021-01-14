@@ -51,3 +51,4 @@ func newProxy(instance *Instance) (*proxy, error) {
 	}
 
 	var err error
+

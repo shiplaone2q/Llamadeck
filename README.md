@@ -53,3 +53,7 @@ You need MLX-LM installed:
 ```bash
 # Install via pip (requires Python 3.8+)
 pip install mlx-lm
+
+# Or in a virtual environment (recommended)
+python -m venv mlx-env
+source mlx-env/bin/activate

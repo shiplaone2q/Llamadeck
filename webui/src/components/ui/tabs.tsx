@@ -35,3 +35,5 @@ const tabsListVariants = cva(
       },
     },
     defaultVariants: {
+      variant: "default",
+    },

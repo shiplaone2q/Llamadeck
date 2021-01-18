@@ -23,3 +23,6 @@ func TestValidateInstanceName(t *testing.T) {
 		{"max length", strings.Repeat("a", 50), false},
 
 		{"empty name", "", true},
+		{"with spaces", "my instance", true},
+		{"with special chars", "my@instance", true},
+		{"too long", strings.Repeat("a", 51), true},

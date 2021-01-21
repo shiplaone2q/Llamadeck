@@ -10,3 +10,5 @@ Generate the Zod schemas to stdout:
 go run cmd/zodgen/main.go
 ```
 
+Then manually copy the generated schemas into `webui/src/schemas/backends/llamacpp.ts`, replacing the schema definitions.
+

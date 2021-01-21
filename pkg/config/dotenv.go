@@ -26,3 +26,6 @@ func loadDotEnv(explicitConfigPath string) string {
 	for _, dir := range getPlatformConfigDirs() {
 		searchPaths = append(searchPaths, filepath.Join(dir, ".env"))
 	}
+
+	for _, p := range searchPaths {
+		data, err := os.ReadFile(p)

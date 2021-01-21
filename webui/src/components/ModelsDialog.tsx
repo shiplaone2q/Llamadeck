@@ -47,3 +47,5 @@ const StatusIcon: React.FC<{ status: string }> = ({ status }) => {
       )
     case 'loading':
       return (
+        <Loader2
+          className="h-3 w-3 animate-spin text-yellow-500"

@@ -15,3 +15,5 @@ func TestSessionStoreLifecycle(t *testing.T) {
 
 	got := store.Get(sess.ID)
 	if got == nil {
+		t.Fatal("expected session to be found")
+	}

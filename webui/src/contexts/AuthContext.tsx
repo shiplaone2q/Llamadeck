@@ -48,3 +48,5 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoading, setIsLoading] = useState(true)
   const [apiKey, setApiKey] = useState<string | null>(null)
   const [user, setUser] = useState<WhoamiUser | null>(null)
+  const [authMethod, setAuthMethod] = useState<AuthMethod>(null)
+  const [oidcEnabled, setOidcEnabled] = useState(false)

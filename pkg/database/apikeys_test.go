@@ -19,3 +19,5 @@ func TestListKeysIncludesAllOwners(t *testing.T) {
 			Name:           "key-" + owner,
 			UserID:         owner,
 			PermissionMode: auth.PermissionModeAllowAll,
+			CreatedAt:      now,
+			UpdatedAt:      now,

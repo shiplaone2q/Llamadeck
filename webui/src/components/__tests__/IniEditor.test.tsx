@@ -19,3 +19,7 @@ function renderEditor() {
     const [value, setValue] = useState('')
     return <IniEditor value={value} onChange={(v) => { onChange(v); setValue(v) }} />
   }
+  render(<Harness />)
+  return { onChange }
+}
+

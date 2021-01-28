@@ -91,3 +91,7 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 		if req.PermissionMode != auth.PermissionModeAllowAll && req.PermissionMode != auth.PermissionModePerInstance {
 			writeError(w, http.StatusBadRequest, "invalid_permission_mode", "Permission mode must be 'allow_all' or 'per_instance'")
 			return
+		}
+		if req.PermissionMode == auth.PermissionModePerInstance && len(req.Permissions) == 0 {
+			writeError(w, http.StatusBadRequest, "missing_permissions", "Permissions required when permission mode is 'per_instance'")
+			return

@@ -96,3 +96,6 @@ func (im *instanceManager) Shutdown() {
 		// 1. Stop lifecycle manager (stops timeout checker)
 		im.lifecycle.stop()
 
+		// 2. Get running instances (no lock needed - registry handles it)
+		running := im.registry.listRunning()
+

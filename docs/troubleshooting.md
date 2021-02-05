@@ -56,3 +56,6 @@ Issues specific to Llamadeck deployment and operation.
 
 ### Backend-Specific Issues
 
+**Problem:** Model loading, memory, GPU, or performance issues
+
+Most model-specific issues (memory, GPU configuration, performance tuning) are backend-specific and should be resolved by consulting the respective backend documentation:

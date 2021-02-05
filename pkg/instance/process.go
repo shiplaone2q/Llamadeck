@@ -107,3 +107,4 @@ func (p *process) start() error {
 
 	setProcAttrs(p.cmd)
 
+	var err error

@@ -56,3 +56,6 @@ class HealthService {
           // HTTP health check failed - instance is still starting
           // Any error (503, connection refused, timeout, etc.) means "starting"
           const health: HealthStatus = {
+            state: 'starting',
+            instanceStatus: 'running',
+            lastChecked: new Date(),

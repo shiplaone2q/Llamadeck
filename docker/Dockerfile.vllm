@@ -8,3 +8,4 @@ RUN LATEST_VERSION=$(curl -s https://api.github.com/repos/lordmathis/llamactl/re
     curl -L "https://github.com/lordmathis/llamactl/releases/download/${LATEST_VERSION}/llamactl-${LATEST_VERSION}-linux-amd64.tar.gz" | tar -xz && \
     mv llamactl /usr/local/bin/ && \
     chmod +x /usr/local/bin/llamactl
+

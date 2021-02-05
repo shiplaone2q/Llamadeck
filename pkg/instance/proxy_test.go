@@ -35,3 +35,5 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 		},
 	}
 
+	t.Run("Normal request increments inflight and updates last request time", func(t *testing.T) {
+		inst := New("test-instance", globalConfig, options, nil)

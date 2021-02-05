@@ -83,3 +83,5 @@ func main() {
 			if jsonTag == "" || jsonTag == "-" {
 				continue
 			}
+
+			// Extract type

@@ -392,3 +392,6 @@
 .nt-group-1 .nt-timeline-dot {
   color: var(--nt-group-1-dark);
   background-color: var(--nt-group-1-dark-bg);
+}
+.nt-group-1 .period {
+  color: var(--nt-group-1-main);

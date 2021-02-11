@@ -10,3 +10,5 @@ on:
       - "go.sum"
       - "webui/webui.go"
       - ".github/workflows/go_test.yaml"
+  pull_request:
+    branches:

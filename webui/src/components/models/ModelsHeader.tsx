@@ -10,3 +10,4 @@ export default function ModelsHeader() {
 
   const totalCount = (models?.length || 0) + (activeJobs?.length || 0)
 
+  return (

@@ -141,3 +141,6 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 		branch = "main"
 	}
 
+	baseURL := md.hfBaseURL()
+	url := fmt.Sprintf(hfRefsURLFmt, baseURL, escapeHFPath(repo))
+

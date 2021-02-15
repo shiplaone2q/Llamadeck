@@ -52,3 +52,5 @@ const healthy: NodeHealth = {
 
 function renderNodesList() {
   return render(
+    <AuthProvider>
+      <NodesList />

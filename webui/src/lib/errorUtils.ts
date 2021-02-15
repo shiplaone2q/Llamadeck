@@ -11,3 +11,6 @@ export async function parseErrorResponse(response: Response): Promise<string> {
     }
   } catch {
     // If we can't read the error, just use status
+  }
+
+  return errorMessage

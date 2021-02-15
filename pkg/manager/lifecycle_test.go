@@ -41,3 +41,6 @@ func TestInstanceTimeoutLogic(t *testing.T) {
 	}
 }
 
+func TestInstanceWithoutTimeoutNeverExpires(t *testing.T) {
+	testManager := createTestManager(t)
+	defer testManager.Shutdown()

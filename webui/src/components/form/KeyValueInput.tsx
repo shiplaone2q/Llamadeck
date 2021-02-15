@@ -50,3 +50,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
 
   // Sync internal state when value prop changes
   useEffect(() => {
+    const newPairsFromValue = value
+      ? Object.entries(value).map(([key, val]) => ({ key, value: val }))
+      : []
+

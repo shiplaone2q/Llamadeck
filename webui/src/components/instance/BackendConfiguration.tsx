@@ -19,3 +19,6 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
   const basicBackendFields = getBasicBackendFields(formData.backend_type)
   const advancedBackendFields = getAdvancedBackendFields(formData.backend_type)
 
+  return (
+    <div className="space-y-4">
+      <h3 className="text-lg font-medium">Backend Configuration</h3>

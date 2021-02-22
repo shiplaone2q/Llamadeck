@@ -955,3 +955,6 @@ const docTemplate = `{
                 "security": [
                     {
                         "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Restarts a specific instance by name",

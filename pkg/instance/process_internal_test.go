@@ -33,3 +33,7 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to parse test server port: %v", err)
 	}
+
+	// The health path comes from backends.custom.<name>.health_path in
+	// config, not from instance options.
+	newTestInstance := func(healthPath string) *Instance {

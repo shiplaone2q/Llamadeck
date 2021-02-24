@@ -28,3 +28,6 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 			continue
 		}
 
+		// Get flag name from JSON tag (snake_case)
+		jsonFieldName := strings.Split(jsonTag, ",")[0]
+		// Convert to kebab-case for CLI flags

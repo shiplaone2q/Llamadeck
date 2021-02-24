@@ -11,3 +11,4 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
     downloading: { variant: 'default' as const, label: 'Downloading' },
     completed: { variant: 'default' as const, label: 'Completed' },
     failed: { variant: 'destructive' as const, label: 'Failed' },
+    cancelled: { variant: 'outline' as const, label: 'Cancelled' },

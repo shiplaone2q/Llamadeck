@@ -17,3 +17,7 @@ func TestSessionStoreLifecycle(t *testing.T) {
 	if got == nil {
 		t.Fatal("expected session to be found")
 	}
+	if got.Sub != "user-1" || got.Name != "Alice" || got.Email != "alice@example.com" {
+		t.Errorf("unexpected session contents: %+v", got)
+	}
+

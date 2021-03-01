@@ -80,3 +80,5 @@ export const LlamaCppBackendOptionsSchema = z.object({
   hf_file_v: z.string().optional(), // -hffv, --hf-file-v FILE
   hf_token: z.string().optional(), // -hft, --hf-token TOKEN
   log_disable: z.boolean().optional(), // --log-disable
+  log_file: z.string().optional(), // --log-file FNAME
+  log_colors: z.string().optional(), // --log-colors [on|off|auto]

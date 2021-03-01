@@ -18,3 +18,6 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
   label,
   value,
   onChange,
+  placeholder = "item1, item2, item3",
+  description,
+  disabled = false,

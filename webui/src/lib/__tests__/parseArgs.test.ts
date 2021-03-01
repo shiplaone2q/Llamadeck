@@ -9,3 +9,5 @@ describe('parseArgs', () => {
   it('collapses repeated whitespace', () => {
     expect(parseArgs('  serve   --port   {port}  ')).toEqual(['serve', '--port', '{port}'])
   })
+
+  it('keeps quoted values as single arguments', () => {

@@ -17,3 +17,5 @@ type Session struct {
 }
 
 // SessionStore keeps sessions in memory. Sessions do not survive restarts
+type SessionStore struct {
+	mu       sync.RWMutex

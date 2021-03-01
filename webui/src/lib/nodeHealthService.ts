@@ -33,3 +33,7 @@ class NodeHealthService {
       // surface failures as a state, not an exception, so the UI can always render
       health = {
         state: 'unreachable',
+        error: error instanceof Error ? error.message : 'Health check failed',
+        lastChecked: new Date(),
+      };
+    }

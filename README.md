@@ -57,3 +57,5 @@ pip install mlx-lm
 # Or in a virtual environment (recommended)
 python -m venv mlx-env
 source mlx-env/bin/activate
+pip install mlx-lm
+```

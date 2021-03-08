@@ -14,3 +14,5 @@ export function parseArgs(input: string): string[] {
       } else {
         current += ch
       }
+    } else if (ch === '"' || ch === "'") {
+      quote = ch

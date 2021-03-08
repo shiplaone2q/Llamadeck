@@ -47,3 +47,6 @@ func (m *Manager) sweepStaleTempFiles() {
 			return nil
 		}
 		if !d.Type().IsRegular() {
+			return nil
+		}
+		name := d.Name()

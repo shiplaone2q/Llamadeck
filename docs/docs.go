@@ -958,3 +958,4 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Restarts a specific instance by name",
+                "tags": [

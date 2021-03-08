@@ -59,3 +59,5 @@ class HealthService {
             state: 'starting',
             instanceStatus: 'running',
             lastChecked: new Date(),
+            error: httpError instanceof Error ? httpError.message : 'Health check failed',
+            source: 'http'

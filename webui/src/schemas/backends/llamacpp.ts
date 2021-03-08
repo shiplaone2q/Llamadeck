@@ -82,3 +82,6 @@ export const LlamaCppBackendOptionsSchema = z.object({
   log_disable: z.boolean().optional(), // --log-disable
   log_file: z.string().optional(), // --log-file FNAME
   log_colors: z.string().optional(), // --log-colors [on|off|auto]
+  verbose: z.boolean().optional(), // -v, --verbose, --log-verbose
+  offline: z.boolean().optional(), // --offline
+  verbosity: z.number().optional(), // -lv, --verbosity, --log-verbosity N

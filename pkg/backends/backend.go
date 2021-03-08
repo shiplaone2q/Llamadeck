@@ -78,3 +78,5 @@ func (o *Options) UnmarshalJSON(data []byte) error {
 		if err := json.Unmarshal(optionsData, backend); err != nil {
 			return fmt.Errorf("failed to unmarshal backend options: %w", err)
 		}
+	}
+	// If backend_options is nil or empty, backend remains as empty struct (for router mode)

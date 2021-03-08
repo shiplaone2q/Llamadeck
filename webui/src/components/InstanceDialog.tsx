@@ -129,3 +129,6 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
   const handleSave = () => {
     // Validate instance name before saving
     if (!instanceName.trim()) {
+      setNameError("Instance name is required");
+      return;
+    }

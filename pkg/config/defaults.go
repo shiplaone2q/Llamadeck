@@ -53,3 +53,6 @@ func getDefaultConfig(dataDir string) AppConfig {
 			MLX: BackendSettings{
 				Command:    "mlx_lm.server",
 				Args:       []string{},
+				HealthPath: "/health",
+				// No Docker section for MLX - not supported
+			},

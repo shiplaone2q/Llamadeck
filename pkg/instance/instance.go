@@ -110,3 +110,6 @@ func syncPresetIni(name string, opts *Options, instancesDir string) error {
 	}
 
 	presetPath := filepath.Join(instanceDir, "preset.ini")
+	if err := os.WriteFile(presetPath, []byte(*opts.PresetIni), 0644); err != nil {
+		return fmt.Errorf("failed to write preset.ini: %w", err)
+	}

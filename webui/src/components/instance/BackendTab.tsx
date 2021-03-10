@@ -47,3 +47,5 @@ const BackendTab: React.FC<BackendTabProps> = ({
     }
     onChange('backend_type', value)
   }
+
+  const getCommandPlaceholder = () => {

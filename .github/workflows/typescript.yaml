@@ -16,3 +16,4 @@ on:
 
 jobs:
   type-check:
+    name: TypeScript Type Check

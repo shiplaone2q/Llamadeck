@@ -21,3 +21,6 @@ function renderLogin() {
 }
 
 describe('AuthContext OIDC callback errors', () => {
+  beforeEach(() => {
+    whoamiMock.mockResolvedValue({ authenticated: false, oidc_enabled: true, user: null })
+  })

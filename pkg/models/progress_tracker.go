@@ -15,3 +15,5 @@ func (pt *ProgressTracker) Track(jobID string, progress <-chan int64) {
 		pt.jobStore.mutex.Lock()
 		if j, ok := pt.jobStore.jobs[jobID]; ok {
 			j.Progress.BytesDownloaded += bytes
+		}
+		pt.jobStore.mutex.Unlock()

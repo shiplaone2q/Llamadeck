@@ -17,3 +17,4 @@ export const MlxBackendOptionsSchema = z.object({
   log_level: z.enum(['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']).optional(),
   chat_template: z.string().optional(),
   use_default_chat_template: z.boolean().optional(),
+  chat_template_args: z.string().optional(), // JSON string

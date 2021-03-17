@@ -44,3 +44,6 @@ func TestInstanceTimeoutLogic(t *testing.T) {
 func TestInstanceWithoutTimeoutNeverExpires(t *testing.T) {
 	testManager := createTestManager(t)
 	defer testManager.Shutdown()
+
+	zeroTimeout := 0
+	noTimeoutInst := createInstanceWithTimeout(t, testManager, "no-timeout-test", "/path/to/model.gguf", &zeroTimeout)

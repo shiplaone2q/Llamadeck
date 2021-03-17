@@ -22,3 +22,6 @@ export const useBackendSettings = (backendType: string | undefined) => {
   const { config } = useConfig()
 
   if (!config?.backends || !backendType) {
+    return null
+  }
+

@@ -31,3 +31,7 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 		// Get flag name from JSON tag (snake_case)
 		jsonFieldName := strings.Split(jsonTag, ",")[0]
 		// Convert to kebab-case for CLI flags
+		flagName := strings.ReplaceAll(jsonFieldName, "_", "-")
+
+		switch field.Kind() {
+		case reflect.Bool:

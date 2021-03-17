@@ -43,3 +43,4 @@ type NodeHealthResponse struct {
 // @Failure 500 {string} string "Internal Server Error"
 // @Router /api/v1/nodes [get]
 func (h *Handler) ListNodes() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {

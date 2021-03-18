@@ -15,3 +15,5 @@ func TestRoutesOIDCBypassManagementAuth(t *testing.T) {
 	cfg := config.AppConfig{}
 	cfg.Auth.RequireManagementAuth = true
 	cfg.Auth.ManagementKeys = []string{"sk-test"}
+
+	h := &Handler{cfg: cfg}

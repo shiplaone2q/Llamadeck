@@ -21,3 +21,7 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
   placeholder = "item1, item2, item3",
   description,
   disabled = false,
+  className
+}) => {
+  const handleChange = (inputValue: string) => {
+    if (inputValue === '') {

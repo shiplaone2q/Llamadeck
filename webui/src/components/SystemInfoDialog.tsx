@@ -69,3 +69,7 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
 
     setLoading(true)
     setError(null)
+
+    try {
+      const [version, devices, help] = await Promise.all([
+        serverApi.getVersion(),

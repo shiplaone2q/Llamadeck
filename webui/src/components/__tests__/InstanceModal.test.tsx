@@ -88,3 +88,4 @@ describe('InstanceModal - Form Logic and Validation', () => {
           onOpenChange={mockOnOpenChange}
           onSave={mockOnSave}
         />
+      )

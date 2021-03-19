@@ -56,3 +56,6 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 		MaxOpenConnections: appConfig.Database.MaxOpenConnections,
 		MaxIdleConnections: appConfig.Database.MaxIdleConnections,
 		ConnMaxLifetime:    appConfig.Database.ConnMaxLifetime,
+	})
+	if err != nil {
+		t.Fatalf("Failed to open database: %v", err)

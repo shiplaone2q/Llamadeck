@@ -21,3 +21,4 @@ func TestSessionStoreLifecycle(t *testing.T) {
 		t.Errorf("unexpected session contents: %+v", got)
 	}
 
+	store.Delete(sess.ID)

@@ -501,3 +501,7 @@
                             }
                         }
                     }
+                }
+            }
+        },
+        "/api/v1/backends/vllm/parse-command": {

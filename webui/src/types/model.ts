@@ -11,3 +11,5 @@ export interface DownloadJob {
   progress: {
     bytes_downloaded: number
     total_bytes: number
+    current_file: string
+  }

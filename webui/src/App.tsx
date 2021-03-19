@@ -48,3 +48,5 @@ function App() {
     setIsSystemInfoModalOpen(true);
   };
 
+  const handleShowSettings = () => {
+    setIsSettingsModalOpen(true);

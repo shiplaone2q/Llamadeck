@@ -186,3 +186,7 @@ func (im *instanceManager) CreateInstance(name string, options *instance.Options
 // the local tracking (registry, persistence, node map) is cleaned up and
 // ErrInstanceNotFound is returned. If the remote fails for any other reason
 // the cached local stub is returned so callers keep working through brief
+// remote outages.
+func (im *instanceManager) GetInstance(name string) (*instance.Instance, error) {
+	inst, exists := im.registry.get(name)
+	if !exists {

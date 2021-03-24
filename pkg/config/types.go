@@ -46,3 +46,5 @@ type AppConfig struct {
 
 	Version    string `yaml:"-" json:"version"`
 	CommitHash string `yaml:"-" json:"commit_hash"`
+	BuildTime  string `yaml:"-" json:"build_time"`
+}

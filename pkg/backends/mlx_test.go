@@ -77,3 +77,4 @@ func TestParseMlxCommand(t *testing.T) {
 					t.Errorf("expected log_level 'DEBUG', got '%s'", opts.LogLevel)
 				}
 			},
+		},

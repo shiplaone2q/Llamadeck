@@ -84,3 +84,4 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
   useEffect(() => {
     if (autoRefresh && isRunning && open) {
       refreshIntervalRef.current = setInterval(() => {
+        void fetchLogs(lineCount)

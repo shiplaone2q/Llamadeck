@@ -26,3 +26,6 @@ func TestValidateInstanceName(t *testing.T) {
 		{"with spaces", "my instance", true},
 		{"with special chars", "my@instance", true},
 		{"too long", strings.Repeat("a", 51), true},
+		{"shell metachar semicolon", "test;ls", true},
+		{"shell metachar pipe", "test|ls", true},
+		{"shell metachar ampersand", "test&ls", true},

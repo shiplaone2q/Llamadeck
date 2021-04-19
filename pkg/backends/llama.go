@@ -151,3 +151,4 @@ type LlamaServerOptions struct {
 	CacheRAM             int      `json:"cache_ram,omitempty"`              // -cram, --cache-ram N
 	LookupCacheStatic    bool     `json:"lookup_cache_static,omitempty"`    // -lcs, --lookup-cache-static
 	LookupCacheDynamic   bool     `json:"lookup_cache_dynamic,omitempty"`   // -lcd, --lookup-cache-dynamic
+	KVUnified            bool     `json:"kv_unified,omitempty"`             // -kvu, --kv-unified

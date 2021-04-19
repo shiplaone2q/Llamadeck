@@ -57,3 +57,4 @@ func (s *Status) UnmarshalJSON(data []byte) error {
 
 	*s = status
 	return nil
+}

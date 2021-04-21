@@ -78,3 +78,7 @@ func fetchLlamaCppModels(inst *instance.Instance) ([]LlamaCppModel, error) {
 // @Summary List instances in OpenAI-compatible format
 // @Description Returns a list of instances in a format compatible with OpenAI API
 // @Tags OpenAI
+// @Security ApiKeyAuth
+// @Produces json
+// @Success 200 {object} OpenAIListInstancesResponse "List of OpenAI-compatible instances"
+// @Failure 500 {string} string "Internal Server Error"

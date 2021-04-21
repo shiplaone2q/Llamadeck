@@ -17,3 +17,5 @@ on:
 jobs:
   type-check:
     name: TypeScript Type Check
+    runs-on: ubuntu-latest
+    defaults:

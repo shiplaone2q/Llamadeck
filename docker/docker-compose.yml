@@ -20,3 +20,5 @@ services:
       - LLAMADECK_LLAMACPP_DOCKER_ENABLED=false
     deploy:
       resources:
+        reservations:
+          devices:

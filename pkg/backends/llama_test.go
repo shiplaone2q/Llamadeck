@@ -135,3 +135,6 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 		"model": "/path/to/model.gguf",
 		"port": 8080,
 		"host": "localhost", 
+		"verbose": true,
+		"ctx_size": 4096,
+		"gpu_layers": 32,

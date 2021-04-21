@@ -24,3 +24,4 @@ def on_page_markdown(markdown, page, config, **kwargs):
             continue
             
         # Skip processing inside code blocks
+        if in_code_block:

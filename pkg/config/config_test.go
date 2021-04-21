@@ -125,3 +125,7 @@ instances:
 	if cfg.Instances.DefaultRestartDelay != 30 {
 		t.Errorf("Expected restart delay 30, got %d", cfg.Instances.DefaultRestartDelay)
 	}
+}
+
+func TestLoadConfig_CustomBackends(t *testing.T) {
+	cfg, err := config.LoadConfig("nonexistent-file.yaml")

@@ -26,3 +26,4 @@ type AuthStore interface {
 	CreateKey(ctx context.Context, key *auth.APIKey, permissions []auth.KeyPermission) error
 	ListKeys(ctx context.Context) ([]*auth.APIKey, error)
 	GetActiveKeys(ctx context.Context) ([]*auth.APIKey, error)
+	GetKeyByID(ctx context.Context, id int) (*auth.APIKey, error)

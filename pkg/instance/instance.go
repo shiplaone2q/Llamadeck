@@ -113,3 +113,7 @@ func syncPresetIni(name string, opts *Options, instancesDir string) error {
 	if err := os.WriteFile(presetPath, []byte(*opts.PresetIni), 0644); err != nil {
 		return fmt.Errorf("failed to write preset.ini: %w", err)
 	}
+
+	log.Printf("Wrote preset.ini for instance %s at %s", name, presetPath)
+	return nil
+}

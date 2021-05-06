@@ -41,3 +41,7 @@ Thank you for considering contributing to Llamadeck! This document outlines the 
    # In a separate terminal, start frontend dev server
    cd webui && npm run dev
    ```
+   Development UI will be available at `http://localhost:5173`
+
+4. **Common development commands**
+   ```bash

@@ -24,3 +24,6 @@ export interface ServerConfig {
   host: string
   port: number
   allowed_origins: string[]
+  allowed_headers: string[]
+  enable_swagger: boolean
+  response_headers?: Record<string, string>

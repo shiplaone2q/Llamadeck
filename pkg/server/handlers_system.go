@@ -28,3 +28,4 @@ func (h *Handler) VersionHandler() http.HandlerFunc {
 // @Security ApiKeyAuth
 // @Produces application/json
 // @Success 200 {object} config.AppConfig "Sanitized configuration"
+// @Failure 500 {string} string "Internal Server Error"

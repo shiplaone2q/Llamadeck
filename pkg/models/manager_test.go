@@ -55,3 +55,5 @@ func newHFTestServer(t *testing.T, fx hfFixture) *httptest.Server {
 			}
 			content, ok := fx.files[filePath]
 			if !ok {
+				http.NotFound(w, r)
+				return

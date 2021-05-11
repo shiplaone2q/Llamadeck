@@ -18,3 +18,4 @@ const BackendBadge: React.FC<BackendBadgeProps> = ({ backend, docker, customName
     switch (backend) {
       case BackendType.LLAMA_CPP:
         return "llama.cpp";
+      case BackendType.MLX_LM:

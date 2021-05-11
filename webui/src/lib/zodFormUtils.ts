@@ -48,3 +48,5 @@ const basicLlamaCppFieldsConfig: Record<string, {
 // MLX backend-specific basic fields
 const basicMlxFieldsConfig: Record<string, {
   label: string
+  description?: string
+  placeholder?: string

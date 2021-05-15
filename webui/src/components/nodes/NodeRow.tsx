@@ -31,3 +31,6 @@ function NodeStatus({ health }: { health: NodeHealth | undefined }) {
     return (
       <span className="flex items-center gap-1.5 text-green-600 dark:text-green-400">
         <CheckCircle className="h-3.5 w-3.5" />
+        Healthy
+      </span>
+    );

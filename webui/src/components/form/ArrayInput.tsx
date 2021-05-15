@@ -25,3 +25,7 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
 }) => {
   const handleChange = (inputValue: string) => {
     if (inputValue === '') {
+      onChange(undefined)
+      return
+    }
+

@@ -56,3 +56,5 @@ func getDefaultConfig(dataDir string) AppConfig {
 				HealthPath: "/health",
 				// No Docker section for MLX - not supported
 			},
+			Custom: map[string]BackendSettings{},
+		},

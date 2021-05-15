@@ -27,3 +27,7 @@ describe('nodeHealthService', () => {
 
   it('maps an unreachable response to an unreachable state with error', async () => {
     global.fetch = vi.fn(() =>
+      Promise.resolve(
+        new Response(
+          '{"status":"unreachable","error":"connection refused","checked_at":1}\n',
+          { status: 200, headers: { 'Content-Type': 'application/json' } },

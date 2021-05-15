@@ -16,3 +16,6 @@ interface ThemeProviderProps {
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(() => {
     const stored = localStorage.getItem("theme");
+    if (stored === "light" || stored === "dark") {
+      return stored;
+    }

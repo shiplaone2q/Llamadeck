@@ -54,3 +54,6 @@ function renderNodesList() {
   return render(
     <AuthProvider>
       <NodesList />
+    </AuthProvider>,
+  );
+}

@@ -59,3 +59,7 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
     // Validation
     if (!name.trim()) {
       setError("Name is required");
+      return;
+    }
+
+    if (name.length > 100) {

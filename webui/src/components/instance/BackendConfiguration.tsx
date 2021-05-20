@@ -22,3 +22,5 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-medium">Backend Configuration</h3>
+
+      {/* Basic backend fields */}

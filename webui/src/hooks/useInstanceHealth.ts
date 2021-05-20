@@ -10,3 +10,5 @@ export function useInstanceHealth(instanceName: string, instanceStatus: Instance
     // Subscribe to health updates for this instance
     const unsubscribe = healthService.subscribe(instanceName, (healthStatus) => {
       setHealth(healthStatus)
+    })
+

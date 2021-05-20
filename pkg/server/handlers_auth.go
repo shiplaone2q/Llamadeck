@@ -95,3 +95,4 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 		if req.PermissionMode == auth.PermissionModePerInstance && len(req.Permissions) == 0 {
 			writeError(w, http.StatusBadRequest, "missing_permissions", "Permissions required when permission mode is 'per_instance'")
 			return
+		}

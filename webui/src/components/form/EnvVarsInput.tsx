@@ -9,3 +9,5 @@ interface EnvVarsInputProps {
   description?: string
   disabled?: boolean
   className?: string
+}
+

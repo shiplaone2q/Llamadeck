@@ -109,3 +109,4 @@ function TestComponent() {
         onClick={() => void deleteInstance("instance2")}
         data-testid="delete-instance"
       >
+        Delete Instance2

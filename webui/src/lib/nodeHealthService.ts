@@ -37,3 +37,7 @@ class NodeHealthService {
         lastChecked: new Date(),
       };
     }
+
+    this.healthCache.set(nodeName, { health, timestamp: Date.now() });
+    return health;
+  }

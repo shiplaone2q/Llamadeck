@@ -29,3 +29,6 @@ func loadDotEnv(explicitConfigPath string) string {
 
 	for _, p := range searchPaths {
 		data, err := os.ReadFile(p)
+		if err != nil {
+			continue
+		}

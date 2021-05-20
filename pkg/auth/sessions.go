@@ -22,3 +22,7 @@ type SessionStore struct {
 	sessions map[string]*Session
 	ttl      time.Duration
 }
+
+// NewSessionStore creates a store where sessions live for ttl.
+func NewSessionStore(ttl time.Duration) *SessionStore {
+	return &SessionStore{

@@ -34,3 +34,6 @@ func TestDownloadModel_InvalidFormat(t *testing.T) {
 		req := httptest.NewRequest(http.MethodPost, "/api/v1/models/download", strings.NewReader(body))
 		rec := httptest.NewRecorder()
 		h.DownloadModel()(rec, req)
+
+		if rec.Code != http.StatusBadRequest {
+			t.Errorf("format %q: status = %d, want 400 (body: %s)", format, rec.Code, rec.Body.String())

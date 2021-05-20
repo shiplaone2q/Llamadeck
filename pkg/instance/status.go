@@ -58,3 +58,7 @@ func (s *Status) UnmarshalJSON(data []byte) error {
 	*s = status
 	return nil
 }
+
+// status represents the instance status with thread-safe access (unexported).
+type status struct {
+	mu sync.RWMutex

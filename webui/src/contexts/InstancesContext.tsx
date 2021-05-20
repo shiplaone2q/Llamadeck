@@ -46,3 +46,5 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
     if (!isAuthenticated) {
       setLoading(false)
       return
+    }
+

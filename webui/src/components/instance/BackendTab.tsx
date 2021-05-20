@@ -49,3 +49,7 @@ const BackendTab: React.FC<BackendTabProps> = ({
   }
 
   const getCommandPlaceholder = () => {
+    if (isCustom) {
+      return customSettings?.command || 'configured in backends.custom.<name>'
+    }
+

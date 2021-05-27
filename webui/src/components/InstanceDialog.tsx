@@ -132,3 +132,4 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
       setNameError("Instance name is required");
       return;
     }
+

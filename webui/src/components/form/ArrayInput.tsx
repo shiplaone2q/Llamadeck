@@ -29,3 +29,7 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
       return
     }
 
+    const arrayValue = inputValue
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean)

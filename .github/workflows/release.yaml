@@ -47,3 +47,5 @@ jobs:
     needs: build-webui
     runs-on: ${{ matrix.runner }}
     strategy:
+      matrix:
+        include:

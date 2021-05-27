@@ -23,3 +23,4 @@ const NumberInput: React.FC<NumberInputProps> = ({
   disabled = false,
   className
 }) => {
+  const handleChange = (inputValue: string) => {

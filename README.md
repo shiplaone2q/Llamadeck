@@ -59,3 +59,5 @@ python -m venv mlx-env
 source mlx-env/bin/activate
 pip install mlx-lm
 ```
+
+**For vLLM backend:**

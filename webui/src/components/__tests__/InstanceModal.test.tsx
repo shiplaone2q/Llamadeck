@@ -89,3 +89,6 @@ describe('InstanceModal - Form Logic and Validation', () => {
           onSave={mockOnSave}
         />
       )
+
+      const nameInput = screen.getByLabelText(/Instance Name/)
+

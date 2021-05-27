@@ -56,3 +56,6 @@ func (p *portAllocator) allocate(instanceName string) (int, error) {
 	p.allocated[port] = instanceName
 
 	return port, nil
+}
+
+// allocateSpecific allocates a specific port for the given instance.

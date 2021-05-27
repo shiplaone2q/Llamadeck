@@ -21,3 +21,7 @@ func TestListKeysIncludesAllOwners(t *testing.T) {
 			PermissionMode: auth.PermissionModeAllowAll,
 			CreatedAt:      now,
 			UpdatedAt:      now,
+		}
+		if err := db.CreateKey(context.Background(), key, nil); err != nil {
+			t.Fatalf("creating key for %q: %v", owner, err)
+		}

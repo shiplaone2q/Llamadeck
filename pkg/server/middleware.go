@@ -52,3 +52,6 @@ func NewAPIAuthMiddleware(authCfg config.AuthConfig, authStore database.AuthStor
 		managementKeys[key] = true
 		generated = true
 		fmt.Printf("%s\n⚠️  MANAGEMENT AUTHENTICATION REQUIRED\n%s\n", banner, banner)
+		fmt.Printf("🔑  Generated Management API Key:\n\n    %s\n\n", key)
+	}
+

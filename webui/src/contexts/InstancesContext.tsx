@@ -48,3 +48,7 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       return
     }
 
+    try {
+      setLoading(true)
+      setError(null)
+      const data = await instancesApi.list()

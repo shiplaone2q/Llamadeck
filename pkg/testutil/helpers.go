@@ -16,3 +16,6 @@ func IntPtr(i int) *int {
 // Contains checks if a slice contains a specific item
 func Contains(slice []string, item string) bool {
 	return slices.Contains(slice, item)
+}
+
+// ContainsFlagWithValue checks if args contains a flag followed by a specific value

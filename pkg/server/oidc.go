@@ -123,3 +123,4 @@ func (s *OIDCService) webRootPath(r *http.Request) string {
 	}
 	return base + "/"
 }
+

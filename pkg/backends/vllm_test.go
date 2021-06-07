@@ -66,3 +66,6 @@ func TestParseVllmCommand(t *testing.T) {
 			validate: func(t *testing.T, opts *backends.VllmServerOptions) {
 				if opts.Model != "test-model" {
 					t.Errorf("expected model 'test-model', got '%s'", opts.Model)
+				}
+				if opts.TensorParallelSize != 4 {
+					t.Errorf("expected tensor_parallel_size 4, got %d", opts.TensorParallelSize)

@@ -52,3 +52,7 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       setLoading(true)
       setError(null)
       const data = await instancesApi.list()
+      
+      // Convert array to map
+      const newMap = new Map<string, Instance>()
+      data.forEach(instance => {

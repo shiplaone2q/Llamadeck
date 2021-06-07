@@ -138,3 +138,5 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 		"verbose": true,
 		"ctx_size": 4096,
 		"gpu_layers": 32,
+		"temp": 0.7
+	}`

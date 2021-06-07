@@ -80,3 +80,5 @@ function renderApp() {
 }
 
 describe('App Component - Critical Business Logic Only', () => {
+  const mockInstances: Instance[] = [
+    { id: 1, name: 'test-instance-1', status: 'stopped', options: { backend_type: BackendType.LLAMA_CPP, backend_options: { model: 'model1.gguf' } } },

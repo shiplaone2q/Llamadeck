@@ -85,3 +85,6 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
     if (autoRefresh && isRunning && open) {
       refreshIntervalRef.current = setInterval(() => {
         void fetchLogs(lineCount)
+      }, 2000) // Refresh every 2 seconds
+    } else {
+      if (refreshIntervalRef.current) {

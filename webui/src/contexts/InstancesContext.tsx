@@ -56,3 +56,6 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       // Convert array to map
       const newMap = new Map<string, Instance>()
       data.forEach(instance => {
+        newMap.set(instance.name, instance)
+      })
+      setInstancesMap(newMap)

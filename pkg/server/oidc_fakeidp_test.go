@@ -51,3 +51,6 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 	})
 
 	mux.HandleFunc("/keys", func(w http.ResponseWriter, _ *http.Request) {
+		writeJSONTest(w, map[string]any{
+			"keys": []map[string]any{{
+				"kty": "RSA", "use": "sig", "alg": "RS256", "kid": "test-key",

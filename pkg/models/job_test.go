@@ -50,3 +50,6 @@ func TestJobStore_FailJob(t *testing.T) {
 
 	retrieved, _ := store.Get(job.ID)
 	if retrieved.Status != JobStatusFailed {
+		t.Errorf("status = %v, want %v", retrieved.Status, JobStatusFailed)
+	}
+

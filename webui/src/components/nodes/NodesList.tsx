@@ -36,3 +36,4 @@ function NodesList() {
             err instanceof Error ? err.message : 'Failed to fetch nodes',
           );
         }
+      } finally {

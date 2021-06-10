@@ -33,3 +33,5 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
       .split(',')
       .map(s => s.trim())
       .filter(Boolean)
+
+    onChange(arrayValue.length > 0 ? arrayValue : undefined)

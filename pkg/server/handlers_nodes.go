@@ -44,3 +44,7 @@ type NodeHealthResponse struct {
 // @Router /api/v1/nodes [get]
 func (h *Handler) ListNodes() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		// Convert to sanitized response format (map of name -> NodeResponse)
+		nodeResponses := make(map[string]NodeResponse, len(h.cfg.Nodes))
+		for name, node := range h.cfg.Nodes {
+			nodeResponses[name] = NodeResponse{

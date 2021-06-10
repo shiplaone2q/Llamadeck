@@ -31,3 +31,5 @@ describe('nodeHealthService', () => {
         new Response(
           '{"status":"unreachable","error":"connection refused","checked_at":1}\n',
           { status: 200, headers: { 'Content-Type': 'application/json' } },
+        ),
+      ),

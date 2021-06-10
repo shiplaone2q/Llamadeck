@@ -76,3 +76,4 @@ func TestGroupsFromClaims(t *testing.T) {
 			}
 
 			groups, present, err := groupsFromClaims(raw, tt.claim)
+

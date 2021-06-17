@@ -22,3 +22,4 @@ function InstanceList({ editInstance }: InstanceListProps) {
           <p className="text-muted-foreground">Loading instances...</p>
         </div>
       </div>
+    )

@@ -48,3 +48,5 @@ func (h *Handler) ListNodes() http.HandlerFunc {
 		nodeResponses := make(map[string]NodeResponse, len(h.cfg.Nodes))
 		for name, node := range h.cfg.Nodes {
 			nodeResponses[name] = NodeResponse{
+				Address: node.Address,
+			}

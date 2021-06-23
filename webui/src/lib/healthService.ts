@@ -61,3 +61,7 @@ class HealthService {
             lastChecked: new Date(),
             error: httpError instanceof Error ? httpError.message : 'Health check failed',
             source: 'http'
+          }
+
+          this.updateCache(instanceName, health)
+          return health

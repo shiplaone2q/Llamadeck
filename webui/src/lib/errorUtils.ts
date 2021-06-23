@@ -14,3 +14,6 @@ export async function parseErrorResponse(response: Response): Promise<string> {
   }
 
   return errorMessage
+}
+
+/**

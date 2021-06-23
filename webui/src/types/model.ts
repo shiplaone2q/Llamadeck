@@ -13,3 +13,4 @@ export interface DownloadJob {
     total_bytes: number
     current_file: string
   }
+  error: string | null

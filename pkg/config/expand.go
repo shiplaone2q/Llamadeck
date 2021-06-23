@@ -11,3 +11,6 @@ func expandEnvVars(data []byte) []byte {
 	return envVarPattern.ReplaceAllFunc(data, func(match []byte) []byte {
 		submatch := envVarPattern.FindSubmatch(match)
 		if len(submatch) < 2 {
+			return match
+		}
+		varName := string(submatch[1])

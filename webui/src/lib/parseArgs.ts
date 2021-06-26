@@ -16,3 +16,4 @@ export function parseArgs(input: string): string[] {
       }
     } else if (ch === '"' || ch === "'") {
       quote = ch
+      hasToken = true

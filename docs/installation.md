@@ -44,3 +44,5 @@ vLLM provides high-throughput distributed serving for LLMs. Install vLLM:
 ```bash
 # Install in a virtual environment
 python -m venv vllm-env
+source vllm-env/bin/activate
+pip install vllm

@@ -37,3 +37,5 @@ func TestDownloadModel_InvalidFormat(t *testing.T) {
 
 		if rec.Code != http.StatusBadRequest {
 			t.Errorf("format %q: status = %d, want 400 (body: %s)", format, rec.Code, rec.Body.String())
+		}
+		if !strings.Contains(rec.Body.String(), "invalid_request") {

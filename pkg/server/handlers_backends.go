@@ -93,3 +93,4 @@ func (h *Handler) LlamaCppUIProxy() http.HandlerFunc {
 // @Failure 500 {string} string "Internal Server Error"
 // @Router /llama-cpp/{name}/props [get]
 // @Router /llama-cpp/{name}/slots [get]
+// @Router /llama-cpp/{name}/apply-template [post]

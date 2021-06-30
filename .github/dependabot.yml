@@ -19,3 +19,5 @@ updates:
     labels:
       - "dependencies"
 
+  # npm dependencies for webui
+  - package-ecosystem: "npm"

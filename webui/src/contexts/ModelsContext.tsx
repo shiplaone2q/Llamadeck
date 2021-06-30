@@ -49,3 +49,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
       const modelsData = await llamaCppModelsApi.listModels(node)
       setModels(modelsData)
     } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch models')
+    } finally {
+      setLoading(false)

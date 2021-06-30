@@ -63,3 +63,5 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
     }
 
     if (name.length > 100) {
+      setError("Name must be 100 characters or less");
+      return;

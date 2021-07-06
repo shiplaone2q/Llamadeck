@@ -24,3 +24,4 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
     return value !== undefined && value !== null && value !== ''
   }).length
 
+  return (

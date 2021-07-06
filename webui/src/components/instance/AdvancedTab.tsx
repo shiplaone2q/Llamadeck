@@ -23,3 +23,4 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
     const value = (formData.backend_options as Record<string, unknown>)?.[fieldKey]
     return value !== undefined && value !== null && value !== ''
   }).length
+

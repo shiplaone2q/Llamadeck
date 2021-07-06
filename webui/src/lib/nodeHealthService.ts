@@ -41,3 +41,6 @@ class NodeHealthService {
     this.healthCache.set(nodeName, { health, timestamp: Date.now() });
     return health;
   }
+
+  subscribe(nodeName: string, callback: NodeHealthCallback): () => void {
+    if (!this.callbacks.has(nodeName)) {

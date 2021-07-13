@@ -18,3 +18,7 @@ export const MlxBackendOptionsSchema = z.object({
   chat_template: z.string().optional(),
   use_default_chat_template: z.boolean().optional(),
   chat_template_args: z.string().optional(), // JSON string
+
+  // Sampling defaults
+  temp: z.number().optional(),     // Note: MLX uses "temp" not "temperature"
+  top_p: z.number().optional(),

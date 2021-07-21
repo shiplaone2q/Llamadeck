@@ -17,3 +17,6 @@ The tool will output a report showing:
 - **Conflicts**: Fields that have both positive and negative flag variants mapping to the same struct field
 
 ## How It Works
+
+1. Runs `llama-server --help` to extract all available flags
+2. Parses the help output using regex to identify flag names

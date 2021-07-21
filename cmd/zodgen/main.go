@@ -85,3 +85,7 @@ func main() {
 			}
 
 			// Extract type
+			goType := typeToString(field.Type)
+
+			// Extract inline comment
+			var comment string

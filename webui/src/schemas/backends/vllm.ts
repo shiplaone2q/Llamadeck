@@ -33,3 +33,4 @@ export const VllmBackendOptionsSchema = z.object({
   enable_prefix_caching: z.boolean().optional(),
   disable_sliding_window: z.boolean().optional(),
   use_v2_block_manager: z.boolean().optional(),
+  num_lookahead_slots: z.number().optional(),

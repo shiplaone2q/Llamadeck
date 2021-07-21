@@ -31,3 +31,6 @@ const AutoRestartConfiguration: React.FC<AutoRestartConfigurationProps> = ({
     <div className="space-y-4">
       {/* biome-ignore lint/a11y/useSemanticElements: toggle contains an <h3>, so a <button> would be invalid HTML; keyboard support provided via role/tabIndex/onKeyDown */}
       <div
+        role="button"
+        tabIndex={0}
+        className="flex items-center justify-between cursor-pointer"

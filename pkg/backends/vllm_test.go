@@ -69,3 +69,7 @@ func TestParseVllmCommand(t *testing.T) {
 				}
 				if opts.TensorParallelSize != 4 {
 					t.Errorf("expected tensor_parallel_size 4, got %d", opts.TensorParallelSize)
+				}
+				if opts.GPUMemoryUtilization != 0.8 {
+					t.Errorf("expected gpu_memory_utilization 0.8, got %f", opts.GPUMemoryUtilization)
+				}

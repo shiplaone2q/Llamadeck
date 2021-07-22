@@ -45,3 +45,4 @@ Thank you for considering contributing to Llamadeck! This document outlines the 
 
 4. **Common development commands**
    ```bash
+   # Backend

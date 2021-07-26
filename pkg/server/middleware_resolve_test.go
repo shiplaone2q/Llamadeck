@@ -39,3 +39,7 @@ func TestResolveInstancePermission(t *testing.T) {
 	tests := []struct {
 		name      string
 		ctx       context.Context
+		store     *stubAuthStore
+		wantStart bool
+		wantEvict bool
+		wantErr   bool

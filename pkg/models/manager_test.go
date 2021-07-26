@@ -57,3 +57,5 @@ func newHFTestServer(t *testing.T, fx hfFixture) *httptest.Server {
 			if !ok {
 				http.NotFound(w, r)
 				return
+			}
+			if etag := fx.etags[filePath]; etag != "" {

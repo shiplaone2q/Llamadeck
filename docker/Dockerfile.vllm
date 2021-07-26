@@ -13,3 +13,4 @@ RUN LATEST_VERSION=$(curl -s https://api.github.com/repos/lordmathis/llamactl/re
 RUN mkdir -p /data
 WORKDIR /data
 
+# Expose the default llamactl port

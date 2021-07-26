@@ -59,3 +59,6 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
         newMap.set(instance.name, instance)
       })
       setInstancesMap(newMap)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch instances')
+    } finally {

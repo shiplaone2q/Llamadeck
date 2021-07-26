@@ -58,3 +58,7 @@ func getDefaultConfig(dataDir string) AppConfig {
 			},
 			Custom: map[string]BackendSettings{},
 		},
+		Instances: InstancesConfig{
+			PortRange:            [2]int{8000, 9000},
+			AutoCreateDirs:       true,
+			MaxInstances:         -1, // -1 means unlimited

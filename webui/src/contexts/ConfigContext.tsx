@@ -24,3 +24,5 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
 
   useEffect(() => {
     if (!isAuthenticated || loadedRef.current) {
+      setIsLoading(false)
+      return

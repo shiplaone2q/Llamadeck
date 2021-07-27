@@ -23,3 +23,6 @@ CREATE TABLE IF NOT EXISTS instances (
 -- -----------------------------------------------------------------------------
 -- Indexes for performance
 -- -----------------------------------------------------------------------------
+CREATE UNIQUE INDEX IF NOT EXISTS idx_instances_name ON instances(name);
+CREATE INDEX IF NOT EXISTS idx_instances_status ON instances(status);
+

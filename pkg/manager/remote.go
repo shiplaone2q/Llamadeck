@@ -105,3 +105,5 @@ func (rm *remoteManager) removeInstance(instanceName string) {
 	defer rm.mu.Unlock()
 
 	delete(rm.instanceToNode, instanceName)
+}
+

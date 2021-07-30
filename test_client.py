@@ -47,3 +47,7 @@ def send_message(message):
         "model": MODEL_NAME,
         "messages": [
             {
+                "role": "user",
+                "content": message
+            }
+        ],

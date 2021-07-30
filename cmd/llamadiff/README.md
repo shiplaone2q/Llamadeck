@@ -20,3 +20,6 @@ The tool will output a report showing:
 
 1. Runs `llama-server --help` to extract all available flags
 2. Parses the help output using regex to identify flag names
+3. Tests each flag by attempting to parse it with different value types
+4. Uses reflection to detect which struct field (if any) was set by each flag
+5. Reports discrepancies between llama-server's flags and our parser

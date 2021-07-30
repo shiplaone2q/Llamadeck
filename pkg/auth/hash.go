@@ -18,3 +18,4 @@ const (
 	keyLen   uint32 = 32
 	saltLen  uint32 = 16
 )
+

@@ -32,3 +32,5 @@ func loadDotEnv(explicitConfigPath string) string {
 		if err != nil {
 			continue
 		}
+		vars := parseDotEnv(data)
+		for key, value := range vars {

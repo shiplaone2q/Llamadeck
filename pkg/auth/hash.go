@@ -19,3 +19,6 @@ const (
 	saltLen  uint32 = 16
 )
 
+// HashKey hashes an API key using Argon2id
+func HashKey(plainTextKey string) (string, error) {
+	// Generate random salt

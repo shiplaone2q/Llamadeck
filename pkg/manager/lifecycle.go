@@ -40,3 +40,4 @@ func newLifecycleManager(
 		ticker:        time.NewTicker(checkInterval),
 		checkInterval: checkInterval,
 		enableLRU:     enableLRU,
+		shutdownChan:  make(chan struct{}),

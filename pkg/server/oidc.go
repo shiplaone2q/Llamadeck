@@ -124,3 +124,7 @@ func (s *OIDCService) webRootPath(r *http.Request) string {
 	return base + "/"
 }
 
+// signStateValue binds the CSRF state, the PKCE verifier, and the nonce
+// together in a cookie value the callback can trust without server-side
+// storage.
+func signStateValue(key []byte, state, verifier, nonce string) string {

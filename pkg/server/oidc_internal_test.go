@@ -77,3 +77,6 @@ func TestGroupsFromClaims(t *testing.T) {
 
 			groups, present, err := groupsFromClaims(raw, tt.claim)
 
+			if tt.wantErr {
+				if err == nil {
+					t.Fatal("expected an error for a malformed claim")

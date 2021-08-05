@@ -11,3 +11,5 @@ describe('parseArgs', () => {
   })
 
   it('keeps quoted values as single arguments', () => {
+    expect(parseArgs('--tensor-split "3,1"')).toEqual(['--tensor-split', '3,1'])
+    expect(parseArgs("--msg 'hello world'")).toEqual(['--msg', 'hello world'])

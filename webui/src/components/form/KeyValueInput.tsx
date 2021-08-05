@@ -54,3 +54,4 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
       ? Object.entries(value).map(([key, val]) => ({ key, value: val }))
       : []
 
+    if (newPairsFromValue.length > 0) {

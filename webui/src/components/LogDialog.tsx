@@ -88,3 +88,7 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
       }, 2000) // Refresh every 2 seconds
     } else {
       if (refreshIntervalRef.current) {
+        clearInterval(refreshIntervalRef.current)
+        refreshIntervalRef.current = null
+      }
+    }

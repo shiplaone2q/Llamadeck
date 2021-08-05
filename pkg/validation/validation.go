@@ -11,3 +11,4 @@ type ValidationError error
 
 func ValidateInstanceName(name string) (string, error) {
 	// Validate instance name
+	if name == "" {

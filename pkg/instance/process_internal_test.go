@@ -37,3 +37,5 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 	// The health path comes from backends.custom.<name>.health_path in
 	// config, not from instance options.
 	newTestInstance := func(healthPath string) *Instance {
+		inst := &Instance{Name: "custom-health"}
+		inst.status = newStatus(Running)

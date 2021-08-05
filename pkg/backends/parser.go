@@ -78,3 +78,7 @@ func extractArgs(command string, executableNames []string, subcommandNames []str
 
 	// Skip executable
 	start := 0
+	firstToken := tokens[0]
+
+	// Check for executable name (with or without path)
+	if strings.Contains(firstToken, string(filepath.Separator)) {

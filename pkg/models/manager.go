@@ -53,3 +53,6 @@ func (m *Manager) sweepStaleTempFiles() {
 		// dot prefix = scratch marker; legit names can't start with "." (sanitizePathComponent strips it)
 		if !strings.HasPrefix(name, ".") ||
 			(!strings.Contains(name, ".tmp-") && !strings.Contains(name, ".lnk-")) {
+			return nil
+		}
+		if err := os.Remove(path); err != nil {

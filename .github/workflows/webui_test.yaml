@@ -9,3 +9,5 @@ on:
       - "webui/**"
       - ".github/workflows/webui_test.yaml"
   pull_request:
+    branches: [ main ]
+

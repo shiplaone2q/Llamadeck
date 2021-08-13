@@ -44,3 +44,5 @@ func (l *logger) create() error {
 		return fmt.Errorf("logDir empty for instance %s", l.name)
 	}
 
+	if err := os.MkdirAll(l.logDir, 0755); err != nil {
+		return fmt.Errorf("failed to create log directory: %w", err)

@@ -73,3 +73,5 @@ func TestParseVllmCommand(t *testing.T) {
 				if opts.GPUMemoryUtilization != 0.8 {
 					t.Errorf("expected gpu_memory_utilization 0.8, got %f", opts.GPUMemoryUtilization)
 				}
+				if !opts.EnableLogOutputs {
+					t.Errorf("expected enable_log_outputs true, got %v", opts.EnableLogOutputs)

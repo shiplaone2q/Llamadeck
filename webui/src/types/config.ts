@@ -27,3 +27,5 @@ export interface ServerConfig {
   allowed_headers: string[]
   enable_swagger: boolean
   response_headers?: Record<string, string>
+}
+

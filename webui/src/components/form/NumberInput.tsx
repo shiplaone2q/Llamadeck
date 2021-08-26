@@ -24,3 +24,6 @@ const NumberInput: React.FC<NumberInputProps> = ({
   className
 }) => {
   const handleChange = (inputValue: string) => {
+    if (inputValue === '') {
+      onChange(undefined)
+      return

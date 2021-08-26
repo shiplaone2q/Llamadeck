@@ -55,3 +55,4 @@ func NewAPIAuthMiddleware(authCfg config.AuthConfig, authStore database.AuthStor
 		fmt.Printf("🔑  Generated Management API Key:\n\n    %s\n\n", key)
 	}
 
+	if generated {

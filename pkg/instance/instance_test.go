@@ -229,3 +229,4 @@ func TestUnmarshalJSON(t *testing.T) {
 			"max_restarts": 5,
 			"backend_type": "llama_cpp",
 			"backend_options": {
+				"model": "/path/to/model.gguf",

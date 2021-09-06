@@ -52,3 +52,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
       setError(err instanceof Error ? err.message : 'Failed to fetch models')
     } finally {
       setLoading(false)
+    }
+  }, [isAuthenticated])
+

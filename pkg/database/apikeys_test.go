@@ -25,3 +25,6 @@ func TestListKeysIncludesAllOwners(t *testing.T) {
 		if err := db.CreateKey(context.Background(), key, nil); err != nil {
 			t.Fatalf("creating key for %q: %v", owner, err)
 		}
+	}
+
+	keys, err := db.ListKeys(context.Background())

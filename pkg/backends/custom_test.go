@@ -76,3 +76,7 @@ func TestOptionsGetHealthPath(t *testing.T) {
 		},
 		{
 			name:     "entry without path falls back to default",
+			options:  backends.Options{BackendType: backends.BackendTypeCustom, CustomServerOptions: &backends.CustomServerOptions{Name: "other"}},
+			expected: "/health",
+		},
+		{

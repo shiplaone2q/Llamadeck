@@ -75,3 +75,7 @@ func TestParseVllmCommand(t *testing.T) {
 				}
 				if !opts.EnableLogOutputs {
 					t.Errorf("expected enable_log_outputs true, got %v", opts.EnableLogOutputs)
+				}
+			},
+		},
+		{

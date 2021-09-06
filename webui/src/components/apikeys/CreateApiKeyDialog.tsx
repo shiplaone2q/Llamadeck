@@ -68,3 +68,7 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
     }
 
     if (permissionMode === PermissionMode.PerInstance) {
+      const hasAnyPermission = Object.values(instancePermissions).some(v => v.selected);
+      if (!hasAnyPermission) {
+        setError("At least one instance permission is required for per-instance mode");
+        return;

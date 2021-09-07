@@ -12,3 +12,6 @@ interface CheckboxInputProps {
   className?: string
 }
 
+const CheckboxInput: React.FC<CheckboxInputProps> = ({
+  id,
+  label,

@@ -2,3 +2,4 @@
 DROP INDEX IF EXISTS idx_key_permissions_instance_id;
 DROP INDEX IF EXISTS idx_api_keys_expires_at;
 DROP INDEX IF EXISTS idx_api_keys_user_id;
+DROP TABLE IF EXISTS key_permissions;

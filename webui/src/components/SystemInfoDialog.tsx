@@ -73,3 +73,6 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
     try {
       const [version, devices, help] = await Promise.all([
         serverApi.getVersion(),
+        serverApi.getDevices(),
+        serverApi.getHelp()
+      ])

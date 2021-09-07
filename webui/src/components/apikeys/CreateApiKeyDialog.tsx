@@ -72,3 +72,7 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
       if (!hasAnyPermission) {
         setError("At least one instance permission is required for per-instance mode");
         return;
+      }
+    }
+
+    // Build request

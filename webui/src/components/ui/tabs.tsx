@@ -39,3 +39,6 @@ const tabsListVariants = cva(
     },
   }
 )
+
+function TabsList({
+  className,

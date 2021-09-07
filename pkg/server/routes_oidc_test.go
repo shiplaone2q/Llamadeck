@@ -17,3 +17,6 @@ func TestRoutesOIDCBypassManagementAuth(t *testing.T) {
 	cfg.Auth.ManagementKeys = []string{"sk-test"}
 
 	h := &Handler{cfg: cfg}
+	h.authMiddleware = NewAPIAuthMiddleware(cfg.Auth, nil)
+	h.oidc = &OIDCService{Sessions: auth.NewSessionStore(3600e9)}
+	h.authMiddleware.sessions = h.oidc.Sessions

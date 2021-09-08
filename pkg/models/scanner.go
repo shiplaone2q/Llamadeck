@@ -79,3 +79,4 @@ func ScanCache(cacheDir, nodeName string) ([]CachedModel, error) {
 						commit := snapEntry.Name()
 						cachedModel := scanHFRepo(hubRoot, dirName, repo, commit, nodeName)
 						if len(cachedModel.Files) > 0 {
+							models = append(models, cachedModel)

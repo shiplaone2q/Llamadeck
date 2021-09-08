@@ -23,3 +23,7 @@ function renderEditor() {
   return { onChange }
 }
 
+describe('IniEditor - suggestion popup keyboard navigation', () => {
+  it('moves selection to the second suggestion on ArrowDown and applies it on Enter', async () => {
+    const user = userEvent.setup()
+    const { onChange } = renderEditor()

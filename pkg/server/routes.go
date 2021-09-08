@@ -44,3 +44,6 @@ func SetupRouter(handler *Handler) *chi.Mux {
 
 	// Define routes
 	r.Route("/api/v1", func(r chi.Router) {
+
+		if handler.authMiddleware != nil && handler.cfg.Auth.RequireManagementAuth {
+			r.Use(handler.authMiddleware.ManagementAuthMiddleware())

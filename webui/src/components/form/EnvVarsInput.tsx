@@ -11,3 +11,4 @@ interface EnvVarsInputProps {
   className?: string
 }
 
+const EnvVarsInput: React.FC<EnvVarsInputProps> = (props) => {

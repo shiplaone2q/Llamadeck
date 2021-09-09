@@ -47,3 +47,7 @@ func SetupRouter(handler *Handler) *chi.Mux {
 
 		if handler.authMiddleware != nil && handler.cfg.Auth.RequireManagementAuth {
 			r.Use(handler.authMiddleware.ManagementAuthMiddleware())
+		}
+
+		r.Get("/version", handler.VersionHandler())
+

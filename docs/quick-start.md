@@ -62,3 +62,7 @@ http://localhost:8080
 
 Login with the management API key from the terminal output.
 
+You should see the Llamadeck web interface.
+
+## Create Your First Instance
+

@@ -45,3 +45,5 @@ func TestExpandEnvVars(t *testing.T) {
 		{
 			name:     "variable with default when empty",
 			input:    "val: ${MY_VAR:-fallback}",
+			envVars:  map[string]string{"MY_VAR": ""},
+			expected: "val: fallback",

@@ -140,3 +140,5 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 		"gpu_layers": 32,
 		"temp": 0.7
 	}`
+
+	var options backends.LlamaServerOptions

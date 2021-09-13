@@ -47,3 +47,5 @@ func TestInstanceWithoutTimeoutNeverExpires(t *testing.T) {
 
 	zeroTimeout := 0
 	noTimeoutInst := createInstanceWithTimeout(t, testManager, "no-timeout-test", "/path/to/model.gguf", &zeroTimeout)
+
+	mockTime := NewMockTimeProvider(time.Now())

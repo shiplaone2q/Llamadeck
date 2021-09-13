@@ -87,3 +87,7 @@ export const serverApi = {
   getConfig: () => apiCall<AppConfig>("/config"),
 };
 
+// Backend API functions
+export const backendsApi = {
+  llamaCpp: {
+    // POST /backends/llama-cpp/parse-command

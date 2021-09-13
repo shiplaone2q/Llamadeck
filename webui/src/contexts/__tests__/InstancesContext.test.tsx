@@ -110,3 +110,4 @@ function TestComponent() {
         data-testid="delete-instance"
       >
         Delete Instance2
+      </button>

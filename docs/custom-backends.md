@@ -11,3 +11,5 @@ The managed server must meet three requirements:
 - It starts an HTTP server that listens on a TCP port.
 - It serves inference endpoints under `/v1/`. All `POST /v1/*` requests are proxied to the instance, so OpenAI-style (`/v1/chat/completions`, `/v1/responses`) and Anthropic-style (`/v1/messages`) conventions all work.
 - It exposes a health endpoint that returns a 2xx response when the server is ready (see [Health Checks](#health-checks)).
+
+The server learns its port through the `{port}` placeholder in its arguments — llamadeck has no other way to communicate it.

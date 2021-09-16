@@ -190,3 +190,4 @@ func (im *instanceManager) CreateInstance(name string, options *instance.Options
 func (im *instanceManager) GetInstance(name string) (*instance.Instance, error) {
 	inst, exists := im.registry.get(name)
 	if !exists {
+		return nil, fmt.Errorf("%w: %s", ErrInstanceNotFound, name)

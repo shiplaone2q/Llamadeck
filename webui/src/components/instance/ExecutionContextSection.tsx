@@ -10,3 +10,6 @@ interface ExecutionContextSectionProps {
   onChange: (key: keyof CreateInstanceOptions, value: unknown) => void
 }
 
+const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
+  formData,
+  onChange

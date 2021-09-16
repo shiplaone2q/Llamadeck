@@ -49,3 +49,6 @@ function renderInstanceList(editInstance = vi.fn()) {
       <InstancesProvider>
         <InstanceList editInstance={editInstance} />
       </InstancesProvider>
+    </AuthProvider>
+  )
+}

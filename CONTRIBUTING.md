@@ -46,3 +46,7 @@ Thank you for considering contributing to Llamadeck! This document outlines the 
 4. **Common development commands**
    ```bash
    # Backend
+   go test ./... -v                    # Run tests
+   go test -race ./... -v              # Run with race detector
+   go fmt ./... && go vet ./...        # Format and vet code
+   

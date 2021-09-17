@@ -26,3 +26,6 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
         onChange('preset_ini', content)
       }
       reader.readAsText(file)
+    }
+  }
+

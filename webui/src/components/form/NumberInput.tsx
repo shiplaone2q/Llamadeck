@@ -30,3 +30,4 @@ const NumberInput: React.FC<NumberInputProps> = ({
     }
 
     const numValue = parseFloat(inputValue)
+    if (!Number.isNaN(numValue)) {

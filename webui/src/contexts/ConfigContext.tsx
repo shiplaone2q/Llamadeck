@@ -26,3 +26,5 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
     if (!isAuthenticated || loadedRef.current) {
       setIsLoading(false)
       return
+    }
+

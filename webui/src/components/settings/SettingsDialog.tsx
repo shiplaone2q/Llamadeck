@@ -6,3 +6,4 @@ interface SettingsDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
+function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {

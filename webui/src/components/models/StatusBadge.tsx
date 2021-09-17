@@ -14,3 +14,4 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
     cancelled: { variant: 'outline' as const, label: 'Cancelled' },
   }
 
+  const { variant, label } = variants[status]

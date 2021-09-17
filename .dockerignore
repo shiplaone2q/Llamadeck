@@ -17,3 +17,7 @@ webui/.next/
 *.log
 *.tmp
 
+# Data directories
+data/
+models/
+logs/

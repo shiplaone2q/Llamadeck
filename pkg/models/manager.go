@@ -56,3 +56,7 @@ func (m *Manager) sweepStaleTempFiles() {
 			return nil
 		}
 		if err := os.Remove(path); err != nil {
+			log.Printf("stale temp sweep: failed to remove %s: %v", path, err)
+			return nil
+		}
+		log.Printf("stale temp sweep: removed %s", path)

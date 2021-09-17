@@ -27,3 +27,6 @@ const NumberInput: React.FC<NumberInputProps> = ({
     if (inputValue === '') {
       onChange(undefined)
       return
+    }
+
+    const numValue = parseFloat(inputValue)

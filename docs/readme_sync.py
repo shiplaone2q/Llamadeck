@@ -17,3 +17,5 @@ def on_page_markdown(markdown, page, config, **kwargs):
     if not os.path.exists(readme_path):
         print(f"Warning: README.md not found at {readme_path}")
         return markdown
+
+    try:

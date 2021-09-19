@@ -91,3 +91,4 @@ export default function ModelsTable({ rows }: ModelsTableProps) {
         })}
       </TableBody>
     </Table>
+  )

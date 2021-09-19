@@ -62,3 +62,6 @@ func getDefaultConfig(dataDir string) AppConfig {
 			PortRange:            [2]int{8000, 9000},
 			AutoCreateDirs:       true,
 			MaxInstances:         -1, // -1 means unlimited
+			MaxRunningInstances:  -1, // -1 means unlimited
+			GroupLimits:          map[string]int{},
+			EnableLRUEviction:    true,

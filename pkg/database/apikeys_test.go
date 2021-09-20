@@ -28,3 +28,4 @@ func TestListKeysIncludesAllOwners(t *testing.T) {
 	}
 
 	keys, err := db.ListKeys(context.Background())
+	if err != nil {

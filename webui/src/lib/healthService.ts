@@ -65,3 +65,5 @@ class HealthService {
 
           this.updateCache(instanceName, health)
           return health
+        }
+      } else {

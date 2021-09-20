@@ -37,3 +37,7 @@ func (r *instanceRegistry) list() []*instance.Instance {
 	defer r.mu.RUnlock()
 
 	result := make([]*instance.Instance, 0, len(r.instances))
+	for _, inst := range r.instances {
+		result = append(result, inst)
+	}
+	return result

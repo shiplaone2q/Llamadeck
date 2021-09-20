@@ -7,3 +7,5 @@ interface SettingsDialogProps {
 }
 
 function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>

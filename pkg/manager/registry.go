@@ -41,3 +41,4 @@ func (r *instanceRegistry) list() []*instance.Instance {
 		result = append(result, inst)
 	}
 	return result
+}

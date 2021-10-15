@@ -42,3 +42,4 @@ func sanitizePathComponent(component string) string {
 }
 
 func (fm *FileManager) HFHubRoot() string {
+	fm.hubRootOnce.Do(func() {

@@ -19,3 +19,6 @@ func Contains(slice []string, item string) bool {
 }
 
 // ContainsFlagWithValue checks if args contains a flag followed by a specific value
+func ContainsFlagWithValue(args []string, flag, value string) bool {
+	for i, arg := range args {
+		if arg == flag {

@@ -47,3 +47,4 @@ func TestExpandEnvVars(t *testing.T) {
 			input:    "val: ${MY_VAR:-fallback}",
 			envVars:  map[string]string{"MY_VAR": ""},
 			expected: "val: fallback",
+		},

@@ -11,3 +11,5 @@ export default function ModelsHeader() {
   const totalCount = (models?.length || 0) + (activeJobs?.length || 0)
 
   return (
+    <>
+      <div className="flex items-center justify-between mb-6">

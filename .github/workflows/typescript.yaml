@@ -19,3 +19,7 @@ jobs:
     name: TypeScript Type Check
     runs-on: ubuntu-latest
     defaults:
+      run:
+        working-directory: ./webui
+
+    steps:

@@ -19,3 +19,6 @@ def on_page_markdown(markdown, page, config, **kwargs):
         return markdown
 
     try:
+        with open(readme_path, 'r', encoding='utf-8') as f:
+            readme_content = f.read()
+    except Exception as e:

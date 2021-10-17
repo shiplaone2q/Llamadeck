@@ -20,3 +20,6 @@ func TestRoutesOIDCBypassManagementAuth(t *testing.T) {
 	h.authMiddleware = NewAPIAuthMiddleware(cfg.Auth, nil)
 	h.oidc = &OIDCService{Sessions: auth.NewSessionStore(3600e9)}
 	h.authMiddleware.sessions = h.oidc.Sessions
+
+	r := SetupRouter(h)
+

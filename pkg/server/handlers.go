@@ -42,3 +42,5 @@ func writeError(w http.ResponseWriter, status int, code, details string) {
 	if err := json.NewEncoder(w).Encode(errorResponse{Error: code, Details: details}); err != nil {
 		log.Printf("Failed to encode error response: %v", err)
 	}
+}
+

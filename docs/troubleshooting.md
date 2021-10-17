@@ -60,3 +60,6 @@ Issues specific to Llamadeck deployment and operation.
 
 Most model-specific issues (memory, GPU configuration, performance tuning) are backend-specific and should be resolved by consulting the respective backend documentation:
 
+**llama.cpp:**
+- [llama.cpp GitHub](https://github.com/ggml-org/llama.cpp)
+- [llama-server README](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md)

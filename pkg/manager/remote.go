@@ -107,3 +107,7 @@ func (rm *remoteManager) removeInstance(instanceName string) {
 	delete(rm.instanceToNode, instanceName)
 }
 
+// --- HTTP request helpers ---
+
+// makeRemoteRequest creates and executes an HTTP request to a remote node with context support.
+func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *config.NodeConfig, method, path string, body any) (*http.Response, error) {

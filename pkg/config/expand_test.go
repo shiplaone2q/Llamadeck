@@ -48,3 +48,6 @@ func TestExpandEnvVars(t *testing.T) {
 			envVars:  map[string]string{"MY_VAR": ""},
 			expected: "val: fallback",
 		},
+		{
+			name:     "no braces not expanded",
+			input:    "host: $MY_HOST",

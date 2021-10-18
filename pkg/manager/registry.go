@@ -42,3 +42,4 @@ func (r *instanceRegistry) list() []*instance.Instance {
 	}
 	return result
 }
+

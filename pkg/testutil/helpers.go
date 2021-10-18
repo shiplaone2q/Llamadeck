@@ -22,3 +22,5 @@ func Contains(slice []string, item string) bool {
 func ContainsFlagWithValue(args []string, flag, value string) bool {
 	for i, arg := range args {
 		if arg == flag {
+			// Check if there's a next argument and it matches the expected value
+			if i+1 < len(args) && args[i+1] == value {

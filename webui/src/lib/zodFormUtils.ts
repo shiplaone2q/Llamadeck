@@ -50,3 +50,7 @@ const basicMlxFieldsConfig: Record<string, {
   label: string
   description?: string
   placeholder?: string
+}> = {
+  model: {
+    label: 'Model',
+    placeholder: 'mlx-community/Mistral-7B-Instruct-v0.3-4bit',

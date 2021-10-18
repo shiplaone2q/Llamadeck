@@ -34,3 +34,5 @@ export const VllmBackendOptionsSchema = z.object({
   disable_sliding_window: z.boolean().optional(),
   use_v2_block_manager: z.boolean().optional(),
   num_lookahead_slots: z.number().optional(),
+  swap_space: z.number().optional(),
+  cpu_offload_gb: z.number().optional(),

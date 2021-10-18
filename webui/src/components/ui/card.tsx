@@ -35,3 +35,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("leading-none font-semibold", className)}
       {...props}
     />
+  )
+}
+
+function CardDescription({ className, ...props }: React.ComponentProps<"div">) {

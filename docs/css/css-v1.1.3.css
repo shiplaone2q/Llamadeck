@@ -395,3 +395,6 @@
 }
 .nt-group-1 .period {
   color: var(--nt-group-1-main);
+  background-color: var(--nt-group-1-main-bg);
+}
+

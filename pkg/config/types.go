@@ -48,3 +48,7 @@ type AppConfig struct {
 	CommitHash string `yaml:"-" json:"commit_hash"`
 	BuildTime  string `yaml:"-" json:"build_time"`
 }
+
+// ServerConfig contains HTTP server configuration
+type ServerConfig struct {
+	// Server host to bind to

@@ -32,3 +32,4 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
   useEffect(() => {
     const fetchNodes = async () => {
       try {
+        const fetchedNodes = await nodesApi.list();

@@ -20,3 +20,6 @@ export function parseArgs(input: string): string[] {
     } else if (ch === ' ' || ch === '\t') {
       if (current || hasToken) {
         args.push(current)
+        current = ''
+        hasToken = false
+      }

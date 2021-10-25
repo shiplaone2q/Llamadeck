@@ -117,3 +117,4 @@ func syncPresetIni(name string, opts *Options, instancesDir string) error {
 	log.Printf("Wrote preset.ini for instance %s at %s", name, presetPath)
 	return nil
 }
+

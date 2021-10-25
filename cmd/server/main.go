@@ -37,3 +37,7 @@ func main() {
 		fmt.Printf("llamadeck version: %s\n", version)
 		fmt.Printf("Commit hash: %s\n", commitHash)
 		fmt.Printf("Build time: %s\n", buildTime)
+		return
+	}
+
+	configPath := os.Getenv("LLAMADECK_CONFIG_PATH")

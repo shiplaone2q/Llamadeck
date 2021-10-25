@@ -108,3 +108,6 @@ func (p *process) start() error {
 	setProcAttrs(p.cmd)
 
 	var err error
+	p.stdin, err = p.cmd.StdinPipe()
+	if err != nil {
+		p.instance.logger.close()

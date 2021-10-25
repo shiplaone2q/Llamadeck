@@ -39,3 +39,5 @@ jobs:
           pip install -r docs-requirements.txt
 
       - name: Build documentation
+        run: |
+          mkdocs build --strict

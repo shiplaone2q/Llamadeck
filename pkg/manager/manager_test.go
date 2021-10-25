@@ -59,3 +59,5 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 	})
 	if err != nil {
 		t.Fatalf("Failed to open database: %v", err)
+	}
+	if err := database.RunMigrations(db2); err != nil {

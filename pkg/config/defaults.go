@@ -65,3 +65,4 @@ func getDefaultConfig(dataDir string) AppConfig {
 			MaxRunningInstances:  -1, // -1 means unlimited
 			GroupLimits:          map[string]int{},
 			EnableLRUEviction:    true,
+			DefaultIdleTimeout:   30, // Default idle timeout of 30 minutes

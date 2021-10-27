@@ -63,3 +63,5 @@ Most model-specific issues (memory, GPU configuration, performance tuning) are b
 **llama.cpp:**
 - [llama.cpp GitHub](https://github.com/ggml-org/llama.cpp)
 - [llama-server README](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md)
+
+**MLX:**

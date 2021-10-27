@@ -128,3 +128,5 @@ func (s *OIDCService) webRootPath(r *http.Request) string {
 // together in a cookie value the callback can trust without server-side
 // storage.
 func signStateValue(key []byte, state, verifier, nonce string) string {
+	mac := hmac.New(sha256.New, key)
+	mac.Write([]byte(state))

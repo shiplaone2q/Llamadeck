@@ -72,3 +72,6 @@ database:
   path: data_dir/llamadeck.db              # Database file path
   max_open_connections: 25       # Maximum open database connections
   max_idle_connections: 5        # Maximum idle database connections
+  connection_max_lifetime: 5m    # Connection max lifetime
+
+auth:

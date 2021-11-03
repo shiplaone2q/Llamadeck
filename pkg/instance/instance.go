@@ -118,3 +118,5 @@ func syncPresetIni(name string, opts *Options, instancesDir string) error {
 	return nil
 }
 
+// Start starts the instance
+func (i *Instance) Start() error {

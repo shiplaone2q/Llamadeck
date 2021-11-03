@@ -44,3 +44,4 @@ class NodeHealthService {
 
   subscribe(nodeName: string, callback: NodeHealthCallback): () => void {
     if (!this.callbacks.has(nodeName)) {
+      this.callbacks.set(nodeName, new Set());

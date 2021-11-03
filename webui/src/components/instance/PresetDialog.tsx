@@ -29,3 +29,6 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleImport = () => {
+    fileInputRef.current?.click()
+  }
+

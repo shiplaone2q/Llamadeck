@@ -17,3 +17,5 @@ export async function parseErrorResponse(response: Response): Promise<string> {
 }
 
 /**
+ * Handles common API call errors and throws appropriate Error objects
+ */

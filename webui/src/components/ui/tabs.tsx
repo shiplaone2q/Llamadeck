@@ -42,3 +42,6 @@ const tabsListVariants = cva(
 
 function TabsList({
   className,
+  variant = "default",
+  ...props
+}: React.ComponentProps<typeof TabsPrimitive.List> &

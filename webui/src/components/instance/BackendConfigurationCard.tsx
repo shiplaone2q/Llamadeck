@@ -24,3 +24,5 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
 }) => {
   const [showAdvanced, setShowAdvanced] = useState(false)
   const basicBackendFields = getBasicBackendFields(formData.backend_type)
+  const advancedBackendFields = getAdvancedBackendFields(formData.backend_type)
+

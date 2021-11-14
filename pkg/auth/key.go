@@ -27,3 +27,5 @@ type APIKey struct {
 
 type KeyPermission struct {
 	KeyID      int
+	InstanceID int
+	CanStart   bool

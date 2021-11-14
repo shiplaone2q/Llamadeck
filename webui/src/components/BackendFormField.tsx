@@ -51,3 +51,5 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
         </Alert>
       )
     } else if (isCustomPath) {
+      badge = <Badge variant="outline" className="ml-2">Custom</Badge>
+    }

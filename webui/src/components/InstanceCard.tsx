@@ -51,3 +51,4 @@ function InstanceCard({
         setModels([]);
       }
     })();
+  }, [instance.name, isLlamaCpp, running]);

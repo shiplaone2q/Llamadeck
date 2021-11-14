@@ -37,3 +37,4 @@ function NodeStatus({ health }: { health: NodeHealth | undefined }) {
   }
 
   return (
+    <span

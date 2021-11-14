@@ -34,3 +34,7 @@ const AutoRestartConfiguration: React.FC<AutoRestartConfigurationProps> = ({
         role="button"
         tabIndex={0}
         className="flex items-center justify-between cursor-pointer"
+        onClick={() => setIsExpanded(!isExpanded)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()

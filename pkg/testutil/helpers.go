@@ -24,3 +24,6 @@ func ContainsFlagWithValue(args []string, flag, value string) bool {
 		if arg == flag {
 			// Check if there's a next argument and it matches the expected value
 			if i+1 < len(args) && args[i+1] == value {
+				return true
+			}
+		}

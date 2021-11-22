@@ -29,3 +29,6 @@ func RunMigrations(db *sqliteDB) error {
 	dbDriver, err := sqlite3.WithInstance(db.DB, &sqlite3.Config{})
 	if err != nil {
 		return fmt.Errorf("failed to create database driver: %w", err)
+	}
+
+	// Create migrator

@@ -14,3 +14,6 @@ export interface DownloadJob {
     current_file: string
   }
   error: string | null
+  created_at: number
+  completed_at: number | null
+}

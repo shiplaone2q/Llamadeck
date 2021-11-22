@@ -35,3 +35,5 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
       .filter(Boolean)
 
     onChange(arrayValue.length > 0 ? arrayValue : undefined)
+  }
+

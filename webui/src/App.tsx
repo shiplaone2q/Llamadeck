@@ -50,3 +50,4 @@ function App() {
 
   const handleShowSettings = () => {
     setIsSettingsModalOpen(true);
+  };

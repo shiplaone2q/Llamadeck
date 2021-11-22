@@ -108,3 +108,7 @@ func loadEnvVars(cfg *AppConfig) {
 		parseEnvVars(llamaDockerEnv, cfg.Backends.LlamaCpp.Docker.Environment)
 	}
 	if llamaEnv := os.Getenv("LLAMADECK_LLAMACPP_RESPONSE_HEADERS"); llamaEnv != "" {
+		if cfg.Backends.LlamaCpp.ResponseHeaders == nil {
+			cfg.Backends.LlamaCpp.ResponseHeaders = make(map[string]string)
+		}
+		parseHeaders(llamaEnv, cfg.Backends.LlamaCpp.ResponseHeaders)

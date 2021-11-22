@@ -13,3 +13,5 @@ func setProcAttrs(cmd *exec.Cmd) {
 	}
 	cmd.SysProcAttr.Setpgid = true
 }
+
+// signalStop delivers SIGINT (os.Interrupt) to the child.

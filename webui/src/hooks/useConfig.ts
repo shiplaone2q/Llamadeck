@@ -25,3 +25,4 @@ export const useBackendSettings = (backendType: string | undefined) => {
     return null
   }
 
+  // Map backend type to config key

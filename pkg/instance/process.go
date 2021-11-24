@@ -111,3 +111,6 @@ func (p *process) start() error {
 	p.stdin, err = p.cmd.StdinPipe()
 	if err != nil {
 		p.instance.logger.close()
+		return fmt.Errorf("failed to get stdin pipe: %w", err)
+	}
+	p.stdout, err = p.cmd.StdoutPipe()

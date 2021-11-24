@@ -55,3 +55,5 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
       : []
 
     if (newPairsFromValue.length > 0) {
+      setPairs(newPairsFromValue)
+    } else if (!value) {

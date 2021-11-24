@@ -26,3 +26,5 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
   const basicBackendFields = getBasicBackendFields(formData.backend_type)
   const advancedBackendFields = getAdvancedBackendFields(formData.backend_type)
 
+  return (
+    <Card>

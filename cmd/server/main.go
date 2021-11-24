@@ -41,3 +41,7 @@ func main() {
 	}
 
 	configPath := os.Getenv("LLAMADECK_CONFIG_PATH")
+	cfg, err := config.LoadConfig(configPath)
+	if err != nil {
+		log.Printf("Error loading config: %v\nUsing default configuration.", err)
+	}

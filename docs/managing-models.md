@@ -57,3 +57,4 @@ Safetensors is the standard model format used by HuggingFace. Downloads include 
 3. Click **Download Model**
 4. Select the **Format**: **GGUF** or **Safetensors**
 5. Enter the model identifier:
+   - **GGUF**: `org/model-name:tag` (e.g., `bartowski/Llama-3.2-3B-Instruct-GGUF:Q4_K_M`)

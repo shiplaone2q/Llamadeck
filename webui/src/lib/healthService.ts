@@ -67,3 +67,4 @@ class HealthService {
           return health
         }
       } else {
+        // Instance not running - map backend status directly

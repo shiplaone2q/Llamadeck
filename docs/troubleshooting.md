@@ -65,3 +65,5 @@ Most model-specific issues (memory, GPU configuration, performance tuning) are b
 - [llama-server README](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md)
 
 **MLX:**
+- [MLX-LM GitHub](https://github.com/ml-explore/mlx-lm)
+- [MLX-LM Server Guide](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/SERVER.md)

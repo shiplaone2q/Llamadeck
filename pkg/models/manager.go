@@ -60,3 +60,5 @@ func (m *Manager) sweepStaleTempFiles() {
 			return nil
 		}
 		log.Printf("stale temp sweep: removed %s", path)
+		return nil
+	})

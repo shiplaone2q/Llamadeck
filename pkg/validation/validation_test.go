@@ -31,3 +31,6 @@ func TestValidateInstanceName(t *testing.T) {
 		{"shell metachar ampersand", "test&ls", true},
 		{"shell metachar dollar", "test$var", true},
 		{"shell metachar backtick", "test`cmd`", true},
+	}
+
+	for _, tt := range tests {

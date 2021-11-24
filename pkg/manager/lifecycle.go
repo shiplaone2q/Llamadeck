@@ -41,3 +41,5 @@ func newLifecycleManager(
 		checkInterval: checkInterval,
 		enableLRU:     enableLRU,
 		shutdownChan:  make(chan struct{}),
+		shutdownDone:  make(chan struct{}),
+	}

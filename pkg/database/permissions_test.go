@@ -53,3 +53,6 @@ func TestGetInstancePermission(t *testing.T) {
 		t.Fatalf("CreateKey: %v", err)
 	}
 
+	t.Run("existing row returns stored flags", func(t *testing.T) {
+		got, err := db.GetInstancePermission(context.Background(), key.ID, 10)
+		if err != nil {

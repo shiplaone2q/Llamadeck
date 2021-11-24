@@ -120,3 +120,5 @@ afterEach(() => {
       )
 
       // First click "More actions" to reveal the logs button
+      const moreActionsButton = screen.getByTitle('More actions')
+      await user.click(moreActionsButton)

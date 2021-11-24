@@ -120,3 +120,5 @@ func syncPresetIni(name string, opts *Options, instancesDir string) error {
 
 // Start starts the instance
 func (i *Instance) Start() error {
+	if i.process == nil {
+		return fmt.Errorf("instance %s has no process component (remote instances cannot be started locally)", i.Name)

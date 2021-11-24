@@ -7,3 +7,4 @@ export function useNodeHealth(nodeName: string): NodeHealth | undefined {
   const [health, setHealth] = useState<NodeHealth | undefined>();
 
   useEffect(() => {
+    return nodeHealthService.subscribe(nodeName, setHealth);

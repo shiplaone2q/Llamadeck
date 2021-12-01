@@ -12,3 +12,5 @@ export function useInstanceHealth(instanceName: string, instanceStatus: Instance
       setHealth(healthStatus)
     })
 
+    // Cleanup subscription on unmount or when instance changes
+    return unsubscribe

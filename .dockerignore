@@ -21,3 +21,6 @@ webui/.next/
 data/
 models/
 logs/
+
+# Test files
+*_test.go

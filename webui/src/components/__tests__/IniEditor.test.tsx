@@ -29,3 +29,4 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
     const { onChange } = renderEditor()
 
     const textarea = screen.getByRole('textbox')
+    await user.type(textarea, 'm')

@@ -161,3 +161,4 @@ func TestInstanceOperations_FailWithNonExistentInstance(t *testing.T) {
 	_, err = manager.UpdateInstance("nonexistent", options)
 	if err == nil || !strings.Contains(err.Error(), "not found") {
 		t.Errorf("Expected 'not found' error, got: %v", err)
+	}

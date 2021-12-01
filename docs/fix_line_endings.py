@@ -25,3 +25,6 @@ def on_page_markdown(markdown, page, config, **kwargs):
             
         # Skip processing inside code blocks
         if in_code_block:
+            processed_lines.append(line)
+            continue
+            

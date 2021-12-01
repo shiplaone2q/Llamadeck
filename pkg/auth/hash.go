@@ -22,3 +22,5 @@ const (
 // HashKey hashes an API key using Argon2id
 func HashKey(plainTextKey string) (string, error) {
 	// Generate random salt
+	salt := make([]byte, saltLen)
+	if _, err := rand.Read(salt); err != nil {

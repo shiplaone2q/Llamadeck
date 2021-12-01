@@ -27,3 +27,4 @@ func ContainsFlagWithValue(args []string, flag, value string) bool {
 				return true
 			}
 		}
+	}

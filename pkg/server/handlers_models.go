@@ -83,3 +83,7 @@ func (t *authTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 		req.Header.Set("Authorization", "Bearer "+t.apiKey)
 	}
 	return t.base.RoundTrip(req)
+}
+
+// DownloadModel godoc
+// @Summary Download a model from a repository

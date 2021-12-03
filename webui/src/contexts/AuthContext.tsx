@@ -50,3 +50,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<WhoamiUser | null>(null)
   const [authMethod, setAuthMethod] = useState<AuthMethod>(null)
   const [oidcEnabled, setOidcEnabled] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [oidcError, setOidcError] = useState<string | null>(null)
+

@@ -28,3 +28,7 @@ For each instance granted to a per-instance key, you pick one of three access le
 
 | Level | What the key can do |
 |---|---|
+| **Use running only** | Send requests only while the instance is already running. Never starts it. |
+| **Can start on demand** | Auto-start the instance when needed, but won't disrupt others — fails if there's no free capacity. |
+| **Can start and evict others** | Auto-start the instance and may evict other instances to free up room. |
+

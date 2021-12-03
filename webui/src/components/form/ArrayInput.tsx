@@ -37,3 +37,6 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
     onChange(arrayValue.length > 0 ? arrayValue : undefined)
   }
 
+  return (
+    <div className="grid gap-2">
+      <Label htmlFor={id}>

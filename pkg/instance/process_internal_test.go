@@ -39,3 +39,5 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 	newTestInstance := func(healthPath string) *Instance {
 		inst := &Instance{Name: "custom-health"}
 		inst.status = newStatus(Running)
+		inst.globalBackendSettings = &config.BackendConfig{
+			Custom: map[string]config.BackendSettings{

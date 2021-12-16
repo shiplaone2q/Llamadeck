@@ -13,3 +13,5 @@ export const BackendType = {
 export type BackendTypeValue = typeof BackendType[keyof typeof BackendType]
 
 export type InstanceStatus = 'running' | 'stopped' | 'failed' | 'restarting' | 'shutting_down'
+
+export type HealthState = 'stopped' | 'starting' | 'ready' | 'failed' | 'restarting' | 'shutting_down'

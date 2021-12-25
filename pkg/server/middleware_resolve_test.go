@@ -43,3 +43,7 @@ func TestResolveInstancePermission(t *testing.T) {
 		wantStart bool
 		wantEvict bool
 		wantErr   bool
+	}{
+		{
+			name:      "management key (no APIKey in context) short-circuits to all-true",
+			ctx:       context.Background(),

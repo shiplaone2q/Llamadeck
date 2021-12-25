@@ -54,3 +54,5 @@ func newProxy(instance *Instance) (*proxy, error) {
 
 	options := instance.GetOptions()
 	if options == nil {
+		return nil, fmt.Errorf("instance %s has no options set", instance.Name)
+	}

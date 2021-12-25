@@ -23,3 +23,6 @@ func TestRoutesOIDCBypassManagementAuth(t *testing.T) {
 
 	r := SetupRouter(h)
 
+	for _, target := range []string{
+		"/api/v1/auth/whoami",
+		"/api/v1/auth/oidc/login",

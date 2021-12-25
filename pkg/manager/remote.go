@@ -111,3 +111,7 @@ func (rm *remoteManager) removeInstance(instanceName string) {
 
 // makeRemoteRequest creates and executes an HTTP request to a remote node with context support.
 func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *config.NodeConfig, method, path string, body any) (*http.Response, error) {
+	var reqBody io.Reader
+	if body != nil {
+		jsonData, err := json.Marshal(body)
+		if err != nil {

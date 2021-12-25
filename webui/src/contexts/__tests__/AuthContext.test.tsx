@@ -24,3 +24,6 @@ describe('AuthContext OIDC callback errors', () => {
   beforeEach(() => {
     whoamiMock.mockResolvedValue({ authenticated: false, oidc_enabled: true, user: null })
   })
+
+  it('shows a group-gate denial in the login dialog and strips it from the URL', async () => {
+    window.history.pushState({}, '', '/?auth_error=denied')

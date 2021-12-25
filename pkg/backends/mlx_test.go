@@ -78,3 +78,6 @@ func TestParseMlxCommand(t *testing.T) {
 				}
 			},
 		},
+		{
+			name:      "empty command",
+			command:   "",

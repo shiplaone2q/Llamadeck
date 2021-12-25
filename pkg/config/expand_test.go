@@ -51,3 +51,6 @@ func TestExpandEnvVars(t *testing.T) {
 		{
 			name:     "no braces not expanded",
 			input:    "host: $MY_HOST",
+			envVars:  map[string]string{"MY_HOST": "localhost"},
+			expected: "host: $MY_HOST",
+		},

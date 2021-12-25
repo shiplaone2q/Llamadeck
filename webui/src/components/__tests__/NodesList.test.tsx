@@ -58,3 +58,6 @@ function renderNodesList() {
   );
 }
 
+describe('NodesList', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();

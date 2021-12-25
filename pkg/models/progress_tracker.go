@@ -22,3 +22,5 @@ func (pt *ProgressTracker) Track(jobID string, progress <-chan int64) {
 
 func (pt *ProgressTracker) AddToTotalBytes(jobID string, bytes int64) {
 	pt.jobStore.mutex.Lock()
+	defer pt.jobStore.mutex.Unlock()
+

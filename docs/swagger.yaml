@@ -452,3 +452,7 @@ definitions:
         type: integer
       id:
         type: integer
+      last_used_at:
+        type: integer
+      name:
+        type: string

@@ -33,3 +33,7 @@ function Header({ onCreateInstance, onShowSystemInfo, onShowSettings }: HeaderPr
             <Button
               variant="outline"
               size="icon"
+              onClick={toggleTheme}
+              data-testid="theme-toggle-button"
+              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >

@@ -23,3 +23,6 @@ function InstanceList({ editInstance }: InstanceListProps) {
         </div>
       </div>
     )
+  }
+
+  if (error) {

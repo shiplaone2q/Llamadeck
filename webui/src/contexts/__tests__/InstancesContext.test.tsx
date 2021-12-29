@@ -111,3 +111,7 @@ function TestComponent() {
       >
         Delete Instance2
       </button>
+      <button type="button" onClick={clearError} data-testid="clear-error">
+        Clear Error
+      </button>
+    </div>

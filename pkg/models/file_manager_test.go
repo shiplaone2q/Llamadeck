@@ -46,3 +46,5 @@ func TestHFValidateBlobPath(t *testing.T) {
 	cache := t.TempDir()
 	t.Setenv("LLAMA_CACHE", cache)
 	fm := NewFileManager(cache)
+
+	blobDir := fm.HFRepoDir("org/model") + "/blobs"

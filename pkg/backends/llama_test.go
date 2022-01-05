@@ -142,3 +142,7 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 	}`
 
 	var options backends.LlamaServerOptions
+	err := json.Unmarshal([]byte(jsonData), &options)
+	if err != nil {
+		t.Fatalf("Unmarshal failed: %v", err)
+	}

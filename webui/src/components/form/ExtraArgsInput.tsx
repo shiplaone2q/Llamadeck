@@ -11,3 +11,4 @@ interface ExtraArgsInputProps {
   className?: string
 }
 
+const ExtraArgsInput: React.FC<ExtraArgsInputProps> = (props) => {

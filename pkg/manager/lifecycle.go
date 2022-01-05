@@ -43,3 +43,6 @@ func newLifecycleManager(
 		shutdownChan:  make(chan struct{}),
 		shutdownDone:  make(chan struct{}),
 	}
+}
+
+// Start begins the timeout checking loop in a goroutine.

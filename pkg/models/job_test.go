@@ -55,3 +55,4 @@ func TestJobStore_FailJob(t *testing.T) {
 
 	if retrieved.Error != errorMsg {
 		t.Errorf("error = %q, want %q", retrieved.Error, errorMsg)
+	}

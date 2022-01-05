@@ -51,3 +51,5 @@ function App() {
   const handleShowSettings = () => {
     setIsSettingsModalOpen(true);
   };
+
+  // Show loading spinner while checking auth

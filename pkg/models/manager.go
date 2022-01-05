@@ -62,3 +62,6 @@ func (m *Manager) sweepStaleTempFiles() {
 		log.Printf("stale temp sweep: removed %s", path)
 		return nil
 	})
+}
+
+func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, error) {

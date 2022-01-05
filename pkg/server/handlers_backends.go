@@ -94,3 +94,6 @@ func (h *Handler) LlamaCppUIProxy() http.HandlerFunc {
 // @Router /llama-cpp/{name}/props [get]
 // @Router /llama-cpp/{name}/slots [get]
 // @Router /llama-cpp/{name}/apply-template [post]
+// @Router /llama-cpp/{name}/completion [post]
+// @Router /llama-cpp/{name}/detokenize [post]
+// @Router /llama-cpp/{name}/embeddings [post]

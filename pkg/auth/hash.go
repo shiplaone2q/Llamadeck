@@ -24,3 +24,7 @@ func HashKey(plainTextKey string) (string, error) {
 	// Generate random salt
 	salt := make([]byte, saltLen)
 	if _, err := rand.Read(salt); err != nil {
+		return "", fmt.Errorf("failed to generate salt: %w", err)
+	}
+
+	// Derive key using Argon2id

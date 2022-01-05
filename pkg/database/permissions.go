@@ -36,3 +36,4 @@ func (db *sqliteDB) GetPermissions(ctx context.Context, keyID int) ([]auth.KeyPe
 }
 
 // GetInstancePermission retrieves the full permission record for a key/instance pair.
+// Returns (nil, nil) if no permission row exists.

@@ -24,3 +24,7 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
       <h3 className="text-lg font-medium">Backend Configuration</h3>
 
       {/* Basic backend fields */}
+      {basicBackendFields.map((fieldKey) => (
+        <BackendFormField
+          key={fieldKey}
+          fieldKey={fieldKey}

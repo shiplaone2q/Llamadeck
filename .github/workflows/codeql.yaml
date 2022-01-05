@@ -35,3 +35,4 @@ jobs:
       # required to fetch internal or private CodeQL packs
       packages: read
 
+      # only required for workflows in private repositories

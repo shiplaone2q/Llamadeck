@@ -73,3 +73,7 @@ func TestScanCache(t *testing.T) {
 	model := models[0]
 	if model.Node != "test-node" {
 		t.Errorf("node = %q, want %q", model.Node, "test-node")
+	}
+
+	if model.Repo != "bartowski/Llama-3.2-3B-GGUF" {
+		t.Errorf("repo = %q, want %q", model.Repo, "bartowski/Llama-3.2-3B-GGUF")

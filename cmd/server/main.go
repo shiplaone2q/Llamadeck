@@ -45,3 +45,7 @@ func main() {
 	if err != nil {
 		log.Printf("Error loading config: %v\nUsing default configuration.", err)
 	}
+
+	// Set version information
+	cfg.Version = version
+	cfg.CommitHash = commitHash

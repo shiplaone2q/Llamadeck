@@ -36,3 +36,6 @@ export const VllmBackendOptionsSchema = z.object({
   num_lookahead_slots: z.number().optional(),
   swap_space: z.number().optional(),
   cpu_offload_gb: z.number().optional(),
+  gpu_memory_utilization: z.number().optional(),
+  num_gpu_blocks_override: z.number().optional(),
+  max_num_batched_tokens: z.number().optional(),

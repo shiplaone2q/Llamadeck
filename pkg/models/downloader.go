@@ -145,3 +145,7 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 	url := fmt.Sprintf(hfRefsURLFmt, baseURL, escapeHFPath(repo))
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return "", fmt.Errorf("failed to create request: %w", err)
+	}
+	md.setCommonHeaders(req)

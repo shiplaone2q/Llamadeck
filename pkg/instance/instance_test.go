@@ -230,3 +230,4 @@ func TestUnmarshalJSON(t *testing.T) {
 			"backend_type": "llama_cpp",
 			"backend_options": {
 				"model": "/path/to/model.gguf",
+				"port": 8080

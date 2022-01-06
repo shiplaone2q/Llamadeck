@@ -48,3 +48,4 @@ function DialogOverlay({
 }
 
 function DialogContent({
+  className,

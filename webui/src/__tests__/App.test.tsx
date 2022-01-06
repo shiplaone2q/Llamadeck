@@ -86,3 +86,6 @@ describe('App Component - Critical Business Logic Only', () => {
   ]
 
   beforeEach(() => {
+    vi.clearAllMocks()
+    vi.mocked(instancesApi.list).mockResolvedValue(mockInstances)
+    window.sessionStorage.setItem('llamadeck_management_key', 'test-api-key-123')

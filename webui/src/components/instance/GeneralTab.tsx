@@ -33,3 +33,7 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
     const fetchNodes = async () => {
       try {
         const fetchedNodes = await nodesApi.list();
+        setNodes(fetchedNodes);
+
+        const nodeNames = Object.keys(fetchedNodes);
+        if (

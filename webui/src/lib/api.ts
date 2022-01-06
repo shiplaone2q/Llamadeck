@@ -93,3 +93,7 @@ export const backendsApi = {
     // POST /backends/llama-cpp/parse-command
     parseCommand: (command: string) =>
       apiCall<CreateInstanceOptions>('/backends/llama-cpp/parse-command', {
+        method: 'POST',
+        body: JSON.stringify({ command }),
+      }),
+  },

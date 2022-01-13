@@ -15,3 +15,6 @@ interface CheckboxInputProps {
 const CheckboxInput: React.FC<CheckboxInputProps> = ({
   id,
   label,
+  value,
+  onChange,
+  description,

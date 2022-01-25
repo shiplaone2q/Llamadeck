@@ -30,3 +30,7 @@ func (h *Handler) VersionHandler() http.HandlerFunc {
 // @Success 200 {object} config.AppConfig "Sanitized configuration"
 // @Failure 500 {string} string "Internal Server Error"
 // @Router /api/v1/config [get]
+func (h *Handler) ConfigHandler() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		sanitizedConfig, err := h.cfg.SanitizedCopy()
+		if err != nil {

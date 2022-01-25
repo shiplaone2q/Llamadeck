@@ -23,3 +23,6 @@ export function parseArgs(input: string): string[] {
         current = ''
         hasToken = false
       }
+    } else {
+      current += ch
+    }

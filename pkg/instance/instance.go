@@ -125,3 +125,5 @@ func (i *Instance) Start() error {
 	}
 	return i.process.start()
 }
+
+// Stop stops the instance

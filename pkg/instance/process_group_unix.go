@@ -15,3 +15,4 @@ func setProcAttrs(cmd *exec.Cmd) {
 }
 
 // signalStop delivers SIGINT (os.Interrupt) to the child.
+func signalStop(cmd *exec.Cmd) {

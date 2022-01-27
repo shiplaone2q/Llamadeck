@@ -25,3 +25,5 @@
       "correctness": {
         "useExhaustiveDependencies": "warn",
         "useHookAtTopLevel": "error"
+      },
+      "style": {

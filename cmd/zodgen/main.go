@@ -89,3 +89,4 @@ func main() {
 
 			// Extract inline comment
 			var comment string
+			if field.Comment != nil && len(field.Comment.List) > 0 {

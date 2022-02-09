@@ -66,3 +66,7 @@ func getDefaultConfig(dataDir string) AppConfig {
 			GroupLimits:          map[string]int{},
 			EnableLRUEviction:    true,
 			DefaultIdleTimeout:   30, // Default idle timeout of 30 minutes
+			DefaultAutoRestart:   true,
+			DefaultMaxRestarts:   3,
+			DefaultRestartDelay:  5,
+			DefaultOnDemandStart: true,

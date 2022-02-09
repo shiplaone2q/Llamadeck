@@ -137,3 +137,6 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
     if (formData.backend_type !== BackendType.MLX_LM) {
       if (formData.docker_enabled === true && formData.command_override) {
         setNameError("Command override cannot be set when Docker is enabled");
+        return;
+      }
+    }

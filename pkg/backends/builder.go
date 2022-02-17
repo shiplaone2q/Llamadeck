@@ -35,3 +35,4 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 
 		switch field.Kind() {
 		case reflect.Bool:
+			if field.Bool() {

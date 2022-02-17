@@ -28,3 +28,5 @@ func (o *CustomServerOptions) GetModel() string {
 func (o *CustomServerOptions) GetPort() int {
 	if o == nil {
 		return 0
+	}
+	return o.Port

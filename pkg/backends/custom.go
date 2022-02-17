@@ -30,3 +30,7 @@ func (o *CustomServerOptions) GetPort() int {
 		return 0
 	}
 	return o.Port
+}
+
+func (o *CustomServerOptions) SetPort(port int) {
+	if o == nil {

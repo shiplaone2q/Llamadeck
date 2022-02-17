@@ -123,3 +123,7 @@ afterEach(() => {
       const moreActionsButton = screen.getByTitle('More actions')
       await user.click(moreActionsButton)
 
+      const logsButton = screen.getByTitle('View logs')
+      await user.click(logsButton)
+
+      // Should open logs dialog (we can verify this by checking if dialog title appears)

@@ -27,3 +27,7 @@ export const useBackendSettings = (backendType: string | undefined) => {
 
   // Map backend type to config key
   const backendKey = backendType === 'llama_cpp'
+    ? 'llama-cpp'
+    : backendType === 'mlx_lm'
+    ? 'mlx'
+    : backendType === 'vllm'

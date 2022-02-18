@@ -54,3 +54,5 @@ func TestExpandEnvVars(t *testing.T) {
 			envVars:  map[string]string{"MY_HOST": "localhost"},
 			expected: "host: $MY_HOST",
 		},
+		{
+			name:     "multiple substitutions",

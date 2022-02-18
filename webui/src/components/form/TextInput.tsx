@@ -13,3 +13,7 @@ interface TextInputProps {
   className?: string
 }
 
+const TextInput: React.FC<TextInputProps> = ({
+  id,
+  label,
+  value,

@@ -21,3 +21,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   });
+
+  useEffect(() => {
+    const root = document.documentElement;

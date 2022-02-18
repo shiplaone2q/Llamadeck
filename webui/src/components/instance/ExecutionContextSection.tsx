@@ -16,3 +16,6 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
 }) => {
   const backendSettings = useBackendSettings(formData.backend_type)
 
+  // Get placeholder for command override based on backend type and config
+  const getCommandPlaceholder = () => {
+    if (backendSettings?.command) {

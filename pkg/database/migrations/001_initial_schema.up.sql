@@ -26,3 +26,7 @@ CREATE TABLE IF NOT EXISTS instances (
 CREATE UNIQUE INDEX IF NOT EXISTS idx_instances_name ON instances(name);
 CREATE INDEX IF NOT EXISTS idx_instances_status ON instances(status);
 
+-- -----------------------------------------------------------------------------
+-- API Keys Table: Database-backed inference API keys
+-- -----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS api_keys (

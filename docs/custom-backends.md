@@ -13,3 +13,5 @@ The managed server must meet three requirements:
 - It exposes a health endpoint that returns a 2xx response when the server is ready (see [Health Checks](#health-checks)).
 
 The server learns its port through the `{port}` placeholder in its arguments — llamadeck has no other way to communicate it.
+
+On multi-node setups, the command must exist on the node that runs the instance.

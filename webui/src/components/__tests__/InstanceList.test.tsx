@@ -52,3 +52,7 @@ function renderInstanceList(editInstance = vi.fn()) {
     </AuthProvider>
   )
 }
+
+describe('InstanceList - State Management and UI Logic', () => {
+
+  const mockEditInstance = vi.fn()

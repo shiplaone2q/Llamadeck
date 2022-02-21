@@ -15,3 +15,4 @@ describe('parseArgs', () => {
     expect(parseArgs("--msg 'hello world'")).toEqual(['--msg', 'hello world'])
   })
 
+  it('handles quotes glued to the value', () => {

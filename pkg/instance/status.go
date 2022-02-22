@@ -65,3 +65,7 @@ type status struct {
 	s  Status
 
 	// Callback for status changes
+	onStatusChange func(oldStatus, newStatus Status)
+}
+
+// newStatus creates a new status wrapper with the given initial status

@@ -15,3 +15,6 @@ on:
       - main
 permissions:
   contents: read
+jobs:
+  test:
+    name: Run Tests

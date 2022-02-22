@@ -13,3 +13,4 @@ function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
         <DialogHeader>
           <DialogTitle>Settings</DialogTitle>
           <DialogDescription>
+            Manage your application settings and API keys.

@@ -93,3 +93,5 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 		SELECT id, name, status, created_at, updated_at, options_json, owner_user_id
 		FROM instances
 		ORDER BY created_at ASC
+	`
+

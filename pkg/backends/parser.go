@@ -82,3 +82,6 @@ func extractArgs(command string, executableNames []string, subcommandNames []str
 
 	// Check for executable name (with or without path)
 	if strings.Contains(firstToken, string(filepath.Separator)) {
+		baseName := filepath.Base(firstToken)
+		for _, execName := range executableNames {
+			if strings.HasSuffix(strings.ToLower(baseName), strings.ToLower(execName)) {

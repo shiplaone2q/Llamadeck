@@ -61,3 +61,6 @@ func TestInferenceAuthMiddleware(t *testing.T) {
 				ManagementKeys:       tt.managementKeys,
 			}
 			middleware := server.NewAPIAuthMiddleware(cfg, nil)
+
+			// Create test request
+			req := httptest.NewRequest(tt.method, "/test", nil)

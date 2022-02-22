@@ -49,3 +49,7 @@ func main() {
 	// Set version information
 	cfg.Version = version
 	cfg.CommitHash = commitHash
+	cfg.BuildTime = buildTime
+
+	// Create data directory if it doesn't exist
+	if cfg.Instances.AutoCreateDirs {

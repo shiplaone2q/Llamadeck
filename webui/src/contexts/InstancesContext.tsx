@@ -62,3 +62,6 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch instances')
     } finally {
+      setLoading(false)
+    }
+  }, [isAuthenticated])

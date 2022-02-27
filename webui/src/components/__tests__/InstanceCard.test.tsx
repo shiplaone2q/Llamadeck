@@ -127,3 +127,6 @@ afterEach(() => {
       await user.click(logsButton)
 
       // Should open logs dialog (we can verify this by checking if dialog title appears)
+      expect(screen.getByText(`Logs: ${stoppedInstance.name}`)).toBeInTheDocument()
+    })
+  })

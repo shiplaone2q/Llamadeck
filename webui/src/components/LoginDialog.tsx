@@ -49,3 +49,5 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
     e.preventDefault()
     
     if (!apiKey.trim()) {
+      return
+    }

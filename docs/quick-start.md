@@ -67,3 +67,5 @@ You should see the Llamadeck web interface.
 ## Create Your First Instance
 
 1. Click the "Add Instance" button
+2. Fill in the instance configuration:
+     - **Name**: Give your instance a descriptive name

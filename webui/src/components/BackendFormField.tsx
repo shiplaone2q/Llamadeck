@@ -53,3 +53,7 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
     } else if (isCustomPath) {
       badge = <Badge variant="outline" className="ml-2">Custom</Badge>
     }
+
+    return (
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">

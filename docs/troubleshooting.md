@@ -67,3 +67,6 @@ Most model-specific issues (memory, GPU configuration, performance tuning) are b
 **MLX:**
 - [MLX-LM GitHub](https://github.com/ml-explore/mlx-lm)
 - [MLX-LM Server Guide](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/SERVER.md)
+
+**vLLM:**
+- [vLLM Documentation](https://docs.vllm.ai/en/stable/)

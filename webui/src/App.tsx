@@ -53,3 +53,7 @@ function App() {
   };
 
   // Show loading spinner while checking auth
+  if (authLoading) {
+    return (
+      <ThemeProvider>
+        <div className="min-h-screen bg-background flex items-center justify-center">

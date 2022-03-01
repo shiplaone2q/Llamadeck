@@ -57,3 +57,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
     if (newPairsFromValue.length > 0) {
       setPairs(newPairsFromValue)
     } else if (!value) {
+      // Reset to single empty row if value is explicitly undefined/null
+      setPairs([{ key: '', value: '' }])
+    }
+     

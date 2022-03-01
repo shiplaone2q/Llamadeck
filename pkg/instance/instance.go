@@ -127,3 +127,4 @@ func (i *Instance) Start() error {
 }
 
 // Stop stops the instance
+func (i *Instance) Stop() error {

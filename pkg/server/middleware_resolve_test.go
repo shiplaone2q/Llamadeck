@@ -47,3 +47,7 @@ func TestResolveInstancePermission(t *testing.T) {
 		{
 			name:      "management key (no APIKey in context) short-circuits to all-true",
 			ctx:       context.Background(),
+			store:     &stubAuthStore{},
+			wantStart: true,
+			wantEvict: true,
+		},

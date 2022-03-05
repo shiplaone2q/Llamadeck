@@ -233,3 +233,7 @@ func TestUnmarshalJSON(t *testing.T) {
 				"port": 8080
 			}
 		}
+	}`
+
+	var inst instance.Instance
+	err := json.Unmarshal([]byte(jsonData), &inst)

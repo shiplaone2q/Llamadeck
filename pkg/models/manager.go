@@ -65,3 +65,4 @@ func (m *Manager) sweepStaleTempFiles() {
 }
 
 func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, error) {
+	if format == "" {

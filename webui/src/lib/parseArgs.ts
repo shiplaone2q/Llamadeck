@@ -26,3 +26,5 @@ export function parseArgs(input: string): string[] {
     } else {
       current += ch
     }
+  }
+

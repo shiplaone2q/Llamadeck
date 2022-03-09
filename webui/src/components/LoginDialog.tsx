@@ -51,3 +51,6 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
     if (!apiKey.trim()) {
       return
     }
+
+    setLocalLoading(true)
+    

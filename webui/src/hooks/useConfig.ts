@@ -31,3 +31,5 @@ export const useBackendSettings = (backendType: string | undefined) => {
     : backendType === 'mlx_lm'
     ? 'mlx'
     : backendType === 'vllm'
+    ? 'vllm'
+    : null

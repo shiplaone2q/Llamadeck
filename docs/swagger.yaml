@@ -456,3 +456,4 @@ definitions:
         type: integer
       name:
         type: string
+      permission_mode:

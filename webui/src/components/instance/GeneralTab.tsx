@@ -37,3 +37,7 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
 
         const nodeNames = Object.keys(fetchedNodes);
         if (
+          nodeNames.length > 0 &&
+          (!formData.nodes || formData.nodes.length === 0)
+        ) {
+          onChange("nodes", [nodeNames[0]]);

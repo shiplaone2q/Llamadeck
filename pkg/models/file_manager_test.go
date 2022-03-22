@@ -48,3 +48,5 @@ func TestHFValidateBlobPath(t *testing.T) {
 	fm := NewFileManager(cache)
 
 	blobDir := fm.HFRepoDir("org/model") + "/blobs"
+
+	tests := []struct {

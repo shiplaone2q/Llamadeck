@@ -15,3 +15,5 @@ export default function ModelsHeader() {
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold">Models ({totalCount})</h2>
         <Button onClick={() => setDownloadDialogOpen(true)}>
+          <Download className="h-4 w-4 mr-2" />
+          Download Model

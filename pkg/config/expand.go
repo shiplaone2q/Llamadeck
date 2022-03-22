@@ -14,3 +14,4 @@ func expandEnvVars(data []byte) []byte {
 			return match
 		}
 		varName := string(submatch[1])
+		value, isSet := os.LookupEnv(varName)

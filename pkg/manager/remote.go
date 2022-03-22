@@ -118,3 +118,6 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 			return nil, fmt.Errorf("failed to marshal request body: %w", err)
 		}
 		reqBody = bytes.NewBuffer(jsonData)
+	}
+
+	url := fmt.Sprintf("%s%s", nodeConfig.Address, path)

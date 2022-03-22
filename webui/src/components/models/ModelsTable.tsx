@@ -92,3 +92,7 @@ export default function ModelsTable({ rows }: ModelsTableProps) {
       </TableBody>
     </Table>
   )
+}
+
+function DownloadingRow({ job }: { job: DownloadJob }) {
+  const { cancelDownload, deleteDownload, startDownload } = useModels()

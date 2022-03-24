@@ -39,3 +39,4 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 		inst := New("test-instance", globalConfig, options, nil)
 		p := inst.proxy
 		initialLastRequest := p.getLastRequestTime()
+		

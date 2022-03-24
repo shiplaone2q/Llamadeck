@@ -61,3 +61,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
       setPairs([{ key: '', value: '' }])
     }
      
+  }, [value])
+
+  // Update parent component when pairs change
+  const updateParent = (newPairs: KeyValuePair[]) => {

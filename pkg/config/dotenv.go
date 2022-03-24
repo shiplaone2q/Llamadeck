@@ -34,3 +34,7 @@ func loadDotEnv(explicitConfigPath string) string {
 		}
 		vars := parseDotEnv(data)
 		for key, value := range vars {
+			if _, exists := os.LookupEnv(key); !exists {
+				os.Setenv(key, value)
+			}
+		}

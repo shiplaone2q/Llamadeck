@@ -50,3 +50,4 @@ type VllmServerOptions struct {
 	BlockSize                int     `json:"block_size,omitempty"`
 	EnablePrefixCaching      bool    `json:"enable_prefix_caching,omitempty"`
 	DisableSlidingWindow     bool    `json:"disable_sliding_window,omitempty"`
+	UseV2BlockManager        bool    `json:"use_v2_block_manager,omitempty"`

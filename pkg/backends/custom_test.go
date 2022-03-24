@@ -80,3 +80,6 @@ func TestOptionsGetHealthPath(t *testing.T) {
 			expected: "/health",
 		},
 		{
+			name:     "built-in backends read the same field",
+			options:  backends.Options{BackendType: backends.BackendTypeLlamaCpp, LlamaServerOptions: &backends.LlamaServerOptions{}},
+			expected: "/llm-ready",

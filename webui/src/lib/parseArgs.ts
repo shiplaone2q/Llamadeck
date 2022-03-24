@@ -28,3 +28,4 @@ export function parseArgs(input: string): string[] {
     }
   }
 
+  if (current || hasToken) {

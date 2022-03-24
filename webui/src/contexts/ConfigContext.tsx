@@ -28,3 +28,6 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
       return
     }
 
+    loadedRef.current = true
+
+    const loadConfig = async () => {

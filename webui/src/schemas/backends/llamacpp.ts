@@ -85,3 +85,7 @@ export const LlamaCppBackendOptionsSchema = z.object({
   verbose: z.boolean().optional(), // -v, --verbose, --log-verbose
   offline: z.boolean().optional(), // --offline
   verbosity: z.number().optional(), // -lv, --verbosity, --log-verbosity N
+  log_prefix: z.boolean().optional(), // --log-prefix
+  log_timestamps: z.boolean().optional(), // --log-timestamps
+  cache_type_k_draft: z.string().optional(), // -ctkd, --cache-type-k-draft TYPE
+  cache_type_v_draft: z.string().optional(), // -ctvd, --cache-type-v-draft TYPE

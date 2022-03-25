@@ -61,3 +61,4 @@ function renderNodesList() {
 describe('NodesList', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    window.sessionStorage.setItem(

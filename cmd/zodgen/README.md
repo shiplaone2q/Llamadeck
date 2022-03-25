@@ -15,3 +15,6 @@ Then manually copy the generated schemas into `webui/src/schemas/backends/llamac
 ## How It Works
 
 1. Parses `pkg/backends/llama.go` using Go's AST parser
+2. Extracts the `LlamaServerOptions` struct definition
+3. Reads field names, types, JSON tags, and comments
+4. Maps Go types to Zod types:

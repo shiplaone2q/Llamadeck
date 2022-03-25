@@ -94,3 +94,6 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
     }
 
     return () => {
+      if (refreshIntervalRef.current) {
+        clearInterval(refreshIntervalRef.current)
+      }

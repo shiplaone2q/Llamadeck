@@ -26,3 +26,4 @@ type SessionStore struct {
 // NewSessionStore creates a store where sessions live for ttl.
 func NewSessionStore(ttl time.Duration) *SessionStore {
 	return &SessionStore{
+		sessions: make(map[string]*Session),

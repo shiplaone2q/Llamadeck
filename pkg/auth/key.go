@@ -29,3 +29,6 @@ type KeyPermission struct {
 	KeyID      int
 	InstanceID int
 	CanStart   bool
+	CanEvict   bool
+}
+

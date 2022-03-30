@@ -30,3 +30,6 @@ CREATE INDEX IF NOT EXISTS idx_instances_status ON instances(status);
 -- API Keys Table: Database-backed inference API keys
 -- -----------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS api_keys (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    key_hash TEXT NOT NULL,
+    name TEXT NOT NULL,

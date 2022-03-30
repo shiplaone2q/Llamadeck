@@ -11,3 +11,4 @@ export const CustomBackendOptionsSchema = z.object({
   args: z.array(z.string()).optional(),
 })
 
+// Infer the TypeScript type from the schema

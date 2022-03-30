@@ -65,3 +65,5 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       setLoading(false)
     }
   }, [isAuthenticated])
+
+  const updateInstanceInMap = useCallback((name: string, updates: Partial<Instance>) => {

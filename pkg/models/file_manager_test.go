@@ -50,3 +50,6 @@ func TestHFValidateBlobPath(t *testing.T) {
 	blobDir := fm.HFRepoDir("org/model") + "/blobs"
 
 	tests := []struct {
+		name      string
+		path      string
+		wantValid bool

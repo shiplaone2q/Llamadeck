@@ -39,3 +39,7 @@ export const VllmBackendOptionsSchema = z.object({
   gpu_memory_utilization: z.number().optional(),
   num_gpu_blocks_override: z.number().optional(),
   max_num_batched_tokens: z.number().optional(),
+  max_num_seqs: z.number().optional(),
+  max_logprobs: z.number().optional(),
+  disable_log_stats: z.boolean().optional(),
+  quantization: z.string().optional(),

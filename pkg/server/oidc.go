@@ -130,3 +130,6 @@ func (s *OIDCService) webRootPath(r *http.Request) string {
 func signStateValue(key []byte, state, verifier, nonce string) string {
 	mac := hmac.New(sha256.New, key)
 	mac.Write([]byte(state))
+	mac.Write([]byte("|"))
+	mac.Write([]byte(verifier))
+	mac.Write([]byte("|"))

@@ -149,3 +149,7 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 		return "", fmt.Errorf("failed to create request: %w", err)
 	}
 	md.setCommonHeaders(req)
+
+	resp, err := md.httpClient.Do(req)
+	if err != nil {
+		return "", fmt.Errorf("failed to fetch refs: %w", err)

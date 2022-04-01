@@ -38,3 +38,6 @@ func loadDotEnv(explicitConfigPath string) string {
 				os.Setenv(key, value)
 			}
 		}
+		log.Printf("Loaded .env from %s", p)
+		return p
+	}

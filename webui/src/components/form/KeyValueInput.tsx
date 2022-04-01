@@ -65,3 +65,6 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
 
   // Update parent component when pairs change
   const updateParent = (newPairs: KeyValuePair[]) => {
+    // Filter based on validation rules
+    const validPairs = allowEmptyValues
+      ? newPairs.filter(pair => pair.key.trim() !== '')

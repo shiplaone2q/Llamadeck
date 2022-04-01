@@ -16,3 +16,4 @@ describe('parseArgs', () => {
   })
 
   it('handles quotes glued to the value', () => {
+    expect(parseArgs('--split="1, 2"')).toEqual(['--split=1, 2'])

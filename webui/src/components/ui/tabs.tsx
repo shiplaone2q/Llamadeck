@@ -45,3 +45,5 @@ function TabsList({
   variant = "default",
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.List> &
+  VariantProps<typeof tabsListVariants>) {
+  return (

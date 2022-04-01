@@ -133,3 +133,4 @@ func signStateValue(key []byte, state, verifier, nonce string) string {
 	mac.Write([]byte("|"))
 	mac.Write([]byte(verifier))
 	mac.Write([]byte("|"))
+	mac.Write([]byte(nonce))

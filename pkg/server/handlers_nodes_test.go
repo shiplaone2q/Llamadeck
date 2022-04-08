@@ -49,3 +49,4 @@ func TestGetNodeHealth(t *testing.T) {
 			nodes:          map[string]config.NodeConfig{"main": {}},
 			localNode:      "main",
 			requestName:    "main",
+			expectedStatus: http.StatusOK,

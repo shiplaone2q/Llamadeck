@@ -19,3 +19,4 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
   // Get placeholder for command override based on backend type and config
   const getCommandPlaceholder = () => {
     if (backendSettings?.command) {
+      return backendSettings.command

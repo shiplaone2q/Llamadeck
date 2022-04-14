@@ -95,3 +95,6 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 		ORDER BY created_at ASC
 	`
 
+	rows, err := db.DB.QueryContext(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query instances: %w", err)

@@ -140,3 +140,7 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
         return;
       }
     }
+
+    // Clean up undefined values to avoid sending empty fields
+    const cleanOptions: CreateInstanceOptions = {} as CreateInstanceOptions;
+    Object.entries(formData).forEach(([key, value]) => {

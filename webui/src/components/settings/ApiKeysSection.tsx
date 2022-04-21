@@ -70,3 +70,6 @@ function ApiKeysSection() {
 
   const handleDeleteKey = async (id: number, name: string) => {
     if (!confirm(`Are you sure you want to delete the key '${name}'?\n\nThis action cannot be undone.`)) {
+      return;
+    }
+

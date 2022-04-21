@@ -97,3 +97,6 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
       if (refreshIntervalRef.current) {
         clearInterval(refreshIntervalRef.current)
       }
+    }
+  }, [autoRefresh, isRunning, open, lineCount, fetchLogs])
+

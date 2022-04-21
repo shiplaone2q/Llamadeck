@@ -17,3 +17,4 @@ const TextInput: React.FC<TextInputProps> = ({
   id,
   label,
   value,
+  onChange,

@@ -54,3 +54,4 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
 
     setLocalLoading(true)
     
+    try {

@@ -62,3 +62,4 @@ describe('NodesList', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     window.sessionStorage.setItem(
+      'llamadeck_management_key',

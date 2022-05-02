@@ -15,3 +15,4 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
   }
 
   const { variant, label } = variants[status]
+

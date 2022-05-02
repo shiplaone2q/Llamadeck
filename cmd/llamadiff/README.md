@@ -25,3 +25,7 @@ The tool will output a report showing:
 5. Reports discrepancies between llama-server's flags and our parser
 
 
+## Understanding the Output
+
+### Working Flags
+These flags are correctly parsed and set their corresponding struct fields.

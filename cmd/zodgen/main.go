@@ -90,3 +90,7 @@ func main() {
 			// Extract inline comment
 			var comment string
 			if field.Comment != nil && len(field.Comment.List) > 0 {
+				comment = strings.TrimSpace(strings.TrimPrefix(field.Comment.List[0].Text, "//"))
+			}
+
+			// Extract alternative keys from comment

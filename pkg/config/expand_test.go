@@ -56,3 +56,5 @@ func TestExpandEnvVars(t *testing.T) {
 		},
 		{
 			name:     "multiple substitutions",
+			input:    "${HOST}:${PORT}",
+			envVars:  map[string]string{"HOST": "localhost", "PORT": "8080"},

@@ -46,3 +46,7 @@ func newLifecycleManager(
 }
 
 // Start begins the timeout checking loop in a goroutine.
+func (l *lifecycleManager) start() {
+	go l.timeoutCheckLoop()
+}
+

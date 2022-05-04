@@ -37,3 +37,6 @@ function NodesList() {
           );
         }
       } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }

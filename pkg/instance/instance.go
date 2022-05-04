@@ -128,3 +128,6 @@ func (i *Instance) Start() error {
 
 // Stop stops the instance
 func (i *Instance) Stop() error {
+	if i.process == nil {
+		return fmt.Errorf("instance %s has no process component (remote instances cannot be stopped locally)", i.Name)
+	}

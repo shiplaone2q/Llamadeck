@@ -41,3 +41,6 @@ jobs:
       - name: Build documentation
         run: |
           mkdocs build --strict
+
+  deploy-dev:
+    runs-on: ubuntu-latest

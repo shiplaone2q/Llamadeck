@@ -37,3 +37,5 @@ func TestValidateInstanceName(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			name, err := validation.ValidateInstanceName(tt.input)
 			if (err != nil) != tt.wantErr {
+				t.Errorf("ValidateInstanceName(%q) error = %v, wantErr %v", tt.input, err, tt.wantErr)
+			}

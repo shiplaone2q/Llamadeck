@@ -48,3 +48,4 @@ func LoadConfig(configPath string) (AppConfig, error) {
 			"management endpoints stay unauthenticated and OIDC login only adds session support.")
 	}
 
+	// Set default directories if not specified

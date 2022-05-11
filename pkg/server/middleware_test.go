@@ -64,3 +64,6 @@ func TestInferenceAuthMiddleware(t *testing.T) {
 
 			// Create test request
 			req := httptest.NewRequest(tt.method, "/test", nil)
+			if tt.requestKey != "" {
+				req.Header.Set("Authorization", "Bearer "+tt.requestKey)
+			}

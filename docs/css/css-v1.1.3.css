@@ -399,3 +399,7 @@
 }
 
 .nt-group-2 .nt-plan-group-summary,
+.nt-group-2 .nt-timeline-dot {
+  color: var(--nt-group-2-dark);
+  background-color: var(--nt-group-2-dark-bg);
+}

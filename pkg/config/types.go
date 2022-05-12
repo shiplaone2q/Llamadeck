@@ -52,3 +52,5 @@ type AppConfig struct {
 // ServerConfig contains HTTP server configuration
 type ServerConfig struct {
 	// Server host to bind to
+	Host string `yaml:"host" json:"host"`
+

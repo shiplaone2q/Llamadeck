@@ -68,3 +68,5 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
     // Filter based on validation rules
     const validPairs = allowEmptyValues
       ? newPairs.filter(pair => pair.key.trim() !== '')
+      : newPairs.filter(pair => pair.key.trim() !== '' && pair.value.trim() !== '')
+

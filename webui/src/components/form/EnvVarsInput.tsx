@@ -12,3 +12,5 @@ interface EnvVarsInputProps {
 }
 
 const EnvVarsInput: React.FC<EnvVarsInputProps> = (props) => {
+  return (
+    <KeyValueInput

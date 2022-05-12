@@ -16,3 +16,5 @@ export type InstanceStatus = 'running' | 'stopped' | 'failed' | 'restarting' | '
 
 export type HealthState = 'stopped' | 'starting' | 'ready' | 'failed' | 'restarting' | 'shutting_down'
 
+export interface HealthStatus {
+  state: HealthState

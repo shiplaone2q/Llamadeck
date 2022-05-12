@@ -77,3 +77,7 @@ func TestScanCache(t *testing.T) {
 
 	if model.Repo != "bartowski/Llama-3.2-3B-GGUF" {
 		t.Errorf("repo = %q, want %q", model.Repo, "bartowski/Llama-3.2-3B-GGUF")
+	}
+
+	if len(model.Files) != 2 {
+		t.Fatalf("expected 2 files, got %d", len(model.Files))

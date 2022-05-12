@@ -34,3 +34,5 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
   useEffect(() => {
     const fetchNodes = async () => {
       try {
+        const fetchedNodes = await nodesApi.list()
+        setNodes(fetchedNodes)

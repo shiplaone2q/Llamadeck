@@ -61,3 +61,7 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 		t.Fatalf("Failed to open database: %v", err)
 	}
 	if err := database.RunMigrations(db2); err != nil {
+		t.Fatalf("Failed to run migrations: %v", err)
+	}
+	manager2 := manager.New(appConfig, db2)
+	instances, err := manager2.ListInstances()

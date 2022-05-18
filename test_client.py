@@ -53,3 +53,7 @@ def send_message(message):
         ],
         "temperature": 0.7,
         "max_tokens": 1000,
+        "stream": False,
+    }
+    
+    response = requests.post(f"{BASE_URL}/v1/chat/completions", headers=headers, json=data, timeout=60)

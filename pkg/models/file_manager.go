@@ -43,3 +43,6 @@ func sanitizePathComponent(component string) string {
 
 func (fm *FileManager) HFHubRoot() string {
 	fm.hubRootOnce.Do(func() {
+		for _, env := range []string{"LLAMA_CACHE", "HF_HUB_CACHE", "HUGGINGFACE_HUB_CACHE"} {
+			if v := os.Getenv(env); v != "" {
+				fm.hubRootVal = v

@@ -35,3 +35,4 @@ class ModelsPollingService {
   }
 
   /**
+   * Poll for active jobs

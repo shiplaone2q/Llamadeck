@@ -112,3 +112,4 @@ func loadEnvVars(cfg *AppConfig) {
 			cfg.Backends.LlamaCpp.ResponseHeaders = make(map[string]string)
 		}
 		parseHeaders(llamaEnv, cfg.Backends.LlamaCpp.ResponseHeaders)
+	}

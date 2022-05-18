@@ -53,3 +53,4 @@ func main() {
 
 	// Create data directory if it doesn't exist
 	if cfg.Instances.AutoCreateDirs {
+		// Create the main data directory

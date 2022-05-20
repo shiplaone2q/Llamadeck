@@ -65,3 +65,5 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 	}
 	manager2 := manager.New(appConfig, db2)
 	instances, err := manager2.ListInstances()
+	if err != nil {
+		t.Fatalf("ListInstances failed: %v", err)

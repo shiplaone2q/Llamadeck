@@ -85,3 +85,7 @@ func extractArgs(command string, executableNames []string, subcommandNames []str
 		baseName := filepath.Base(firstToken)
 		for _, execName := range executableNames {
 			if strings.HasSuffix(strings.ToLower(baseName), strings.ToLower(execName)) {
+				start = 1
+				break
+			}
+		}

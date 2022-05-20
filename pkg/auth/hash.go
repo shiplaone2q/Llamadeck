@@ -28,3 +28,5 @@ func HashKey(plainTextKey string) (string, error) {
 	}
 
 	// Derive key using Argon2id
+	hash := argon2.IDKey([]byte(plainTextKey), salt, timeCost, memory, threads, keyLen)
+

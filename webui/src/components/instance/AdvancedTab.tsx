@@ -25,3 +25,6 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
   }).length
 
   return (
+    <div className="space-y-6 py-4">
+      {advancedBackendFields.length > 0 && (
+        <div className="space-y-4">

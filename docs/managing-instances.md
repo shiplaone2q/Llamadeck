@@ -95,3 +95,6 @@ Custom backend instances reference a `backends.custom.<name>` entry from the [co
 - `name` (required): the config entry to use.
 - `args`: instance-level arguments, appended after the entry's configured `args`.
 - `model`: model identifier reported to OpenAI-compatible clients.
+- `host` / `port`: where llamadeck reaches the server (proxy and health checks). Leave `port` empty for automatic allocation.
+
+The `{port}` and `{model}` placeholders are substituted at start; see [Custom Backends](custom-backends.md) for how they work.

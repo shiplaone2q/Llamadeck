@@ -56,3 +56,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
   }, [isAuthenticated])
 
   const startDownload = useCallback(async (repo: string, tag?: string, node?: string, format?: ModelFormat) => {
+    setError(null)
+    try {
+      await llamaCppModelsApi.startDownload(repo, tag, node, format)

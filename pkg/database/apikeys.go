@@ -75,3 +75,4 @@ func (db *sqliteDB) GetKeyByID(ctx context.Context, id int) (*auth.APIKey, error
 		&expiresAt, &key.CreatedAt, &key.UpdatedAt, &lastUsedAt,
 	)
 	if err != nil {
+		if err == sql.ErrNoRows {

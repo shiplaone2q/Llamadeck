@@ -69,3 +69,4 @@ type status struct {
 }
 
 // newStatus creates a new status wrapper with the given initial status
+func newStatus(initial Status) *status {

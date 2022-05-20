@@ -27,3 +27,6 @@ type SessionStore struct {
 func NewSessionStore(ttl time.Duration) *SessionStore {
 	return &SessionStore{
 		sessions: make(map[string]*Session),
+		ttl:      ttl,
+	}
+}

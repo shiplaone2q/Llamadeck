@@ -60,3 +60,5 @@ func TestExpandEnvVars(t *testing.T) {
 			envVars:  map[string]string{"HOST": "localhost", "PORT": "8080"},
 			expected: "localhost:8080",
 		},
+		{
+			name:     "inline in longer string",

@@ -58,3 +58,6 @@ func TestGetInstancePermission(t *testing.T) {
 		if err != nil {
 			t.Fatalf("GetInstancePermission: %v", err)
 		}
+		if got == nil {
+			t.Fatal("expected non-nil perm")
+		}

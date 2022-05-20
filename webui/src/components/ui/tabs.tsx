@@ -47,3 +47,4 @@ function TabsList({
 }: React.ComponentProps<typeof TabsPrimitive.List> &
   VariantProps<typeof tabsListVariants>) {
   return (
+    <TabsPrimitive.List

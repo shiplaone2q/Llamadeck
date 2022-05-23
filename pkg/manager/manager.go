@@ -99,3 +99,7 @@ func (im *instanceManager) Shutdown() {
 		// 2. Get running instances (no lock needed - registry handles it)
 		running := im.registry.listRunning()
 
+		// 3. Stop local instances concurrently
+		var wg sync.WaitGroup
+		for _, inst := range running {
+			if inst.IsRemote() {

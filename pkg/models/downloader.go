@@ -153,3 +153,6 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 	resp, err := md.httpClient.Do(req)
 	if err != nil {
 		return "", fmt.Errorf("failed to fetch refs: %w", err)
+	}
+	defer resp.Body.Close()
+

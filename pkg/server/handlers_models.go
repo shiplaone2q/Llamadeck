@@ -89,3 +89,6 @@ func (t *authTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 // @Summary Download a model from a repository
 // @Description Initiates the download of a model from a specified repository and tag. Returns a job ID to track progress.
 // @Tags Models
+// @Security ApiKeyAuth
+// @Accept json
+// @Produce json

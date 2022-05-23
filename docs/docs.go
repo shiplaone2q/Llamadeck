@@ -964,3 +964,4 @@ const docTemplate = `{
                 "summary": "Restart a running instance",
                 "parameters": [
                     {
+                        "type": "string",

@@ -96,3 +96,4 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 			writeError(w, http.StatusBadRequest, "missing_permissions", "Permissions required when permission mode is 'per_instance'")
 			return
 		}
+		if req.ExpiresAt != nil && *req.ExpiresAt <= time.Now().Unix() {

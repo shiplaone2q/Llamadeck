@@ -97,3 +97,4 @@ func (h *Handler) LlamaCppUIProxy() http.HandlerFunc {
 // @Router /llama-cpp/{name}/completion [post]
 // @Router /llama-cpp/{name}/detokenize [post]
 // @Router /llama-cpp/{name}/embeddings [post]
+// @Router /llama-cpp/{name}/infill [post]

@@ -27,3 +27,4 @@ type AuthStore interface {
 	ListKeys(ctx context.Context) ([]*auth.APIKey, error)
 	GetActiveKeys(ctx context.Context) ([]*auth.APIKey, error)
 	GetKeyByID(ctx context.Context, id int) (*auth.APIKey, error)
+	DeleteKey(ctx context.Context, id int) error

@@ -40,3 +40,6 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 		p := inst.proxy
 		initialLastRequest := p.getLastRequestTime()
 		
+		req := httptest.NewRequest("GET", "/v1/chat/completions", nil)
+		w := httptest.NewRecorder()
+		

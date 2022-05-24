@@ -30,3 +30,6 @@ func HashKey(plainTextKey string) (string, error) {
 	// Derive key using Argon2id
 	hash := argon2.IDKey([]byte(plainTextKey), salt, timeCost, memory, threads, keyLen)
 
+	// Format: $argon2id$v=19$m=65536,t=1,p=4$<base64-salt>$<base64-hash>
+	saltB64 := base64.RawStdEncoding.EncodeToString(salt)
+	hashB64 := base64.RawStdEncoding.EncodeToString(hash)

@@ -18,3 +18,7 @@ const TextInput: React.FC<TextInputProps> = ({
   label,
   value,
   onChange,
+  placeholder,
+  description,
+  disabled = false,
+  className

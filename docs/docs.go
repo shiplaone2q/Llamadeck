@@ -965,3 +965,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "Instance Name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true

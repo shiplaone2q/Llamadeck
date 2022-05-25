@@ -20,3 +20,4 @@ function RadioGroup({
 }
 
 function RadioGroupItem({
+  className,

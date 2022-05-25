@@ -57,3 +57,6 @@ def send_message(message):
     }
     
     response = requests.post(f"{BASE_URL}/v1/chat/completions", headers=headers, json=data, timeout=60)
+    response.raise_for_status()
+    return response.json()["choices"][0]["message"]["content"]
+

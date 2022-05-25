@@ -95,3 +95,5 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 			return
 		}
 
+		inst, err := h.InstanceManager.GetInstance(validatedName)
+		if err != nil {

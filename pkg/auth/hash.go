@@ -33,3 +33,5 @@ func HashKey(plainTextKey string) (string, error) {
 	// Format: $argon2id$v=19$m=65536,t=1,p=4$<base64-salt>$<base64-hash>
 	saltB64 := base64.RawStdEncoding.EncodeToString(salt)
 	hashB64 := base64.RawStdEncoding.EncodeToString(hash)
+
+	return fmt.Sprintf("$argon2id$v=19$m=%d,t=%d,p=%d$%s$%s", memory, timeCost, threads, saltB64, hashB64), nil

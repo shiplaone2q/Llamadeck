@@ -57,3 +57,4 @@ func (o *MlxServerOptions) UnmarshalJSON(data []byte) error {
 	*o = MlxServerOptions(temp)
 
 	// Get all known canonical field names from struct tags
+	knownFields := getKnownFieldNames(o)

@@ -43,3 +43,7 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 		req := httptest.NewRequest("GET", "/v1/chat/completions", nil)
 		w := httptest.NewRecorder()
 		
+		backendDone := make(chan struct{})
+		backendBlock := make(chan struct{})
+		
+		blockingBackend := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

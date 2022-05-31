@@ -17,3 +17,5 @@ export interface DownloadJob {
   created_at: number
   completed_at: number | null
 }
+
+export interface CachedModel {

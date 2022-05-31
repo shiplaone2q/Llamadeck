@@ -50,3 +50,5 @@ func LoadConfig(configPath string) (AppConfig, error) {
 
 	// Set default directories if not specified
 	if cfg.Instances.LogsDir == "" {
+		cfg.Instances.LogsDir = filepath.Join(cfg.DataDir, "logs")
+	}

@@ -22,3 +22,5 @@ export const MlxBackendOptionsSchema = z.object({
   // Sampling defaults
   temp: z.number().optional(),     // Note: MLX uses "temp" not "temperature"
   top_p: z.number().optional(),
+  top_k: z.number().optional(),
+  min_p: z.number().optional(),

@@ -29,3 +29,4 @@ export interface ServerConfig {
   response_headers?: Record<string, string>
 }
 
+export interface InstancesConfig {

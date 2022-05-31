@@ -54,3 +54,5 @@ func main() {
 	// Create data directory if it doesn't exist
 	if cfg.Instances.AutoCreateDirs {
 		// Create the main data directory
+		if err := os.MkdirAll(cfg.DataDir, 0755); err != nil {
+			log.Printf("Error creating data directory %s: %v\nData persistence may not be available.", cfg.DataDir, err)

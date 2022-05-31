@@ -55,3 +55,6 @@ func SetupRouter(handler *Handler) *chi.Mux {
 
 		// API key management endpoints
 		r.Route("/auth", func(r chi.Router) {
+			r.Route("/keys", func(r chi.Router) {
+				r.Post("/", handler.CreateKey())                        // Create API key
+				r.Get("/", handler.ListKeys())                          // List API keys

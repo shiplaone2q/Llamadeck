@@ -54,3 +54,7 @@ const basicMlxFieldsConfig: Record<string, {
   model: {
     label: 'Model',
     placeholder: 'mlx-community/Mistral-7B-Instruct-v0.3-4bit',
+    description: 'The path to the MLX model weights, tokenizer, and config'
+  },
+  temp: {
+    label: 'Temperature',

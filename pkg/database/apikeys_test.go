@@ -29,3 +29,7 @@ func TestListKeysIncludesAllOwners(t *testing.T) {
 
 	keys, err := db.ListKeys(context.Background())
 	if err != nil {
+		t.Fatalf("ListKeys: %v", err)
+	}
+	if len(keys) != 2 {
+		t.Fatalf("ListKeys returned %d keys, expected 2", len(keys))

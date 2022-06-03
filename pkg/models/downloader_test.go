@@ -148,3 +148,7 @@ func TestBuildDownloadPlan(t *testing.T) {
 		t.Errorf("expected 3 tasks, got %d", len(plan.Tasks))
 	}
 }
+
+func TestBuildDownloadPlan_Safetensors(t *testing.T) {
+	d := NewDownloader("", 0, "", NewFileManager(t.TempDir()), nil)
+

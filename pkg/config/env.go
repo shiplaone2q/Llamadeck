@@ -113,3 +113,4 @@ func loadEnvVars(cfg *AppConfig) {
 		}
 		parseHeaders(llamaEnv, cfg.Backends.LlamaCpp.ResponseHeaders)
 	}
+	if llamaCacheDir := os.Getenv("LLAMADECK_LLAMACPP_CACHE_DIR"); llamaCacheDir != "" {

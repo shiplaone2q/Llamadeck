@@ -26,3 +26,6 @@ func TestRoutesOIDCBypassManagementAuth(t *testing.T) {
 	for _, target := range []string{
 		"/api/v1/auth/whoami",
 		"/api/v1/auth/oidc/login",
+		"/api/v1/auth/oidc/callback",
+	} {
+		req := httptest.NewRequest(http.MethodGet, target, nil)

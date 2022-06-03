@@ -34,3 +34,5 @@ const NumberInput: React.FC<NumberInputProps> = ({
       onChange(numValue)
     }
   }
+
+  return (

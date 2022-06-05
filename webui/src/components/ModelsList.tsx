@@ -15,3 +15,6 @@ export default function ModelsList() {
 
   if (loading) {
     return (
+      <div className="space-y-4">
+        <ModelsHeader />
+        <div className="space-y-2">

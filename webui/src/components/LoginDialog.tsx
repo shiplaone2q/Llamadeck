@@ -56,3 +56,4 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
     
     try {
       await login(apiKey.trim())
+      // Login successful - dialog will close automatically when auth state changes

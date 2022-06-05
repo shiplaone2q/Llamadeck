@@ -18,3 +18,5 @@ export type HealthState = 'stopped' | 'starting' | 'ready' | 'failed' | 'restart
 
 export interface HealthStatus {
   state: HealthState
+  instanceStatus: InstanceStatus
+  lastChecked: Date

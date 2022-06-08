@@ -19,3 +19,5 @@ export async function parseErrorResponse(response: Response): Promise<string> {
 /**
  * Handles common API call errors and throws appropriate Error objects
  */
+export async function handleApiError(response: Response): Promise<void> {
+  // Handle authentication errors

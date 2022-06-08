@@ -103,3 +103,7 @@ func (im *instanceManager) Shutdown() {
 		var wg sync.WaitGroup
 		for _, inst := range running {
 			if inst.IsRemote() {
+				continue // Skip remote instances
+			}
+			wg.Add(1)
+			go func(inst *instance.Instance) {

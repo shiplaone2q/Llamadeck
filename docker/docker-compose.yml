@@ -30,3 +30,6 @@ services:
   llamadeck-vllm:
     build:
       context: ..
+      dockerfile: docker/Dockerfile.vllm
+    image: llamadeck:vllm-cuda
+    container_name: llamadeck-vllm

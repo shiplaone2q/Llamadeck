@@ -50,3 +50,6 @@ func (h *Handler) ListNodes() http.HandlerFunc {
 			nodeResponses[name] = NodeResponse{
 				Address: node.Address,
 			}
+		}
+
+		writeJSON(w, http.StatusOK, nodeResponses)

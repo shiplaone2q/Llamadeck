@@ -48,3 +48,6 @@ function TabsList({
   VariantProps<typeof tabsListVariants>) {
   return (
     <TabsPrimitive.List
+      data-slot="tabs-list"
+      data-variant={variant}
+      className={cn(tabsListVariants({ variant }), className)}

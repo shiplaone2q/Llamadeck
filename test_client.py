@@ -60,3 +60,6 @@ def send_message(message):
     response.raise_for_status()
     return response.json()["choices"][0]["message"]["content"]
 
+def interactive_mode():
+    """Run in interactive mode for continuous conversation"""
+    global BASE_URL, API_KEY, MODEL_NAME

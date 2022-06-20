@@ -22,3 +22,4 @@ def on_page_markdown(markdown, page, config, **kwargs):
         with open(readme_path, 'r', encoding='utf-8') as f:
             readme_content = f.read()
     except Exception as e:
+        print(f"Error reading README.md: {e}")

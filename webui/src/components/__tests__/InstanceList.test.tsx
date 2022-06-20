@@ -56,3 +56,5 @@ function renderInstanceList(editInstance = vi.fn()) {
 describe('InstanceList - State Management and UI Logic', () => {
 
   const mockEditInstance = vi.fn()
+
+  const mockInstances: Instance[] = [

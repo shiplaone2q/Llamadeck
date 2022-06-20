@@ -63,3 +63,4 @@ def send_message(message):
 def interactive_mode():
     """Run in interactive mode for continuous conversation"""
     global BASE_URL, API_KEY, MODEL_NAME
+

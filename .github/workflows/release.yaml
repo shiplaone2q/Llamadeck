@@ -55,3 +55,7 @@ jobs:
           - goos: linux
             goarch: arm64
             runner: ubuntu-latest
+            cc: aarch64-linux-gnu-gcc
+          - goos: darwin
+            goarch: arm64
+            runner: macos-latest

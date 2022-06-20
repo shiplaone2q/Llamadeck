@@ -15,3 +15,5 @@ Welcome to the Llamadeck documentation!
 ## Quick Links
 
 - [Installation Guide](installation.md) - Get Llamadeck up and running
+- [Configuration Guide](configuration.md) - Detailed configuration options
+- [Quick Start](quick-start.md) - Your first steps with Llamadeck

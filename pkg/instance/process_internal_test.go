@@ -45,3 +45,6 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 			},
 		}
 		inst.options = newOptions(&Options{
+			BackendOptions: backends.Options{
+				BackendType: backends.BackendTypeCustom,
+				CustomServerOptions: &backends.CustomServerOptions{

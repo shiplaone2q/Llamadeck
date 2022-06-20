@@ -13,3 +13,5 @@ ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <AuthProvider>
       <ConfigProvider>
+        <InstancesProvider>
+          <App />

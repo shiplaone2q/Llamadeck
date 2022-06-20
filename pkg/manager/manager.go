@@ -107,3 +107,7 @@ func (im *instanceManager) Shutdown() {
 			}
 			wg.Add(1)
 			go func(inst *instance.Instance) {
+				defer wg.Done()
+				log.Printf("Stopping instance %s...\n", inst.Name)
+				if err := inst.Stop(); err != nil {
+					log.Printf("Error stopping instance %s: %v\n", inst.Name, err)

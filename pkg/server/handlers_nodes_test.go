@@ -50,3 +50,7 @@ func TestGetNodeHealth(t *testing.T) {
 			localNode:      "main",
 			requestName:    "main",
 			expectedStatus: http.StatusOK,
+			expectedHealth: server.NodeStatusHealthy,
+		},
+		{
+			name: "reachable remote node with valid api key",

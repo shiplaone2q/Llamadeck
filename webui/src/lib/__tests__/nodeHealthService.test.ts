@@ -33,3 +33,4 @@ describe('nodeHealthService', () => {
           { status: 200, headers: { 'Content-Type': 'application/json' } },
         ),
       ),
+    ) as unknown as typeof fetch;

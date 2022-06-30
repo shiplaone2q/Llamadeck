@@ -70,3 +70,7 @@ Most model-specific issues (memory, GPU configuration, performance tuning) are b
 
 **vLLM:**
 - [vLLM Documentation](https://docs.vllm.ai/en/stable/)
+- [OpenAI Compatible Server](https://docs.vllm.ai/en/stable/serving/openai_compatible_server.html)
+- [vllm serve Command](https://docs.vllm.ai/en/stable/cli/serve.html#vllm-serve)
+
+**Testing backends directly:**

@@ -82,3 +82,6 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
       setError(err instanceof Error ? err.message : 'Failed to fetch backend info')
     } finally {
       setLoading(false)
+    }
+  }, [])
+

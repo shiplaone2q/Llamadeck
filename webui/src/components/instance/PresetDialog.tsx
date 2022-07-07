@@ -32,3 +32,4 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
     fileInputRef.current?.click()
   }
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

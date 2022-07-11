@@ -20,3 +20,5 @@ export interface HealthStatus {
   state: HealthState
   instanceStatus: InstanceStatus
   lastChecked: Date
+  error?: string
+  source: 'backend' | 'http'

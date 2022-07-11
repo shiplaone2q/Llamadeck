@@ -111,3 +111,6 @@ func (im *instanceManager) Shutdown() {
 				log.Printf("Stopping instance %s...\n", inst.Name)
 				if err := inst.Stop(); err != nil {
 					log.Printf("Error stopping instance %s: %v\n", inst.Name, err)
+				}
+			}(inst)
+		}

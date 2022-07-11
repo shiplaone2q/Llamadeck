@@ -129,3 +129,6 @@ instances:
 
 func TestLoadConfig_CustomBackends(t *testing.T) {
 	cfg, err := config.LoadConfig("nonexistent-file.yaml")
+	if err != nil {
+		t.Fatalf("LoadConfig should not error with defaults: %v", err)
+	}

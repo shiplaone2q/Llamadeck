@@ -16,3 +16,7 @@ interface SelectInputProps {
   disabled?: boolean
   className?: string
 }
+
+const SelectInput: React.FC<SelectInputProps> = ({
+  id,
+  label,

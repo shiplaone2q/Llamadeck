@@ -67,3 +67,5 @@ func TestInferenceAuthMiddleware(t *testing.T) {
 			if tt.requestKey != "" {
 				req.Header.Set("Authorization", "Bearer "+tt.requestKey)
 			}
+
+			// Create test handler

@@ -18,3 +18,6 @@ On multi-node setups, the command must exist on the node that runs the instance.
 
 ## Creating an Instance
 
+Instances of a custom backend are created like any other instance, with `backend_type: "custom"`; see [Managing Instances](managing-instances.md) for the API examples and instance options. In the web UI, each configured name appears in the backend dropdown.
+
+The launched command receives arguments from two places: the entry's `args` first, then the instance's `args`. Both support two placeholders, substituted when the instance starts:

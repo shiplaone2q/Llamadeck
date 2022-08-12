@@ -10,3 +10,4 @@ export interface ApiKey {
   permission_mode: PermissionMode
   expires_at: number | null
   created_at: number
+  updated_at: number

@@ -23,3 +23,5 @@ const SelectInput: React.FC<SelectInputProps> = ({
   value,
   onChange,
   options,
+  description,
+  disabled = false,

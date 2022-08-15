@@ -24,3 +24,5 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   useEffect(() => {
     const root = document.documentElement;
+    
+    if (theme === "dark") {

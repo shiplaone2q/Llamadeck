@@ -47,3 +47,5 @@ python -m venv vllm-env
 source vllm-env/bin/activate
 pip install vllm
 ```
+
+## Installation Methods

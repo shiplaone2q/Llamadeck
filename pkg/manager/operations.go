@@ -193,3 +193,4 @@ func (im *instanceManager) GetInstance(name string) (*instance.Instance, error) 
 		return nil, fmt.Errorf("%w: %s", ErrInstanceNotFound, name)
 	}
 
+	// Check if instance is remote and fetch live state

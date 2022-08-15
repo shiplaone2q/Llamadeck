@@ -30,3 +30,5 @@ export interface ServerConfig {
 }
 
 export interface InstancesConfig {
+  port_range: [number, number]
+  logs_dir: string

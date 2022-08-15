@@ -20,3 +20,6 @@ interface SelectInputProps {
 const SelectInput: React.FC<SelectInputProps> = ({
   id,
   label,
+  value,
+  onChange,
+  options,

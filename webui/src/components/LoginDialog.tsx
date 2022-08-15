@@ -57,3 +57,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
     try {
       await login(apiKey.trim())
       // Login successful - dialog will close automatically when auth state changes
+      setApiKey('')
+    } catch (err) {
+      // Error is handled by the AuthContext
+      console.error('Login failed:', err)

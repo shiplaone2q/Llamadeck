@@ -121,3 +121,7 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 	}
 
 	url := fmt.Sprintf("%s%s", nodeConfig.Address, path)
+	req, err := http.NewRequestWithContext(ctx, method, url, reqBody)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create request: %w", err)
+	}

@@ -59,3 +59,4 @@ func (p *portAllocator) allocate(instanceName string) (int, error) {
 }
 
 // allocateSpecific allocates a specific port for the given instance.
+// Returns an error if the port is already allocated or out of range.

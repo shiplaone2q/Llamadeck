@@ -29,3 +29,4 @@ The tool will output a report showing:
 
 ### Working Flags
 These flags are correctly parsed and set their corresponding struct fields.
+

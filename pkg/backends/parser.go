@@ -89,3 +89,4 @@ func extractArgs(command string, executableNames []string, subcommandNames []str
 				break
 			}
 		}
+	} else {

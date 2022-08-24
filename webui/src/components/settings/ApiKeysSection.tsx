@@ -74,3 +74,7 @@ function ApiKeysSection() {
     }
 
     try {
+      await apiKeysApi.delete(id);
+      void fetchKeys();
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Failed to delete API key");

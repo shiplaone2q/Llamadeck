@@ -76,3 +76,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
       const pairsObject = validPairs.reduce((acc, pair) => {
         acc[pair.key.trim()] = pair.value.trim()
         return acc
+      }, {} as Record<string, string>)
+      onChange(pairsObject)
+    }
+  }

@@ -73,3 +73,4 @@ function ApiKeysSection() {
       return;
     }
 
+    try {

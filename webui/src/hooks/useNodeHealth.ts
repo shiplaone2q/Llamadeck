@@ -8,3 +8,4 @@ export function useNodeHealth(nodeName: string): NodeHealth | undefined {
 
   useEffect(() => {
     return nodeHealthService.subscribe(nodeName, setHealth);
+  }, [nodeName]);

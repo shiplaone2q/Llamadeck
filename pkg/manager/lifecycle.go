@@ -52,3 +52,5 @@ func (l *lifecycleManager) start() {
 
 // Stop gracefully stops the lifecycle manager.
 // This ensures the timeout checker completes before instance cleanup begins.
+func (l *lifecycleManager) stop() {
+	l.shutdownOnce.Do(func() {

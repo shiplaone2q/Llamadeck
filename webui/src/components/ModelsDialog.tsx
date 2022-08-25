@@ -55,3 +55,4 @@ const StatusIcon: React.FC<{ status: string }> = ({ status }) => {
       return (
         <div className="h-2 w-2 rounded-full bg-gray-400" />
       )
+    default:

@@ -13,3 +13,5 @@ export const CustomBackendOptionsSchema = z.object({
 
 // Infer the TypeScript type from the schema
 export type CustomBackendOptions = z.infer<typeof CustomBackendOptionsSchema>
+
+// Helper to get all custom backend option field keys

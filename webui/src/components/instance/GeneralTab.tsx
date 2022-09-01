@@ -41,3 +41,5 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
           (!formData.nodes || formData.nodes.length === 0)
         ) {
           onChange("nodes", [nodeNames[0]]);
+        }
+      } catch (error) {

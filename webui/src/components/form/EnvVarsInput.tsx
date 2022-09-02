@@ -15,3 +15,5 @@ const EnvVarsInput: React.FC<EnvVarsInputProps> = (props) => {
   return (
     <KeyValueInput
       {...props}
+      keyPlaceholder="Variable name"
+      valuePlaceholder="Variable value"

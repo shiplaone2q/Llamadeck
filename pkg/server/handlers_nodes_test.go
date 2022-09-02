@@ -54,3 +54,7 @@ func TestGetNodeHealth(t *testing.T) {
 		},
 		{
 			name: "reachable remote node with valid api key",
+			nodes: map[string]config.NodeConfig{
+				"main":  {},
+				"other": {Address: remote.URL, APIKey: "node-key"},
+			},

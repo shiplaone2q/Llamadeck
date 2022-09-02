@@ -59,3 +59,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
     setError(null)
     try {
       await llamaCppModelsApi.startDownload(repo, tag, node, format)
+      // Notify polling service that we're expecting a new job
+      modelsPollingService.downloadStarted()
+    } catch (err) {

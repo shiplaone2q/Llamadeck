@@ -51,3 +51,6 @@ type VllmServerOptions struct {
 	EnablePrefixCaching      bool    `json:"enable_prefix_caching,omitempty"`
 	DisableSlidingWindow     bool    `json:"disable_sliding_window,omitempty"`
 	UseV2BlockManager        bool    `json:"use_v2_block_manager,omitempty"`
+	NumLookaheadSlots        int     `json:"num_lookahead_slots,omitempty"`
+	SwapSpace                int     `json:"swap_space,omitempty"`
+	CPUOffloadGB             int     `json:"cpu_offload_gb,omitempty"`

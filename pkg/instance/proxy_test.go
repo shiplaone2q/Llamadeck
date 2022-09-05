@@ -47,3 +47,6 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 		backendBlock := make(chan struct{})
 		
 		blockingBackend := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			backendDone <- struct{}{}
+			<-backendBlock
+			w.WriteHeader(http.StatusOK)

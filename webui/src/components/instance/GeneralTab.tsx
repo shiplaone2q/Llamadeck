@@ -43,3 +43,7 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
           onChange("nodes", [nodeNames[0]]);
         }
       } catch (error) {
+        console.error("Failed to fetch nodes:", error);
+      } finally {
+        setLoadingNodes(false);
+      }

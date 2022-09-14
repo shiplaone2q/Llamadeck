@@ -23,3 +23,6 @@ const BackendBadge: React.FC<BackendBadgeProps> = ({ backend, docker, customName
       case BackendType.VLLM:
         return "vLLM";
       case BackendType.CUSTOM:
+        return customName || "custom";
+      default:
+        return backend;

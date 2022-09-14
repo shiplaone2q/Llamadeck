@@ -20,3 +20,7 @@ Then manually copy the generated schemas into `webui/src/schemas/backends/llamac
 4. Maps Go types to Zod types:
    - `string` → `z.string()`
    - `int`, `int64`, `float64` → `z.number()`
+   - `bool` → `z.boolean()`
+   - `[]string` → `z.array(z.string())`
+   - `map[string]string` → `z.record(z.string(), z.string())`
+5. Preserves section header comments (e.g., "Common params", "Sampling params")

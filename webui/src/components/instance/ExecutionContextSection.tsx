@@ -20,3 +20,6 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
   const getCommandPlaceholder = () => {
     if (backendSettings?.command) {
       return backendSettings.command
+    }
+
+    // Fallback placeholders if config is not loaded

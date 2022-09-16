@@ -80,3 +80,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
       onChange(pairsObject)
     }
   }
+
+  const handleKeyChange = (index: number, newKey: string) => {
+    const newPairs = [...pairs]
+    newPairs[index].key = newKey

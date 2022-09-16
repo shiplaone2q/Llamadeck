@@ -24,3 +24,5 @@ logs/
 
 # Test files
 *_test.go
+**/*_test.go
+

@@ -405,3 +405,6 @@
 }
 .nt-group-2 .period {
   color: var(--nt-group-2-main);
+  background-color: var(--nt-group-2-main-bg);
+}
+

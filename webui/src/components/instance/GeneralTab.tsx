@@ -47,3 +47,5 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
       } finally {
         setLoadingNodes(false);
       }
+    };
+

@@ -116,3 +116,5 @@ func (p *process) start() error {
 	p.stdout, err = p.cmd.StdoutPipe()
 	if err != nil {
 		p.instance.logger.close()
+		return fmt.Errorf("failed to get stdout pipe: %w", err)
+	}

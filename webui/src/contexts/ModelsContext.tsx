@@ -62,3 +62,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
       // Notify polling service that we're expecting a new job
       modelsPollingService.downloadStarted()
     } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to start download'
+      setError(message)
+      throw err

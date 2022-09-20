@@ -36,3 +36,5 @@ class ModelsPollingService {
 
   /**
    * Poll for active jobs
+   */
+  private async pollJobs(): Promise<void> {

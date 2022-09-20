@@ -38,3 +38,4 @@ function NodeStatus({ health }: { health: NodeHealth | undefined }) {
 
   return (
     <span
+      className="flex items-center gap-1.5 text-destructive"

@@ -54,3 +54,4 @@ type VllmServerOptions struct {
 	NumLookaheadSlots        int     `json:"num_lookahead_slots,omitempty"`
 	SwapSpace                int     `json:"swap_space,omitempty"`
 	CPUOffloadGB             int     `json:"cpu_offload_gb,omitempty"`
+	GPUMemoryUtilization     float64 `json:"gpu_memory_utilization,omitempty"`

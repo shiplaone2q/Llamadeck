@@ -85,3 +85,7 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
     }
   }, [])
 
+  // Load data when dialog opens or backend changes
+  useEffect(() => {
+    if (open) {
+      void fetchBackendInfo(selectedBackend)

@@ -60,3 +60,6 @@ func (p *portAllocator) allocate(instanceName string) (int, error) {
 
 // allocateSpecific allocates a specific port for the given instance.
 // Returns an error if the port is already allocated or out of range.
+func (p *portAllocator) allocateSpecific(port int, instanceName string) error {
+	if instanceName == "" {
+		return fmt.Errorf("instance name cannot be empty")

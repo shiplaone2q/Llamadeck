@@ -48,3 +48,5 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 			BackendOptions: backends.Options{
 				BackendType: backends.BackendTypeCustom,
 				CustomServerOptions: &backends.CustomServerOptions{
+					Name: "test-backend",
+					Host: host,

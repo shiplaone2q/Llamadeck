@@ -15,3 +15,5 @@ func expandEnvVars(data []byte) []byte {
 		}
 		varName := string(submatch[1])
 		value, isSet := os.LookupEnv(varName)
+
+		if len(submatch) >= 3 && submatch[2] != nil {

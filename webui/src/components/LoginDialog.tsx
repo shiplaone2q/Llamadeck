@@ -61,3 +61,6 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
     } catch (err) {
       // Error is handled by the AuthContext
       console.error('Login failed:', err)
+    } finally {
+      setLocalLoading(false)
+    }

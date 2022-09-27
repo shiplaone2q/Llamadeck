@@ -92,3 +92,4 @@ func (t *authTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 // @Security ApiKeyAuth
 // @Accept json
 // @Produce json
+// @Param node query string false "Node name to forward the request to"

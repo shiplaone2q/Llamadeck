@@ -26,3 +26,4 @@ const BackendBadge: React.FC<BackendBadgeProps> = ({ backend, docker, customName
         return customName || "custom";
       default:
         return backend;
+    }

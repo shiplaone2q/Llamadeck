@@ -39,3 +39,7 @@ function NodeStatus({ health }: { health: NodeHealth | undefined }) {
   return (
     <span
       className="flex items-center gap-1.5 text-destructive"
+      title={health.error || undefined}
+    >
+      <XCircle className="h-3.5 w-3.5" />
+      Unreachable

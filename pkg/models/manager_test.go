@@ -59,3 +59,6 @@ func newHFTestServer(t *testing.T, fx hfFixture) *httptest.Server {
 				return
 			}
 			if etag := fx.etags[filePath]; etag != "" {
+				w.Header().Set("ETag", etag)
+			}
+			http.ServeContent(w, r, filepath.Base(filePath), time.Time{}, bytes.NewReader(content))

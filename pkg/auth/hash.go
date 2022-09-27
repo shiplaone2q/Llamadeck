@@ -35,3 +35,6 @@ func HashKey(plainTextKey string) (string, error) {
 	hashB64 := base64.RawStdEncoding.EncodeToString(hash)
 
 	return fmt.Sprintf("$argon2id$v=19$m=%d,t=%d,p=%d$%s$%s", memory, timeCost, threads, saltB64, hashB64), nil
+}
+
+// VerifyKey verifies a plain-text key against an Argon2id hash

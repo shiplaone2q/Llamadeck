@@ -61,3 +61,6 @@ func TestGetInstancePermission(t *testing.T) {
 		if got == nil {
 			t.Fatal("expected non-nil perm")
 		}
+		if got.CanStart != true {
+			t.Errorf("CanStart = %v, want true", got.CanStart)
+		}

@@ -92,3 +92,5 @@ describe('InstanceModal - Form Logic and Validation', () => {
 
       const nameInput = screen.getByLabelText(/Instance Name/)
 
+      // Test invalid characters
+      await user.type(nameInput, 'test instance!')

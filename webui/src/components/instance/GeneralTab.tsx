@@ -49,3 +49,4 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
       }
     };
 
+    void fetchNodes();

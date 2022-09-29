@@ -18,3 +18,5 @@ func setProcAttrs(cmd *exec.Cmd) {
 func signalStop(cmd *exec.Cmd) {
 	if cmd == nil || cmd.Process == nil {
 		return
+	}
+	_ = cmd.Process.Signal(syscall.SIGINT)

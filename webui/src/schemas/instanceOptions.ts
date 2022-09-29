@@ -33,3 +33,4 @@ export const BackendOptionsSchema = z.union([
 ])
 
 // Define the main create instance options schema
+export const CreateInstanceOptionsSchema = z.object({

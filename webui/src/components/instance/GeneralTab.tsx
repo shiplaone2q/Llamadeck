@@ -50,3 +50,7 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
     };
 
     void fetchNodes();
+  }, [formData.nodes, onChange]);
+
+  const nodeOptions = Object.keys(nodes).map((nodeName) => ({
+    value: nodeName,

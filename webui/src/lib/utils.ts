@@ -11,3 +11,4 @@ export function formatBytes(bytes: number): string {
   const sizes = ['B', 'KB', 'MB', 'GB', 'TB']
   const i = Math.floor(Math.log(bytes) / Math.log(k))
   return `${(bytes / k ** i).toFixed(1)} ${sizes[i]}`
+}

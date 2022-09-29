@@ -76,3 +76,5 @@ func (db *sqliteDB) GetKeyByID(ctx context.Context, id int) (*auth.APIKey, error
 	)
 	if err != nil {
 		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("API key not found")
+		}

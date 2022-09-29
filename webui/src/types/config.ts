@@ -32,3 +32,7 @@ export interface ServerConfig {
 export interface InstancesConfig {
   port_range: [number, number]
   logs_dir: string
+  auto_create_dirs: boolean
+  max_instances: number
+  max_running_instances: number
+  enable_lru_eviction: boolean

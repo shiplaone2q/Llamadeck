@@ -63,3 +63,4 @@ pip install mlx-lm
 **For vLLM backend:**
 You need vLLM installed:
 
+```bash

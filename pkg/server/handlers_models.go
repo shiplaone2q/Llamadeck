@@ -93,3 +93,5 @@ func (t *authTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 // @Accept json
 // @Produce json
 // @Param node query string false "Node name to forward the request to"
+// @Param request body DownloadRequest true "Download request"
+// @Success 202 {object} DownloadResponse "Download initiated"

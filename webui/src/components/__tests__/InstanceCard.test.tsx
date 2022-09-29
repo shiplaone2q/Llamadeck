@@ -130,3 +130,4 @@ afterEach(() => {
       expect(screen.getByText(`Logs: ${stoppedInstance.name}`)).toBeInTheDocument()
     })
   })
+

@@ -58,3 +58,7 @@ func TestGetNodeHealth(t *testing.T) {
 				"main":  {},
 				"other": {Address: remote.URL, APIKey: "node-key"},
 			},
+			localNode:      "main",
+			requestName:    "other",
+			expectedStatus: http.StatusOK,
+			expectedHealth: server.NodeStatusHealthy,

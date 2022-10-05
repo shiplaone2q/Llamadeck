@@ -79,3 +79,7 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
     const permissions: InstancePermissionSpec[] = [];
     if (permissionMode === PermissionMode.PerInstance) {
       Object.entries(instancePermissions).forEach(([instanceId, entry]) => {
+        if (entry.selected) {
+          permissions.push({
+            instance_id: parseInt(instanceId, 10),
+            can_start: entry.canStart,

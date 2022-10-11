@@ -59,3 +59,7 @@ describe('BackendFormField - models_preset Field States', () => {
         />
       )
 
+      expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+      expect(screen.getByText(/Optional: Path to preset.ini for router mode/)).toBeInTheDocument()
+    })
+  })

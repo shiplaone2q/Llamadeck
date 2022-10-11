@@ -46,3 +46,5 @@ func (fm *FileManager) HFHubRoot() string {
 		for _, env := range []string{"LLAMA_CACHE", "HF_HUB_CACHE", "HUGGINGFACE_HUB_CACHE"} {
 			if v := os.Getenv(env); v != "" {
 				fm.hubRootVal = v
+				return
+			}

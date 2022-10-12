@@ -25,3 +25,4 @@ const SelectInput: React.FC<SelectInputProps> = ({
   options,
   description,
   disabled = false,
+  className

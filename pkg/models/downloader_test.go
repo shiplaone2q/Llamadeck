@@ -152,3 +152,6 @@ func TestBuildDownloadPlan(t *testing.T) {
 func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 	d := NewDownloader("", 0, "", NewFileManager(t.TempDir()), nil)
 
+	entries := []HFTreeEntry{
+		{Path: "config.json", Type: "file", Size: 100},
+		{Path: "tokenizer.json", Type: "file", Size: 200},

@@ -74,3 +74,6 @@ Most model-specific issues (memory, GPU configuration, performance tuning) are b
 - [vllm serve Command](https://docs.vllm.ai/en/stable/cli/serve.html#vllm-serve)
 
 **Testing backends directly:**
+
+Testing your model and configuration directly with the backend helps determine if the issue is with llamadeck or the backend itself:
+

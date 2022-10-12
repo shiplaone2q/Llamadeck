@@ -34,3 +34,5 @@ func (o *CustomServerOptions) GetPort() int {
 
 func (o *CustomServerOptions) SetPort(port int) {
 	if o == nil {
+		return
+	}

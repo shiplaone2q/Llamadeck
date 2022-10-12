@@ -969,3 +969,5 @@ const docTemplate = `{
                         "name": "name",
                         "in": "path",
                         "required": true
+                    }
+                ],

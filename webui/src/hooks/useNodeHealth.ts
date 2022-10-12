@@ -10,3 +10,4 @@ export function useNodeHealth(nodeName: string): NodeHealth | undefined {
     return nodeHealthService.subscribe(nodeName, setHealth);
   }, [nodeName]);
 
+  return health;

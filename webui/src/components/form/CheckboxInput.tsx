@@ -18,3 +18,5 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
   value,
   onChange,
   description,
+  disabled = false,
+  className

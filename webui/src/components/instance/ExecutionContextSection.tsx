@@ -23,3 +23,6 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
     }
 
     // Fallback placeholders if config is not loaded
+    switch (formData.backend_type) {
+      case BackendType.LLAMA_CPP:
+        return "llama-server"

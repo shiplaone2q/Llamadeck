@@ -68,3 +68,6 @@ class HealthService {
         }
       } else {
         // Instance not running - map backend status directly
+        const health: HealthStatus = {
+          state: this.mapStatusToHealthState(instance.status),
+          instanceStatus: instance.status,

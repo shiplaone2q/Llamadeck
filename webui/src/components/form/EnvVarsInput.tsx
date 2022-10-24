@@ -17,3 +17,5 @@ const EnvVarsInput: React.FC<EnvVarsInputProps> = (props) => {
       {...props}
       keyPlaceholder="Variable name"
       valuePlaceholder="Variable value"
+      addButtonText="Add Variable"
+      allowEmptyValues={false}

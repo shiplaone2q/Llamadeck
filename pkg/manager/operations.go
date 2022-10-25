@@ -194,3 +194,5 @@ func (im *instanceManager) GetInstance(name string) (*instance.Instance, error) 
 	}
 
 	// Check if instance is remote and fetch live state
+	if node := im.getNodeForInstance(inst); node != nil {
+		ctx := context.Background()

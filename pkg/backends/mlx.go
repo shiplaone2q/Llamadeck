@@ -61,3 +61,5 @@ func (o *MlxServerOptions) UnmarshalJSON(data []byte) error {
 
 	// Collect unknown fields into ExtraArgs
 	if o.ExtraArgs == nil {
+		o.ExtraArgs = make(map[string]string)
+	}

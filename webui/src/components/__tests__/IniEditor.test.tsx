@@ -30,3 +30,5 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
 
     const textarea = screen.getByRole('textbox')
     await user.type(textarea, 'm')
+
+    expect(rowOf(first.name).className).toContain(SELECTED)

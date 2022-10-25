@@ -44,3 +44,6 @@ func writeError(w http.ResponseWriter, status int, code, details string) {
 	}
 }
 
+// writeJSON writes a JSON response with the specified HTTP status code
+func writeJSON(w http.ResponseWriter, status int, data any) {
+	w.Header().Set("Content-Type", "application/json")

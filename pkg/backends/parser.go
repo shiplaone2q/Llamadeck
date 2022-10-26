@@ -90,3 +90,4 @@ func extractArgs(command string, executableNames []string, subcommandNames []str
 			}
 		}
 	} else {
+		for _, execName := range executableNames {

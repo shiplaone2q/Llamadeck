@@ -50,3 +50,7 @@ func TestInstanceWithoutTimeoutNeverExpires(t *testing.T) {
 
 	mockTime := NewMockTimeProvider(time.Now())
 	noTimeoutInst.SetTimeProvider(mockTime)
+	noTimeoutInst.SetStatus(instance.Running)
+	defer noTimeoutInst.SetStatus(instance.Stopped)
+
+	noTimeoutInst.UpdateLastRequestTime()

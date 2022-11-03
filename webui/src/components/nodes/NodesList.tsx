@@ -40,3 +40,4 @@ function NodesList() {
         if (!cancelled) {
           setLoading(false);
         }
+      }

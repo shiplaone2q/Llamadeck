@@ -31,3 +31,6 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 				Command: "sh",
 				Args:    []string{"-c", "sleep 999999"},
 			},
+		},
+		Instances: config.InstancesConfig{
+			PortRange:            [2]int{8000, 9000},

@@ -100,3 +100,7 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
     }
   }, [autoRefresh, isRunning, open, lineCount, fetchLogs])
 
+  // Copy logs to clipboard
+  const copyLogs = async () => {
+    try {
+      await navigator.clipboard.writeText(logs)

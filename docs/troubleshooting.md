@@ -77,3 +77,6 @@ Most model-specific issues (memory, GPU configuration, performance tuning) are b
 
 Testing your model and configuration directly with the backend helps determine if the issue is with llamadeck or the backend itself:
 
+```bash
+# llama.cpp
+llama-server --model /path/to/model.gguf --port 8081

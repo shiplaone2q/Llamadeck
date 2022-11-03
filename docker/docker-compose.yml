@@ -33,3 +33,6 @@ services:
       dockerfile: docker/Dockerfile.vllm
     image: llamadeck:vllm-cuda
     container_name: llamadeck-vllm
+    ports:
+      - "8081:8080"  # Use different port to avoid conflicts
+    volumes:

@@ -132,3 +132,6 @@ func TestLoadConfig_CustomBackends(t *testing.T) {
 	if err != nil {
 		t.Fatalf("LoadConfig should not error with defaults: %v", err)
 	}
+	if cfg.Backends.Custom == nil {
+		t.Fatal("Expected default Custom map to be non-nil")
+	}

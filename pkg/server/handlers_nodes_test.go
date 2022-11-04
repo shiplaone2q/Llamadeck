@@ -62,3 +62,4 @@ func TestGetNodeHealth(t *testing.T) {
 			requestName:    "other",
 			expectedStatus: http.StatusOK,
 			expectedHealth: server.NodeStatusHealthy,
+		},

@@ -81,3 +81,4 @@ func TestParseVllmCommand(t *testing.T) {
 		{
 			name:      "empty command",
 			command:   "",
+			expectErr: true,

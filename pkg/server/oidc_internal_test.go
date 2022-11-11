@@ -81,3 +81,4 @@ func TestGroupsFromClaims(t *testing.T) {
 				if err == nil {
 					t.Fatal("expected an error for a malformed claim")
 				}
+				return

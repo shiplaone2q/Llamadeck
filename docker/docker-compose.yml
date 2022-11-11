@@ -36,3 +36,7 @@ services:
     ports:
       - "8081:8080"  # Use different port to avoid conflicts
     volumes:
+      - ./data/vllm:/data
+      - ./models:/models  # Mount models directory
+      - ~/.cache/huggingface:/root/.cache/huggingface  # HuggingFace cache
+    environment:

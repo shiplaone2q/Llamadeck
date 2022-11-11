@@ -83,3 +83,5 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
           permissions.push({
             instance_id: parseInt(instanceId, 10),
             can_start: entry.canStart,
+            can_evict: entry.canEvict,
+          });

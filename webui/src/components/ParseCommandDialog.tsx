@@ -37,3 +37,7 @@ const ParseCommandDialog: React.FC<ParseCommandDialogProps> = ({
       return;
     }
 
+    setLoading(true);
+    setError(null);
+
+    try {

@@ -68,3 +68,4 @@ func main() {
 
 	// Check for conflicts (positive/negative pairs setting the same field)
 	conflicts := findConflicts(fieldToFlags)
+

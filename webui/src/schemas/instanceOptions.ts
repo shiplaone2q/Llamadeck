@@ -34,3 +34,6 @@ export const BackendOptionsSchema = z.union([
 
 // Define the main create instance options schema
 export const CreateInstanceOptionsSchema = z.object({
+  // Restart options
+  auto_restart: z.boolean().optional(),
+  max_restarts: z.number().optional(),

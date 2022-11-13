@@ -16,3 +16,4 @@ export function useInstanceHealth(instanceName: string, instanceStatus: Instance
     return unsubscribe
   }, [instanceName])
 
+  // Trigger health check when instance status changes to active states

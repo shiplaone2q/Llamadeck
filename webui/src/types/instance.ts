@@ -22,3 +22,4 @@ export interface HealthStatus {
   lastChecked: Date
   error?: string
   source: 'backend' | 'http'
+}

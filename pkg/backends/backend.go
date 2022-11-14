@@ -80,3 +80,6 @@ func (o *Options) UnmarshalJSON(data []byte) error {
 		}
 	}
 	// If backend_options is nil or empty, backend remains as empty struct (for router mode)
+
+	// Store in the appropriate typed field
+	o.setBackendOptions(backend)

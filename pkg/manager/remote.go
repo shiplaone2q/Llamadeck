@@ -125,3 +125,7 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
 	}
+
+	if body != nil {
+		req.Header.Set("Content-Type", "application/json")
+	}

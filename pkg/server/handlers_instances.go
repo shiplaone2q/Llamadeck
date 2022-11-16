@@ -97,3 +97,7 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 
 		inst, err := h.InstanceManager.GetInstance(validatedName)
 		if err != nil {
+			if errors.Is(err, manager.ErrInstanceNotFound) {
+				writeError(w, http.StatusNotFound, "not_found", err.Error())
+				return
+			}

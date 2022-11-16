@@ -34,3 +34,4 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 		},
 		Instances: config.InstancesConfig{
 			PortRange:            [2]int{8000, 9000},
+			MaxInstances:         10,

@@ -89,3 +89,5 @@ export const LlamaCppBackendOptionsSchema = z.object({
   log_timestamps: z.boolean().optional(), // --log-timestamps
   cache_type_k_draft: z.string().optional(), // -ctkd, --cache-type-k-draft TYPE
   cache_type_v_draft: z.string().optional(), // -ctvd, --cache-type-v-draft TYPE
+
+  // Sampling params (ordered as in llama-cpp.md)

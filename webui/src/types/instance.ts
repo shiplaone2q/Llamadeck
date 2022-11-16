@@ -23,3 +23,5 @@ export interface HealthStatus {
   error?: string
   source: 'backend' | 'http'
 }
+
+export interface Instance {

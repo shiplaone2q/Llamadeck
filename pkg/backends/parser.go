@@ -91,3 +91,4 @@ func extractArgs(command string, executableNames []string, subcommandNames []str
 		}
 	} else {
 		for _, execName := range executableNames {
+			if strings.EqualFold(firstToken, execName) {

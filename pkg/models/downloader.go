@@ -160,3 +160,7 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 		return "", fmt.Errorf("model not found: %s", repo)
 	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 400 {
+		return "", fmt.Errorf("failed to fetch refs: HTTP %d", resp.StatusCode)
+	}
+
+	var refsResp HFRefsResponse

@@ -47,3 +47,7 @@ class NodeHealthService {
       this.callbacks.set(nodeName, new Set());
     }
 
+    const callbacks = this.callbacks.get(nodeName);
+    if (callbacks) {
+      callbacks.add(callback);
+

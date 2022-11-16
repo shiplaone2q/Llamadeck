@@ -56,3 +56,7 @@ func newProxy(instance *Instance) (*proxy, error) {
 	if options == nil {
 		return nil, fmt.Errorf("instance %s has no options set", instance.Name)
 	}
+
+	if instance.IsRemote() {
+
+		// Take the first remote node as the target for now

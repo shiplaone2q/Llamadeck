@@ -24,3 +24,6 @@ func (pt *ProgressTracker) AddToTotalBytes(jobID string, bytes int64) {
 	pt.jobStore.mutex.Lock()
 	defer pt.jobStore.mutex.Unlock()
 
+	if job, ok := pt.jobStore.jobs[jobID]; ok {
+		job.Progress.TotalBytes += bytes
+	}

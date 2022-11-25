@@ -62,3 +62,4 @@ describe('InstanceList - State Management and UI Logic', () => {
     { id: 1, name: 'instance-2', status: 'running', options: { backend_type: BackendType.LLAMA_CPP, backend_options: { model: 'model2.gguf' } } },
     { id: 1, name: 'instance-3', status: 'stopped', options: { backend_type: BackendType.LLAMA_CPP, backend_options: { model: 'model3.gguf' } } }
   ]
+

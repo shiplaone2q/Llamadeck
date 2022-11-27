@@ -94,3 +94,5 @@ describe('InstanceModal - Form Logic and Validation', () => {
 
       // Test invalid characters
       await user.type(nameInput, 'test instance!')
+
+      expect(screen.getByText(/can only contain letters, numbers, periods, hyphens, and underscores/)).toBeInTheDocument()

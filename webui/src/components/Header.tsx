@@ -40,3 +40,5 @@ function Header({ onCreateInstance, onShowSystemInfo, onShowSettings }: HeaderPr
               {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </Button>
 
+            <Button
+              variant="outline"

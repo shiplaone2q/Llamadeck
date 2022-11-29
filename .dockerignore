@@ -26,3 +26,7 @@ logs/
 *_test.go
 **/*_test.go
 
+# CI/CD
+.github/
+
+# Local configuration

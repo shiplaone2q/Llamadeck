@@ -146,3 +146,7 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Unmarshal failed: %v", err)
 	}
+
+	if options.Model != "/path/to/model.gguf" {
+		t.Errorf("Expected model '/path/to/model.gguf', got %q", options.Model)
+	}

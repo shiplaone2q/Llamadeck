@@ -39,3 +39,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
     <div className="grid gap-2">
       <Label htmlFor={id}>
         {label}
+      </Label>
+      <Input
+        id={id}
+        type="number"

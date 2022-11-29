@@ -38,3 +38,5 @@ class ModelsPollingService {
    * Poll for active jobs
    */
   private async pollJobs(): Promise<void> {
+    try {
+      const { jobs } = await llamaCppModelsApi.listJobs(this.node)

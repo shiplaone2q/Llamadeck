@@ -17,3 +17,4 @@ export function useInstanceHealth(instanceName: string, instanceStatus: Instance
   }, [instanceName])
 
   // Trigger health check when instance status changes to active states
+  useEffect(() => {

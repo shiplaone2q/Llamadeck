@@ -64,3 +64,6 @@ pip install mlx-lm
 You need vLLM installed:
 
 ```bash
+# Install via pip (requires Python 3.8+, GPU required)
+pip install vllm
+

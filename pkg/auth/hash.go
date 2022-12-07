@@ -38,3 +38,4 @@ func HashKey(plainTextKey string) (string, error) {
 }
 
 // VerifyKey verifies a plain-text key against an Argon2id hash
+func VerifyKey(plainTextKey, hash string) bool {

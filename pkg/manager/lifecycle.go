@@ -54,3 +54,5 @@ func (l *lifecycleManager) start() {
 // This ensures the timeout checker completes before instance cleanup begins.
 func (l *lifecycleManager) stop() {
 	l.shutdownOnce.Do(func() {
+		close(l.shutdownChan)
+		<-l.shutdownDone // Wait for checker to finish (prevents shutdown race)

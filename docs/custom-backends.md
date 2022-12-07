@@ -22,3 +22,4 @@ Instances of a custom backend are created like any other instance, with `backend
 
 The launched command receives arguments from two places: the entry's `args` first, then the instance's `args`. Both support two placeholders, substituted when the instance starts:
 
+- `{port}` — the port assigned to the instance. The combined arguments must contain it somewhere, otherwise the server cannot learn its port and instance creation is rejected.

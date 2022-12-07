@@ -43,3 +43,6 @@ function NodeStatus({ health }: { health: NodeHealth | undefined }) {
     >
       <XCircle className="h-3.5 w-3.5" />
       Unreachable
+    </span>
+  );
+}

@@ -131,3 +131,7 @@ afterEach(() => {
     })
   })
 
+  describe('Delete Confirmation Logic', () => {
+    it('shows confirmation dialog and calls deleteInstance when confirmed', async () => {
+      const user = userEvent.setup()
+      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true)

@@ -89,3 +89,7 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
   useEffect(() => {
     if (open) {
       void fetchBackendInfo(selectedBackend)
+    }
+  }, [open, selectedBackend, fetchBackendInfo])
+
+  const handleBackendChange = (value: string) => {

@@ -101,3 +101,7 @@ func (h *Handler) LlamaCppUIProxy() http.HandlerFunc {
 // @Router /llama-cpp/{name}/metrics [post]
 // @Router /llama-cpp/{name}/props [post]
 // @Router /llama-cpp/{name}/reranking [post]
+// @Router /llama-cpp/{name}/tokenize [post]
+func (h *Handler) LlamaCppProxy() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+

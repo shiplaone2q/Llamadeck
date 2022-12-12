@@ -27,3 +27,7 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
         return "llama-server"
       case BackendType.VLLM:
         return "vllm"
+      case BackendType.MLX_LM:
+        return "mlx_lm.server"
+      default:
+        return ""

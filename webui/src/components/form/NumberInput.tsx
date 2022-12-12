@@ -43,3 +43,5 @@ const NumberInput: React.FC<NumberInputProps> = ({
       <Input
         id={id}
         type="number"
+        step="any"
+        value={value !== undefined ? value : ''}

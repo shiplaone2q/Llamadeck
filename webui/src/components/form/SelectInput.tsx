@@ -26,3 +26,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   description,
   disabled = false,
   className
+}) => {
+  return (
+    <div className="grid gap-2">
+      <Label htmlFor={id}>

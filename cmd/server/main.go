@@ -56,3 +56,7 @@ func main() {
 		// Create the main data directory
 		if err := os.MkdirAll(cfg.DataDir, 0755); err != nil {
 			log.Printf("Error creating data directory %s: %v\nData persistence may not be available.", cfg.DataDir, err)
+		}
+
+		// Create logs directory
+		if err := os.MkdirAll(cfg.Instances.LogsDir, 0755); err != nil {

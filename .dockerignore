@@ -30,3 +30,6 @@ logs/
 .github/
 
 # Local configuration
+llamactl.yaml
+config.yaml
+.env

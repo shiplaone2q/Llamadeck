@@ -114,3 +114,4 @@ func (im *instanceManager) Shutdown() {
 				}
 			}(inst)
 		}
+		wg.Wait()

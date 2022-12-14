@@ -101,3 +101,6 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 				writeError(w, http.StatusNotFound, "not_found", err.Error())
 				return
 			}
+			writeError(w, http.StatusInternalServerError, "get_failed", "Failed to get instance: "+err.Error())
+			return
+		}

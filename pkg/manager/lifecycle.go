@@ -56,3 +56,7 @@ func (l *lifecycleManager) stop() {
 	l.shutdownOnce.Do(func() {
 		close(l.shutdownChan)
 		<-l.shutdownDone // Wait for checker to finish (prevents shutdown race)
+		l.ticker.Stop()
+	})
+}
+

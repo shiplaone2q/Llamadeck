@@ -69,3 +69,4 @@ You should see the Llamadeck web interface.
 1. Click the "Add Instance" button
 2. Fill in the instance configuration:
      - **Name**: Give your instance a descriptive name
+     - **Node**: Select which node to deploy the instance to (defaults to "main" for single-node setups)

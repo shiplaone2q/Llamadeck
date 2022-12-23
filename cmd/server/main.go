@@ -60,3 +60,5 @@ func main() {
 
 		// Create logs directory
 		if err := os.MkdirAll(cfg.Instances.LogsDir, 0755); err != nil {
+			log.Printf("Error creating log directory %s: %v\nInstance logs will not be available.", cfg.Instances.LogsDir, err)
+		}

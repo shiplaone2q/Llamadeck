@@ -150,3 +150,6 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 	if options.Model != "/path/to/model.gguf" {
 		t.Errorf("Expected model '/path/to/model.gguf', got %q", options.Model)
 	}
+	if options.Port != 8080 {
+		t.Errorf("Expected port 8080, got %d", options.Port)
+	}

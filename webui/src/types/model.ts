@@ -22,3 +22,5 @@ export interface CachedModel {
   node: string
   repo: string
   tag: string
+  files: ModelFile[]
+  size_bytes: number

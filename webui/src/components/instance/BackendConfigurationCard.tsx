@@ -28,3 +28,7 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
 
   return (
     <Card>
+      <CardHeader>
+        <CardTitle>Backend Configuration</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">

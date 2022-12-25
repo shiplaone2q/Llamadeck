@@ -104,3 +104,7 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
   const copyLogs = async () => {
     try {
       await navigator.clipboard.writeText(logs)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy logs:', err)

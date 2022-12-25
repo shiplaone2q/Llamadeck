@@ -63,3 +63,5 @@ func (p *portAllocator) allocate(instanceName string) (int, error) {
 func (p *portAllocator) allocateSpecific(port int, instanceName string) error {
 	if instanceName == "" {
 		return fmt.Errorf("instance name cannot be empty")
+	}
+	if port < p.minPort || port > p.maxPort {

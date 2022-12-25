@@ -67,3 +67,7 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 	instances, err := manager2.ListInstances()
 	if err != nil {
 		t.Fatalf("ListInstances failed: %v", err)
+	}
+	if len(instances) != 1 {
+		t.Fatalf("Expected 1 loaded instance, got %d", len(instances))
+	}

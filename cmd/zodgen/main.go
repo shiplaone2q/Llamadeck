@@ -95,3 +95,5 @@ func main() {
 
 			// Extract alternative keys from comment
 			altKeys := parseAltKeys(comment, jsonTag)
+
+			fields = append(fields, FieldInfo{

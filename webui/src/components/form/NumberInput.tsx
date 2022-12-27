@@ -45,3 +45,5 @@ const NumberInput: React.FC<NumberInputProps> = ({
         type="number"
         step="any"
         value={value !== undefined ? value : ''}
+        onChange={(e) => handleChange(e.target.value)}
+        placeholder={placeholder}

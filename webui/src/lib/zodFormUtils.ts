@@ -58,3 +58,7 @@ const basicMlxFieldsConfig: Record<string, {
   },
   temp: {
     label: 'Temperature',
+    placeholder: '0.0',
+    description: 'Default sampling temperature (default: 0.0)'
+  },
+  top_p: {

@@ -29,3 +29,5 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
     }
   }
 
+  const handleExport = () => {
+    const content = formData.preset_ini || ''

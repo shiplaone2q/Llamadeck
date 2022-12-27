@@ -6,3 +6,4 @@ DROP TABLE IF EXISTS key_permissions;
 DROP TABLE IF EXISTS api_keys;
 
 -- Drop instance related indexes and tables
+DROP INDEX IF EXISTS idx_instances_status;

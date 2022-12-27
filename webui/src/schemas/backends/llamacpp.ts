@@ -91,3 +91,5 @@ export const LlamaCppBackendOptionsSchema = z.object({
   cache_type_v_draft: z.string().optional(), // -ctvd, --cache-type-v-draft TYPE
 
   // Sampling params (ordered as in llama-cpp.md)
+  samplers: z.string().optional(), // --samplers SAMPLERS
+  seed: z.number().optional(), // -s, --seed SEED

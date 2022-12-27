@@ -33,3 +33,7 @@ export const useBackendSettings = (backendType: string | undefined) => {
     : backendType === 'vllm'
     ? 'vllm'
     : null
+
+  if (!backendKey) {
+    return null
+  }

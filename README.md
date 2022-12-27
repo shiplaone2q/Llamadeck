@@ -67,3 +67,5 @@ You need vLLM installed:
 # Install via pip (requires Python 3.8+, GPU required)
 pip install vllm
 
+# Or in a virtual environment (recommended)
+python -m venv vllm-env

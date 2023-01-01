@@ -19,3 +19,5 @@ export default function ModelsHeader() {
           Download Model
         </Button>
       </div>
+
+      <DownloadDialog

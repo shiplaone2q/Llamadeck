@@ -104,3 +104,6 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 			writeError(w, http.StatusInternalServerError, "get_failed", "Failed to get instance: "+err.Error())
 			return
 		}
+
+		writeJSON(w, http.StatusOK, inst)
+	}

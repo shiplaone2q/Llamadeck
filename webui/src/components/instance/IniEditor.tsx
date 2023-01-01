@@ -41,3 +41,4 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
     const fieldValue = trimmedLine
     if (fieldValue.length > 0) {
       const allSuggestions = getLlamaFieldSuggestions(fieldValue)
+      setSuggestions(allSuggestions)

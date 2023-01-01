@@ -54,3 +54,6 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 		writeJSONTest(w, map[string]any{
 			"keys": []map[string]any{{
 				"kty": "RSA", "use": "sig", "alg": "RS256", "kid": "test-key",
+				"n": base64.RawURLEncoding.EncodeToString(key.N.Bytes()),
+				"e": "AQAB",
+			}},

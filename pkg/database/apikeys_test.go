@@ -33,3 +33,7 @@ func TestListKeysIncludesAllOwners(t *testing.T) {
 	}
 	if len(keys) != 2 {
 		t.Fatalf("ListKeys returned %d keys, expected 2", len(keys))
+	}
+
+	owners := map[string]bool{}
+	for _, key := range keys {

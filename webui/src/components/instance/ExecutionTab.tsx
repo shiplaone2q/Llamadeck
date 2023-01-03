@@ -31,3 +31,4 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
         return "mlx_lm.server"
       default:
         return ""
+    }

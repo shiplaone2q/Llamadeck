@@ -27,3 +27,7 @@ const BackendBadge: React.FC<BackendBadgeProps> = ({ backend, docker, customName
       default:
         return backend;
     }
+  };
+
+  const getColorClasses = () => {
+    switch (backend) {

@@ -46,3 +46,7 @@ function NodeStatus({ health }: { health: NodeHealth | undefined }) {
     </span>
   );
 }
+
+function NodeRow({ name, address, isLocal }: NodeRowProps) {
+  const health = useNodeHealth(name);
+

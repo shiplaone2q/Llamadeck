@@ -31,3 +31,6 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy source code
+COPY cmd/ ./cmd/
+COPY pkg/ ./pkg/
+COPY docs/ ./docs/

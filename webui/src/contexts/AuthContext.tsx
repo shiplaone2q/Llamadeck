@@ -53,3 +53,5 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [error, setError] = useState<string | null>(null)
   const [oidcError, setOidcError] = useState<string | null>(null)
 
+  // A failed OIDC login redirects back to the app root with ?auth_error=
+  // <code>. Map it to a message for the login dialog and strip it from the

@@ -21,3 +21,5 @@ export default function ModelsHeader() {
       </div>
 
       <DownloadDialog
+        open={downloadDialogOpen}
+        onOpenChange={setDownloadDialogOpen}

@@ -30,3 +30,5 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     } else {
       root.classList.remove("dark");
     }
+    
+    localStorage.setItem("theme", theme);

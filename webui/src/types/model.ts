@@ -24,3 +24,4 @@ export interface CachedModel {
   tag: string
   files: ModelFile[]
   size_bytes: number
+}

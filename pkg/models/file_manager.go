@@ -51,3 +51,5 @@ func (fm *FileManager) HFHubRoot() string {
 		}
 		if v := os.Getenv("HF_HOME"); v != "" {
 			fm.hubRootVal = filepath.Join(v, "hub")
+			return
+		}

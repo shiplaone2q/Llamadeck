@@ -58,3 +58,7 @@ func (o *options) get() *Options {
 	o.mu.RLock()
 	defer o.mu.RUnlock()
 	return o.opts
+}
+
+// set updates the options
+func (o *options) set(opts *Options) {

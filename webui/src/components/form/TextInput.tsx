@@ -22,3 +22,7 @@ const TextInput: React.FC<TextInputProps> = ({
   description,
   disabled = false,
   className
+}) => {
+  return (
+    <div className="grid gap-2">
+      <Label htmlFor={id}>

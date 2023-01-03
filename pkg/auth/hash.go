@@ -39,3 +39,7 @@ func HashKey(plainTextKey string) (string, error) {
 
 // VerifyKey verifies a plain-text key against an Argon2id hash
 func VerifyKey(plainTextKey, hash string) bool {
+	// Parse the hash format
+	parts := strings.Split(hash, "$")
+	if len(parts) != 6 || parts[1] != "argon2id" {
+		return false

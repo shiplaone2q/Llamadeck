@@ -31,3 +31,7 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
     loadedRef.current = true
 
     const loadConfig = async () => {
+      try {
+        const data = await serverApi.getConfig()
+        setConfig(data)
+      } catch (err) {

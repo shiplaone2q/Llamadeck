@@ -18,3 +18,5 @@ func expandEnvVars(data []byte) []byte {
 
 		if len(submatch) >= 3 && submatch[2] != nil {
 			defaultVal := string(submatch[2])
+			if !isSet || value == "" {
+				return []byte(defaultVal)

@@ -163,3 +163,4 @@ func TestInstanceOperations_FailWithNonExistentInstance(t *testing.T) {
 		t.Errorf("Expected 'not found' error, got: %v", err)
 	}
 }
+

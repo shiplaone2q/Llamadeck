@@ -40,3 +40,5 @@ class ModelsPollingService {
   private async pollJobs(): Promise<void> {
     try {
       const { jobs } = await llamaCppModelsApi.listJobs(this.node)
+
+      // Filter to active and recently completed/failed jobs (exclude only completed)

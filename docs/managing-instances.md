@@ -101,3 +101,6 @@ The `{port}` and `{model}` placeholders are substituted at start; see [Custom Ba
 
 **Via API**
 
+```bash
+# Create llama.cpp instance with local model file
+curl -X POST http://localhost:8080/api/v1/instances/my-llama-instance \

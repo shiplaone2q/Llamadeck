@@ -132,3 +132,5 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 
 	if nodeConfig.APIKey != "" {
 		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", nodeConfig.APIKey))
+	}
+

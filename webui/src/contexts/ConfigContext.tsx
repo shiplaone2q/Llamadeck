@@ -35,3 +35,5 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
         const data = await serverApi.getConfig()
         setConfig(data)
       } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Failed to load configuration'
+        setError(errorMessage)

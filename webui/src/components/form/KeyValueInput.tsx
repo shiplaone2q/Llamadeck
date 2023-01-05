@@ -84,3 +84,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
   const handleKeyChange = (index: number, newKey: string) => {
     const newPairs = [...pairs]
     newPairs[index].key = newKey
+    setPairs(newPairs)
+    updateParent(newPairs)
+  }
+

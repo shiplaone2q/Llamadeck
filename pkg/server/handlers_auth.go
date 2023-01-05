@@ -97,3 +97,4 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 			return
 		}
 		if req.ExpiresAt != nil && *req.ExpiresAt <= time.Now().Unix() {
+			writeError(w, http.StatusBadRequest, "invalid_expires_at", "Expiration time must be in future")

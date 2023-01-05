@@ -61,3 +61,7 @@ Safetensors is the standard model format used by HuggingFace. Downloads include 
    - **Safetensors**: `org/model-name` (e.g., `meta-llama/Llama-3.2-3B`)
    - The `:tag` part is optional - if omitted, the default branch is used
 6. Click **Start Download**
+7. Monitor the download progress in the UI
+
+The Models tab shows:
+- **Downloaded Bytes**: Progress of current file download

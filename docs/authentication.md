@@ -33,3 +33,7 @@ For each instance granted to a per-instance key, you pick one of three access le
 | **Can start and evict others** | Auto-start the instance and may evict other instances to free up room. |
 
 !!! note "What &quot;evict&quot; means"
+    The *Can start and evict others* level allows the key to **evict other instances** to make room for the one it's starting. It does **not** protect this instance from being evicted when a different key starts something else. Eviction always targets the least-recently-used instance.
+
+Both flags default to enabled, so omitting them is equivalent to *Can start and evict others* (backward compatible with keys created before this feature).
+

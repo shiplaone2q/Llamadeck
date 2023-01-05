@@ -55,3 +55,6 @@ type VllmServerOptions struct {
 	SwapSpace                int     `json:"swap_space,omitempty"`
 	CPUOffloadGB             int     `json:"cpu_offload_gb,omitempty"`
 	GPUMemoryUtilization     float64 `json:"gpu_memory_utilization,omitempty"`
+	NumGPUBlocksOverride     int     `json:"num_gpu_blocks_override,omitempty"`
+	MaxNumBatchedTokens      int     `json:"max_num_batched_tokens,omitempty"`
+	MaxNumSeqs               int     `json:"max_num_seqs,omitempty"`

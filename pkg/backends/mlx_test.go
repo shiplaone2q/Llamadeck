@@ -81,3 +81,7 @@ func TestParseMlxCommand(t *testing.T) {
 		{
 			name:      "empty command",
 			command:   "",
+			expectErr: true,
+		},
+		{
+			name:      "unterminated quote",

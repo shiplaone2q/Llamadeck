@@ -41,3 +41,7 @@ function NodesList() {
           setLoading(false);
         }
       }
+    };
+
+    void loadNodes();
+    return () => {

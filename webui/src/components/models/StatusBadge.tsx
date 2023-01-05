@@ -16,3 +16,4 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
 
   const { variant, label } = variants[status]
 
+  return <Badge variant={variant}>{label}</Badge>

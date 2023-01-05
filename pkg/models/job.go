@@ -70,3 +70,6 @@ func (s *JobStore) Create(repo, tag string) (*Job, error) {
 		ID:        jobID,
 		Repo:      repo,
 		Tag:       tag,
+		Status:    JobStatusQueued,
+		Progress:  Progress{},
+		CreatedAt: time.Now(),

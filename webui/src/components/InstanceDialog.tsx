@@ -149,3 +149,7 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
       if (key === 'backend_options' && value && typeof value === 'object' && !Array.isArray(value)) {
         // Handle backend_options specially - clean nested object
         const cleanBackendOptions: Record<string, unknown> = {};
+        Object.entries(value).forEach(([backendKey, backendValue]) => {
+          if (backendValue !== undefined && backendValue !== null && (typeof backendValue !== 'string' || backendValue.trim() !== "")) {
+            // Handle arrays - don't include empty arrays
+            if (Array.isArray(backendValue) && backendValue.length === 0) {

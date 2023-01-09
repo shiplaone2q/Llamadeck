@@ -9,3 +9,4 @@ import (
 )
 
 //go:embed dist/*
+var webuiFS embed.FS

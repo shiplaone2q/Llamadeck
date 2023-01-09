@@ -107,3 +107,6 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 
 		writeJSON(w, http.StatusOK, inst)
 	}
+}
+
+// UpdateInstance godoc

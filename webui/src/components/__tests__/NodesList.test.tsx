@@ -63,3 +63,4 @@ describe('NodesList', () => {
     vi.clearAllMocks();
     window.sessionStorage.setItem(
       'llamadeck_management_key',
+      'test-api-key-123',

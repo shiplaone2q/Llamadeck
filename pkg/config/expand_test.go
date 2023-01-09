@@ -65,3 +65,6 @@ func TestExpandEnvVars(t *testing.T) {
 			input:    "url: http://${HOST}:${PORT}/api",
 			envVars:  map[string]string{"HOST": "example.com", "PORT": "443"},
 			expected: "url: http://example.com:443/api",
+		},
+		{
+			name:     "default with special characters",

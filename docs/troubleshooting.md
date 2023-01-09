@@ -83,3 +83,4 @@ llama-server --model /path/to/model.gguf --port 8081
 
 # MLX
 mlx_lm.server --model mlx-community/Mistral-7B-Instruct-v0.3-4bit --port 8081
+

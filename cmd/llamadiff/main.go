@@ -70,3 +70,4 @@ func main() {
 	conflicts := findConflicts(fieldToFlags)
 
 	// Report results
+	fmt.Println("=== FLAGS MISSING FROM llamadeck ===")

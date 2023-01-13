@@ -32,3 +32,4 @@ export function parseArgs(input: string): string[] {
     args.push(current)
   }
 
+  return args

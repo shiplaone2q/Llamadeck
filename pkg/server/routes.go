@@ -60,3 +60,5 @@ func SetupRouter(handler *Handler) *chi.Mux {
 				r.Get("/", handler.ListKeys())                          // List API keys
 				r.Get("/{id}", handler.GetKey())                        // Get API key details
 				r.Delete("/{id}", handler.DeleteKey())                  // Delete API key
+				r.Get("/{id}/permissions", handler.GetKeyPermissions()) // Get key permissions
+			})

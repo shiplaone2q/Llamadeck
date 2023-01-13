@@ -23,3 +23,4 @@ function Checkbox({
       >
         <CheckIcon className="size-3.5" />
       </CheckboxPrimitive.Indicator>
+    </CheckboxPrimitive.Root>

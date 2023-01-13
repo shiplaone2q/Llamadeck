@@ -15,3 +15,5 @@ export const CustomBackendOptionsSchema = z.object({
 export type CustomBackendOptions = z.infer<typeof CustomBackendOptionsSchema>
 
 // Helper to get all custom backend option field keys
+export function getAllCustomFieldKeys(): (keyof CustomBackendOptions)[] {
+  return Object.keys(CustomBackendOptionsSchema.shape) as (keyof CustomBackendOptions)[]

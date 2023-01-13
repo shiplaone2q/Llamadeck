@@ -95,3 +95,4 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
   const handleBackendChange = (value: string) => {
     setSelectedBackend(value as BackendTypeValue)
     setShowHelp(false) // Reset help section when switching backends
+  }

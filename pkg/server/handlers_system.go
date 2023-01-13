@@ -34,3 +34,7 @@ func (h *Handler) ConfigHandler() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		sanitizedConfig, err := h.cfg.SanitizedCopy()
 		if err != nil {
+			writeError(w, http.StatusInternalServerError, "sanitized_copy_error", "Failed to get sanitized config")
+			return
+		}
+		writeJSON(w, http.StatusOK, sanitizedConfig)

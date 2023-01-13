@@ -43,3 +43,7 @@ func TestDownloadModel_InvalidFormat(t *testing.T) {
 		}
 	}
 
+	if jobs := mm.ListJobs(); len(jobs) != 0 {
+		t.Errorf("expected no jobs created for invalid formats, got %d", len(jobs))
+	}
+

@@ -43,3 +43,6 @@ func VerifyKey(plainTextKey, hash string) bool {
 	parts := strings.Split(hash, "$")
 	if len(parts) != 6 || parts[1] != "argon2id" {
 		return false
+	}
+
+	// Extract parameters

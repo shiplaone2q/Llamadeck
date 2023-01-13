@@ -40,3 +40,5 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
   return (
     <div className="grid gap-2">
       <Label htmlFor={id}>
+        {label}
+      </Label>

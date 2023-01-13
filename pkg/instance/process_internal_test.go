@@ -50,3 +50,6 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 				CustomServerOptions: &backends.CustomServerOptions{
 					Name: "test-backend",
 					Host: host,
+					Port: port,
+				},
+			},

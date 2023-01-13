@@ -20,3 +20,6 @@ func expandEnvVars(data []byte) []byte {
 			defaultVal := string(submatch[2])
 			if !isSet || value == "" {
 				return []byte(defaultVal)
+			}
+			return []byte(value)
+		}

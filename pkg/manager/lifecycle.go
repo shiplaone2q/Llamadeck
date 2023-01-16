@@ -60,3 +60,6 @@ func (l *lifecycleManager) stop() {
 	})
 }
 
+// timeoutCheckLoop is the main loop that periodically checks for timeouts.
+func (l *lifecycleManager) timeoutCheckLoop() {
+	defer close(l.shutdownDone) // Signal completion

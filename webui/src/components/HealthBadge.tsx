@@ -29,3 +29,4 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
         return <XCircle className="h-3 w-3" />;
     }
   };
+

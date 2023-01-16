@@ -59,3 +59,6 @@ func TestInstanceWithoutTimeoutNeverExpires(t *testing.T) {
 	mockTime.SetTime(mockTime.Now().Add(24 * time.Hour))
 
 	// Even with time advanced, should not timeout
+	if noTimeoutInst.ShouldTimeout() {
+		t.Error("Instance without timeout configuration should never timeout")
+	}

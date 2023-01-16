@@ -70,3 +70,4 @@ You should see the Llamadeck web interface.
 2. Fill in the instance configuration:
      - **Name**: Give your instance a descriptive name
      - **Node**: Select which node to deploy the instance to (defaults to "main" for single-node setups)
+     - **Backend Type**: Choose from llama.cpp, MLX, or vLLM

@@ -64,3 +64,7 @@ func TestGetNodeHealth(t *testing.T) {
 			expectedHealth: server.NodeStatusHealthy,
 		},
 		{
+			name: "remote node rejecting the api key",
+			nodes: map[string]config.NodeConfig{
+				"main":  {},
+				"other": {Address: remote.URL, APIKey: "wrong-key"},

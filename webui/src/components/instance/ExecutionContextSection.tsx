@@ -31,3 +31,5 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
       case BackendType.MLX_LM:
         return "mlx_lm.server"
       default:
+        return ""
+    }

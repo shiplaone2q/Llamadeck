@@ -53,3 +53,4 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 					Port: port,
 				},
 			},
+		})

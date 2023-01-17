@@ -98,3 +98,7 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 	rows, err := db.DB.QueryContext(ctx, query)
 	if err != nil {
 		return nil, fmt.Errorf("failed to query instances: %w", err)
+	}
+	defer rows.Close()
+
+	var instances []*instance.Instance

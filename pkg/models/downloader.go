@@ -167,3 +167,4 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 	if err := json.NewDecoder(io.LimitReader(resp.Body, maxMetadataBytes)).Decode(&refsResp); err != nil {
 		return "", fmt.Errorf("failed to decode refs response: %w", err)
 	}
+

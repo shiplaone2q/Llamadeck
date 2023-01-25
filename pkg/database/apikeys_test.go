@@ -37,3 +37,5 @@ func TestListKeysIncludesAllOwners(t *testing.T) {
 
 	owners := map[string]bool{}
 	for _, key := range keys {
+		owners[key.UserID] = true
+	}

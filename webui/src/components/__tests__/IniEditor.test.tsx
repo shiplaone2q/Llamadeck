@@ -32,3 +32,7 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
     await user.type(textarea, 'm')
 
     expect(rowOf(first.name).className).toContain(SELECTED)
+
+    await user.keyboard('{ArrowDown}')
+
+    expect(rowOf(second.name).className).toContain(SELECTED)

@@ -28,3 +28,6 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
     <div className="space-y-6 py-4">
       {advancedBackendFields.length > 0 && (
         <div className="space-y-4">
+          {/* biome-ignore lint/a11y/useSemanticElements: toggle contains an <h3>, so a <button> would be invalid HTML; keyboard support provided via role/tabIndex/onKeyDown */}
+          <div
+            role="button"

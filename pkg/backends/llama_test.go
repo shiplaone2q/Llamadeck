@@ -153,3 +153,7 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 	if options.Port != 8080 {
 		t.Errorf("Expected port 8080, got %d", options.Port)
 	}
+	if options.Host != "localhost" {
+		t.Errorf("Expected host 'localhost', got %q", options.Host)
+	}
+	if !options.Verbose {

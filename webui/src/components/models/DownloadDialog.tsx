@@ -57,3 +57,7 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
       }
     }
 
+    void fetchNodes()
+  }, [open, selectedNode])
+
+  const validateModel = (value: string): boolean => {

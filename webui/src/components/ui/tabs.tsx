@@ -55,3 +55,5 @@ function TabsList({
     />
   )
 }
+
+function TabsTrigger({

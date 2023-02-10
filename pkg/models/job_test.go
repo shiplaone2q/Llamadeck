@@ -60,3 +60,6 @@ func TestJobStore_FailJob(t *testing.T) {
 	if retrieved.CompletedAt == nil {
 		t.Error("CompletedAt should be set after failure")
 	}
+}
+
+func TestJobStore_CancelJob(t *testing.T) {

@@ -75,3 +75,7 @@ func getDefaultConfig(dataDir string) AppConfig {
 			LogsDir:              "",  // Will be set to data_dir/logs if empty
 			InstancesDir:         "",  // Will be set to data_dir/instances if empty
 			LogRotationEnabled:   true,
+			LogRotationMaxSize:   100,
+			LogRotationCompress:  false,
+		},
+		Database: DatabaseConfig{

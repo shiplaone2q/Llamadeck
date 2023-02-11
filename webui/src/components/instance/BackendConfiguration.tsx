@@ -36,3 +36,5 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
       {/* Advanced backend fields */}
       {showAdvanced && advancedBackendFields.length > 0 && (
         <div className="space-y-4 pl-6 border-l-2 border-muted">
+          <h4 className="text-md font-medium">Advanced Backend Configuration</h4>
+          {advancedBackendFields

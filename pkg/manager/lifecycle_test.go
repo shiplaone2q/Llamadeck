@@ -62,3 +62,5 @@ func TestInstanceWithoutTimeoutNeverExpires(t *testing.T) {
 	if noTimeoutInst.ShouldTimeout() {
 		t.Error("Instance without timeout configuration should never timeout")
 	}
+}
+

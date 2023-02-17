@@ -65,3 +65,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
       const message = err instanceof Error ? err.message : 'Failed to start download'
       setError(message)
       throw err
+    }
+  }, [])
+

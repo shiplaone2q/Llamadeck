@@ -28,3 +28,5 @@ def on_page_markdown(markdown, page, config, **kwargs):
             processed_lines.append(line)
             continue
             
+        # Skip empty lines
+        if not stripped:

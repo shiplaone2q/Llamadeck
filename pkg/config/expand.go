@@ -25,3 +25,5 @@ func expandEnvVars(data []byte) []byte {
 		}
 
 		if isSet {
+			return []byte(value)
+		}

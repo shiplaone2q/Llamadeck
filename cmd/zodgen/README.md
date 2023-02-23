@@ -24,3 +24,5 @@ Then manually copy the generated schemas into `webui/src/schemas/backends/llamac
    - `[]string` → `z.array(z.string())`
    - `map[string]string` → `z.record(z.string(), z.string())`
 5. Preserves section header comments (e.g., "Common params", "Sampling params")
+6. Generates TypeScript code with proper formatting
+

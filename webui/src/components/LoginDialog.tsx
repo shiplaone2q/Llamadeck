@@ -64,3 +64,6 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
     } finally {
       setLocalLoading(false)
     }
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

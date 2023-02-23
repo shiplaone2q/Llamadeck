@@ -38,3 +38,6 @@ CREATE TABLE IF NOT EXISTS api_keys (
     expires_at INTEGER NULL,
     created_at INTEGER NOT NULL,
     updated_at INTEGER NOT NULL,
+    last_used_at INTEGER NULL
+);
+

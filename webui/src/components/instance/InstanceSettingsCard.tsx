@@ -43,3 +43,5 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
           onChange('nodes', [nodeNames[0]])
         }
       } catch (error) {
+        console.error('Failed to fetch nodes:', error)
+      } finally {

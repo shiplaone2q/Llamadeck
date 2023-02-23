@@ -50,3 +50,5 @@ Thank you for considering contributing to Llamadeck! This document outlines the 
    go test -race ./... -v              # Run with race detector
    go fmt ./... && go vet ./...        # Format and vet code
    
+   # Frontend (run from webui/ directory)
+   npm run test:run                    # Run tests once

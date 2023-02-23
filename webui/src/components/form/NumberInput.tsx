@@ -47,3 +47,4 @@ const NumberInput: React.FC<NumberInputProps> = ({
         value={value !== undefined ? value : ''}
         onChange={(e) => handleChange(e.target.value)}
         placeholder={placeholder}
+        disabled={disabled}

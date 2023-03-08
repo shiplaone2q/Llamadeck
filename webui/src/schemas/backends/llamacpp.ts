@@ -93,3 +93,5 @@ export const LlamaCppBackendOptionsSchema = z.object({
   // Sampling params (ordered as in llama-cpp.md)
   samplers: z.string().optional(), // --samplers SAMPLERS
   seed: z.number().optional(), // -s, --seed SEED
+  sampling_seq: z.string().optional(), // --sampler-seq, --sampling-seq SEQUENCE
+  ignore_eos: z.boolean().optional(), // --ignore-eos

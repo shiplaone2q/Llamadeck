@@ -30,3 +30,5 @@ const SelectInput: React.FC<SelectInputProps> = ({
   return (
     <div className="grid gap-2">
       <Label htmlFor={id}>
+        {label}
+      </Label>

@@ -32,3 +32,7 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
       default:
         return ""
     }
+  }
+
+  return (
+    <div className="space-y-6 py-4">

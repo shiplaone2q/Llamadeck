@@ -22,3 +22,4 @@ export async function parseErrorResponse(response: Response): Promise<string> {
 export async function handleApiError(response: Response): Promise<void> {
   // Handle authentication errors
   if (response.status === 401) {
+    throw new Error('Authentication required')

@@ -17,3 +17,5 @@ Welcome to the Llamadeck documentation!
 - [Installation Guide](installation.md) - Get Llamadeck up and running
 - [Configuration Guide](configuration.md) - Detailed configuration options
 - [Quick Start](quick-start.md) - Your first steps with Llamadeck
+- [Authentication](authentication.md) - API keys, permissions, and SSO login
+- [Managing Instances](managing-instances.md) - Instance lifecycle management

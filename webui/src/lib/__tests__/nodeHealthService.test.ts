@@ -34,3 +34,4 @@ describe('nodeHealthService', () => {
         ),
       ),
     ) as unknown as typeof fetch;
+

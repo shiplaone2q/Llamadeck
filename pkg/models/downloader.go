@@ -168,3 +168,7 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 		return "", fmt.Errorf("failed to decode refs response: %w", err)
 	}
 
+	// Find the requested branch by name, fall back to first branch
+	for _, b := range refsResp.Branches {
+		if b.Name == branch {
+			return validatedCommit(b.TargetCommit, b.Name)

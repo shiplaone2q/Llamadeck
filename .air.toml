@@ -22,3 +22,6 @@ exclude_dir = ["tmp", "webui/node_modules", "webui/dist", "docs", "docker"]
 
 [log]
 time = true
+
+[screen]
+clear_on_rebuild = false

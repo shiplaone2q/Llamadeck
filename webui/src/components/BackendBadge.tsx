@@ -31,3 +31,4 @@ const BackendBadge: React.FC<BackendBadgeProps> = ({ backend, docker, customName
 
   const getColorClasses = () => {
     switch (backend) {
+      case BackendType.LLAMA_CPP:

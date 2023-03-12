@@ -44,3 +44,7 @@ function Button({
   size = "default",
   asChild = false,
   ...props
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+  }) {

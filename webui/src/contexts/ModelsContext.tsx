@@ -68,3 +68,5 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
     }
   }, [])
 
+  const cancelDownload = useCallback(async (jobId: string, node?: string) => {
+    setError(null)

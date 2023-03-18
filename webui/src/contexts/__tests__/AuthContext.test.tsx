@@ -28,3 +28,7 @@ describe('AuthContext OIDC callback errors', () => {
   it('shows a group-gate denial in the login dialog and strips it from the URL', async () => {
     window.history.pushState({}, '', '/?auth_error=denied')
 
+    renderLogin()
+
+    // The banner must survive the dialog's mount-time clearError, since the
+    // OIDC error is separate state from key-login errors

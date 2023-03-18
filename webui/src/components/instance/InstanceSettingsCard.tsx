@@ -45,3 +45,7 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
       } catch (error) {
         console.error('Failed to fetch nodes:', error)
       } finally {
+        setLoadingNodes(false)
+      }
+    }
+

@@ -36,3 +36,5 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
     await user.keyboard('{ArrowDown}')
 
     expect(rowOf(second.name).className).toContain(SELECTED)
+    expect(rowOf(first.name).className).not.toContain(SELECTED)
+

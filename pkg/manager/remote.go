@@ -134,3 +134,5 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", nodeConfig.APIKey))
 	}
 
+	resp, err := rm.client.Do(req)
+	if err != nil {

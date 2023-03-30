@@ -42,3 +42,5 @@ class ModelsPollingService {
       const { jobs } = await llamaCppModelsApi.listJobs(this.node)
 
       // Filter to active and recently completed/failed jobs (exclude only completed)
+      const activeJobs = jobs.filter(j =>
+        j.status === 'downloading' || j.status === 'queued' || j.status === 'failed' || j.status === 'cancelled'

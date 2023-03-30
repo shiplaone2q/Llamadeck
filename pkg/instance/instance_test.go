@@ -241,3 +241,7 @@ func TestUnmarshalJSON(t *testing.T) {
 		t.Fatalf("JSON unmarshal failed: %v", err)
 	}
 
+	if inst.Name != "test-instance" {
+		t.Errorf("Expected name 'test-instance', got %q", inst.Name)
+	}
+	if !inst.IsRunning() {

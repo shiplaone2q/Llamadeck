@@ -81,3 +81,6 @@ func (db *sqliteDB) GetKeyByID(ctx context.Context, id int) (*auth.APIKey, error
 		return nil, fmt.Errorf("failed to query API key: %w", err)
 	}
 
+	if expiresAt.Valid {
+		key.ExpiresAt = &expiresAt.Int64
+	}

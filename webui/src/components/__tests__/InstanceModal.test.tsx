@@ -96,3 +96,7 @@ describe('InstanceModal - Form Logic and Validation', () => {
       await user.type(nameInput, 'test instance!')
 
       expect(screen.getByText(/can only contain letters, numbers, periods, hyphens, and underscores/)).toBeInTheDocument()
+
+      // Navigate to advanced tab to check save button
+      const advancedTab = screen.getByRole('tab', { name: /Advanced/i })
+      await user.click(advancedTab)

@@ -53,3 +53,4 @@ func (h *Handler) ListNodes() http.HandlerFunc {
 		}
 
 		writeJSON(w, http.StatusOK, nodeResponses)
+	}

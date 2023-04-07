@@ -19,3 +19,4 @@ const EnvVarsInput: React.FC<EnvVarsInputProps> = (props) => {
       valuePlaceholder="Variable value"
       addButtonText="Add Variable"
       allowEmptyValues={false}
+    />

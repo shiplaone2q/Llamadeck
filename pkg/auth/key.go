@@ -32,3 +32,5 @@ type KeyPermission struct {
 	CanEvict   bool
 }
 
+// GenerateKey generates a cryptographically secure API key with the given prefix
+func GenerateKey(prefix string) (string, error) {

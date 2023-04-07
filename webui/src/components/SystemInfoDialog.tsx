@@ -96,3 +96,7 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
     setSelectedBackend(value as BackendTypeValue)
     setShowHelp(false) // Reset help section when switching backends
   }
+
+  const renderBackendSpecificContent = () => {
+    if (selectedBackend !== BackendType.LLAMA_CPP) {
+      return (

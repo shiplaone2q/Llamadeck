@@ -53,3 +53,5 @@ func TestHFValidateBlobPath(t *testing.T) {
 		name      string
 		path      string
 		wantValid bool
+	}{
+		{"hex blob under repo", blobDir + "/" + strings.Repeat("ab", 32), true},

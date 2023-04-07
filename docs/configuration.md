@@ -75,3 +75,6 @@ database:
   connection_max_lifetime: 5m    # Connection max lifetime
 
 auth:
+  require_inference_auth: true   # Require auth for inference endpoints
+  require_management_auth: true  # Require auth for management endpoints
+  management_keys: []            # Keys for management endpoints

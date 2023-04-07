@@ -42,3 +42,5 @@ function Header({ onCreateInstance, onShowSystemInfo, onShowSettings }: HeaderPr
 
             <Button
               variant="outline"
+              size="icon"
+              onClick={onShowSettings}

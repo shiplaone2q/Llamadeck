@@ -32,3 +32,6 @@ type AuthStore interface {
 	GetPermissions(ctx context.Context, keyID int) ([]auth.KeyPermission, error)
 	GetInstancePermission(ctx context.Context, keyID, instanceID int) (*auth.KeyPermission, error)
 }
+
+// Config contains database configuration settings
+type Config struct {

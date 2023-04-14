@@ -51,3 +51,6 @@ class NodeHealthService {
     if (callbacks) {
       callbacks.add(callback);
 
+      if (callbacks.size === 1) {
+        this.startHealthCheck(nodeName);
+      }

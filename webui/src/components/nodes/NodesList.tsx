@@ -45,3 +45,5 @@ function NodesList() {
 
     void loadNodes();
     return () => {
+      cancelled = true;
+    };

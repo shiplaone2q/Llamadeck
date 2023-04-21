@@ -58,3 +58,6 @@ const StatusIcon: React.FC<{ status: string }> = ({ status }) => {
     default:
       return null
   }
+}
+
+const ModelsDialog: React.FC<ModelsDialogProps> = ({

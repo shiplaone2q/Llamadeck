@@ -133,3 +133,6 @@ func (i *Instance) Stop() error {
 	}
 	return i.process.stop()
 }
+
+// Restart restarts the instance
+func (i *Instance) Restart() error {

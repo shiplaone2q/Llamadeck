@@ -50,3 +50,7 @@ function NodeStatus({ health }: { health: NodeHealth | undefined }) {
 function NodeRow({ name, address, isLocal }: NodeRowProps) {
   const health = useNodeHealth(name);
 
+  // local node is never pinged; latency is meaningless for it
+  const latency =
+    !isLocal && health?.state === 'healthy' && health.latencyMs !== undefined
+      ? `${health.latencyMs}ms`

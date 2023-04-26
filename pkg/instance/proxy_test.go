@@ -50,3 +50,5 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 			backendDone <- struct{}{}
 			<-backendBlock
 			w.WriteHeader(http.StatusOK)
+		}))
+		defer blockingBackend.Close()

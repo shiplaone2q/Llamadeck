@@ -155,3 +155,5 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 	entries := []HFTreeEntry{
 		{Path: "config.json", Type: "file", Size: 100},
 		{Path: "tokenizer.json", Type: "file", Size: 200},
+		{Path: "tokenizer_config.json", Type: "file", Size: 50},
+		{Path: "model.safetensors", Type: "file", Size: 1000, LFS: &HFLFSInfo{OID: strings.Repeat("a1", 32), Size: 1000}},

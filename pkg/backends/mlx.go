@@ -63,3 +63,4 @@ func (o *MlxServerOptions) UnmarshalJSON(data []byte) error {
 	if o.ExtraArgs == nil {
 		o.ExtraArgs = make(map[string]string)
 	}
+	for key, value := range raw {

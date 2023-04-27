@@ -35,3 +35,6 @@ func RunMigrations(db *sqliteDB) error {
 	migrator, err := migrate.NewWithInstance("iofs", sourceDriver, "sqlite3", dbDriver)
 	if err != nil {
 		return fmt.Errorf("failed to create migrator: %w", err)
+	}
+
+	// Get current version

@@ -68,3 +68,6 @@ describe('BackendFormField - models_preset Field States', () => {
     it('shows Custom badge when models_preset has user-provided value', () => {
       const formData: CreateInstanceOptions = {
         preset_ini: '[model1]\nmodel = /path/to/model.gguf\n'
+      }
+
+      render(

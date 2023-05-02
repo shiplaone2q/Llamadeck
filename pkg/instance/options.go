@@ -62,3 +62,6 @@ func (o *options) get() *Options {
 
 // set updates the options
 func (o *options) set(opts *Options) {
+	o.mu.Lock()
+	defer o.mu.Unlock()
+	o.opts = opts

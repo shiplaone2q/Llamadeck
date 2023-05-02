@@ -47,3 +47,4 @@ function NodesList() {
     return () => {
       cancelled = true;
     };
+  }, []);

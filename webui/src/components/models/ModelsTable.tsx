@@ -98,3 +98,5 @@ function DownloadingRow({ job }: { job: DownloadJob }) {
   const { cancelDownload, deleteDownload, startDownload } = useModels()
   const [cancelling, setCancelling] = useState(false)
   const [deleting, setDeleting] = useState(false)
+
+  const handleCancel = async () => {

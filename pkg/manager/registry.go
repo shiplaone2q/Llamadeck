@@ -43,3 +43,7 @@ func (r *instanceRegistry) list() []*instance.Instance {
 	return result
 }
 
+// ListRunning returns a snapshot of all currently running instances.
+func (r *instanceRegistry) listRunning() []*instance.Instance {
+	r.mu.RLock()
+	defer r.mu.RUnlock()

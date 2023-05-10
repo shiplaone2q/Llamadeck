@@ -10,3 +10,5 @@ import (
 
 //go:embed dist/*
 var webuiFS embed.FS
+
+func SetupWebUI(r chi.Router) error {

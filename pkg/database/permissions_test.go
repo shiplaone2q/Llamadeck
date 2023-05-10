@@ -65,3 +65,6 @@ func TestGetInstancePermission(t *testing.T) {
 			t.Errorf("CanStart = %v, want true", got.CanStart)
 		}
 		if got.CanEvict != false {
+			t.Errorf("CanEvict = %v, want false", got.CanEvict)
+		}
+	})

@@ -105,3 +105,4 @@ func (h *Handler) LlamaCppUIProxy() http.HandlerFunc {
 func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
+		inst, err := h.validateLlamaCppInstance(r)

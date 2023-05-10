@@ -38,3 +38,5 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
         <div className="space-y-4 pl-6 border-l-2 border-muted">
           <h4 className="text-md font-medium">Advanced Backend Configuration</h4>
           {advancedBackendFields
+            .sort()
+            .map((fieldKey) => (

@@ -41,3 +41,5 @@ CREATE TABLE IF NOT EXISTS api_keys (
     last_used_at INTEGER NULL
 );
 
+-- -----------------------------------------------------------------------------
+-- Key Permissions Table: Per-instance permissions for API keys

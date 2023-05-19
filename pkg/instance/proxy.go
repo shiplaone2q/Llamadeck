@@ -60,3 +60,7 @@ func newProxy(instance *Instance) (*proxy, error) {
 	if instance.IsRemote() {
 
 		// Take the first remote node as the target for now
+		var nodeName string
+		for node := range options.Nodes {
+			nodeName = node
+			break

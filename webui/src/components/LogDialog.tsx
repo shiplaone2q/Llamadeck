@@ -108,3 +108,7 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
       console.error('Failed to copy logs:', err)
+    }
+  }
+
+  // Download logs as file

@@ -43,3 +43,7 @@ func TestValidateInstanceName(t *testing.T) {
 				return
 			}
 			if name != tt.input {
+				t.Errorf("ValidateInstanceName(%q) = %q, want %q", tt.input, name, tt.input)
+			}
+		})
+	}

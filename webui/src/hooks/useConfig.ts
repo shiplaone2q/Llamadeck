@@ -37,3 +37,7 @@ export const useBackendSettings = (backendType: string | undefined) => {
   if (!backendKey) {
     return null
   }
+
+  // 'custom' never reaches here (backendKey is null for it); the narrowed
+  // cast keeps the indexed access from unioning in backends.custom's type
+  const backendConfig = config.backends[backendKey as 'llama-cpp' | 'vllm' | 'mlx']

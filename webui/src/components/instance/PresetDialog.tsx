@@ -33,3 +33,7 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (event) => {

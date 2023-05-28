@@ -11,3 +11,5 @@ export interface FieldSuggestion {
 }
 
 function snakeToKebab(snake: string): string {
+  return snake.replace(/_/g, '-')
+}

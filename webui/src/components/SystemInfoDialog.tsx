@@ -100,3 +100,5 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
   const renderBackendSpecificContent = () => {
     if (selectedBackend !== BackendType.LLAMA_CPP) {
       return (
+        <div className="flex items-center justify-center py-8">
+          <div className="text-center space-y-3">

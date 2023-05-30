@@ -32,3 +32,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
       <Label htmlFor={id}>
         {label}
       </Label>
+      <select
+        id={id}
+        value={value || ''}
+        onChange={(e) => onChange(e.target.value || undefined)}

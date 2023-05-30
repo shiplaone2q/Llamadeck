@@ -71,3 +71,4 @@ func main() {
 
 	// Report results
 	fmt.Println("=== FLAGS MISSING FROM llamadeck ===")
+	if len(missing) == 0 {

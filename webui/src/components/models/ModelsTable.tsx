@@ -100,3 +100,7 @@ function DownloadingRow({ job }: { job: DownloadJob }) {
   const [deleting, setDeleting] = useState(false)
 
   const handleCancel = async () => {
+    if (!confirm('Cancel this download? Partial files will be deleted.')) {
+      return
+    }
+

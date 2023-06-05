@@ -15,3 +15,5 @@ ReactDOM.createRoot(rootElement).render(
       <ConfigProvider>
         <InstancesProvider>
           <App />
+        </InstancesProvider>
+      </ConfigProvider>

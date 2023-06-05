@@ -52,3 +52,4 @@ function Button({
 
   return (
     <Comp
+      data-slot="button"

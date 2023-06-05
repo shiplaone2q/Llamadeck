@@ -79,3 +79,5 @@ func getDefaultConfig(dataDir string) AppConfig {
 			LogRotationCompress:  false,
 		},
 		Database: DatabaseConfig{
+			Path:               "", // Will be set to data_dir/llamadeck.db if empty
+			MaxOpenConnections: 25,

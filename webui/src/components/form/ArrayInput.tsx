@@ -42,3 +42,7 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
       <Label htmlFor={id}>
         {label}
       </Label>
+      <Input
+        id={id}
+        type="text"
+        value={Array.isArray(value) ? value.join(', ') : ''}

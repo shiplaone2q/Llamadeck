@@ -36,3 +36,5 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 			PortRange:            [2]int{8000, 9000},
 			MaxInstances:         10,
 			MaxRunningInstances:  10,
+			DefaultAutoRestart:   true,
+			DefaultMaxRestarts:   3,

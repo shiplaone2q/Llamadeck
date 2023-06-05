@@ -39,3 +39,6 @@ const AutoRestartConfiguration: React.FC<AutoRestartConfigurationProps> = ({
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault()
             setIsExpanded(!isExpanded)
+          }
+        }}
+      >

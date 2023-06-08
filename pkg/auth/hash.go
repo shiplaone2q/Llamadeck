@@ -46,3 +46,6 @@ func VerifyKey(plainTextKey, hash string) bool {
 	}
 
 	// Extract parameters
+	var version, time, memory, threads int
+	if _, err := fmt.Sscanf(parts[2], "v=%d", &version); err != nil || version != 19 {
+		return false

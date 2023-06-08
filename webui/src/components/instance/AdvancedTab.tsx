@@ -33,3 +33,5 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
             role="button"
             tabIndex={0}
             className="flex items-center justify-between cursor-pointer"
+            onClick={() => setShowAdvanced(!showAdvanced)}
+            onKeyDown={(e) => {

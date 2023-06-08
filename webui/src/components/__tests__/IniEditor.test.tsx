@@ -38,3 +38,5 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
     expect(rowOf(second.name).className).toContain(SELECTED)
     expect(rowOf(first.name).className).not.toContain(SELECTED)
 
+    await user.keyboard('{Enter}')
+

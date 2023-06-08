@@ -71,3 +71,4 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 	if len(instances) != 1 {
 		t.Fatalf("Expected 1 loaded instance, got %d", len(instances))
 	}
+	if instances[0].Name != "test-instance" {

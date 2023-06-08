@@ -47,3 +47,7 @@ func TestDownloadModel_InvalidFormat(t *testing.T) {
 		t.Errorf("expected no jobs created for invalid formats, got %d", len(jobs))
 	}
 
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/models/download", strings.NewReader(`{"repo":"org/model"}`))
+	rec := httptest.NewRecorder()
+	h.DownloadModel()(rec, req)
+	if rec.Code != http.StatusAccepted {

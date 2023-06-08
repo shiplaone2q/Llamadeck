@@ -102,3 +102,6 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 	defer rows.Close()
 
 	var instances []*instance.Instance
+	for rows.Next() {
+		var row instanceRow
+		err := rows.Scan(

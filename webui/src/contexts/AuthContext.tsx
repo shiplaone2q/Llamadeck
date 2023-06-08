@@ -55,3 +55,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // A failed OIDC login redirects back to the app root with ?auth_error=
   // <code>. Map it to a message for the login dialog and strip it from the
+  // URL so a refresh or SSO retry doesn't replay it.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const code = params.get('auth_error')

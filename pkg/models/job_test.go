@@ -63,3 +63,5 @@ func TestJobStore_FailJob(t *testing.T) {
 }
 
 func TestJobStore_CancelJob(t *testing.T) {
+	store := NewJobStore()
+	defer store.Close()

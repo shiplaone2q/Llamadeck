@@ -14,3 +14,4 @@ export interface ApiKey {
   last_used_at: number | null
 }
 
+export interface CreateKeyRequest {

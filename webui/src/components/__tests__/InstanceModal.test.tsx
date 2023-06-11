@@ -100,3 +100,7 @@ describe('InstanceModal - Form Logic and Validation', () => {
       // Navigate to advanced tab to check save button
       const advancedTab = screen.getByRole('tab', { name: /Advanced/i })
       await user.click(advancedTab)
+      expect(screen.getByTestId('dialog-save-button')).toBeDisabled()
+
+      // Go back to general tab to fix the name
+      const generalTab = screen.getByRole('tab', { name: /General/i })

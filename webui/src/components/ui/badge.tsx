@@ -31,3 +31,5 @@ function Badge({
   variant = "default",
   asChild = false,
   ...props
+}: React.ComponentProps<"span"> &
+  VariantProps<typeof badgeVariants> & { asChild?: boolean }) {

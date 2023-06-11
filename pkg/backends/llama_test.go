@@ -157,3 +157,6 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 		t.Errorf("Expected host 'localhost', got %q", options.Host)
 	}
 	if !options.Verbose {
+		t.Error("Expected verbose to be true")
+	}
+	if options.CtxSize != 4096 {

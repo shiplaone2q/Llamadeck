@@ -47,3 +47,5 @@ func TestValidateInstanceName(t *testing.T) {
 			}
 		})
 	}
+}
+

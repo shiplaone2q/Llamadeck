@@ -95,3 +95,7 @@ func (t *authTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 // @Param node query string false "Node name to forward the request to"
 // @Param request body DownloadRequest true "Download request"
 // @Success 202 {object} DownloadResponse "Download initiated"
+// @Failure 400 {string} string "Invalid request"
+// @Failure 404 {string} string "Node not found"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /api/v1/models/download [post]

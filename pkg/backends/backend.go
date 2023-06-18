@@ -83,3 +83,5 @@ func (o *Options) UnmarshalJSON(data []byte) error {
 
 	// Store in the appropriate typed field
 	o.setBackendOptions(backend)
+
+	return nil

@@ -37,3 +37,5 @@ export const CreateInstanceOptionsSchema = z.object({
   // Restart options
   auto_restart: z.boolean().optional(),
   max_restarts: z.number().optional(),
+  restart_delay: z.number().optional(),
+  idle_timeout: z.number().optional(),

@@ -32,3 +32,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
     
     localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {

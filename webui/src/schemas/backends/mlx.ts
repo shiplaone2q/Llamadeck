@@ -26,3 +26,6 @@ export const MlxBackendOptionsSchema = z.object({
   min_p: z.number().optional(),
   max_tokens: z.number().optional(),
 
+  // Extra args
+  extra_args: z.record(z.string(), z.string()).optional(),
+})

@@ -48,3 +48,7 @@ func (l *logger) create() error {
 		return fmt.Errorf("failed to create log directory: %w", err)
 	}
 
+	logPath := fmt.Sprintf("%s/%s.log", l.logDir, l.name)
+	l.logFilePath = logPath
+
+	// Build the timber logger

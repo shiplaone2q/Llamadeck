@@ -86,3 +86,6 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
             can_evict: entry.canEvict,
           });
         }
+      });
+    }
+

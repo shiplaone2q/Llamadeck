@@ -54,3 +54,5 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 				},
 			},
 		})
+		inst.process = newProcess(inst)
+		return inst

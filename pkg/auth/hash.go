@@ -49,3 +49,7 @@ func VerifyKey(plainTextKey, hash string) bool {
 	var version, time, memory, threads int
 	if _, err := fmt.Sscanf(parts[2], "v=%d", &version); err != nil || version != 19 {
 		return false
+	}
+	if _, err := fmt.Sscanf(parts[3], "m=%d,t=%d,p=%d", &memory, &time, &threads); err != nil {
+		return false
+	}

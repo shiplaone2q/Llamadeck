@@ -71,3 +71,6 @@ class HealthService {
         const health: HealthStatus = {
           state: this.mapStatusToHealthState(instance.status),
           instanceStatus: instance.status,
+          lastChecked: new Date(),
+          source: 'backend'
+        }

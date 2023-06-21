@@ -41,3 +41,5 @@ func loadDotEnv(explicitConfigPath string) string {
 		log.Printf("Loaded .env from %s", p)
 		return p
 	}
+
+	return ""

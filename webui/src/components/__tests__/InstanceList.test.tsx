@@ -70,3 +70,7 @@ describe('InstanceList - State Management and UI Logic', () => {
     window.sessionStorage.setItem('llamadeck_management_key', DUMMY_API_KEY)
     global.fetch = vi.fn(() => Promise.resolve(new Response(null, { status: 200 })))
   })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })

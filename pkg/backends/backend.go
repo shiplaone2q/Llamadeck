@@ -85,3 +85,6 @@ func (o *Options) UnmarshalJSON(data []byte) error {
 	o.setBackendOptions(backend)
 
 	return nil
+}
+
+func (o *Options) MarshalJSON() ([]byte, error) {

@@ -73,3 +73,7 @@ func main() {
 	fmt.Println("=== FLAGS MISSING FROM llamadeck ===")
 	if len(missing) == 0 {
 		fmt.Println("(none)")
+	} else {
+		for _, flag := range missing {
+			fmt.Printf("  %s", flag.Flag)
+			if flag.EnvVar != "" {

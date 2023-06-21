@@ -53,3 +53,4 @@ func (fm *FileManager) HFHubRoot() string {
 			fm.hubRootVal = filepath.Join(v, "hub")
 			return
 		}
+		if v := os.Getenv("XDG_CACHE_HOME"); v != "" {

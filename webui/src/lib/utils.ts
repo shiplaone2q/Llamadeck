@@ -13,3 +13,4 @@ export function formatBytes(bytes: number): string {
   return `${(bytes / k ** i).toFixed(1)} ${sizes[i]}`
 }
 
+export function formatRepoName(repo: string, maxLength: number = 50): string {

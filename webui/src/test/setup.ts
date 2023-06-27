@@ -28,3 +28,7 @@ class LocalStorageMock implements Storage {
 
   setItem(key: string, value: string) {
     this.store.set(key, value)
+  }
+}
+
+// Replace global localStorage (jsdom defines it as a getter-only property,

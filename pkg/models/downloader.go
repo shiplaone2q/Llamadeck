@@ -172,3 +172,4 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 	for _, b := range refsResp.Branches {
 		if b.Name == branch {
 			return validatedCommit(b.TargetCommit, b.Name)
+		}

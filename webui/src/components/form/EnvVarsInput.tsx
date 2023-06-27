@@ -20,3 +20,5 @@ const EnvVarsInput: React.FC<EnvVarsInputProps> = (props) => {
       addButtonText="Add Variable"
       allowEmptyValues={false}
     />
+  )
+}

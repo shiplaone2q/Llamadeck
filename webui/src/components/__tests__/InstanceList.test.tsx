@@ -74,3 +74,4 @@ describe('InstanceList - State Management and UI Logic', () => {
   afterEach(() => {
     vi.restoreAllMocks()
   })
+

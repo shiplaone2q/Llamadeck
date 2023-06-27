@@ -106,3 +106,6 @@ func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		inst, err := h.validateLlamaCppInstance(r)
+		if err != nil {
+			writeInstanceLookupError(w, err)
+			return

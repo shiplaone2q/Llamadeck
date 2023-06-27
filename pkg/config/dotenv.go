@@ -43,3 +43,7 @@ func loadDotEnv(explicitConfigPath string) string {
 	}
 
 	return ""
+}
+
+func parseDotEnv(data []byte) map[string]string {
+	result := make(map[string]string)

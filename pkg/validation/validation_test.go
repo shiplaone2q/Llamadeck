@@ -49,3 +49,6 @@ func TestValidateInstanceName(t *testing.T) {
 	}
 }
 
+func TestValidateInstanceOptions_NilOptions(t *testing.T) {
+	var opts backends.Options
+	err := opts.ValidateInstanceOptions()

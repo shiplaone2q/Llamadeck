@@ -64,3 +64,7 @@ func newProxy(instance *Instance) (*proxy, error) {
 		for node := range options.Nodes {
 			nodeName = node
 			break
+		}
+
+		if nodeName == "" {
+			return nil, fmt.Errorf("instance %s has no remote nodes defined", p.instance.Name)

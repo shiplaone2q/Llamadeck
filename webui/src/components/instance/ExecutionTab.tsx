@@ -37,3 +37,4 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
   return (
     <div className="space-y-6 py-4">
       <SelectInput
+        id="backend_type"

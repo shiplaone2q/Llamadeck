@@ -66,3 +66,4 @@ func (o *options) set(opts *Options) {
 	defer o.mu.Unlock()
 	o.opts = opts
 }
+

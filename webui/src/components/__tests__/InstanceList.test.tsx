@@ -75,3 +75,4 @@ describe('InstanceList - State Management and UI Logic', () => {
     vi.restoreAllMocks()
   })
 
+  describe('Loading State', () => {

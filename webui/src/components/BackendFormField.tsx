@@ -57,3 +57,5 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
     return (
       <div className="space-y-2">
         <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <Label htmlFor={fieldKey}>Models Preset Path</Label>

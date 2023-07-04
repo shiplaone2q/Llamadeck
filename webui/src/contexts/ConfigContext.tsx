@@ -37,3 +37,7 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to load configuration'
         setError(errorMessage)
+        console.error('Error loading config:', err)
+      } finally {
+        setIsLoading(false)
+      }

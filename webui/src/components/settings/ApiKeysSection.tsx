@@ -79,3 +79,4 @@ function ApiKeysSection() {
     } catch (err) {
       alert(err instanceof Error ? err.message : "Failed to delete API key");
     }
+  };

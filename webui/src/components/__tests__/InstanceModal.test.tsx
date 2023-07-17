@@ -104,3 +104,5 @@ describe('InstanceModal - Form Logic and Validation', () => {
 
       // Go back to general tab to fix the name
       const generalTab = screen.getByRole('tab', { name: /General/i })
+      await user.click(generalTab)
+

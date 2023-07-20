@@ -37,3 +37,5 @@ For each instance granted to a per-instance key, you pick one of three access le
 
 Both flags default to enabled, so omitting them is equivalent to *Can start and evict others* (backward compatible with keys created before this feature).
 
+### Behavior Reference
+

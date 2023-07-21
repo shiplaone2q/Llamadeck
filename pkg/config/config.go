@@ -55,3 +55,6 @@ func LoadConfig(configPath string) (AppConfig, error) {
 	if cfg.Instances.InstancesDir == "" {
 		cfg.Instances.InstancesDir = filepath.Join(cfg.DataDir, "instances")
 	}
+	if cfg.Database.Path == "" {
+		cfg.Database.Path = filepath.Join(cfg.DataDir, "llamadeck.db")
+	}

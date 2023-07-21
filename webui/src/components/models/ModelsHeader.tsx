@@ -23,3 +23,5 @@ export default function ModelsHeader() {
       <DownloadDialog
         open={downloadDialogOpen}
         onOpenChange={setDownloadDialogOpen}
+      />
+    </>

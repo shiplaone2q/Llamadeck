@@ -74,3 +74,4 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 	if instances[0].Name != "test-instance" {
 		t.Errorf("Expected loaded instance name 'test-instance', got %q", instances[0].Name)
 	}
+

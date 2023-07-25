@@ -70,3 +70,6 @@ pip install vllm
 # Or in a virtual environment (recommended)
 python -m venv vllm-env
 source vllm-env/bin/activate
+pip install vllm
+
+# Or use Docker - no local installation required

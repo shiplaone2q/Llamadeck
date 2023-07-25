@@ -26,3 +26,7 @@ const TextInput: React.FC<TextInputProps> = ({
   return (
     <div className="grid gap-2">
       <Label htmlFor={id}>
+        {label}
+      </Label>
+      <Input
+        id={id}

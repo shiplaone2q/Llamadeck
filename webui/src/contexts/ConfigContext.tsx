@@ -41,3 +41,7 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
       } finally {
         setIsLoading(false)
       }
+    }
+
+    void loadConfig()
+  }, [isAuthenticated])

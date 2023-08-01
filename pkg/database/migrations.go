@@ -38,3 +38,5 @@ func RunMigrations(db *sqliteDB) error {
 	}
 
 	// Get current version
+	currentVersion, dirty, err := migrator.Version()
+	if err != nil && err != migrate.ErrNilVersion {

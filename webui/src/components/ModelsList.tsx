@@ -21,3 +21,4 @@ export default function ModelsList() {
           {[1, 2, 3].map((i) => (
             <div key={i} className="h-16 bg-muted animate-pulse rounded" />
           ))}
+        </div>

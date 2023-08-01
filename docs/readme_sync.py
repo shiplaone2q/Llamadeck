@@ -23,3 +23,4 @@ def on_page_markdown(markdown, page, config, **kwargs):
             readme_content = f.read()
     except Exception as e:
         print(f"Error reading README.md: {e}")
+        return markdown

@@ -54,3 +54,5 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
   const latency =
     !isLocal && health?.state === 'healthy' && health.latencyMs !== undefined
       ? `${health.latencyMs}ms`
+      : '—';
+

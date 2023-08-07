@@ -32,3 +32,5 @@ func NewSessionStore(ttl time.Duration) *SessionStore {
 }
 
 // RandomToken returns 64 hex characters from crypto/rand
+func RandomToken() string {
+	b := make([]byte, 32)

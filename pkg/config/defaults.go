@@ -81,3 +81,5 @@ func getDefaultConfig(dataDir string) AppConfig {
 		Database: DatabaseConfig{
 			Path:               "", // Will be set to data_dir/llamadeck.db if empty
 			MaxOpenConnections: 25,
+			MaxIdleConnections: 5,
+			ConnMaxLifetime:    5 * time.Minute,

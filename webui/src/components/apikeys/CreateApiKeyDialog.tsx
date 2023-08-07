@@ -89,3 +89,7 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
       });
     }
 
+    const request: CreateKeyRequest = {
+      name: name.trim(),
+      permission_mode: permissionMode,
+      permissions,

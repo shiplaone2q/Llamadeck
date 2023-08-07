@@ -40,3 +40,5 @@ jobs:
       contents: read
 
     strategy:
+      fail-fast: false
+      matrix:

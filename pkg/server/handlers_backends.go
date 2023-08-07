@@ -109,3 +109,5 @@ func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 		if err != nil {
 			writeInstanceLookupError(w, err)
 			return
+		}
+

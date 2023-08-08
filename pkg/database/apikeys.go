@@ -86,3 +86,4 @@ func (db *sqliteDB) GetKeyByID(ctx context.Context, id int) (*auth.APIKey, error
 	}
 	if lastUsedAt.Valid {
 		key.LastUsedAt = &lastUsedAt.Int64
+	}

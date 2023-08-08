@@ -80,3 +80,6 @@ function ApiKeysSection() {
       alert(err instanceof Error ? err.message : "Failed to delete API key");
     }
   };
+
+  const handleRowClick = (key: ApiKey) => {
+    if (expandedRowId === key.id) {

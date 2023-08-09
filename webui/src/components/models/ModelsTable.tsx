@@ -104,3 +104,5 @@ function DownloadingRow({ job }: { job: DownloadJob }) {
       return
     }
 
+    setCancelling(true)
+    try {

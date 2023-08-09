@@ -43,3 +43,5 @@ CREATE TABLE IF NOT EXISTS api_keys (
 
 -- -----------------------------------------------------------------------------
 -- Key Permissions Table: Per-instance permissions for API keys
+-- -----------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS key_permissions (

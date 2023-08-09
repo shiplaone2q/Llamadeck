@@ -30,3 +30,5 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
     }
   };
 
+  const getVariant = () => {
+    switch (health.state) {

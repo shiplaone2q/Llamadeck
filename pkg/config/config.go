@@ -58,3 +58,7 @@ func LoadConfig(configPath string) (AppConfig, error) {
 	if cfg.Database.Path == "" {
 		cfg.Database.Path = filepath.Join(cfg.DataDir, "llamadeck.db")
 	}
+
+	// Validate port range
+	if cfg.Instances.PortRange[0] <= 0 || cfg.Instances.PortRange[1] <= 0 || cfg.Instances.PortRange[0] >= cfg.Instances.PortRange[1] {
+		return AppConfig{}, fmt.Errorf("invalid port range: %v", cfg.Instances.PortRange)

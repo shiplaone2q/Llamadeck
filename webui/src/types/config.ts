@@ -39,3 +39,4 @@ export interface InstancesConfig {
   default_idle_timeout: number
   default_auto_restart: boolean
   default_max_restarts: number
+  default_restart_delay: number

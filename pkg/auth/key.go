@@ -34,3 +34,6 @@ type KeyPermission struct {
 
 // GenerateKey generates a cryptographically secure API key with the given prefix
 func GenerateKey(prefix string) (string, error) {
+	// Generate 32 random bytes
+	bytes := make([]byte, 32)
+	_, err := rand.Read(bytes)

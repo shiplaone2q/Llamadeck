@@ -58,3 +58,5 @@ type VllmServerOptions struct {
 	NumGPUBlocksOverride     int     `json:"num_gpu_blocks_override,omitempty"`
 	MaxNumBatchedTokens      int     `json:"max_num_batched_tokens,omitempty"`
 	MaxNumSeqs               int     `json:"max_num_seqs,omitempty"`
+	MaxLogprobs              int     `json:"max_logprobs,omitempty"`
+	DisableLogStats          bool    `json:"disable_log_stats,omitempty"`

@@ -75,3 +75,6 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 		t.Errorf("Expected loaded instance name 'test-instance', got %q", instances[0].Name)
 	}
 
+	manager2.Shutdown()
+}
+

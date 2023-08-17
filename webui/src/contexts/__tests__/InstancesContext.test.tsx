@@ -116,3 +116,6 @@ function TestComponent() {
       </button>
     </div>
   );
+}
+
+function renderWithProvider(children: ReactNode) {

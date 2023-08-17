@@ -65,3 +65,4 @@ def interactive_mode():
     global BASE_URL, API_KEY, MODEL_NAME
 
     # Get base URL
+    url_input = input(f"Base URL [{BASE_URL}]: ").strip()

@@ -66,3 +66,7 @@ func (m *Manager) sweepStaleTempFiles() {
 
 func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, error) {
 	if format == "" {
+		format = FormatGGUF
+	}
+	if !IsValidFormat(format) {
+		return "", fmt.Errorf("invalid format %q (must be %q or %q)", format, FormatGGUF, FormatSafetensors)

@@ -20,3 +20,4 @@ describe('parseArgs', () => {
   })
 
   it('returns an empty array for empty or blank input', () => {
+    expect(parseArgs('')).toEqual([])

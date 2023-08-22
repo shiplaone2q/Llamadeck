@@ -44,3 +44,5 @@ function Header({ onCreateInstance, onShowSystemInfo, onShowSettings }: HeaderPr
               variant="outline"
               size="icon"
               onClick={onShowSettings}
+              data-testid="settings-button"
+              title="Settings"

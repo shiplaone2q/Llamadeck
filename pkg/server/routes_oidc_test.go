@@ -29,3 +29,6 @@ func TestRoutesOIDCBypassManagementAuth(t *testing.T) {
 		"/api/v1/auth/oidc/callback",
 	} {
 		req := httptest.NewRequest(http.MethodGet, target, nil)
+		rec := httptest.NewRecorder()
+		r.ServeHTTP(rec, req)
+		if rec.Code == http.StatusUnauthorized {

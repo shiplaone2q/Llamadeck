@@ -73,3 +73,6 @@ func (s *JobStore) Create(repo, tag string) (*Job, error) {
 		Status:    JobStatusQueued,
 		Progress:  Progress{},
 		CreatedAt: time.Now(),
+	}
+
+	s.mutex.Lock()

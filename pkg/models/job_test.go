@@ -65,3 +65,7 @@ func TestJobStore_FailJob(t *testing.T) {
 func TestJobStore_CancelJob(t *testing.T) {
 	store := NewJobStore()
 	defer store.Close()
+
+	ctx, cancel := context.WithCancel(context.Background())
+	job, _ := store.Create("org/model", "Q4_K_M")
+	job.CancelFunc = cancel

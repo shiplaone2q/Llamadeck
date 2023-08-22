@@ -67,3 +67,7 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
   }, [isAuthenticated])
 
   const updateInstanceInMap = useCallback((name: string, updates: Partial<Instance>) => {
+    setInstancesMap(prev => {
+      const newMap = new Map(prev)
+      const existing = newMap.get(name)
+      if (existing) {

@@ -48,3 +48,5 @@ func loadDotEnv(explicitConfigPath string) string {
 func parseDotEnv(data []byte) map[string]string {
 	result := make(map[string]string)
 
+	for _, line := range bytes.Split(data, []byte("\n")) {
+		line = bytes.TrimSpace(line)

@@ -61,3 +61,7 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
   }, [open, selectedNode])
 
   const validateModel = (value: string): boolean => {
+    if (!value) {
+      setModelError('Model is required')
+      return false
+    }

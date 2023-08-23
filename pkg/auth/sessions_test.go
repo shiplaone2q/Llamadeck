@@ -25,3 +25,7 @@ func TestSessionStoreLifecycle(t *testing.T) {
 	if store.Get(sess.ID) != nil {
 		t.Error("expected session to be gone after delete")
 	}
+}
+
+func TestSessionStoreExpiry(t *testing.T) {
+	store := NewSessionStore(-time.Second)

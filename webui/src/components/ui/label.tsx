@@ -16,3 +16,4 @@ function Label({
       )}
       {...props}
     />
+  )

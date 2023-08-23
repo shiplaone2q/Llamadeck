@@ -39,3 +39,7 @@ func TestListKeysIncludesAllOwners(t *testing.T) {
 	for _, key := range keys {
 		owners[key.UserID] = true
 	}
+	for _, want := range []string{"system", "alice@example.com"} {
+		if !owners[want] {
+			t.Errorf("owner %q missing from listing", want)
+		}

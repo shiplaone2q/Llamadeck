@@ -93,3 +93,5 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
       name: name.trim(),
       permission_mode: permissionMode,
       permissions,
+    };
+

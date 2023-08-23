@@ -54,3 +54,5 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
 
   const nodeOptions = Object.keys(nodes).map((nodeName) => ({
     value: nodeName,
+    label: nodeName,
+  }));

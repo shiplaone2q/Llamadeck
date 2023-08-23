@@ -65,3 +65,4 @@ func (o *MlxServerOptions) UnmarshalJSON(data []byte) error {
 	}
 	for key, value := range raw {
 		if !knownFields[key] {
+			o.ExtraArgs[key] = fmt.Sprintf("%v", value)

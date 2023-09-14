@@ -457,3 +457,5 @@ definitions:
       name:
         type: string
       permission_mode:
+        $ref: '#/definitions/auth.PermissionMode'
+      updated_at:

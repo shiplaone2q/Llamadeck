@@ -111,3 +111,4 @@ func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 			return
 		}
 
+		// Check instance permissions and resolve lifecycle flags in one query

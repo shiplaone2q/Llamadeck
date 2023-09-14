@@ -63,3 +63,6 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
           </div>
           {onOpenPresetDialog && (
             <Button
+              type="button"
+              variant="outline"
+              size="sm"

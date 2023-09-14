@@ -15,3 +15,6 @@ export interface ApiKey {
 }
 
 export interface CreateKeyRequest {
+  name: string
+  permission_mode: PermissionMode
+  expires_at?: number

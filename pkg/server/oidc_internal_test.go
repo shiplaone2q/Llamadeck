@@ -84,3 +84,4 @@ func TestGroupsFromClaims(t *testing.T) {
 				return
 			}
 			if err != nil {
+				t.Fatalf("unexpected error: %v", err)

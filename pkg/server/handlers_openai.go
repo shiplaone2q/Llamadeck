@@ -83,3 +83,5 @@ func fetchLlamaCppModels(inst *instance.Instance) ([]LlamaCppModel, error) {
 // @Success 200 {object} OpenAIListInstancesResponse "List of OpenAI-compatible instances"
 // @Failure 500 {string} string "Internal Server Error"
 // @Router /v1/models [get]
+func (h *Handler) OpenAIListInstances() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {

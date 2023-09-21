@@ -36,3 +36,4 @@ const SelectInput: React.FC<SelectInputProps> = ({
         id={id}
         value={value || ''}
         onChange={(e) => onChange(e.target.value || undefined)}
+        disabled={disabled}

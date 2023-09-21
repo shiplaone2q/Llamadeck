@@ -77,3 +77,7 @@ func main() {
 		for _, flag := range missing {
 			fmt.Printf("  %s", flag.Flag)
 			if flag.EnvVar != "" {
+				fmt.Printf(" [env: %s]", flag.EnvVar)
+			}
+			fmt.Println()
+		}

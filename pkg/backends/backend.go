@@ -92,3 +92,4 @@ func (o *Options) MarshalJSON() ([]byte, error) {
 	var backendOptions map[string]any
 	backend := o.getBackend()
 	if backend != nil {
+		optionsData, err := json.Marshal(backend)

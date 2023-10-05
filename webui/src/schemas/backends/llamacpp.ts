@@ -96,3 +96,4 @@ export const LlamaCppBackendOptionsSchema = z.object({
   sampling_seq: z.string().optional(), // --sampler-seq, --sampling-seq SEQUENCE
   ignore_eos: z.boolean().optional(), // --ignore-eos
   temp: z.number().optional(), // --temp N
+  top_k: z.number().optional(), // --top-k N

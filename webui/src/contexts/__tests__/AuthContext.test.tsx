@@ -32,3 +32,6 @@ describe('AuthContext OIDC callback errors', () => {
 
     // The banner must survive the dialog's mount-time clearError, since the
     // OIDC error is separate state from key-login errors
+    expect(
+      await screen.findByText('Access denied: your account is not a member of an allowed group.')
+    ).toBeInTheDocument()

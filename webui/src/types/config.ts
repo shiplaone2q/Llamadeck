@@ -42,3 +42,5 @@ export interface InstancesConfig {
   default_restart_delay: number
   default_on_demand_start: boolean
   on_demand_start_timeout: number
+  timeout_check_interval: number
+}

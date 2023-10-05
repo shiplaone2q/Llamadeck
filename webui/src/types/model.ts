@@ -25,3 +25,6 @@ export interface CachedModel {
   files: ModelFile[]
   size_bytes: number
 }
+
+export interface ModelFile {
+  name: string

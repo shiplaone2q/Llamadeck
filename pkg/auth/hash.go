@@ -53,3 +53,4 @@ func VerifyKey(plainTextKey, hash string) bool {
 	if _, err := fmt.Sscanf(parts[3], "m=%d,t=%d,p=%d", &memory, &time, &threads); err != nil {
 		return false
 	}
+

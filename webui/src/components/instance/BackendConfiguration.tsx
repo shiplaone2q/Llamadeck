@@ -40,3 +40,5 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
           {advancedBackendFields
             .sort()
             .map((fieldKey) => (
+              <BackendFormField
+                key={fieldKey}

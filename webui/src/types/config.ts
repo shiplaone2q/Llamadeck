@@ -40,3 +40,5 @@ export interface InstancesConfig {
   default_auto_restart: boolean
   default_max_restarts: number
   default_restart_delay: number
+  default_on_demand_start: boolean
+  on_demand_start_timeout: number

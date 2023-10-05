@@ -201,3 +201,7 @@ func (im *instanceManager) GetInstance(name string) (*instance.Instance, error) 
 			if IsNotFoundError(err) {
 				im.remote.removeInstance(name)
 				im.registry.remove(name)
+				_ = im.db.Delete(name)
+				return nil, fmt.Errorf("%w: %s", ErrInstanceNotFound, name)
+			}
+			return inst, nil

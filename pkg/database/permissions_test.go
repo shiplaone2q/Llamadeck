@@ -68,3 +68,7 @@ func TestGetInstancePermission(t *testing.T) {
 			t.Errorf("CanEvict = %v, want false", got.CanEvict)
 		}
 	})
+
+	t.Run("missing row returns nil nil", func(t *testing.T) {
+		got, err := db.GetInstancePermission(context.Background(), key.ID, 999)
+		if err != nil {

@@ -38,3 +38,5 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
     <div className="space-y-6 py-4">
       <SelectInput
         id="backend_type"
+        label="Backend Type"
+        value={formData.backend_type || BackendType.LLAMA_CPP}

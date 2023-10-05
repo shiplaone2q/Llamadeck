@@ -71,3 +71,6 @@ func (p *portAllocator) allocateSpecific(port int, instanceName string) error {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 
+	if p.isBitSet(port) {
+		return fmt.Errorf("port %d is already allocated", port)
+	}

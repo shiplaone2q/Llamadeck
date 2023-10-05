@@ -160,3 +160,5 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 		t.Error("Expected verbose to be true")
 	}
 	if options.CtxSize != 4096 {
+		t.Errorf("Expected ctx_size 4096, got %d", options.CtxSize)
+	}

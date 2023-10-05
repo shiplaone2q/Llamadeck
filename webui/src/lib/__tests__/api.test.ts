@@ -18,3 +18,5 @@ describe('API Error Handling', () => {
     })
     mockFetch.mockResolvedValue(mockResponse)
 
+    await expect(instancesApi.create('existing', {}))
+      .rejects

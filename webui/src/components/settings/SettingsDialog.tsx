@@ -18,3 +18,5 @@ function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
         </DialogHeader>
         <ApiKeysSection />
       </DialogContent>
+    </Dialog>
+  );

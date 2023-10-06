@@ -52,3 +52,4 @@ Thank you for considering contributing to Llamadeck! This document outlines the 
    
    # Frontend (run from webui/ directory)
    npm run test:run                    # Run tests once
+   npm run test                        # Run tests in watch mode

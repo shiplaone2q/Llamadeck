@@ -164,3 +164,4 @@ func TestInstanceOperations_FailWithNonExistentInstance(t *testing.T) {
 	}
 }
 
+func TestDeleteInstance_RunningInstanceFails(t *testing.T) {

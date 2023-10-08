@@ -83,3 +83,4 @@ function ApiKeysSection() {
 
   const handleRowClick = (key: ApiKey) => {
     if (expandedRowId === key.id) {
+      setExpandedRowId(null);

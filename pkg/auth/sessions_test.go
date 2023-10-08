@@ -29,3 +29,6 @@ func TestSessionStoreLifecycle(t *testing.T) {
 
 func TestSessionStoreExpiry(t *testing.T) {
 	store := NewSessionStore(-time.Second)
+
+	sess := store.Create("user-1", "Alice", "alice@example.com")
+	if store.Get(sess.ID) != nil {

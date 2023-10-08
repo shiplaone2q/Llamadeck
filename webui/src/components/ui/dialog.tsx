@@ -57,3 +57,5 @@ function DialogContent({
 }) {
   return (
     <DialogPortal data-slot="dialog-portal">
+      <DialogOverlay />
+      <DialogPrimitive.Content

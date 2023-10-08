@@ -95,3 +95,7 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
       permissions,
     };
 
+    // Add expiration if provided
+    if (expiresAt) {
+      const expirationDate = new Date(expiresAt);
+      const now = new Date();

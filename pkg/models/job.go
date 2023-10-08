@@ -76,3 +76,4 @@ func (s *JobStore) Create(repo, tag string) (*Job, error) {
 	}
 
 	s.mutex.Lock()
+	s.jobs[jobID] = job

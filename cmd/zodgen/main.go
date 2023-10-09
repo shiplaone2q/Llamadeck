@@ -97,3 +97,4 @@ func main() {
 			altKeys := parseAltKeys(comment, jsonTag)
 
 			fields = append(fields, FieldInfo{
+				Name:    fieldName,

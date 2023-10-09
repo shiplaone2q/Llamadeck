@@ -22,3 +22,6 @@ export default function ModelsList() {
             <div key={i} className="h-16 bg-muted animate-pulse rounded" />
           ))}
         </div>
+      </div>
+    )
+  }

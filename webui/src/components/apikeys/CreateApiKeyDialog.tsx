@@ -99,3 +99,7 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
     if (expiresAt) {
       const expirationDate = new Date(expiresAt);
       const now = new Date();
+      if (expirationDate <= now) {
+        setError("Expiration date must be in the future");
+        return;
+      }

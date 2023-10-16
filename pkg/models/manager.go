@@ -70,3 +70,5 @@ func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, e
 	}
 	if !IsValidFormat(format) {
 		return "", fmt.Errorf("invalid format %q (must be %q or %q)", format, FormatGGUF, FormatSafetensors)
+	}
+	if !repoNamePattern.MatchString(repo) {

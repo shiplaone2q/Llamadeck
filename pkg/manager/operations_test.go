@@ -165,3 +165,7 @@ func TestInstanceOperations_FailWithNonExistentInstance(t *testing.T) {
 }
 
 func TestDeleteInstance_RunningInstanceFails(t *testing.T) {
+	mgr := createTestManager(t)
+	defer mgr.Shutdown()
+
+	options := &instance.Options{

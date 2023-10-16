@@ -162,3 +162,5 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 	if options.CtxSize != 4096 {
 		t.Errorf("Expected ctx_size 4096, got %d", options.CtxSize)
 	}
+	if options.GPULayers != 32 {
+		t.Errorf("Expected gpu_layers 32, got %d", options.GPULayers)

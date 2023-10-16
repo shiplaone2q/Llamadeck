@@ -29,3 +29,6 @@ func expandEnvVars(data []byte) []byte {
 		}
 		return match
 	})
+}
+
+func expandString(s string) string {

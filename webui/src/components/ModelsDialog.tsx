@@ -61,3 +61,6 @@ const StatusIcon: React.FC<{ status: string }> = ({ status }) => {
 }
 
 const ModelsDialog: React.FC<ModelsDialogProps> = ({
+  open,
+  onOpenChange,
+  instanceName,

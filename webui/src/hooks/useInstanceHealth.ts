@@ -20,3 +20,5 @@ export function useInstanceHealth(instanceName: string, instanceStatus: Instance
   useEffect(() => {
     if (instanceStatus === 'running' || instanceStatus === 'restarting' || instanceStatus === 'shutting_down') {
       healthService.refreshHealth(instanceName).catch(error => {
+        console.error(`Failed to refresh health for ${instanceName}:`, error)
+      })

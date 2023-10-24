@@ -46,3 +46,7 @@ function Header({ onCreateInstance, onShowSystemInfo, onShowSettings }: HeaderPr
               onClick={onShowSettings}
               data-testid="settings-button"
               title="Settings"
+            >
+              <Settings className="h-4 w-4" />
+            </Button>
+

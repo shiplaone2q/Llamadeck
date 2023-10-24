@@ -51,3 +51,5 @@ func TestDownloadModel_InvalidFormat(t *testing.T) {
 	rec := httptest.NewRecorder()
 	h.DownloadModel()(rec, req)
 	if rec.Code != http.StatusAccepted {
+		t.Errorf("control case status = %d, want 202 (body: %s)", rec.Code, rec.Body.String())
+	}

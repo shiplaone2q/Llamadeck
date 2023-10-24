@@ -136,3 +136,5 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 
 	resp, err := rm.client.Do(req)
 	if err != nil {
+		return nil, fmt.Errorf("failed to execute request: %w", err)
+	}

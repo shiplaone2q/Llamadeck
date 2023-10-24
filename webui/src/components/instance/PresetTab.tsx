@@ -33,3 +33,7 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
     const content = formData.preset_ini || ''
     const blob = new Blob([content], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'preset.ini'
+    document.body.appendChild(a)

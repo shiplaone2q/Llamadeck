@@ -112,3 +112,5 @@ export const backendsApi = {
         method: 'POST',
         body: JSON.stringify({ command }),
       }),
+  },
+};

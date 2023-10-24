@@ -21,3 +21,4 @@
     "types": ["vite/client", "@types/node"]
   },
   "include": ["src", "src/vite-env.d.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]

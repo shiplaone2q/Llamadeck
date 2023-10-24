@@ -53,3 +53,6 @@ func writeJSON(w http.ResponseWriter, status int, data any) {
 	}
 }
 
+// writeText writes a plain text response with the specified HTTP status code
+func writeText(w http.ResponseWriter, status int, data string) {
+	w.Header().Set("Content-Type", "text/plain")

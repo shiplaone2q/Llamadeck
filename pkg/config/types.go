@@ -54,3 +54,7 @@ type ServerConfig struct {
 	// Server host to bind to
 	Host string `yaml:"host" json:"host"`
 
+	// Server port to bind to
+	Port int `yaml:"port" json:"port"`
+
+	// Allowed origins for CORS (e.g., "http://localhost:3000")

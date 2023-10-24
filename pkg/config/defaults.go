@@ -83,3 +83,4 @@ func getDefaultConfig(dataDir string) AppConfig {
 			MaxOpenConnections: 25,
 			MaxIdleConnections: 5,
 			ConnMaxLifetime:    5 * time.Minute,
+		},

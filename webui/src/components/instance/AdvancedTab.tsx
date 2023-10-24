@@ -35,3 +35,6 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
             className="flex items-center justify-between cursor-pointer"
             onClick={() => setShowAdvanced(!showAdvanced)}
             onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                setShowAdvanced(!showAdvanced)

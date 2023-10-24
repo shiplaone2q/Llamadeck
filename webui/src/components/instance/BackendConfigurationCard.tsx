@@ -32,3 +32,7 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
         <CardTitle>Backend Configuration</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
+        {/* Backend Type Selection */}
+        <SelectInput
+          id="backend_type"
+          label="Backend Type"

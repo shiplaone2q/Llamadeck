@@ -459,3 +459,4 @@ definitions:
       permission_mode:
         $ref: '#/definitions/auth.PermissionMode'
       updated_at:
+        type: integer

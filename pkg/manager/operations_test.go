@@ -169,3 +169,5 @@ func TestDeleteInstance_RunningInstanceFails(t *testing.T) {
 	defer mgr.Shutdown()
 
 	options := &instance.Options{
+		BackendOptions: backends.Options{
+			BackendType: backends.BackendTypeLlamaCpp,

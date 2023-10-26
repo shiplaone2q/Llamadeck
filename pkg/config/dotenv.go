@@ -50,3 +50,4 @@ func parseDotEnv(data []byte) map[string]string {
 
 	for _, line := range bytes.Split(data, []byte("\n")) {
 		line = bytes.TrimSpace(line)
+

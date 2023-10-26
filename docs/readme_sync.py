@@ -24,3 +24,7 @@ def on_page_markdown(markdown, page, config, **kwargs):
     except Exception as e:
         print(f"Error reading README.md: {e}")
         return markdown
+
+    # Extract headline (the text in bold after the title)
+    headline_match = re.search(r'\*\*(.*?)\*\*', readme_content)
+    headline = headline_match.group(1) if headline_match else 'Management server for llama.cpp and MLX instances'

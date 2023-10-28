@@ -40,3 +40,6 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
 
     await user.keyboard('{Enter}')
 
+    expect(onChange).toHaveBeenCalledWith(`${second.name} = `)
+  })
+

@@ -19,3 +19,6 @@ Welcome to the Llamadeck documentation!
 - [Quick Start](quick-start.md) - Your first steps with Llamadeck
 - [Authentication](authentication.md) - API keys, permissions, and SSO login
 - [Managing Instances](managing-instances.md) - Instance lifecycle management
+- [Managing Models](managing-models.md) - Download and manage models from HuggingFace
+- [Custom Backends](custom-backends.md) - Manage inference servers without native support
+- [API Reference](api-reference.md) - Complete API documentation

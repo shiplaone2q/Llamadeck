@@ -33,3 +33,5 @@ logs/
 llamactl.yaml
 config.yaml
 .env
+.env.local
+

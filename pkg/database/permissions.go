@@ -42,3 +42,7 @@ func (db *sqliteDB) GetInstancePermission(ctx context.Context, keyID, instanceID
 		SELECT key_id, instance_id, can_start, can_evict
 		FROM key_permissions
 		WHERE key_id = ? AND instance_id = ?
+	`
+
+	var perm auth.KeyPermission
+	err := db.QueryRowContext(ctx, query, keyID, instanceID).Scan(

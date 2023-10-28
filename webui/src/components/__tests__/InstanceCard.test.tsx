@@ -143,3 +143,7 @@ afterEach(() => {
           stopInstance={mockStopInstance}
           deleteInstance={mockDeleteInstance}
           editInstance={mockEditInstance}
+        />
+      )
+
+      // First click "More actions" to reveal the delete button

@@ -45,3 +45,6 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
 
     void loadConfig()
   }, [isAuthenticated])
+
+  return (
+    <ConfigContext.Provider value={{ config, isLoading, error }}>

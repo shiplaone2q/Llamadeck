@@ -56,3 +56,5 @@ class NodeHealthService {
       }
     }
 
+    return () => {
+      const callbacks = this.callbacks.get(nodeName);

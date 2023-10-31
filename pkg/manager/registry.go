@@ -47,3 +47,4 @@ func (r *instanceRegistry) list() []*instance.Instance {
 func (r *instanceRegistry) listRunning() []*instance.Instance {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
+

@@ -97,3 +97,7 @@ export const LlamaCppBackendOptionsSchema = z.object({
   ignore_eos: z.boolean().optional(), // --ignore-eos
   temp: z.number().optional(), // --temp N
   top_k: z.number().optional(), // --top-k N
+  top_p: z.number().optional(), // --top-p N
+  min_p: z.number().optional(), // --min-p N
+  top_nsigma: z.number().optional(), // --top-nsigma N
+  xtc_probability: z.number().optional(), // --xtc-probability N

@@ -38,3 +38,6 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 			MaxRunningInstances:  10,
 			DefaultAutoRestart:   true,
 			DefaultMaxRestarts:   3,
+			LogsDir:              t.TempDir(),
+			DefaultRestartDelay:  5,
+			DefaultIdleTimeout:   30,

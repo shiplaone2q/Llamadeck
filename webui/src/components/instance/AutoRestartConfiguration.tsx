@@ -42,3 +42,6 @@ const AutoRestartConfiguration: React.FC<AutoRestartConfigurationProps> = ({
           }
         }}
       >
+        <h3 className="text-lg font-medium">Auto Restart Configuration</h3>
+        <div className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+          {isExpanded ? (

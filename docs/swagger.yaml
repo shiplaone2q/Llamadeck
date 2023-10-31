@@ -460,3 +460,4 @@ definitions:
         $ref: '#/definitions/auth.PermissionMode'
       updated_at:
         type: integer
+      user_id:

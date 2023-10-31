@@ -112,3 +112,4 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
   }
 
   // Download logs as file
+  const downloadLogs = () => {

@@ -84,3 +84,4 @@ func getDefaultConfig(dataDir string) AppConfig {
 			MaxIdleConnections: 5,
 			ConnMaxLifetime:    5 * time.Minute,
 		},
+		Auth: AuthConfig{

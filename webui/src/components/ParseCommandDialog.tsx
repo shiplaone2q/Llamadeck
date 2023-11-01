@@ -41,3 +41,4 @@ const ParseCommandDialog: React.FC<ParseCommandDialogProps> = ({
     setError(null);
 
     try {
+      let options: CreateInstanceOptions;

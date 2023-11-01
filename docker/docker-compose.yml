@@ -40,3 +40,4 @@ services:
       - ./models:/models  # Mount models directory
       - ~/.cache/huggingface:/root/.cache/huggingface  # HuggingFace cache
     environment:
+      # Set data directory for persistence

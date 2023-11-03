@@ -58,3 +58,4 @@ type ServerConfig struct {
 	Port int `yaml:"port" json:"port"`
 
 	// Allowed origins for CORS (e.g., "http://localhost:3000")
+	AllowedOrigins []string `yaml:"allowed_origins" json:"allowed_origins"`

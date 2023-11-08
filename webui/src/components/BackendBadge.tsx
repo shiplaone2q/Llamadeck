@@ -36,3 +36,4 @@ const BackendBadge: React.FC<BackendBadgeProps> = ({ backend, docker, customName
       case BackendType.MLX_LM:
         return "bg-green-100 text-green-800 border-green-200 dark:bg-green-900 dark:text-green-200 dark:border-green-800";
       case BackendType.VLLM:
+        return "bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-900 dark:text-purple-200 dark:border-purple-800";

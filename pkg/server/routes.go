@@ -68,3 +68,4 @@ func SetupRouter(handler *Handler) *chi.Mux {
 		r.Route("/models", func(r chi.Router) {
 			r.Post("/download", handler.DownloadModel())
 			r.Get("/", handler.ListModels())
+			r.Delete("/", handler.DeleteModel())

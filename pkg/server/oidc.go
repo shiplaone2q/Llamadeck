@@ -134,3 +134,7 @@ func signStateValue(key []byte, state, verifier, nonce string) string {
 	mac.Write([]byte(verifier))
 	mac.Write([]byte("|"))
 	mac.Write([]byte(nonce))
+	return state + "|" + verifier + "|" + nonce + "|" + hex.EncodeToString(mac.Sum(nil))
+}
+
+// verifyStateValue checks the signed cookie against the state the IdP echoed

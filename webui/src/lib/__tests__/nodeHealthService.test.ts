@@ -36,3 +36,5 @@ describe('nodeHealthService', () => {
     ) as unknown as typeof fetch;
 
     const health = await nodeHealthService.performHealthCheck('other');
+    expect(health.state).toBe('unreachable');
+    expect(health.error).toBe('connection refused');

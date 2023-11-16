@@ -47,3 +47,6 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 				args = append(args, "--"+flagName, strconv.FormatFloat(field.Float(), 'f', -1, 64))
 			}
 		case reflect.String:
+			if field.String() != "" {
+				args = append(args, "--"+flagName, field.String())
+			}

@@ -30,3 +30,6 @@ const TextInput: React.FC<TextInputProps> = ({
       </Label>
       <Input
         id={id}
+        type="text"
+        value={typeof value === 'string' || typeof value === 'number' ? value : ''}
+        onChange={(e) => onChange(e.target.value || undefined)}

@@ -27,3 +27,4 @@
         "useHookAtTopLevel": "error"
       },
       "style": {
+        "useImportType": "warn",

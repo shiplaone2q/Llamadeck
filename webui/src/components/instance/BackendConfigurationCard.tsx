@@ -36,3 +36,5 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
         <SelectInput
           id="backend_type"
           label="Backend Type"
+          value={formData.backend_type || BackendType.LLAMA_CPP}
+          onChange={(value) => onChange('backend_type', value)}

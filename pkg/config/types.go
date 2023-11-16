@@ -59,3 +59,5 @@ type ServerConfig struct {
 
 	// Allowed origins for CORS (e.g., "http://localhost:3000")
 	AllowedOrigins []string `yaml:"allowed_origins" json:"allowed_origins"`
+
+	// Allowed headers for CORS (e.g., "Accept", "Authorization", "Content-Type", "X-CSRF-Token")

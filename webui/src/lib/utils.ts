@@ -14,3 +14,4 @@ export function formatBytes(bytes: number): string {
 }
 
 export function formatRepoName(repo: string, maxLength: number = 50): string {
+  if (repo.length <= maxLength) return repo

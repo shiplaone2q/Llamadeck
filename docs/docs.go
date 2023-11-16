@@ -974,3 +974,6 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "Restarted instance details",
+                        "schema": {
+                            "$ref": "#/definitions/instance.Instance"
+                        }

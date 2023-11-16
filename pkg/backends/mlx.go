@@ -69,3 +69,6 @@ func (o *MlxServerOptions) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	return nil
+}
+

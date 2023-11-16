@@ -84,3 +84,7 @@ func TestOptionsGetHealthPath(t *testing.T) {
 			options:  backends.Options{BackendType: backends.BackendTypeLlamaCpp, LlamaServerOptions: &backends.LlamaServerOptions{}},
 			expected: "/llm-ready",
 		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {

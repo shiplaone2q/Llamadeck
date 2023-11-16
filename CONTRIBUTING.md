@@ -53,3 +53,5 @@ Thank you for considering contributing to Llamadeck! This document outlines the 
    # Frontend (run from webui/ directory)
    npm run test:run                    # Run tests once
    npm run test                        # Run tests in watch mode
+   npm run type-check                  # TypeScript type checking
+   npm run lint:fix                    # Lint and fix issues

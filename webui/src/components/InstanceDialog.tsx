@@ -153,3 +153,5 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
           if (backendValue !== undefined && backendValue !== null && (typeof backendValue !== 'string' || backendValue.trim() !== "")) {
             // Handle arrays - don't include empty arrays
             if (Array.isArray(backendValue) && backendValue.length === 0) {
+              return;
+            }

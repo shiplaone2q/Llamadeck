@@ -64,3 +64,4 @@ const ModelsDialog: React.FC<ModelsDialogProps> = ({
   open,
   onOpenChange,
   instanceName,
+  isRunning,

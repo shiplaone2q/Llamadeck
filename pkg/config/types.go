@@ -61,3 +61,7 @@ type ServerConfig struct {
 	AllowedOrigins []string `yaml:"allowed_origins" json:"allowed_origins"`
 
 	// Allowed headers for CORS (e.g., "Accept", "Authorization", "Content-Type", "X-CSRF-Token")
+	AllowedHeaders []string `yaml:"allowed_headers" json:"allowed_headers"`
+
+	// Enable Swagger UI for API documentation
+	EnableSwagger bool `yaml:"enable_swagger" json:"enable_swagger"`

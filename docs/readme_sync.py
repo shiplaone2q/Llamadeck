@@ -28,3 +28,6 @@ def on_page_markdown(markdown, page, config, **kwargs):
     # Extract headline (the text in bold after the title)
     headline_match = re.search(r'\*\*(.*?)\*\*', readme_content)
     headline = headline_match.group(1) if headline_match else 'Management server for llama.cpp and MLX instances'
+
+    # Extract features section - everything between ## Features and the next ## heading
+    features_match = re.search(r'## Features\n(.*?)(?=\n## |\Z)', readme_content, re.DOTALL)

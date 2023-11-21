@@ -110,3 +110,4 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 }
 
 // UpdateInstance godoc
+// @Summary Update an instance's configuration

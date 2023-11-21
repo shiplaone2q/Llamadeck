@@ -69,3 +69,6 @@ func SetupRouter(handler *Handler) *chi.Mux {
 			r.Post("/download", handler.DownloadModel())
 			r.Get("/", handler.ListModels())
 			r.Delete("/", handler.DeleteModel())
+			r.Route("/jobs", func(r chi.Router) {
+				r.Get("/", handler.ListJobs())
+				r.Get("/{id}", handler.GetJob())

@@ -56,3 +56,4 @@ func TestValidateInstanceOptions_NilOptions(t *testing.T) {
 		t.Error("Expected error for nil options")
 	}
 }
+

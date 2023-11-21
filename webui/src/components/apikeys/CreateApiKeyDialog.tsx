@@ -103,3 +103,4 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
         setError("Expiration date must be in the future");
         return;
       }
+      request.expires_at = Math.floor(expirationDate.getTime() / 1000);

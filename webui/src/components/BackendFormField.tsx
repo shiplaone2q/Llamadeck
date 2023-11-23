@@ -66,3 +66,6 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
               type="button"
               variant="outline"
               size="sm"
+              onClick={onOpenPresetDialog}
+              className="flex items-center gap-2"
+            >

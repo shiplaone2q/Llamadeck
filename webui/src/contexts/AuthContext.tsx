@@ -59,3 +59,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const code = params.get('auth_error')
+    if (!code) return
+
+    params.delete('auth_error')

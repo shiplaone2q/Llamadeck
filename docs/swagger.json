@@ -513,3 +513,6 @@
                 ],
                 "description": "Parses a vLLM serve command string into instance options",
                 "consumes": [
+                    "application/json"
+                ],
+                "produces": [

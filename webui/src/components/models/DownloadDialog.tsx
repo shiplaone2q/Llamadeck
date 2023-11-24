@@ -65,3 +65,4 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
       setModelError('Model is required')
       return false
     }
+    if (format === ModelFormat.GGUF && !value.includes('/')) {

@@ -42,3 +42,6 @@ const ParseCommandDialog: React.FC<ParseCommandDialogProps> = ({
 
     try {
       let options: CreateInstanceOptions;
+
+      // Parse based on selected backend type
+      switch (backendType) {

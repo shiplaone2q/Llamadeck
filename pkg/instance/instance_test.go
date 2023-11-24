@@ -245,3 +245,4 @@ func TestUnmarshalJSON(t *testing.T) {
 		t.Errorf("Expected name 'test-instance', got %q", inst.Name)
 	}
 	if !inst.IsRunning() {
+		t.Error("Expected status to be running")

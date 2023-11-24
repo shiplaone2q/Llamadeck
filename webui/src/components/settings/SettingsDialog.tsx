@@ -20,3 +20,4 @@ function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
       </DialogContent>
     </Dialog>
   );
+}

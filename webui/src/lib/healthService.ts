@@ -74,3 +74,5 @@ class HealthService {
           lastChecked: new Date(),
           source: 'backend'
         }
+
+        this.updateCache(instanceName, health)

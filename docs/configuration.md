@@ -79,3 +79,4 @@ auth:
   require_management_auth: true  # Require auth for management endpoints
   management_keys: []            # Keys for management endpoints
 
+local_node: "main"               # Name of the local node (default: "main")

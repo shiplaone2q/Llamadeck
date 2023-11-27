@@ -50,3 +50,4 @@ class ModelsPollingService {
       this.callbacks.forEach(cb => { cb(activeJobs) })
 
       // Handle stopping logic
+      if (activeJobs.length === 0) {

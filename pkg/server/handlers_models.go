@@ -99,3 +99,4 @@ func (t *authTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 // @Failure 404 {string} string "Node not found"
 // @Failure 500 {string} string "Internal Server Error"
 // @Router /api/v1/models/download [post]
+func (h *Handler) DownloadModel() http.HandlerFunc {

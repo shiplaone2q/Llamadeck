@@ -38,3 +38,4 @@ func GenerateKey(prefix string) (string, error) {
 	bytes := make([]byte, 32)
 	_, err := rand.Read(bytes)
 	if err != nil {
+		return "", fmt.Errorf("failed to generate random bytes: %w", err)

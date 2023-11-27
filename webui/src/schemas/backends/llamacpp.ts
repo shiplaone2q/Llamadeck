@@ -101,3 +101,6 @@ export const LlamaCppBackendOptionsSchema = z.object({
   min_p: z.number().optional(), // --min-p N
   top_nsigma: z.number().optional(), // --top-nsigma N
   xtc_probability: z.number().optional(), // --xtc-probability N
+  xtc_threshold: z.number().optional(), // --xtc-threshold N
+  typical: z.number().optional(), // --typical N
+  repeat_last_n: z.number().optional(), // --repeat-last-n N

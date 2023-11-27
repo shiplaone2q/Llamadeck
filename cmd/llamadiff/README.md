@@ -30,3 +30,7 @@ The tool will output a report showing:
 ### Working Flags
 These flags are correctly parsed and set their corresponding struct fields.
 
+### Missing Flags
+These flags exist in llama-server but aren't handled by our parser. You'll need to:
+1. Add the field to `LlamaServerOptions` in `pkg/backends/llama.go`
+2. Add any necessary aliases to `llamaFieldMappings`

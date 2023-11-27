@@ -64,3 +64,6 @@ func TestInstanceWithoutTimeoutNeverExpires(t *testing.T) {
 	}
 }
 
+func TestEvictLRUInstance_Success(t *testing.T) {
+	manager := createTestManager(t)
+	defer manager.Shutdown()

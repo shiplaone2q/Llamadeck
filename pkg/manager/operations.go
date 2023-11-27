@@ -205,3 +205,6 @@ func (im *instanceManager) GetInstance(name string) (*instance.Instance, error) 
 				return nil, fmt.Errorf("%w: %s", ErrInstanceNotFound, name)
 			}
 			return inst, nil
+		}
+
+		// Update the local stub with all remote data (preserving Nodes)

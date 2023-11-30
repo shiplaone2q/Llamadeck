@@ -66,3 +66,5 @@ def interactive_mode():
 
     # Get base URL
     url_input = input(f"Base URL [{BASE_URL}]: ").strip()
+    if url_input:
+        BASE_URL = url_input

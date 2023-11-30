@@ -42,3 +42,4 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
     if (fieldValue.length > 0) {
       const allSuggestions = getLlamaFieldSuggestions(fieldValue)
       setSuggestions(allSuggestions)
+      setSelectedIndex(0)

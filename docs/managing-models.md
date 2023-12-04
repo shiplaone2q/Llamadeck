@@ -65,3 +65,7 @@ Safetensors is the standard model format used by HuggingFace. Downloads include 
 
 The Models tab shows:
 - **Downloaded Bytes**: Progress of current file download
+- **Current File**: Name of the file being downloaded
+- **Status**: Current job status (queued, downloading, completed, failed, cancelled)
+
+### Using the API

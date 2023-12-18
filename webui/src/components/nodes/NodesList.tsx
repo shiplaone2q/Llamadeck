@@ -49,3 +49,5 @@ function NodesList() {
     };
   }, []);
 
+  if (loading) {
+    return (

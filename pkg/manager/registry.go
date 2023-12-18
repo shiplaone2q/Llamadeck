@@ -48,3 +48,7 @@ func (r *instanceRegistry) listRunning() []*instance.Instance {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 
+	result := make([]*instance.Instance, 0)
+	for name, inst := range r.instances {
+		if _, isRunning := r.running.Load(name); isRunning {
+			result = append(result, inst)

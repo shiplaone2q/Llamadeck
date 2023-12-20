@@ -155,3 +155,4 @@ type LlamaServerOptions struct {
 	NoKVUnified          bool     `json:"no_kv_unified,omitempty"`          // -no-kvu, --no-kv-unified
 	ContextShift         bool     `json:"context_shift,omitempty"`          // --context-shift
 	NoContextShift       bool     `json:"no_context_shift,omitempty"`       // --no-context-shift
+	ReversePrompt        string   `json:"reverse_prompt,omitempty"`         // -r, --reverse-prompt PROMPT

@@ -45,3 +45,4 @@ const ParseCommandDialog: React.FC<ParseCommandDialogProps> = ({
 
       // Parse based on selected backend type
       switch (backendType) {
+        case BackendType.LLAMA_CPP:

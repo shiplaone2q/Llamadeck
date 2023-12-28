@@ -38,3 +38,5 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault()
                 setShowAdvanced(!showAdvanced)
+              }
+            }}

@@ -138,3 +138,6 @@ func signStateValue(key []byte, state, verifier, nonce string) string {
 }
 
 // verifyStateValue checks the signed cookie against the state the IdP echoed
+// back and returns the PKCE verifier and the nonce for the code exchange and
+// id_token check.
+func verifyStateValue(key []byte, cookieValue, queryState string) (verifier, nonce string, ok bool) {

@@ -32,3 +32,6 @@ func TestRoutesOIDCBypassManagementAuth(t *testing.T) {
 		rec := httptest.NewRecorder()
 		r.ServeHTTP(rec, req)
 		if rec.Code == http.StatusUnauthorized {
+			t.Errorf("%s: got 401, expected the route to bypass management auth", target)
+		}
+	}

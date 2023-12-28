@@ -69,3 +69,6 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
               onClick={onOpenPresetDialog}
               className="flex items-center gap-2"
             >
+              <FileCode className="h-4 w-4" />
+              Edit Preset
+            </Button>

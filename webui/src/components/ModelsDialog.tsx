@@ -65,3 +65,7 @@ const ModelsDialog: React.FC<ModelsDialogProps> = ({
   onOpenChange,
   instanceName,
   isRunning,
+}) => {
+  const [models, setModels] = useState<Model[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)

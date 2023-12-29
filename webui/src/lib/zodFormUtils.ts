@@ -62,3 +62,6 @@ const basicMlxFieldsConfig: Record<string, {
     description: 'Default sampling temperature (default: 0.0)'
   },
   top_p: {
+    label: 'Top-P',
+    placeholder: '1.0',
+    description: 'Default nucleus sampling top-p (default: 1.0)'

@@ -54,3 +54,5 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 		defer blockingBackend.Close()
 		
 		bu, _ := url.Parse(blockingBackend.URL)
+		p.mu.Lock()
+		p.targetURL = bu

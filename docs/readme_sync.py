@@ -31,3 +31,6 @@ def on_page_markdown(markdown, page, config, **kwargs):
 
     # Extract features section - everything between ## Features and the next ## heading
     features_match = re.search(r'## Features\n(.*?)(?=\n## |\Z)', readme_content, re.DOTALL)
+    if features_match:
+        features_content = features_match.group(1).strip()
+        # Just add line breaks at the end of each line for proper MkDocs rendering

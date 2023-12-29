@@ -56,3 +56,6 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
     value: nodeName,
     label: nodeName,
   }));
+
+  const handleNodeChange = (value: string | undefined) => {
+    if (value) {

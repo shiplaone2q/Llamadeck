@@ -28,3 +28,7 @@
       },
       "style": {
         "useImportType": "warn",
+        "noNonNullAssertion": "warn"
+      },
+      "suspicious": {
+        "noConsole": { "level": "warn", "options": { "allow": ["warn", "error", "debug"] } },

@@ -78,3 +78,5 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 	manager2.Shutdown()
 }
 
+func TestDeleteInstance_RemovesFromDatabase(t *testing.T) {
+	tempDir := t.TempDir()

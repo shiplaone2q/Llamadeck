@@ -44,3 +44,5 @@ export const VllmBackendOptionsSchema = z.object({
   disable_log_stats: z.boolean().optional(),
   quantization: z.string().optional(),
   rope_scaling: z.string().optional(),
+  rope_theta: z.number().optional(),
+  enforce_eager: z.boolean().optional(),

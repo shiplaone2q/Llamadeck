@@ -27,3 +27,4 @@ func (pt *ProgressTracker) AddToTotalBytes(jobID string, bytes int64) {
 	if job, ok := pt.jobStore.jobs[jobID]; ok {
 		job.Progress.TotalBytes += bytes
 	}
+}

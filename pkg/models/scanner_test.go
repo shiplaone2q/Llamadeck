@@ -81,3 +81,4 @@ func TestScanCache(t *testing.T) {
 
 	if len(model.Files) != 2 {
 		t.Fatalf("expected 2 files, got %d", len(model.Files))
+	}

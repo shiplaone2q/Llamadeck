@@ -46,3 +46,7 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
         id={id}
         type="text"
         value={Array.isArray(value) ? value.join(', ') : ''}
+        onChange={(e) => handleChange(e.target.value)}
+        placeholder={placeholder}
+        disabled={disabled}
+        className={className}

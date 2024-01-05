@@ -67,3 +67,4 @@ describe('NodesList', () => {
     );
     global.fetch = vi.fn(() =>
       Promise.resolve(new Response(null, { status: 200 })),
+    );

@@ -115,3 +115,5 @@ func (im *instanceManager) Shutdown() {
 			}(inst)
 		}
 		wg.Wait()
+		log.Println("All instances stopped.")
+	})

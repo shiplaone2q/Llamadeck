@@ -57,3 +57,7 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 				"n": base64.RawURLEncoding.EncodeToString(key.N.Bytes()),
 				"e": "AQAB",
 			}},
+		})
+	})
+
+	mux.HandleFunc("/token", func(w http.ResponseWriter, _ *http.Request) {

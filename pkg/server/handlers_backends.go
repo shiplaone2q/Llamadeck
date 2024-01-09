@@ -112,3 +112,4 @@ func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 		}
 
 		// Check instance permissions and resolve lifecycle flags in one query
+		perm, err := h.authMiddleware.ResolveInstancePermission(r.Context(), inst.ID)

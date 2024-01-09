@@ -35,3 +35,5 @@ func TestRoutesOIDCBypassManagementAuth(t *testing.T) {
 			t.Errorf("%s: got 401, expected the route to bypass management auth", target)
 		}
 	}
+
+	// And that management endpoints still require auth through the router.

@@ -74,3 +74,6 @@ You should see the Llamadeck web interface.
      - **Model**: Full path to model file, or use `hf_repo`/`hf_file` for HuggingFace
      - **Additional Options**: Backend-specific parameters
 
+    !!! tip "Auto-Assignment"
+        Llamadeck automatically assigns ports from the configured port range (default: 8000-9000) and manages API keys if authentication is enabled. You typically don't need to manually specify these values.
+

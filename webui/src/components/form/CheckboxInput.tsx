@@ -22,3 +22,4 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
   className
 }) => {
   return (
+    <div className={`flex items-center space-x-2 ${className || ''}`}>

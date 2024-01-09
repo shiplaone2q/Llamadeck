@@ -20,3 +20,4 @@ describe('API Error Handling', () => {
 
     await expect(instancesApi.create('existing', {}))
       .rejects
+      .toThrow('HTTP 409: Instance already exists')

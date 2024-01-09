@@ -106,3 +106,7 @@ The `{port}` and `{model}` placeholders are substituted at start; see [Custom Ba
 curl -X POST http://localhost:8080/api/v1/instances/my-llama-instance \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <token>" \
+  -d '{
+    "backend_type": "llama_cpp",
+    "backend_options": {
+      "model": "/path/to/model.gguf",

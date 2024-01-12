@@ -106,3 +106,7 @@ describe('InstanceModal - Form Logic and Validation', () => {
       const generalTab = screen.getByRole('tab', { name: /General/i })
       await user.click(generalTab)
 
+      // Select all and delete, then type valid name
+      const newNameInput = screen.getByLabelText(/Instance Name/)
+      await user.tripleClick(newNameInput)
+      await user.keyboard('{Backspace}')

@@ -14,3 +14,4 @@ interface ExtraArgsInputProps {
 const ExtraArgsInput: React.FC<ExtraArgsInputProps> = (props) => {
   return (
     <KeyValueInput
+      {...props}

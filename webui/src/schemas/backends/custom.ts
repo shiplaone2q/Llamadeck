@@ -17,3 +17,6 @@ export type CustomBackendOptions = z.infer<typeof CustomBackendOptionsSchema>
 // Helper to get all custom backend option field keys
 export function getAllCustomFieldKeys(): (keyof CustomBackendOptions)[] {
   return Object.keys(CustomBackendOptionsSchema.shape) as (keyof CustomBackendOptions)[]
+}
+
+// Get field type for custom backend options

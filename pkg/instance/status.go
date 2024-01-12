@@ -74,3 +74,4 @@ func newStatus(initial Status) *status {
 		s: initial,
 	}
 }
+

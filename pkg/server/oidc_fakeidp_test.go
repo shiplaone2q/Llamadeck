@@ -61,3 +61,7 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 	})
 
 	mux.HandleFunc("/token", func(w http.ResponseWriter, _ *http.Request) {
+		token := signRS256Test(t, key, map[string]any{
+			"iss":    idp.server.URL,
+			"aud":    idp.clientID,
+			"sub":    "user-1",

@@ -246,3 +246,4 @@ func TestUnmarshalJSON(t *testing.T) {
 	}
 	if !inst.IsRunning() {
 		t.Error("Expected status to be running")
+	}

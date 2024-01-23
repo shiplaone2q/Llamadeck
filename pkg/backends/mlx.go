@@ -72,3 +72,7 @@ func (o *MlxServerOptions) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (o *MlxServerOptions) GetModel() string {
+	return o.Model
+}
+

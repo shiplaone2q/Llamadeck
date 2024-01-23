@@ -32,3 +32,5 @@ class LocalStorageMock implements Storage {
 }
 
 // Replace global localStorage (jsdom defines it as a getter-only property,
+// so plain assignment throws — redefine it instead)
+Object.defineProperty(global, 'localStorage', {

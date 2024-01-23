@@ -85,3 +85,4 @@ func getDefaultConfig(dataDir string) AppConfig {
 			ConnMaxLifetime:    5 * time.Minute,
 		},
 		Auth: AuthConfig{
+			RequireInferenceAuth:  true,

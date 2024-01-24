@@ -34,3 +34,4 @@ def on_page_markdown(markdown, page, config, **kwargs):
     if features_match:
         features_content = features_match.group(1).strip()
         # Just add line breaks at the end of each line for proper MkDocs rendering
+        features_with_breaks = add_line_breaks(features_content)

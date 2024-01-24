@@ -38,3 +38,4 @@ COPY webui/webui.go ./webui/
 
 # Copy built webui from webui-builder
 COPY --from=webui-builder /webui/dist ./webui/dist
+

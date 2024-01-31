@@ -62,3 +62,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (!code) return
 
     params.delete('auth_error')
+    const rest = params.toString()
+    window.history.replaceState(null, '', window.location.pathname + (rest ? `?${rest}` : ''))
+    setOidcError(AUTH_ERROR_MESSAGES[code] ?? 'Login failed. Please try again.')
+  }, [])

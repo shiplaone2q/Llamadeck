@@ -54,3 +54,5 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 			if field.Type().Elem().Kind() == reflect.String && field.Len() > 0 {
 				// Use jsonFieldName (snake_case) for multipleFlags lookup
 				if _, isMultiValue := multipleFlags[jsonFieldName]; isMultiValue {
+					// Multiple flags: --flag value1 --flag value2
+					for j := 0; j < field.Len(); j++ {

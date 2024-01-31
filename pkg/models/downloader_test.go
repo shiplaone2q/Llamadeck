@@ -160,3 +160,5 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 		{Path: "model-00001-of-00002.safetensors", Type: "file", Size: 500, LFS: &HFLFSInfo{OID: strings.Repeat("b2", 32), Size: 500}},
 		{Path: "model-00002-of-00002.safetensors", Type: "file", Size: 500, LFS: &HFLFSInfo{OID: strings.Repeat("c3", 32), Size: 500}},
 		{Path: "pytorch_model.bin", Type: "file", Size: 2000, LFS: &HFLFSInfo{OID: strings.Repeat("d4", 32), Size: 2000}},
+		{Path: "README.md", Type: "file", Size: 10},
+		{Path: ".gitattributes", Type: "file", Size: 5},

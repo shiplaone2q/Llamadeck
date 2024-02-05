@@ -26,3 +26,4 @@ The launched command receives arguments from two places: the entry's `args` firs
 - `{model}` — the model identifier of the instance. Optional; if the arguments use it, the instance must have a model set.
 
 Servers that download models or run long setup on first start may exceed the on-demand start timeout (`instances.on_demand_start_timeout`). Raise the timeout or pre-warm the server's model cache by running the command once manually.
+

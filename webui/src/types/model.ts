@@ -30,3 +30,6 @@ export interface ModelFile {
   name: string
   path: string
   size_bytes: number
+  type: 'gguf' | 'preset' | 'mmproj'
+}
+

@@ -31,3 +31,7 @@ export default function ModelsList() {
       <ModelsHeader />
 
       {error && (
+        <Alert variant="destructive" className="mb-4">
+          <AlertDescription className="flex items-center justify-between">
+            <span>{error}</span>
+            <button

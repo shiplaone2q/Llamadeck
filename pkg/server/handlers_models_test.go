@@ -54,3 +54,6 @@ func TestDownloadModel_InvalidFormat(t *testing.T) {
 		t.Errorf("control case status = %d, want 202 (body: %s)", rec.Code, rec.Body.String())
 	}
 }
+
+func TestDeleteModel(t *testing.T) {
+	h, _, cache := newModelsTestHandler(t)

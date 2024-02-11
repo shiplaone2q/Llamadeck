@@ -40,3 +40,6 @@ describe('nodeHealthService', () => {
     expect(health.error).toBe('connection refused');
   });
 
+  it('reports unreachable when the HTTP call fails', async () => {
+    global.fetch = vi.fn(() =>
+      Promise.resolve(new Response(null, { status: 404 })),

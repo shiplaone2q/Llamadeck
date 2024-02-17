@@ -68,3 +68,4 @@ func newProxy(instance *Instance) (*proxy, error) {
 
 		if nodeName == "" {
 			return nil, fmt.Errorf("instance %s has no remote nodes defined", p.instance.Name)
+		}

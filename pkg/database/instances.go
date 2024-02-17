@@ -106,3 +106,5 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 		var row instanceRow
 		err := rows.Scan(
 			&row.ID, &row.Name, &row.Status, &row.CreatedAt, &row.UpdatedAt, &row.OptionsJSON, &row.OwnerUserID,
+		)
+		if err != nil {

@@ -50,3 +50,7 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         className={className}
+      />
+      {description && (
+        <p className="text-sm text-muted-foreground">{description}</p>
+      )}

@@ -58,3 +58,6 @@ class NodeHealthService {
 
     return () => {
       const callbacks = this.callbacks.get(nodeName);
+      if (callbacks) {
+        callbacks.delete(callback);
+

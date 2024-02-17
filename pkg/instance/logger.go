@@ -52,3 +52,4 @@ func (l *logger) create() error {
 	l.logFilePath = logPath
 
 	// Build the timber logger
+	t := &timber.Logger{

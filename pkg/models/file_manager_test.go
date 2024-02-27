@@ -56,3 +56,5 @@ func TestHFValidateBlobPath(t *testing.T) {
 	}{
 		{"hex blob under repo", blobDir + "/" + strings.Repeat("ab", 32), true},
 		{"digest-named blob", blobDir + "/etag-digest-name", true},
+		{"traversal out of blobs dir", blobDir + "/../evil", false},
+		{"nested under blobs dir", blobDir + "/a/b", false},

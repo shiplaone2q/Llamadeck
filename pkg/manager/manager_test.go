@@ -80,3 +80,7 @@ func TestManager_PersistsAndLoadsInstances(t *testing.T) {
 
 func TestDeleteInstance_RemovesFromDatabase(t *testing.T) {
 	tempDir := t.TempDir()
+	appConfig := createTestAppConfig(tempDir)
+
+	db, err := database.Open(&database.Config{
+		Path:               appConfig.Database.Path,

@@ -461,3 +461,7 @@ definitions:
       updated_at:
         type: integer
       user_id:
+        type: string
+    type: object
+  server.ListJobsResponse:
+    properties:

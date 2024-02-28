@@ -19,3 +19,4 @@ export interface CreateKeyRequest {
   permission_mode: PermissionMode
   expires_at?: number
   permissions?: InstancePermissionSpec[]
+}

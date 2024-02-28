@@ -155,3 +155,5 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
             if (Array.isArray(backendValue) && backendValue.length === 0) {
               return;
             }
+            cleanBackendOptions[backendKey] = backendValue;
+          }

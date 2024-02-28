@@ -67,3 +67,7 @@ func (o *options) set(opts *Options) {
 	o.opts = opts
 }
 
+func (o *options) GetHost() string {
+	o.mu.RLock()
+	defer o.mu.RUnlock()
+	return o.opts.BackendOptions.GetHost()

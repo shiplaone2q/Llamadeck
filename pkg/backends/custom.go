@@ -38,3 +38,7 @@ func (o *CustomServerOptions) SetPort(port int) {
 	}
 	o.Port = port
 }
+
+func (o *CustomServerOptions) GetHost() string {
+	if o == nil {
+		return "localhost"

@@ -110,3 +110,5 @@ curl -X POST http://localhost:8080/api/v1/instances/my-llama-instance \
     "backend_type": "llama_cpp",
     "backend_options": {
       "model": "/path/to/model.gguf",
+      "threads": 8,
+      "ctx_size": 4096,

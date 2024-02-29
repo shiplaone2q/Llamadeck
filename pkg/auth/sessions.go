@@ -37,3 +37,4 @@ func RandomToken() string {
 	if _, err := rand.Read(b); err != nil {
 		panic("crypto/rand unavailable: " + err.Error())
 	}
+	return hex.EncodeToString(b)

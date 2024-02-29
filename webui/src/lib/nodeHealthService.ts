@@ -61,3 +61,4 @@ class NodeHealthService {
       if (callbacks) {
         callbacks.delete(callback);
 
+        if (callbacks.size === 0) {

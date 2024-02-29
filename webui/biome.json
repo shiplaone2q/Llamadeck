@@ -32,3 +32,6 @@
       },
       "suspicious": {
         "noConsole": { "level": "warn", "options": { "allow": ["warn", "error", "debug"] } },
+        "noExplicitAny": "warn"
+      }
+    }

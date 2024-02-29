@@ -25,3 +25,5 @@ time = true
 
 [screen]
 clear_on_rebuild = false
+
+[misc]

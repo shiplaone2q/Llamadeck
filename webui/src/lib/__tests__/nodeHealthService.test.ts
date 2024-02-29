@@ -43,3 +43,7 @@ describe('nodeHealthService', () => {
   it('reports unreachable when the HTTP call fails', async () => {
     global.fetch = vi.fn(() =>
       Promise.resolve(new Response(null, { status: 404 })),
+    ) as unknown as typeof fetch;
+
+    const health = await nodeHealthService.performHealthCheck('ghost');
+    expect(health.state).toBe('unreachable');

@@ -135,3 +135,4 @@ func TestLoadConfig_CustomBackends(t *testing.T) {
 	if cfg.Backends.Custom == nil {
 		t.Fatal("Expected default Custom map to be non-nil")
 	}
+	if len(cfg.Backends.Custom) != 0 {

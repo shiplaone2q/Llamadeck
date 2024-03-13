@@ -59,3 +59,7 @@ Thank you for considering contributing to Llamadeck! This document outlines the 
 
 ## Before Submitting a Pull Request
 
+### Required Checks
+
+All the following must pass:
+

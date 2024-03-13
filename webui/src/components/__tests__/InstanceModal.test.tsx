@@ -110,3 +110,7 @@ describe('InstanceModal - Form Logic and Validation', () => {
       const newNameInput = screen.getByLabelText(/Instance Name/)
       await user.tripleClick(newNameInput)
       await user.keyboard('{Backspace}')
+      await user.type(newNameInput, 'test.instance-123')
+
+      await waitFor(() => {
+        expect(screen.queryByText(/can only contain letters, numbers, periods, hyphens, and underscores/)).not.toBeInTheDocument()

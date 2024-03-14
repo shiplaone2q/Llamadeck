@@ -29,3 +29,4 @@ export const MlxBackendOptionsSchema = z.object({
   // Extra args
   extra_args: z.record(z.string(), z.string()).optional(),
 })
+

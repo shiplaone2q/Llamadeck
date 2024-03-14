@@ -164,3 +164,7 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 	}
 	if options.GPULayers != 32 {
 		t.Errorf("Expected gpu_layers 32, got %d", options.GPULayers)
+	}
+	if options.Temperature != 0.7 {
+		t.Errorf("Expected temperature 0.7, got %f", options.Temperature)
+	}

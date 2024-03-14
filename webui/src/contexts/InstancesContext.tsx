@@ -73,3 +73,7 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       if (existing) {
         newMap.set(name, { ...existing, ...updates })
       }
+      return newMap
+    })
+  }, [])
+

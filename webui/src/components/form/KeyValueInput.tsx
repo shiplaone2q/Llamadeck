@@ -97,3 +97,6 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
 
   const addPair = () => {
     const newPairs = [...pairs, { key: '', value: '' }]
+    setPairs(newPairs)
+  }
+

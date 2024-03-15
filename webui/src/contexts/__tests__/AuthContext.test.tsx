@@ -35,3 +35,4 @@ describe('AuthContext OIDC callback errors', () => {
     expect(
       await screen.findByText('Access denied: your account is not a member of an allowed group.')
     ).toBeInTheDocument()
+

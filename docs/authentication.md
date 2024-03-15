@@ -40,3 +40,7 @@ Both flags default to enabled, so omitting them is equivalent to *Can start and 
 ### Behavior Reference
 
 How a request is handled depends on the instance's state and the key's access level for it:
+
+| Instance state | Access level | Result |
+|---|---|---|
+| Running | any | Request proxied normally |

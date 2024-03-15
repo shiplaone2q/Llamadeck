@@ -96,3 +96,6 @@ func (o *Options) MarshalJSON() ([]byte, error) {
 		if err != nil {
 			return nil, fmt.Errorf("failed to marshal backend options: %w", err)
 		}
+		// Create a new map to avoid concurrent map writes
+		backendOptions = make(map[string]any)
+		if err := json.Unmarshal(optionsData, &backendOptions); err != nil {

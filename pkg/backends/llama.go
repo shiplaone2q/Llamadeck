@@ -156,3 +156,6 @@ type LlamaServerOptions struct {
 	ContextShift         bool     `json:"context_shift,omitempty"`          // --context-shift
 	NoContextShift       bool     `json:"no_context_shift,omitempty"`       // --no-context-shift
 	ReversePrompt        string   `json:"reverse_prompt,omitempty"`         // -r, --reverse-prompt PROMPT
+	Special              bool     `json:"special,omitempty"`                // -sp, --special
+	Warmup               bool     `json:"warmup,omitempty"`                 // --warmup
+	NoWarmup             bool     `json:"no_warmup,omitempty"`              // --no-warmup

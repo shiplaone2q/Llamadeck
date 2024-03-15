@@ -157,3 +157,4 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
             }
             cleanBackendOptions[backendKey] = backendValue;
           }
+        });

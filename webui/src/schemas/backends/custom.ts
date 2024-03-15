@@ -20,3 +20,6 @@ export function getAllCustomFieldKeys(): (keyof CustomBackendOptions)[] {
 }
 
 // Get field type for custom backend options
+export function getCustomFieldType(key: keyof CustomBackendOptions): 'text' | 'number' | 'boolean' | 'array' {
+  const fieldSchema = CustomBackendOptionsSchema.shape[key]
+  if (!fieldSchema) return 'text'

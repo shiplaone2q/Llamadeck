@@ -69,3 +69,5 @@ The Models tab shows:
 - **Status**: Current job status (queued, downloading, completed, failed, cancelled)
 
 ### Using the API
+
+Download a GGUF model:

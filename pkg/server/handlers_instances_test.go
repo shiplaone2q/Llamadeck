@@ -41,3 +41,4 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 			LogsDir:              t.TempDir(),
 			DefaultRestartDelay:  5,
 			DefaultIdleTimeout:   30,
+			TimeoutCheckInterval: 5,

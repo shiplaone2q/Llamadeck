@@ -88,3 +88,4 @@ func TestParseMlxCommand(t *testing.T) {
 			command:   `mlx_lm.server --model test.mlx --chat-template "unterminated`,
 			expectErr: true,
 		},
+		{

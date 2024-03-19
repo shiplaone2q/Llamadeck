@@ -33,3 +33,4 @@ def on_page_markdown(markdown, page, config, **kwargs):
             processed_lines.append(line)
             continue
             
+        # Skip lines that shouldn't have line breaks:

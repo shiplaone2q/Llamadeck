@@ -159,3 +159,4 @@ type LlamaServerOptions struct {
 	Special              bool     `json:"special,omitempty"`                // -sp, --special
 	Warmup               bool     `json:"warmup,omitempty"`                 // --warmup
 	NoWarmup             bool     `json:"no_warmup,omitempty"`              // --no-warmup
+	SPMInfill            bool     `json:"spm_infill,omitempty"`             // --spm-infill

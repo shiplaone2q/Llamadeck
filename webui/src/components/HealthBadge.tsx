@@ -32,3 +32,7 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
 
   const getVariant = () => {
     switch (health.state) {
+      case "ready":
+        return "default";
+      case "starting":
+        return "outline";

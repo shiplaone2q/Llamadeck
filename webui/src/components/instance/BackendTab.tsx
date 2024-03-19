@@ -58,3 +58,4 @@ const BackendTab: React.FC<BackendTabProps> = ({
     }
 
     switch (formData.backend_type) {
+      case BackendType.LLAMA_CPP:

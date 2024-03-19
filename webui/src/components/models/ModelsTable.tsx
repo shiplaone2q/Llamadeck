@@ -107,3 +107,4 @@ function DownloadingRow({ job }: { job: DownloadJob }) {
     setCancelling(true)
     try {
       await cancelDownload(job.id)
+    } catch (error) {

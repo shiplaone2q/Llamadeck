@@ -67,3 +67,6 @@ func newHFTestServer(t *testing.T, fx hfFixture) *httptest.Server {
 		}
 	}))
 	t.Cleanup(srv.Close)
+	t.Setenv("HF_ENDPOINT", srv.URL)
+	return srv
+}

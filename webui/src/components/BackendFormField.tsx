@@ -74,3 +74,7 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
             </Button>
           )}
         </div>
+        <Input
+          id={fieldKey}
+          value={value?.toString() || ''}
+          onChange={(e) => onChange(fieldKey, e.target.value)}

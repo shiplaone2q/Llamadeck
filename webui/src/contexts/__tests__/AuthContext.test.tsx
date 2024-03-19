@@ -36,3 +36,7 @@ describe('AuthContext OIDC callback errors', () => {
       await screen.findByText('Access denied: your account is not a member of an allowed group.')
     ).toBeInTheDocument()
 
+    // A refresh must not replay the error
+    await waitFor(() => expect(window.location.search).toBe(''))
+    expect(await screen.findByRole('button', { name: /sign in with sso/i })).toBeInTheDocument()
+  })

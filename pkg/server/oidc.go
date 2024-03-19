@@ -141,3 +141,5 @@ func signStateValue(key []byte, state, verifier, nonce string) string {
 // back and returns the PKCE verifier and the nonce for the code exchange and
 // id_token check.
 func verifyStateValue(key []byte, cookieValue, queryState string) (verifier, nonce string, ok bool) {
+	parts := strings.Split(cookieValue, "|")
+	if len(parts) != 4 {

@@ -55,3 +55,6 @@ const BackendTab: React.FC<BackendTabProps> = ({
 
     if (backendSettings?.command) {
       return backendSettings.command
+    }
+
+    switch (formData.backend_type) {

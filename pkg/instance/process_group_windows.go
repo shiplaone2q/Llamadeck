@@ -9,3 +9,4 @@ func setProcAttrs(cmd *exec.Cmd) {
 	// here, and GenerateConsoleCtrlEvent could not be delivered reliably to
 	// the child in a service session, so graceful stop falls back to the
 	// force-kill after a short grace in process.go.)
+}

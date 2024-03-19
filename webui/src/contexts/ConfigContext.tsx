@@ -48,3 +48,7 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
 
   return (
     <ConfigContext.Provider value={{ config, isLoading, error }}>
+      {children}
+    </ConfigContext.Provider>
+  )
+}

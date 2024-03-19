@@ -75,3 +75,7 @@ pip install vllm
 # Or use Docker - no local installation required
 ```
 
+### Docker Support
+
+llamadeck can run backends in Docker containers, eliminating the need for local backend installation:
+

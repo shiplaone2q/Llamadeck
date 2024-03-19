@@ -168,3 +168,5 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 	if options.Temperature != 0.7 {
 		t.Errorf("Expected temperature 0.7, got %f", options.Temperature)
 	}
+}
+

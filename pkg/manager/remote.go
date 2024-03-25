@@ -140,3 +140,5 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 	}
 
 	return resp, nil
+}
+

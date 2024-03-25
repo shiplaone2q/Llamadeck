@@ -59,3 +59,5 @@ const BackendTab: React.FC<BackendTabProps> = ({
 
     switch (formData.backend_type) {
       case BackendType.LLAMA_CPP:
+        return "llama-server"
+      case BackendType.VLLM:

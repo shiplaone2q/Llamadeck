@@ -92,3 +92,4 @@ func (db *sqliteDB) GetKeyByID(ctx context.Context, id int) (*auth.APIKey, error
 }
 
 // ListKeys retrieves all API keys, newest first
+func (db *sqliteDB) ListKeys(ctx context.Context) ([]*auth.APIKey, error) {

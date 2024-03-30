@@ -44,3 +44,5 @@ export interface InstancesConfig {
   on_demand_start_timeout: number
   timeout_check_interval: number
 }
+
+export interface DatabaseConfig {

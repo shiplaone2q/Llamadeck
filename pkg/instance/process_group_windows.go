@@ -10,3 +10,4 @@ func setProcAttrs(cmd *exec.Cmd) {
 	// the child in a service session, so graceful stop falls back to the
 	// force-kill after a short grace in process.go.)
 }
+

@@ -68,3 +68,5 @@ def interactive_mode():
     url_input = input(f"Base URL [{BASE_URL}]: ").strip()
     if url_input:
         BASE_URL = url_input
+
+    # Get API key (optional)

@@ -65,3 +65,6 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 			"iss":    idp.server.URL,
 			"aud":    idp.clientID,
 			"sub":    "user-1",
+			"name":   "Alice",
+			"email":  "alice@example.com",
+			"groups": []string{"llamadeck-admins"},

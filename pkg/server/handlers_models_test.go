@@ -57,3 +57,5 @@ func TestDownloadModel_InvalidFormat(t *testing.T) {
 
 func TestDeleteModel(t *testing.T) {
 	h, _, cache := newModelsTestHandler(t)
+
+	request := func(url string) *httptest.ResponseRecorder {

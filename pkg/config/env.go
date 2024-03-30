@@ -118,3 +118,4 @@ func loadEnvVars(cfg *AppConfig) {
 	}
 	// Handle default llama.cpp env var
 	if llamaCacheDir := os.Getenv("LLAMA_CACHE"); llamaCacheDir != "" {
+		cfg.Backends.LlamaCpp.CacheDir = llamaCacheDir

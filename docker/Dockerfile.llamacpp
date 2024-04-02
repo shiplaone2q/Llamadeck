@@ -9,3 +9,4 @@ RUN LATEST_VERSION=$(curl -s https://api.github.com/repos/lordmathis/llamactl/re
     mv llamactl /usr/local/bin/ && \
     chmod +x /usr/local/bin/llamactl
 
+# Set working directory

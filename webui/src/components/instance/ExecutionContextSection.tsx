@@ -36,3 +36,4 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
   }
 
   return (
+    <div className="space-y-4">

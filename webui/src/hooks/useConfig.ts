@@ -44,3 +44,6 @@ export const useBackendSettings = (backendType: string | undefined) => {
 
   if (!backendConfig) {
     return null
+  }
+
+  return {

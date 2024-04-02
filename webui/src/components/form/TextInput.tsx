@@ -33,3 +33,6 @@ const TextInput: React.FC<TextInputProps> = ({
         type="text"
         value={typeof value === 'string' || typeof value === 'number' ? value : ''}
         onChange={(e) => onChange(e.target.value || undefined)}
+        placeholder={placeholder}
+        disabled={disabled}
+        className={className}

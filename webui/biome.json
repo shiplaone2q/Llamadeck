@@ -35,3 +35,6 @@
         "noExplicitAny": "warn"
       }
     }
+  },
+  "overrides": [
+    {

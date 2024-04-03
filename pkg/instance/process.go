@@ -122,3 +122,7 @@ func (p *process) start() error {
 	if err != nil {
 		p.stdout.Close()
 		p.instance.logger.close()
+		return fmt.Errorf("failed to get stderr pipe: %w", err)
+	}
+
+	if err := p.cmd.Start(); err != nil {

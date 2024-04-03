@@ -37,3 +37,7 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
 
   return (
     <div className="space-y-4">
+      <h3 className="text-md font-medium">Execution Context</h3>
+
+      {/* Docker Mode Toggle - only for backends that support Docker */}
+      {formData.backend_type !== BackendType.MLX_LM && (

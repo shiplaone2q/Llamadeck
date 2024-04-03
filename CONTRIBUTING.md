@@ -63,3 +63,5 @@ Thank you for considering contributing to Llamadeck! This document outlines the 
 
 All the following must pass:
 
+1. **Backend**
+   ```bash

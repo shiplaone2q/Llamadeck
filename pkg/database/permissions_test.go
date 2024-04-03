@@ -72,3 +72,6 @@ func TestGetInstancePermission(t *testing.T) {
 	t.Run("missing row returns nil nil", func(t *testing.T) {
 		got, err := db.GetInstancePermission(context.Background(), key.ID, 999)
 		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		if got != nil {

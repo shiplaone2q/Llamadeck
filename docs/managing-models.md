@@ -71,3 +71,6 @@ The Models tab shows:
 ### Using the API
 
 Download a GGUF model:
+
+```bash
+curl -X POST http://localhost:8080/api/v1/models/download \

@@ -44,3 +44,4 @@ How a request is handled depends on the instance's state and the key's access le
 | Instance state | Access level | Result |
 |---|---|---|
 | Running | any | Request proxied normally |
+| Stopped, free capacity | Use running only | `503 instance_not_running` |

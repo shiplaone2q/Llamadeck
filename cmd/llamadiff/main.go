@@ -82,3 +82,5 @@ func main() {
 			fmt.Println()
 		}
 	}
+
+	fmt.Println("\n=== POSITIVE/NEGATIVE FLAG CONFLICTS ===")

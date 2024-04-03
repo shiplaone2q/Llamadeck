@@ -73,3 +73,7 @@ func TestInferenceAuthMiddleware(t *testing.T) {
 				w.WriteHeader(http.StatusOK)
 			}))
 
+			// Execute request
+			recorder := httptest.NewRecorder()
+			handler.ServeHTTP(recorder, req)
+

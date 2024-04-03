@@ -68,3 +68,6 @@ func TestExpandEnvVars(t *testing.T) {
 		},
 		{
 			name:     "default with special characters",
+			input:    "val: ${VAR:-/usr/local/bin}",
+			envVars:  nil,
+			expected: "val: /usr/local/bin",

@@ -62,3 +62,4 @@ func LoadConfig(configPath string) (AppConfig, error) {
 	// Validate port range
 	if cfg.Instances.PortRange[0] <= 0 || cfg.Instances.PortRange[1] <= 0 || cfg.Instances.PortRange[0] >= cfg.Instances.PortRange[1] {
 		return AppConfig{}, fmt.Errorf("invalid port range: %v", cfg.Instances.PortRange)
+	}

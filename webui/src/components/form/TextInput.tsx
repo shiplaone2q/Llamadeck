@@ -36,3 +36,4 @@ const TextInput: React.FC<TextInputProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         className={className}
+      />

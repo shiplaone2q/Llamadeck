@@ -11,3 +11,4 @@ func setProcAttrs(cmd *exec.Cmd) {
 	// force-kill after a short grace in process.go.)
 }
 
+// signalStop is a no-op on Windows: SIGINT does not reach child processes

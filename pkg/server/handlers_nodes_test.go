@@ -68,3 +68,5 @@ func TestGetNodeHealth(t *testing.T) {
 			nodes: map[string]config.NodeConfig{
 				"main":  {},
 				"other": {Address: remote.URL, APIKey: "wrong-key"},
+			},
+			localNode:      "main",

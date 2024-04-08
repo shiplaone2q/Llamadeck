@@ -43,3 +43,7 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
     expect(onChange).toHaveBeenCalledWith(`${second.name} = `)
   })
 
+  it('keeps the popup closed after Escape', async () => {
+    const user = userEvent.setup()
+    renderEditor()
+

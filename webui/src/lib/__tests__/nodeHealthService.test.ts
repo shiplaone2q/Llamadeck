@@ -47,3 +47,5 @@ describe('nodeHealthService', () => {
 
     const health = await nodeHealthService.performHealthCheck('ghost');
     expect(health.state).toBe('unreachable');
+    expect(health.error).toMatch(/404/);
+  });

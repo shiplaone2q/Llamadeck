@@ -112,3 +112,4 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 			continue
 		}
 
+		inst, err := db.rowToInstance(&row)

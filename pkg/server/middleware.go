@@ -59,3 +59,5 @@ func NewAPIAuthMiddleware(authCfg config.AuthConfig, authStore database.AuthStor
 		fmt.Printf("%s\n⚠️  IMPORTANT\n%s\n", banner, banner)
 		fmt.Println("• This key is auto-generated and will change on restart")
 		fmt.Println("• For production, add explicit keys to your configuration")
+		fmt.Println("• Copy this key before it disappears from the terminal")
+		fmt.Println(banner)

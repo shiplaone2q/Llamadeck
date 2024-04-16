@@ -17,3 +17,7 @@ function snakeToKebab(snake: string): string {
 export function getLlamaFieldSuggestions(input: string): FieldSuggestion[] {
   const allFields = getAllLlamaCppFieldKeys()
   const allAltKeys = getAllLlamaCppAltKeys()
+  const query = input.toLowerCase().trim()
+
+  const suggestionsMap = new Map<string, FieldSuggestion>()
+

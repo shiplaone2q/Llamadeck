@@ -28,3 +28,4 @@ theme:
     - navigation.tabs.sticky
     - toc.integrate
     - navigation.top
+    - search.highlight

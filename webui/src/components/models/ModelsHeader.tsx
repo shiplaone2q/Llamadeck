@@ -25,3 +25,4 @@ export default function ModelsHeader() {
         onOpenChange={setDownloadDialogOpen}
       />
     </>
+  )

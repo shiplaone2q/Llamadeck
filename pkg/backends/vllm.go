@@ -60,3 +60,5 @@ type VllmServerOptions struct {
 	MaxNumSeqs               int     `json:"max_num_seqs,omitempty"`
 	MaxLogprobs              int     `json:"max_logprobs,omitempty"`
 	DisableLogStats          bool    `json:"disable_log_stats,omitempty"`
+	Quantization             string  `json:"quantization,omitempty"`
+	RopeScaling              string  `json:"rope_scaling,omitempty"`

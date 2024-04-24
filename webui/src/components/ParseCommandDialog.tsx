@@ -46,3 +46,6 @@ const ParseCommandDialog: React.FC<ParseCommandDialogProps> = ({
       // Parse based on selected backend type
       switch (backendType) {
         case BackendType.LLAMA_CPP:
+          options = await backendsApi.llamaCpp.parseCommand(command);
+          break;
+        case BackendType.MLX_LM:

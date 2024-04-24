@@ -160,3 +160,6 @@ type LlamaServerOptions struct {
 	Warmup               bool     `json:"warmup,omitempty"`                 // --warmup
 	NoWarmup             bool     `json:"no_warmup,omitempty"`              // --no-warmup
 	SPMInfill            bool     `json:"spm_infill,omitempty"`             // --spm-infill
+	Pooling              string   `json:"pooling,omitempty"`                // --pooling {none,mean,cls,last,rank}
+	Parallel             int      `json:"parallel,omitempty"`               // -np, --parallel N
+	ContBatching         bool     `json:"cont_batching,omitempty"`          // -cb, --cont-batching

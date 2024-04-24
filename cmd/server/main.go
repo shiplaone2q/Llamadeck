@@ -64,3 +64,5 @@ func main() {
 		}
 	}
 
+	// Initialize database
+	db, err := database.Open(&database.Config{

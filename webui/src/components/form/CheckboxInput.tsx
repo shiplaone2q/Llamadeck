@@ -23,3 +23,6 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
 }) => {
   return (
     <div className={`flex items-center space-x-2 ${className || ''}`}>
+      <Checkbox
+        id={id}
+        checked={value === true}

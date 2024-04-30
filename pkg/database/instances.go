@@ -113,3 +113,7 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 		}
 
 		inst, err := db.rowToInstance(&row)
+		if err != nil {
+			log.Printf("Failed to convert row to instance: %v", err)
+			continue
+		}

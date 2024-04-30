@@ -72,3 +72,6 @@ func newHFTestServer(t *testing.T, fx hfFixture) *httptest.Server {
 }
 
 func newTestManager(t *testing.T) *Manager {
+	t.Helper()
+	cache := t.TempDir()
+	t.Setenv("LLAMA_CACHE", cache)

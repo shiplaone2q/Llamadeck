@@ -52,3 +52,6 @@ func (r *instanceRegistry) listRunning() []*instance.Instance {
 	for name, inst := range r.instances {
 		if _, isRunning := r.running.Load(name); isRunning {
 			result = append(result, inst)
+		}
+	}
+	return result

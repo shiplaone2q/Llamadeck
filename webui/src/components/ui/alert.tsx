@@ -49,3 +49,7 @@ function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
 
 function AlertDescription({
   className,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div

@@ -58,3 +58,6 @@ func TestHFValidateBlobPath(t *testing.T) {
 		{"digest-named blob", blobDir + "/etag-digest-name", true},
 		{"traversal out of blobs dir", blobDir + "/../evil", false},
 		{"nested under blobs dir", blobDir + "/a/b", false},
+		{"blobs dir itself", blobDir, false},
+		{"escape of hub root", fm.HFHubRoot() + "/../outside/hub", false},
+		{"path under a different root", filepath.Join(t.TempDir(), "models--org--model", "blobs", "x"), false},

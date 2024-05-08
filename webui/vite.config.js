@@ -21,3 +21,4 @@ export default defineConfig({
         css: true,
     },
     // ensures relative asset paths to support being served behind a subpath
+    base: "./"

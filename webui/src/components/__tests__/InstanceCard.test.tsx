@@ -147,3 +147,4 @@ afterEach(() => {
       )
 
       // First click "More actions" to reveal the delete button
+      const moreActionsButton = screen.getByTitle('More actions')

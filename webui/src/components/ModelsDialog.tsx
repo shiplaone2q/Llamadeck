@@ -69,3 +69,4 @@ const ModelsDialog: React.FC<ModelsDialogProps> = ({
   const [models, setModels] = useState<Model[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [loadingModels, setLoadingModels] = useState<Set<string>>(new Set())

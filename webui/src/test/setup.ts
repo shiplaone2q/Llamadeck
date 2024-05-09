@@ -35,3 +35,6 @@ class LocalStorageMock implements Storage {
 // so plain assignment throws — redefine it instead)
 Object.defineProperty(global, 'localStorage', {
   configurable: true,
+  writable: true,
+  value: new LocalStorageMock(),
+})

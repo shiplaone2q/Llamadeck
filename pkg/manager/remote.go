@@ -142,3 +142,6 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 	return resp, nil
 }
 
+// parseRemoteResponse parses an HTTP response and unmarshals the result.
+//
+// If the response indicates the target instance does not exist (HTTP 404, or a

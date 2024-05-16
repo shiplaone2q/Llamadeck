@@ -56,3 +56,6 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 		})
 		inst.process = newProcess(inst)
 		return inst
+	}
+
+	t.Run("configured path returns healthy", func(t *testing.T) {

@@ -116,3 +116,4 @@ curl -X POST http://localhost:8080/api/v1/instances/my-llama-instance \
       "flash_attn": "on"
     },
     "auto_restart": true,
+    "max_restarts": 3,

@@ -143,3 +143,5 @@ func signStateValue(key []byte, state, verifier, nonce string) string {
 func verifyStateValue(key []byte, cookieValue, queryState string) (verifier, nonce string, ok bool) {
 	parts := strings.Split(cookieValue, "|")
 	if len(parts) != 4 {
+		return "", "", false
+	}

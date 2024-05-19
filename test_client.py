@@ -70,3 +70,6 @@ def interactive_mode():
         BASE_URL = url_input
 
     # Get API key (optional)
+    key_input = input("API key (optional): ").strip()
+    if key_input:
+        API_KEY = key_input

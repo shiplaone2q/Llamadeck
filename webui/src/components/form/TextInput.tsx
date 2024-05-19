@@ -39,3 +39,7 @@ const TextInput: React.FC<TextInputProps> = ({
       />
       {description && (
         <p className="text-sm text-muted-foreground">{description}</p>
+      )}
+    </div>
+  )
+}

@@ -68,3 +68,7 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 			"name":   "Alice",
 			"email":  "alice@example.com",
 			"groups": []string{"llamadeck-admins"},
+			"exp":    time.Now().Add(time.Hour).Unix(),
+			"iat":    time.Now().Unix(),
+			"nonce":  idp.nonce,
+		})

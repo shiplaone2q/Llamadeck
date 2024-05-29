@@ -70,3 +70,4 @@ func TestGetNodeHealth(t *testing.T) {
 				"other": {Address: remote.URL, APIKey: "wrong-key"},
 			},
 			localNode:      "main",
+			requestName:    "other",

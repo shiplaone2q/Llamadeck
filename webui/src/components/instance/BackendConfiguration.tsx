@@ -45,3 +45,4 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
                 fieldKey={fieldKey}
                 value={(formData.backend_options as Record<string, BackendFieldValue> | undefined)?.[fieldKey]}
                 onChange={onBackendFieldChange}
+              />

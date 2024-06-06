@@ -108,3 +108,6 @@ function DownloadingRow({ job }: { job: DownloadJob }) {
     try {
       await cancelDownload(job.id)
     } catch (error) {
+      console.error('Failed to cancel download:', error)
+    } finally {
+      setCancelling(false)

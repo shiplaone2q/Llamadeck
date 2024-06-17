@@ -76,3 +76,6 @@ func (o *MlxServerOptions) GetModel() string {
 	return o.Model
 }
 
+func (o *MlxServerOptions) GetPort() int {
+	return o.Port
+}

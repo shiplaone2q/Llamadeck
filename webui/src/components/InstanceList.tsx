@@ -30,3 +30,4 @@ function InstanceList({ editInstance }: InstanceListProps) {
       <div className="text-center py-12">
         <div className="text-destructive mb-4">
           <p className="text-lg font-semibold">Error loading instances</p>
+          <p className="text-sm">{error}</p>

@@ -99,3 +99,7 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 		if req.ExpiresAt != nil && *req.ExpiresAt <= time.Now().Unix() {
 			writeError(w, http.StatusBadRequest, "invalid_expires_at", "Expiration time must be in future")
 			return
+		}
+
+		// Validate instance IDs exist
+		if req.PermissionMode == auth.PermissionModePerInstance {

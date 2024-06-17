@@ -116,3 +116,5 @@ export const backendsApi = {
 };
 
 // Node API types
+export interface NodeResponse {
+  address: string;

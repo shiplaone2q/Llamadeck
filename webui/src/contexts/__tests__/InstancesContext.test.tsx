@@ -119,3 +119,7 @@ function TestComponent() {
 }
 
 function renderWithProvider(children: ReactNode) {
+  return render(
+    <AuthProvider>
+      <InstancesProvider>{children}</InstancesProvider>
+    </AuthProvider>

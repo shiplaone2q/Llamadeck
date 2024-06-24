@@ -73,3 +73,5 @@ def interactive_mode():
     key_input = input("API key (optional): ").strip()
     if key_input:
         API_KEY = key_input
+
+    # Fetch and select model

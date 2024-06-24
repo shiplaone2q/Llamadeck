@@ -76,3 +76,4 @@ describe('InstanceList - State Management and UI Logic', () => {
   })
 
   describe('Loading State', () => {
+    it('shows loading spinner while instances are being fetched', () => {

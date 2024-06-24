@@ -71,3 +71,6 @@ func TestGetNodeHealth(t *testing.T) {
 			},
 			localNode:      "main",
 			requestName:    "other",
+			expectedStatus: http.StatusOK,
+			expectedHealth: server.NodeStatusUnreachable,
+		},

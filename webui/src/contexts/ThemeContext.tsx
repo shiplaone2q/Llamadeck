@@ -38,3 +38,4 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     setTheme(prevTheme => prevTheme === "light" ? "dark" : "light");
   };
 
+  return (

@@ -61,3 +61,4 @@ func TestHFValidateBlobPath(t *testing.T) {
 		{"blobs dir itself", blobDir, false},
 		{"escape of hub root", fm.HFHubRoot() + "/../outside/hub", false},
 		{"path under a different root", filepath.Join(t.TempDir(), "models--org--model", "blobs", "x"), false},
+	}

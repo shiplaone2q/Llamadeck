@@ -100,3 +100,5 @@ func (t *authTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 // @Failure 500 {string} string "Internal Server Error"
 // @Router /api/v1/models/download [post]
 func (h *Handler) DownloadModel() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		nodeName := r.URL.Query().Get("node")

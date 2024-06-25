@@ -26,3 +26,6 @@ Then manually copy the generated schemas into `webui/src/schemas/backends/llamac
 5. Preserves section header comments (e.g., "Common params", "Sampling params")
 6. Generates TypeScript code with proper formatting
 
+## Output
+
+The tool generates two schemas:

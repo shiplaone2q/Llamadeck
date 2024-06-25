@@ -102,3 +102,7 @@ func (t *authTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 func (h *Handler) DownloadModel() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		nodeName := r.URL.Query().Get("node")
+		if h.shouldForwardToNode(nodeName) {
+			if h.forwardToNode(nodeName, w, r) {
+				return
+			}

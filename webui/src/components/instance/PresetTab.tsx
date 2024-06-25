@@ -37,3 +37,5 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
     a.href = url
     a.download = 'preset.ini'
     document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)

@@ -104,3 +104,5 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
         return;
       }
       request.expires_at = Math.floor(expirationDate.getTime() / 1000);
+    }
+

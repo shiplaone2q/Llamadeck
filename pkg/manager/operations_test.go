@@ -176,3 +176,6 @@ func TestDeleteInstance_RunningInstanceFails(t *testing.T) {
 			},
 		},
 	}
+
+	inst, err := mgr.CreateInstance("test-instance", options)
+	if err != nil {

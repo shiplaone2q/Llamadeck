@@ -52,3 +52,7 @@ func TestResolveInstancePermission(t *testing.T) {
 			wantEvict: true,
 		},
 		{
+			name:      "allow_all key short-circuits to all-true",
+			ctx:       withKey(context.Background(), allowAllKey),
+			store:     &stubAuthStore{},
+			wantStart: true,

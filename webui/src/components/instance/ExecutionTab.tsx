@@ -46,3 +46,7 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
           { value: BackendType.MLX_LM, label: 'MLX LM' },
           { value: BackendType.VLLM, label: 'vLLM' }
         ]}
+        description="Select the backend server type"
+      />
+
+      {formData.backend_type !== BackendType.MLX_LM && (

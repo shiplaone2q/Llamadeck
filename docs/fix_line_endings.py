@@ -34,3 +34,7 @@ def on_page_markdown(markdown, page, config, **kwargs):
             continue
             
         # Skip lines that shouldn't have line breaks:
+        # - Headers (# ## ###)
+        # - Blockquotes (>)
+        # - Table rows (|)
+        # - Lines already ending with two spaces

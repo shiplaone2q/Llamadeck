@@ -117,3 +117,6 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 			log.Printf("Failed to convert row to instance: %v", err)
 			continue
 		}
+
+		instances = append(instances, inst)
+	}

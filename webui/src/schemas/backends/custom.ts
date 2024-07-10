@@ -23,3 +23,5 @@ export function getAllCustomFieldKeys(): (keyof CustomBackendOptions)[] {
 export function getCustomFieldType(key: keyof CustomBackendOptions): 'text' | 'number' | 'boolean' | 'array' {
   const fieldSchema = CustomBackendOptionsSchema.shape[key]
   if (!fieldSchema) return 'text'
+
+  const innerSchema = fieldSchema instanceof z.ZodOptional ? fieldSchema.unwrap() : fieldSchema

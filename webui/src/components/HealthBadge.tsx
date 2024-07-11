@@ -36,3 +36,7 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
         return "default";
       case "starting":
         return "outline";
+      case "restarting":
+        return "outline";
+      case "shutting_down":
+        return "outline";

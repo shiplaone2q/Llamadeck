@@ -138,3 +138,7 @@ func TestLoadConfig_CustomBackends(t *testing.T) {
 	if len(cfg.Backends.Custom) != 0 {
 		t.Errorf("Expected default Custom map to be empty, got %v", cfg.Backends.Custom)
 	}
+
+	tempDir := t.TempDir()
+	configFile := filepath.Join(tempDir, "custom-backends.yaml")
+

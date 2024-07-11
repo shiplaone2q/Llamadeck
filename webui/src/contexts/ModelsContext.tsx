@@ -70,3 +70,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
 
   const cancelDownload = useCallback(async (jobId: string, node?: string) => {
     setError(null)
+    try {
+      await llamaCppModelsApi.deleteJob(jobId, node)
+      await fetchModels(node)

@@ -72,3 +72,6 @@ func newProxy(instance *Instance) (*proxy, error) {
 
 		node, ok := p.instance.globalNodesConfig[nodeName]
 		if !ok {
+			return nil, fmt.Errorf("remote node %s is not defined", nodeName)
+		}
+

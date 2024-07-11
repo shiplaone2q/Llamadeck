@@ -48,3 +48,7 @@ func (db *sqliteDB) GetInstancePermission(ctx context.Context, keyID, instanceID
 	err := db.QueryRowContext(ctx, query, keyID, instanceID).Scan(
 		&perm.KeyID, &perm.InstanceID, &perm.CanStart, &perm.CanEvict,
 	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}

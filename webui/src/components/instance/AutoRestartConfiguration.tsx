@@ -49,3 +49,6 @@ const AutoRestartConfiguration: React.FC<AutoRestartConfigurationProps> = ({
           ) : (
             <ChevronRight className="h-4 w-4" />
           )}
+          {getSummaryText()}
+        </div>
+      </div>

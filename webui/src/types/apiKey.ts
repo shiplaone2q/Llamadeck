@@ -21,3 +21,4 @@ export interface CreateKeyRequest {
   permissions?: InstancePermissionSpec[]
 }
 
+export interface InstancePermissionSpec {

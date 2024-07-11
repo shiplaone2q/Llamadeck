@@ -65,3 +65,7 @@ type ServerConfig struct {
 
 	// Enable Swagger UI for API documentation
 	EnableSwagger bool `yaml:"enable_swagger" json:"enable_swagger"`
+
+	// Response headers to send with responses
+	ResponseHeaders map[string]string `yaml:"response_headers,omitempty" json:"response_headers,omitempty"`
+}

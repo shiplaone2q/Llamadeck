@@ -77,3 +77,7 @@ func TestInferenceAuthMiddleware(t *testing.T) {
 			recorder := httptest.NewRecorder()
 			handler.ServeHTTP(recorder, req)
 
+			if recorder.Code != tt.expectedStatus {
+				t.Errorf("InferenceAuthMiddleware() status = %v, expected %v", recorder.Code, tt.expectedStatus)
+			}
+

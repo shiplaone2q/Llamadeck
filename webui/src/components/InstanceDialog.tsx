@@ -158,3 +158,5 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
             cleanBackendOptions[backendKey] = backendValue;
           }
         });
+
+        // Only include backend_options if it has content

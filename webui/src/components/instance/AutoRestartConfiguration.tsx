@@ -52,3 +52,7 @@ const AutoRestartConfiguration: React.FC<AutoRestartConfigurationProps> = ({
           {getSummaryText()}
         </div>
       </div>
+
+      {isExpanded && (
+        <div className="space-y-4 pl-6 border-l-2 border-muted">
+          <CheckboxInput

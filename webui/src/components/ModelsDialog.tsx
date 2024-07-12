@@ -70,3 +70,5 @@ const ModelsDialog: React.FC<ModelsDialogProps> = ({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [loadingModels, setLoadingModels] = useState<Set<string>>(new Set())
+
+  // Fetch models function

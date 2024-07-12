@@ -78,3 +78,6 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
           id={fieldKey}
           value={value?.toString() || ''}
           onChange={(e) => onChange(fieldKey, e.target.value)}
+          placeholder="/path/to/preset.ini"
+        />
+        {callout || (

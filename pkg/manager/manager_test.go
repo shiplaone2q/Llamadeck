@@ -88,3 +88,6 @@ func TestDeleteInstance_RemovesFromDatabase(t *testing.T) {
 		MaxIdleConnections: appConfig.Database.MaxIdleConnections,
 		ConnMaxLifetime:    appConfig.Database.ConnMaxLifetime,
 	})
+	if err != nil {
+		t.Fatalf("Failed to open database: %v", err)
+	}

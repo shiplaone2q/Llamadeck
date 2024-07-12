@@ -173,3 +173,5 @@ func TestLlamaCppUnmarshalJSON_StandardFields(t *testing.T) {
 func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 	tests := []struct {
 		name     string
+		jsonData string
+		checkFn  func(backends.LlamaServerOptions) error

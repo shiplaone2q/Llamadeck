@@ -86,3 +86,6 @@ func TestParseVllmCommand(t *testing.T) {
 		{
 			name:      "unterminated quote",
 			command:   `vllm serve "unterminated`,
+			expectErr: true,
+		},
+	}

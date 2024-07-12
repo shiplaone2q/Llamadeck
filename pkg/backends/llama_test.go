@@ -175,3 +175,7 @@ func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 		name     string
 		jsonData string
 		checkFn  func(backends.LlamaServerOptions) error
+	}{
+		{
+			name:     "threads alternatives",
+			jsonData: `{"t": 4, "tb": 2}`,

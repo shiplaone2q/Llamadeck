@@ -22,3 +22,5 @@ export function useInstanceHealth(instanceName: string, instanceStatus: Instance
       healthService.refreshHealth(instanceName).catch(error => {
         console.error(`Failed to refresh health for ${instanceName}:`, error)
       })
+    }
+  }, [instanceName, instanceStatus])

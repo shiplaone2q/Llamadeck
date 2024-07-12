@@ -42,3 +42,5 @@ func (o *CustomServerOptions) SetPort(port int) {
 func (o *CustomServerOptions) GetHost() string {
 	if o == nil {
 		return "localhost"
+	}
+	return o.Host

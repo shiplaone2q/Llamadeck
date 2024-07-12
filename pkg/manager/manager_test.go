@@ -91,3 +91,7 @@ func TestDeleteInstance_RemovesFromDatabase(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Failed to open database: %v", err)
 	}
+	if err := database.RunMigrations(db); err != nil {
+		t.Fatalf("Failed to run migrations: %v", err)
+	}
+	mgr := manager.New(appConfig, db)

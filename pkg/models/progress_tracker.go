@@ -31,3 +31,5 @@ func (pt *ProgressTracker) AddToTotalBytes(jobID string, bytes int64) {
 
 func (pt *ProgressTracker) UpdateCurrentFile(jobID string, filename string) {
 	pt.jobStore.mutex.Lock()
+	defer pt.jobStore.mutex.Unlock()
+

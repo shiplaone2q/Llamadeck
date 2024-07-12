@@ -69,3 +69,5 @@ type ServerConfig struct {
 	// Response headers to send with responses
 	ResponseHeaders map[string]string `yaml:"response_headers,omitempty" json:"response_headers,omitempty"`
 }
+
+// DatabaseConfig contains database configuration settings

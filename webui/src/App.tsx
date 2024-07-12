@@ -65,3 +65,7 @@ function App() {
       </ThemeProvider>
     );
   }
+
+  // Show login dialog if not authenticated
+  if (!isAuthenticated) {
+    return (

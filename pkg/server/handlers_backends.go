@@ -125,3 +125,5 @@ func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 		}
 
 		if !inst.IsRemote() && !inst.IsRunning() {
+			if err := h.ensureInstanceRunning(inst, perm.CanStart, perm.CanEvict); err != nil {
+				writeStartError(w, err)

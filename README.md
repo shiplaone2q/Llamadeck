@@ -79,3 +79,5 @@ pip install vllm
 
 llamadeck can run backends in Docker containers, eliminating the need for local backend installation:
 
+```yaml
+backends:

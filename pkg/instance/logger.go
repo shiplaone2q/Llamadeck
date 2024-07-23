@@ -57,3 +57,4 @@ func (l *logger) create() error {
 		MaxSize:    l.cfg.MaxSize,
 		MaxBackups: 0, // No limit on backups
 		// Compression: "gzip" if Compress is true, else "none"
+		Compression: func() string {

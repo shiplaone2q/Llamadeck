@@ -85,3 +85,5 @@ func fetchLlamaCppModels(inst *instance.Instance) ([]LlamaCppModel, error) {
 // @Router /v1/models [get]
 func (h *Handler) OpenAIListInstances() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		instances, err := h.InstanceManager.ListInstances()
+		if err != nil {

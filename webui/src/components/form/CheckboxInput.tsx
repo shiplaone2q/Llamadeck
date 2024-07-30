@@ -28,3 +28,4 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
         checked={value === true}
         onCheckedChange={(checked) => onChange(!!checked)}
         disabled={disabled}
+      />

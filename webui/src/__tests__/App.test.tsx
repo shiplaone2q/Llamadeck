@@ -89,3 +89,5 @@ describe('App Component - Critical Business Logic Only', () => {
     vi.clearAllMocks()
     vi.mocked(instancesApi.list).mockResolvedValue(mockInstances)
     window.sessionStorage.setItem('llamadeck_management_key', 'test-api-key-123')
+    global.fetch = vi.fn(() => Promise.resolve(new Response(null, { status: 200 })))
+    

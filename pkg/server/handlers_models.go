@@ -106,3 +106,5 @@ func (h *Handler) DownloadModel() http.HandlerFunc {
 			if h.forwardToNode(nodeName, w, r) {
 				return
 			}
+			return
+		}

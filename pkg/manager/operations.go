@@ -215,3 +215,6 @@ func (im *instanceManager) GetInstance(name string) (*instance.Instance, error) 
 	}
 
 	return inst, nil
+}
+
+// UpdateInstance updates the options of an existing instance and returns it.

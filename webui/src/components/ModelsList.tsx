@@ -35,3 +35,6 @@ export default function ModelsList() {
           <AlertDescription className="flex items-center justify-between">
             <span>{error}</span>
             <button
+              type="button"
+              onClick={clearError}
+              className="text-sm underline hover:no-underline"

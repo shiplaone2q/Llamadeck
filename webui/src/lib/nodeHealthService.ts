@@ -62,3 +62,6 @@ class NodeHealthService {
         callbacks.delete(callback);
 
         if (callbacks.size === 0) {
+          this.stopHealthCheck(nodeName);
+          this.callbacks.delete(nodeName);
+          this.healthCache.delete(nodeName);

@@ -38,3 +38,4 @@ def on_page_markdown(markdown, page, config, **kwargs):
     else:
         features_with_breaks = "Features content not found in README.md"
 
+    # Replace placeholders in the markdown

@@ -179,3 +179,6 @@ func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 		{
 			name:     "threads alternatives",
 			jsonData: `{"t": 4, "tb": 2}`,
+			checkFn: func(opts backends.LlamaServerOptions) error {
+				if opts.Threads != 4 {
+					return fmt.Errorf("expected threads 4, got %d", opts.Threads)

@@ -162,3 +162,6 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 		{Path: "pytorch_model.bin", Type: "file", Size: 2000, LFS: &HFLFSInfo{OID: strings.Repeat("d4", 32), Size: 2000}},
 		{Path: "README.md", Type: "file", Size: 10},
 		{Path: ".gitattributes", Type: "file", Size: 5},
+	}
+
+	plan, err := d.BuildDownloadPlan("org/model", "commit123", entries, "", "", FormatSafetensors)

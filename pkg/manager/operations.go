@@ -211,3 +211,7 @@ func (im *instanceManager) GetInstance(name string) (*instance.Instance, error) 
 		im.updateLocalInstanceFromRemote(inst, remoteInst)
 
 		// Return the local stub (preserving Nodes field)
+		return inst, nil
+	}
+
+	return inst, nil

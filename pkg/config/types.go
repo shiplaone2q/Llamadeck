@@ -71,3 +71,6 @@ type ServerConfig struct {
 }
 
 // DatabaseConfig contains database configuration settings
+type DatabaseConfig struct {
+	// Database file path (relative to the top-level data_dir or absolute)
+	Path string `yaml:"path" json:"path"`

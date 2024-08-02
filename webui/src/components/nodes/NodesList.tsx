@@ -51,3 +51,4 @@ function NodesList() {
 
   if (loading) {
     return (
+      <div

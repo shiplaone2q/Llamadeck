@@ -59,3 +59,5 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 	}
 
 	t.Run("configured path returns healthy", func(t *testing.T) {
+		if err := newTestInstance("/ready").process.waitForHealthy(2); err != nil {
+			t.Errorf("expected healthy on custom path, got: %v", err)

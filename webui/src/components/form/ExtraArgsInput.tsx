@@ -17,3 +17,4 @@ const ExtraArgsInput: React.FC<ExtraArgsInputProps> = (props) => {
       {...props}
       keyPlaceholder="Flag name (without --)"
       valuePlaceholder="Value (empty for boolean flags)"
+      addButtonText="Add Argument"

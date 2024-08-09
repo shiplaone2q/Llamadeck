@@ -41,3 +41,5 @@ export const CreateInstanceOptionsSchema = z.object({
   idle_timeout: z.number().optional(),
   on_demand_start: z.boolean().optional(),
 
+  // Environment variables
+  environment: z.record(z.string(), z.string()).optional(),

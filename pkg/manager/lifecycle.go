@@ -65,3 +65,7 @@ func (l *lifecycleManager) timeoutCheckLoop() {
 	defer close(l.shutdownDone) // Signal completion
 
 	for {
+		select {
+		case <-l.ticker.C:
+			l.checkTimeouts()
+		case <-l.shutdownChan:

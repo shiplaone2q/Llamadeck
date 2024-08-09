@@ -128,3 +128,4 @@ func (p *process) start() error {
 	if err := p.cmd.Start(); err != nil {
 		return fmt.Errorf("failed to start instance %s: %w", p.instance.Name, err)
 	}
+

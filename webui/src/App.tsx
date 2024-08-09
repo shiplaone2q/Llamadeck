@@ -69,3 +69,6 @@ function App() {
   // Show login dialog if not authenticated
   if (!isAuthenticated) {
     return (
+      <ThemeProvider>
+        <div className="min-h-screen bg-background">
+          <LoginDialog open={true} />

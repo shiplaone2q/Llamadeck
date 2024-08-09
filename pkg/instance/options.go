@@ -71,3 +71,7 @@ func (o *options) GetHost() string {
 	o.mu.RLock()
 	defer o.mu.RUnlock()
 	return o.opts.BackendOptions.GetHost()
+}
+
+func (o *options) GetPort() int {
+	o.mu.RLock()

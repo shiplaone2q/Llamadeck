@@ -87,3 +87,6 @@ func (h *Handler) OpenAIListInstances() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		instances, err := h.InstanceManager.ListInstances()
 		if err != nil {
+			writeError(w, http.StatusInternalServerError, "list_failed", "Failed to list instances: "+err.Error())
+			return
+		}

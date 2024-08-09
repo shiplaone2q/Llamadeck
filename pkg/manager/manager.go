@@ -117,3 +117,7 @@ func (im *instanceManager) Shutdown() {
 		wg.Wait()
 		log.Println("All instances stopped.")
 	})
+}
+
+// loadInstances restores all instances from the persistence layer
+func (im *instanceManager) loadInstances() error {

@@ -72,3 +72,4 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 			"iat":    time.Now().Unix(),
 			"nonce":  idp.nonce,
 		})
+		writeJSONTest(w, map[string]any{

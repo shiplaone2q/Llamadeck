@@ -57,3 +57,6 @@ func (h *Handler) ListNodes() http.HandlerFunc {
 }
 
 // GetNode godoc
+// @Summary Get details of a specific node
+// @Description Returns the details of a specific node by name
+// @Tags Nodes

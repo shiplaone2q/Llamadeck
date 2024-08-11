@@ -73,3 +73,5 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
     try {
       await llamaCppModelsApi.deleteJob(jobId, node)
       await fetchModels(node)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to cancel download'

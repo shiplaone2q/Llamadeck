@@ -51,3 +51,7 @@ class ModelsPollingService {
 
       // Handle stopping logic
       if (activeJobs.length === 0) {
+        this.emptyPollCount++
+
+        // Only stop if:
+        // 1. We're not expecting jobs (no recent download started), AND

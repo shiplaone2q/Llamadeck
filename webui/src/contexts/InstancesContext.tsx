@@ -77,3 +77,7 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
     })
   }, [])
 
+  const createInstance = useCallback(async (name: string, options: CreateInstanceOptions) => {
+    try {
+      setError(null)
+      const newInstance = await instancesApi.create(name, options)

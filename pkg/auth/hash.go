@@ -57,3 +57,7 @@ func VerifyKey(plainTextKey, hash string) bool {
 	// Decode salt and hash
 	salt, err := base64.RawStdEncoding.DecodeString(parts[4])
 	if err != nil {
+		return false
+	}
+
+	expectedHash, err := base64.RawStdEncoding.DecodeString(parts[5])

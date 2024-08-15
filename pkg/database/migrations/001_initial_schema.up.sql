@@ -49,3 +49,6 @@ CREATE TABLE IF NOT EXISTS key_permissions (
     instance_id INTEGER NOT NULL,
     PRIMARY KEY (key_id, instance_id),
     FOREIGN KEY (key_id) REFERENCES api_keys (id) ON DELETE CASCADE,
+    FOREIGN KEY (instance_id) REFERENCES instances (id) ON DELETE CASCADE
+);
+

@@ -13,3 +13,5 @@ var webuiFS embed.FS
 
 func SetupWebUI(r chi.Router) error {
 	distFS, err := fs.Sub(webuiFS, "dist")
+	if err != nil {
+		return err

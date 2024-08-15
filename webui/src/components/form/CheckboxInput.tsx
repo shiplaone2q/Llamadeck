@@ -29,3 +29,4 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
         onCheckedChange={(checked) => onChange(!!checked)}
         disabled={disabled}
       />
+      <Label htmlFor={id} className="text-sm font-normal">

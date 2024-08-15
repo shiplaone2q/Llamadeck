@@ -38,3 +38,4 @@ export default function ModelsList() {
               type="button"
               onClick={clearError}
               className="text-sm underline hover:no-underline"
+            >

@@ -92,3 +92,6 @@ func TestOptionsGetHealthPath(t *testing.T) {
 				t.Errorf("GetHealthPath() = %q, want %q", got, tt.expected)
 			}
 		})
+	}
+}
+

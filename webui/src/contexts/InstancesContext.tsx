@@ -81,3 +81,5 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
     try {
       setError(null)
       const newInstance = await instancesApi.create(name, options)
+      
+      // Add to map directly

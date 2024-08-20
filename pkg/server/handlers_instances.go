@@ -111,3 +111,7 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 
 // UpdateInstance godoc
 // @Summary Update an instance's configuration
+// @Description Updates the configuration of a specific instance by name
+// @Tags Instances
+// @Security ApiKeyAuth
+// @Accept json

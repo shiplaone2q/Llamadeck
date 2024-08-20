@@ -42,3 +42,6 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 			DefaultRestartDelay:  5,
 			DefaultIdleTimeout:   30,
 			TimeoutCheckInterval: 5,
+		},
+		Database: config.DatabaseConfig{
+			Path:               ":memory:",

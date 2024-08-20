@@ -165,3 +165,7 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 	}
 
 	plan, err := d.BuildDownloadPlan("org/model", "commit123", entries, "", "", FormatSafetensors)
+	if err != nil {
+		t.Fatalf("BuildDownloadPlan: %v", err)
+	}
+

@@ -95,3 +95,7 @@ func TestDeleteInstance_RemovesFromDatabase(t *testing.T) {
 		t.Fatalf("Failed to run migrations: %v", err)
 	}
 	mgr := manager.New(appConfig, db)
+	defer mgr.Shutdown()
+
+	options := &instance.Options{
+		BackendOptions: backends.Options{

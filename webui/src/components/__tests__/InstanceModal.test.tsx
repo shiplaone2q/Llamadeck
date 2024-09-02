@@ -114,3 +114,5 @@ describe('InstanceModal - Form Logic and Validation', () => {
 
       await waitFor(() => {
         expect(screen.queryByText(/can only contain letters, numbers, periods, hyphens, and underscores/)).not.toBeInTheDocument()
+      })
+

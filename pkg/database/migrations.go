@@ -42,3 +42,6 @@ func RunMigrations(db *sqliteDB) error {
 	if err != nil && err != migrate.ErrNilVersion {
 		return fmt.Errorf("failed to get current migration version: %w", err)
 	}
+
+	if dirty {
+		return fmt.Errorf("database is in dirty state at version %d - manual intervention required", currentVersion)

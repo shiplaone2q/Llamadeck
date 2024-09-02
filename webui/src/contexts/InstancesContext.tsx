@@ -83,3 +83,7 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       const newInstance = await instancesApi.create(name, options)
       
       // Add to map directly
+      setInstancesMap(prev => {
+        const newMap = new Map(prev)
+        newMap.set(name, newInstance)
+        return newMap

@@ -33,3 +33,4 @@ export interface ModelFile {
   type: 'gguf' | 'preset' | 'mmproj'
 }
 
+// Combined row type for the table

@@ -57,3 +57,6 @@ func TestValidateInstanceOptions_NilOptions(t *testing.T) {
 	}
 }
 
+func TestValidateInstanceOptions_PortValidation(t *testing.T) {
+	tests := []struct {
+		name    string

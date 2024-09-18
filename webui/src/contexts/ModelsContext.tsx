@@ -75,3 +75,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
       await fetchModels(node)
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to cancel download'
+      setError(message)
+      throw err
+    }

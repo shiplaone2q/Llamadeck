@@ -33,3 +33,5 @@ func (pt *ProgressTracker) UpdateCurrentFile(jobID string, filename string) {
 	pt.jobStore.mutex.Lock()
 	defer pt.jobStore.mutex.Unlock()
 
+	if job, ok := pt.jobStore.jobs[jobID]; ok {
+		job.Progress.CurrentFile = filename

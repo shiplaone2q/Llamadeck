@@ -41,3 +41,6 @@ COPY --from=webui-builder /webui/dist ./webui/dist
 
 # Build the application
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags="-w -s" -o llamactl ./cmd/server
+
+# Final stage
+FROM alpine:latest

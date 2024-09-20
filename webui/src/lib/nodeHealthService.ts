@@ -65,3 +65,5 @@ class NodeHealthService {
           this.stopHealthCheck(nodeName);
           this.callbacks.delete(nodeName);
           this.healthCache.delete(nodeName);
+        }
+      }

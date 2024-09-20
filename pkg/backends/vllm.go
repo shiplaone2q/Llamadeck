@@ -62,3 +62,7 @@ type VllmServerOptions struct {
 	DisableLogStats          bool    `json:"disable_log_stats,omitempty"`
 	Quantization             string  `json:"quantization,omitempty"`
 	RopeScaling              string  `json:"rope_scaling,omitempty"`
+	RopeTheta                float64 `json:"rope_theta,omitempty"`
+	EnforceEager             bool    `json:"enforce_eager,omitempty"`
+	MaxContextLenToCapture   int     `json:"max_context_len_to_capture,omitempty"`
+	MaxSeqLenToCapture       int     `json:"max_seq_len_to_capture,omitempty"`

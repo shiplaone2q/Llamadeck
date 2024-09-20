@@ -44,3 +44,4 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
       setSuggestions(allSuggestions)
       setSelectedIndex(0)
       setShowSuggestions(allSuggestions.length > 0)
+

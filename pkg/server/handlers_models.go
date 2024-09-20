@@ -108,3 +108,5 @@ func (h *Handler) DownloadModel() http.HandlerFunc {
 			}
 			return
 		}
+
+		var req DownloadRequest

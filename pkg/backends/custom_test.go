@@ -95,3 +95,5 @@ func TestOptionsGetHealthPath(t *testing.T) {
 	}
 }
 
+func TestCustomValidate(t *testing.T) {
+	tests := []struct {

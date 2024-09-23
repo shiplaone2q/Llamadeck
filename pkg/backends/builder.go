@@ -57,3 +57,7 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 					// Multiple flags: --flag value1 --flag value2
 					for j := 0; j < field.Len(); j++ {
 						args = append(args, "--"+flagName, field.Index(j).String())
+					}
+				} else {
+					// Comma-separated: --flag value1,value2
+					var values []string

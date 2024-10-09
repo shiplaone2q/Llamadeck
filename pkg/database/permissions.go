@@ -52,3 +52,7 @@ func (db *sqliteDB) GetInstancePermission(ctx context.Context, keyID, instanceID
 		if err == sql.ErrNoRows {
 			return nil, nil
 		}
+		return nil, fmt.Errorf("failed to check key permission: %w", err)
+	}
+
+	return &perm, nil

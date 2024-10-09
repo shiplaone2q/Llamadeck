@@ -123,3 +123,6 @@ function renderWithProvider(children: ReactNode) {
     <AuthProvider>
       <InstancesProvider>{children}</InstancesProvider>
     </AuthProvider>
+  );
+}
+

@@ -50,3 +50,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
         disabled={disabled}
         className={className}
       />
+      {description && (
+        <p className="text-sm text-muted-foreground">{description}</p>
+      )}
+    </div>

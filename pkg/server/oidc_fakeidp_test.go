@@ -73,3 +73,5 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 			"nonce":  idp.nonce,
 		})
 		writeJSONTest(w, map[string]any{
+			"access_token": "fake-access-token",
+			"token_type":   "Bearer",

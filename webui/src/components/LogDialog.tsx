@@ -113,3 +113,7 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
 
   // Download logs as file
   const downloadLogs = () => {
+    const blob = new Blob([logs], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url

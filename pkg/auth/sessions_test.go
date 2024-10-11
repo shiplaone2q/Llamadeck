@@ -32,3 +32,4 @@ func TestSessionStoreExpiry(t *testing.T) {
 
 	sess := store.Create("user-1", "Alice", "alice@example.com")
 	if store.Get(sess.ID) != nil {
+		t.Error("expected expired session to be rejected")

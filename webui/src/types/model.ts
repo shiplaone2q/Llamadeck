@@ -35,3 +35,4 @@ export interface ModelFile {
 
 // Combined row type for the table
 export type ModelRow =
+  | { type: 'downloading'; job: DownloadJob }

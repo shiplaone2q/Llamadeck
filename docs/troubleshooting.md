@@ -86,3 +86,6 @@ mlx_lm.server --model mlx-community/Mistral-7B-Instruct-v0.3-4bit --port 8081
 
 # vLLM
 vllm serve microsoft/DialoGPT-medium --port 8081
+```
+
+## API and Network Issues

@@ -76,3 +76,6 @@ Download a GGUF model:
 curl -X POST http://localhost:8080/api/v1/models/download \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_MANAGEMENT_KEY" \
+  -d '{
+    "repo": "bartowski/Llama-3.2-3B-Instruct-GGUF:Q4_K_M",
+    "format": "gguf"

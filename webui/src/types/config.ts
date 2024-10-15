@@ -48,3 +48,5 @@ export interface InstancesConfig {
 export interface DatabaseConfig {
   path: string
   max_open_connections: number
+  max_idle_connections: number
+  connection_max_lifetime: number

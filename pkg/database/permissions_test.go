@@ -75,3 +75,7 @@ func TestGetInstancePermission(t *testing.T) {
 			t.Fatalf("unexpected error: %v", err)
 		}
 		if got != nil {
+			t.Errorf("expected nil perm for missing row, got %+v", got)
+		}
+	})
+}

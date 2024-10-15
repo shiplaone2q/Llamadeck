@@ -148,3 +148,6 @@ afterEach(() => {
 
       // First click "More actions" to reveal the delete button
       const moreActionsButton = screen.getByTitle('More actions')
+      await user.click(moreActionsButton)
+
+      const deleteButton = screen.getByTitle('Delete instance')

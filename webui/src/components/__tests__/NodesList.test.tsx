@@ -68,3 +68,6 @@ describe('NodesList', () => {
     global.fetch = vi.fn(() =>
       Promise.resolve(new Response(null, { status: 200 })),
     );
+    // Radix tooltips need these in jsdom
+    window.HTMLElement.prototype.hasPointerCapture = vi.fn(() => false);
+    window.HTMLElement.prototype.setPointerCapture = vi.fn();

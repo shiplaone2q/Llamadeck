@@ -148,3 +148,7 @@ func verifyStateValue(key []byte, cookieValue, queryState string) (verifier, non
 
 	state, verifier, nonce := parts[0], parts[1], parts[2]
 	if state != queryState {
+		return "", "", false
+	}
+
+	expected := signStateValue(key, state, verifier, nonce)

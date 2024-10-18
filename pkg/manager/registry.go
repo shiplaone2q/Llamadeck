@@ -55,3 +55,7 @@ func (r *instanceRegistry) listRunning() []*instance.Instance {
 		}
 	}
 	return result
+}
+
+// Add adds a new instance to the registry.
+// Returns an error if an instance with the same name already exists.

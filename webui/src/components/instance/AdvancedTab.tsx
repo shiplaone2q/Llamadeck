@@ -40,3 +40,7 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
                 setShowAdvanced(!showAdvanced)
               }
             }}
+          >
+            <h3 className="text-md font-medium">Advanced Backend Options</h3>
+            <div className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+              {showAdvanced ? (

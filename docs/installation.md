@@ -52,3 +52,5 @@ pip install vllm
 
 ### Option 1: Download Binary (Recommended)
 
+Download the latest release from the [GitHub releases page](https://github.com/lordmathis/llamadeck/releases):
+

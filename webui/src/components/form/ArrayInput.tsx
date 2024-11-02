@@ -57,3 +57,5 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
       <p className="text-xs text-muted-foreground">Separate multiple values with commas</p>
     </div>
   )
+}
+

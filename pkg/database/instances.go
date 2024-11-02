@@ -120,3 +120,7 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 
 		instances = append(instances, inst)
 	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("error iterating rows: %w", err)
+	}

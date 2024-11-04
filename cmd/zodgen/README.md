@@ -29,3 +29,5 @@ Then manually copy the generated schemas into `webui/src/schemas/backends/llamac
 ## Output
 
 The tool generates two schemas:
+
+1. **Main Schema** (`LlamaCppBackendOptionsSchema`): The primary schema with all backend options

@@ -465,3 +465,5 @@ definitions:
     type: object
   server.ListJobsResponse:
     properties:
+      jobs:
+        items:

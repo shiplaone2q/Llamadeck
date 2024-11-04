@@ -84,3 +84,6 @@ func TestScanCache(t *testing.T) {
 	}
 
 	hasGGUF := false
+	hasMMProj := false
+	for _, file := range model.Files {
+		if file.Type == "gguf" {

@@ -79,3 +79,7 @@ curl -X POST http://localhost:8080/api/v1/models/download \
   -d '{
     "repo": "bartowski/Llama-3.2-3B-Instruct-GGUF:Q4_K_M",
     "format": "gguf"
+  }'
+```
+
+Download a safetensors model:

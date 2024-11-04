@@ -98,3 +98,5 @@ func main() {
 
 			fields = append(fields, FieldInfo{
 				Name:    fieldName,
+				Type:    goType,
+				JSONTag: jsonTag,

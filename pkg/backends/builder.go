@@ -61,3 +61,5 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 				} else {
 					// Comma-separated: --flag value1,value2
 					var values []string
+					for j := 0; j < field.Len(); j++ {
+						values = append(values, field.Index(j).String())

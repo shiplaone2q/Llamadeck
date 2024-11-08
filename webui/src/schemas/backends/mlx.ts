@@ -31,3 +31,7 @@ export const MlxBackendOptionsSchema = z.object({
 })
 
 // Infer the TypeScript type from the schema
+export type MlxBackendOptions = z.infer<typeof MlxBackendOptionsSchema>
+
+// Helper to get all MLX backend option field keys
+export function getAllMlxFieldKeys(): (keyof MlxBackendOptions)[] {

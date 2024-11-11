@@ -26,3 +26,5 @@ describe('API Error Handling', () => {
   it('handles empty error responses gracefully', async () => {
     const mockResponse = new Response('', {
       status: 500,
+      statusText: 'Internal Server Error'
+    })

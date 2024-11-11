@@ -38,3 +38,5 @@ Object.defineProperty(global, 'localStorage', {
   writable: true,
   value: new LocalStorageMock(),
 })
+
+// Create a default fetch mock that handles common API endpoints

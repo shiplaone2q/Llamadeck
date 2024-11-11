@@ -87,3 +87,7 @@ func TestGroupsFromClaims(t *testing.T) {
 				t.Fatalf("unexpected error: %v", err)
 			}
 			if present != tt.present {
+				t.Errorf("present = %v, expected %v", present, tt.present)
+			}
+			if !slices.Equal(groups, tt.groups) {
+				t.Errorf("groups = %v, expected %v", groups, tt.groups)

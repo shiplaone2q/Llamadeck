@@ -59,3 +59,6 @@ func TestDeleteModel(t *testing.T) {
 	h, _, cache := newModelsTestHandler(t)
 
 	request := func(url string) *httptest.ResponseRecorder {
+		req := httptest.NewRequest(http.MethodDelete, url, nil)
+		rec := httptest.NewRecorder()
+		h.DeleteModel()(rec, req)

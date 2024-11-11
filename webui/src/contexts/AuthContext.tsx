@@ -66,3 +66,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     window.history.replaceState(null, '', window.location.pathname + (rest ? `?${rest}` : ''))
     setOidcError(AUTH_ERROR_MESSAGES[code] ?? 'Login failed. Please try again.')
   }, [])
+
+  // Validate API key by making a test request
+  const validateApiKey = useCallback(async (key: string): Promise<boolean> => {

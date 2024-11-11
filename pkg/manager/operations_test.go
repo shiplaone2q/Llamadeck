@@ -183,3 +183,7 @@ func TestDeleteInstance_RunningInstanceFails(t *testing.T) {
 	}
 
 	// Simulate starting the instance
+	inst.SetStatus(instance.Running)
+
+	// Should fail to delete running instance
+	err = mgr.DeleteInstance("test-instance")

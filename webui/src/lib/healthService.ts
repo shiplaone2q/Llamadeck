@@ -79,3 +79,4 @@ class HealthService {
         return health
       }
 
+    } catch (error) {

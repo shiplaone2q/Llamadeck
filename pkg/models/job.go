@@ -79,3 +79,5 @@ func (s *JobStore) Create(repo, tag string) (*Job, error) {
 	s.jobs[jobID] = job
 	s.mutex.Unlock()
 
+	return job, nil
+}

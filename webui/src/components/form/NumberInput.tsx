@@ -54,3 +54,6 @@ const NumberInput: React.FC<NumberInputProps> = ({
         <p className="text-sm text-muted-foreground">{description}</p>
       )}
     </div>
+  )
+}
+

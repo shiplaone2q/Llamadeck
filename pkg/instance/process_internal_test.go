@@ -64,3 +64,4 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 		}
 	})
 
+	t.Run("204 No Content counts as healthy", func(t *testing.T) {

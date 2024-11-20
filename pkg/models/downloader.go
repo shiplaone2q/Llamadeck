@@ -175,3 +175,7 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 		}
 	}
 	if len(refsResp.Branches) > 0 {
+		first := refsResp.Branches[0]
+		return validatedCommit(first.TargetCommit, first.Name)
+	}
+

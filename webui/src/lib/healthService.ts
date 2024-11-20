@@ -82,3 +82,4 @@ class HealthService {
     } catch (error) {
       // Failed to get instance status from backend
       // This is a backend communication error, not an instance health error
+      // Let the error propagate so polling can retry

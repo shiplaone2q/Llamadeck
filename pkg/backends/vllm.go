@@ -66,3 +66,7 @@ type VllmServerOptions struct {
 	EnforceEager             bool    `json:"enforce_eager,omitempty"`
 	MaxContextLenToCapture   int     `json:"max_context_len_to_capture,omitempty"`
 	MaxSeqLenToCapture       int     `json:"max_seq_len_to_capture,omitempty"`
+	DisableCustomAllReduce   bool    `json:"disable_custom_all_reduce,omitempty"`
+	TokenizerPoolSize        int     `json:"tokenizer_pool_size,omitempty"`
+	TokenizerPoolType        string  `json:"tokenizer_pool_type,omitempty"`
+	TokenizerPoolExtraConfig string  `json:"tokenizer_pool_extra_config,omitempty"`

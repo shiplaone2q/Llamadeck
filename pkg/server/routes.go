@@ -76,3 +76,4 @@ func SetupRouter(handler *Handler) *chi.Mux {
 			})
 		})
 
+		// Backend-specific endpoints

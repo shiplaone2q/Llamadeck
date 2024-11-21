@@ -75,3 +75,6 @@ def interactive_mode():
         API_KEY = key_input
 
     # Fetch and select model
+    models = get_models()
+    if not models:
+        print("No models available. Exiting.")

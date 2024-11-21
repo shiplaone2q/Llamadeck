@@ -56,3 +56,6 @@ function InstanceCard({
   // Calculate model counts
   const totalModels = models.length;
   const loadedModels = models.filter(m => m.status?.value === "loaded").length;
+
+  const handleStart = () => {
+    startInstance(instance.name);

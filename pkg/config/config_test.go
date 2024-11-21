@@ -142,3 +142,4 @@ func TestLoadConfig_CustomBackends(t *testing.T) {
 	tempDir := t.TempDir()
 	configFile := filepath.Join(tempDir, "custom-backends.yaml")
 
+	configContent := `

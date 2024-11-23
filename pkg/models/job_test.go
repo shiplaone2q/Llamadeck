@@ -69,3 +69,7 @@ func TestJobStore_CancelJob(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	job, _ := store.Create("org/model", "Q4_K_M")
 	job.CancelFunc = cancel
+
+	// Update job in store with cancel func
+	store.mutex.Lock()
+	store.jobs[job.ID].CancelFunc = cancel

@@ -61,3 +61,4 @@ func VerifyKey(plainTextKey, hash string) bool {
 	}
 
 	expectedHash, err := base64.RawStdEncoding.DecodeString(parts[5])
+	if err != nil {

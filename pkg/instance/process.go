@@ -129,3 +129,6 @@ func (p *process) start() error {
 		return fmt.Errorf("failed to start instance %s: %w", p.instance.Name, err)
 	}
 
+	p.instance.SetStatus(Running)
+
+	// Create channel for monitor completion signaling

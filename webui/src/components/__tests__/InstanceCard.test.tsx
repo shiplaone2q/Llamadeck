@@ -151,3 +151,5 @@ afterEach(() => {
       await user.click(moreActionsButton)
 
       const deleteButton = screen.getByTitle('Delete instance')
+      await user.click(deleteButton)
+

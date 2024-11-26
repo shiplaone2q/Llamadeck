@@ -52,3 +52,5 @@ CREATE TABLE IF NOT EXISTS key_permissions (
     FOREIGN KEY (instance_id) REFERENCES instances (id) ON DELETE CASCADE
 );
 
+-- -----------------------------------------------------------------------------
+-- Indexes for API keys and permissions

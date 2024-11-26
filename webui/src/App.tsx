@@ -72,3 +72,6 @@ function App() {
       <ThemeProvider>
         <div className="min-h-screen bg-background">
           <LoginDialog open={true} />
+        </div>
+      </ThemeProvider>
+    );

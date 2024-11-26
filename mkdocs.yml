@@ -29,3 +29,6 @@ theme:
     - toc.integrate
     - navigation.top
     - search.highlight
+    - search.share
+    - content.code.copy
+

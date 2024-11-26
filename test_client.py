@@ -78,3 +78,5 @@ def interactive_mode():
     models = get_models()
     if not models:
         print("No models available. Exiting.")
+        return
+

@@ -41,3 +41,4 @@
       "includes": ["**/*.test.ts", "**/*.test.tsx", "**/__tests__/**", "**/test/**"],
       "linter": {
         "rules": {
+          "style": { "noNonNullAssertion": "off" },

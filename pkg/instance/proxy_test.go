@@ -59,3 +59,7 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 		p.mu.Unlock()
 		p.clear()
 
+		go func() {
+			p.serveHTTP(w, req)
+		}()
+

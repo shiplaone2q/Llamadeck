@@ -83,3 +83,6 @@ class HealthService {
       // Failed to get instance status from backend
       // This is a backend communication error, not an instance health error
       // Let the error propagate so polling can retry
+      console.error(`Failed to get instance status for ${instanceName}:`, error)
+      throw error
+    }

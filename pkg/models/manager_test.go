@@ -76,3 +76,6 @@ func newTestManager(t *testing.T) *Manager {
 	cache := t.TempDir()
 	t.Setenv("LLAMA_CACHE", cache)
 	m := NewManager(cache, time.Minute, "test")
+	t.Cleanup(m.Close)
+	return m
+}

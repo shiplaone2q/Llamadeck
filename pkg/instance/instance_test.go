@@ -247,3 +247,6 @@ func TestUnmarshalJSON(t *testing.T) {
 	if !inst.IsRunning() {
 		t.Error("Expected status to be running")
 	}
+
+	opts := inst.GetOptions()
+	if opts == nil {

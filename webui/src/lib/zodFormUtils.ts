@@ -67,3 +67,4 @@ const basicMlxFieldsConfig: Record<string, {
     description: 'Default nucleus sampling top-p (default: 1.0)'
   },
   top_k: {
+    label: 'Top-K',

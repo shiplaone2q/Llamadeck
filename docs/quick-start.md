@@ -77,3 +77,5 @@ You should see the Llamadeck web interface.
     !!! tip "Auto-Assignment"
         Llamadeck automatically assigns ports from the configured port range (default: 8000-9000) and manages API keys if authentication is enabled. You typically don't need to manually specify these values.
 
+    !!! note "Remote Node Deployment"
+        If you have configured remote nodes in your configuration file, you can select which node to deploy the instance to. This allows you to distribute instances across multiple machines. See the [Configuration](configuration.md#remote-node-configuration) guide for details on setting up remote nodes.

@@ -69,3 +69,5 @@ func (l *lifecycleManager) timeoutCheckLoop() {
 		case <-l.ticker.C:
 			l.checkTimeouts()
 		case <-l.shutdownChan:
+			return // Exit goroutine on shutdown
+		}

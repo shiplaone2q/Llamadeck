@@ -31,3 +31,5 @@ Then manually copy the generated schemas into `webui/src/schemas/backends/llamac
 The tool generates two schemas:
 
 1. **Main Schema** (`LlamaCppBackendOptionsSchema`): The primary schema with all backend options
+2. **Alt Keys Schema** (`LlamaCppAltKeysSchema`): Alternative flag names that can be used in preset.ini files (e.g., `n-predict` instead of `predict`)
+

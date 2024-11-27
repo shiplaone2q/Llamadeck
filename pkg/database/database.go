@@ -35,3 +35,7 @@ type AuthStore interface {
 
 // Config contains database configuration settings
 type Config struct {
+	// Database file path (relative to data_dir or absolute)
+	Path string
+
+	// Connection settings

@@ -115,3 +115,6 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 // @Tags Instances
 // @Security ApiKeyAuth
 // @Accept json
+// @Produces json
+// @Param name path string true "Instance Name"
+// @Param options body instance.Options true "Instance configuration options"

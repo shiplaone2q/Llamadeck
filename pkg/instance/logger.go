@@ -59,3 +59,6 @@ func (l *logger) create() error {
 		// Compression: "gzip" if Compress is true, else "none"
 		Compression: func() string {
 			if l.cfg.Compress {
+				return "gzip"
+			}
+			return "none"

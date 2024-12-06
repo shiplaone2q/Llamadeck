@@ -116,3 +116,7 @@ describe('InstanceModal - Form Logic and Validation', () => {
         expect(screen.queryByText(/can only contain letters, numbers, periods, hyphens, and underscores/)).not.toBeInTheDocument()
       })
 
+      // Navigate to advanced tab to check save button
+      await user.click(advancedTab)
+      await waitFor(() => {
+        expect(screen.getByTestId('dialog-save-button')).not.toBeDisabled()

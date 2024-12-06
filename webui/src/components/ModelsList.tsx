@@ -39,3 +39,6 @@ export default function ModelsList() {
               onClick={clearError}
               className="text-sm underline hover:no-underline"
             >
+              Dismiss
+            </button>
+          </AlertDescription>

@@ -145,3 +145,6 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 // parseRemoteResponse parses an HTTP response and unmarshals the result.
 //
 // If the response indicates the target instance does not exist (HTTP 404, or a
+// 4xx whose JSON body has error == "invalid_instance"/"not_found"), the
+// returned error is *RemoteNotFoundError so callers can distinguish "not there"
+// from real failures and complete local cleanup, idempotent-retry, etc.

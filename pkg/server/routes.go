@@ -77,3 +77,7 @@ func SetupRouter(handler *Handler) *chi.Mux {
 		})
 
 		// Backend-specific endpoints
+		r.Route("/backends", func(r chi.Router) {
+			r.Route("/llama-cpp", func(r chi.Router) {
+				r.Get("/help", handler.LlamaServerHelpHandler())
+				r.Get("/version", handler.LlamaServerVersionHandler())

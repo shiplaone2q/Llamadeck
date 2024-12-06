@@ -42,3 +42,6 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
       {/* Docker Mode Toggle - only for backends that support Docker */}
       {formData.backend_type !== BackendType.MLX_LM && (
         <CheckboxInput
+          id="docker_enabled"
+          label="Enable Docker"
+          value={formData.docker_enabled}

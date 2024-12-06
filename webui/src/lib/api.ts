@@ -118,3 +118,7 @@ export const backendsApi = {
 // Node API types
 export interface NodeResponse {
   address: string;
+}
+
+export type NodesMap = Record<string, NodeResponse>;
+

@@ -38,3 +38,6 @@ func TestRoutesOIDCBypassManagementAuth(t *testing.T) {
 
 	// And that management endpoints still require auth through the router.
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/instances", nil)
+	rec := httptest.NewRecorder()
+	r.ServeHTTP(rec, req)
+	if rec.Code != http.StatusUnauthorized {

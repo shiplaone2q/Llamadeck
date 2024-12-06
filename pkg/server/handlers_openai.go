@@ -91,3 +91,7 @@ func (h *Handler) OpenAIListInstances() http.HandlerFunc {
 			return
 		}
 
+		var openaiInstances []OpenAIInstance
+
+		// For each llama.cpp instance, try to fetch models and add them as separate entries
+		for _, inst := range instances {

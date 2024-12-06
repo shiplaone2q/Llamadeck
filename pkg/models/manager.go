@@ -74,3 +74,7 @@ func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, e
 	if !repoNamePattern.MatchString(repo) {
 		return "", fmt.Errorf("repo must be in format 'org/model'")
 	}
+
+	if tag == "" {
+		tag = "main"
+	}

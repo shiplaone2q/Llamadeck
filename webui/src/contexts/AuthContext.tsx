@@ -69,3 +69,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   // Validate API key by making a test request
   const validateApiKey = useCallback(async (key: string): Promise<boolean> => {
+    try {
+      const response = await fetch(`${document.baseURI}api/v1/instances`, {
+        headers: {
+          'Authorization': `Bearer ${key}`,

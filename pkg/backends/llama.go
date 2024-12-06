@@ -163,3 +163,6 @@ type LlamaServerOptions struct {
 	Pooling              string   `json:"pooling,omitempty"`                // --pooling {none,mean,cls,last,rank}
 	Parallel             int      `json:"parallel,omitempty"`               // -np, --parallel N
 	ContBatching         bool     `json:"cont_batching,omitempty"`          // -cb, --cont-batching
+	NoContBatching       bool     `json:"no_cont_batching,omitempty"`       // -nocb, --no-cont-batching
+	MMProj               string   `json:"mmproj,omitempty"`                 // -mm, --mmproj FILE
+	MMProjURL            string   `json:"mmproj_url,omitempty"`             // -mmu, --mmproj-url URL

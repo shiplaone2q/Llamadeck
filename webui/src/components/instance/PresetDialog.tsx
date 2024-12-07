@@ -39,3 +39,6 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
       reader.onload = (event) => {
         const content = event.target?.result as string
         onChange('preset_ini', content)
+      }
+      reader.readAsText(file)
+    }

@@ -79,3 +79,7 @@ func newTestManager(t *testing.T) *Manager {
 	t.Cleanup(m.Close)
 	return m
 }
+
+func waitForJob(t *testing.T, m *Manager, jobID string) *Job {
+	t.Helper()
+	deadline := time.Now().Add(5 * time.Second)

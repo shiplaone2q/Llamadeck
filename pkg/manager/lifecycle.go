@@ -71,3 +71,7 @@ func (l *lifecycleManager) timeoutCheckLoop() {
 		case <-l.shutdownChan:
 			return // Exit goroutine on shutdown
 		}
+	}
+}
+
+// checkTimeouts checks all instances for timeout and stops those that have timed out.

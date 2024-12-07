@@ -38,3 +38,5 @@ func RandomToken() string {
 		panic("crypto/rand unavailable: " + err.Error())
 	}
 	return hex.EncodeToString(b)
+}
+

@@ -28,3 +28,4 @@ describe('API Error Handling', () => {
       status: 500,
       statusText: 'Internal Server Error'
     })
+    mockFetch.mockResolvedValue(mockResponse)

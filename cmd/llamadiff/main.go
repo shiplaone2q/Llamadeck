@@ -87,3 +87,6 @@ func main() {
 	if len(conflicts) == 0 {
 		fmt.Println("(none)")
 	} else {
+		for _, conflict := range conflicts {
+			fmt.Printf("  Field '%s' is set by both:\n", conflict.Field)
+			for _, flag := range conflict.Flags {

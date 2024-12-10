@@ -67,3 +67,4 @@ class NodeHealthService {
           this.healthCache.delete(nodeName);
         }
       }
+    };

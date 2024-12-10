@@ -51,3 +51,5 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
 
     void fetchNodes()
   }, [])
+
+  const nodeOptions = Object.keys(nodes).map(nodeName => ({

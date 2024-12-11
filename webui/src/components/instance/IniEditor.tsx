@@ -45,3 +45,5 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
       setSelectedIndex(0)
       setShowSuggestions(allSuggestions.length > 0)
 
+      if (textareaRef.current && allSuggestions.length > 0) {
+        const lines = text.substring(0, cursorPos).split('\n')

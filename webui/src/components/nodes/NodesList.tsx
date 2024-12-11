@@ -52,3 +52,7 @@ function NodesList() {
   if (loading) {
     return (
       <div
+        className="flex items-center justify-center py-12"
+        role="status"
+        aria-label="Loading"
+      >

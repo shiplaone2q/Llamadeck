@@ -75,3 +75,4 @@ func newProxy(instance *Instance) (*proxy, error) {
 			return nil, fmt.Errorf("remote node %s is not defined", nodeName)
 		}
 
+		p.targetURL, err = url.Parse(node.Address)

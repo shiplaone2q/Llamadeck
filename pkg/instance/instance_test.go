@@ -250,3 +250,7 @@ func TestUnmarshalJSON(t *testing.T) {
 
 	opts := inst.GetOptions()
 	if opts == nil {
+		t.Fatal("Expected options to be set")
+	}
+	if opts.BackendOptions.BackendType != backends.BackendTypeLlamaCpp {
+		t.Errorf("Expected backend_type '%s', got %s", backends.BackendTypeLlamaCpp, opts.BackendOptions.BackendType)

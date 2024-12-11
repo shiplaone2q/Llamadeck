@@ -49,3 +49,6 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
                 <ChevronRight className="h-4 w-4" />
               )}
               {advancedOptionsCount} option{advancedOptionsCount !== 1 ? 's' : ''} set
+            </div>
+          </div>
+

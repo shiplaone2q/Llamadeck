@@ -101,3 +101,4 @@ func (o *Options) MarshalJSON() ([]byte, error) {
 		if err := json.Unmarshal(optionsData, &backendOptions); err != nil {
 			return nil, fmt.Errorf("failed to unmarshal backend options to map: %w", err)
 		}
+	}

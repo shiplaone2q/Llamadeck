@@ -75,3 +75,5 @@ describe('BackendFormField - models_preset Field States', () => {
           fieldKey="models_preset"
           value="/custom/path/to/preset.ini"
           onChange={mockOnChange}
+          formData={formData}
+        />

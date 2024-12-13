@@ -79,3 +79,6 @@ func TestGetInstancePermission(t *testing.T) {
 		}
 	})
 }
+
+func TestGetPermissionsReturnsFlags(t *testing.T) {
+	db := newTestDB(t)

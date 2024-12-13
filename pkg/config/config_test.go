@@ -144,3 +144,4 @@ func TestLoadConfig_CustomBackends(t *testing.T) {
 
 	configContent := `
 backends:
+  custom:

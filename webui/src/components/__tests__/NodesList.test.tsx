@@ -71,3 +71,6 @@ describe('NodesList', () => {
     // Radix tooltips need these in jsdom
     window.HTMLElement.prototype.hasPointerCapture = vi.fn(() => false);
     window.HTMLElement.prototype.setPointerCapture = vi.fn();
+    window.HTMLElement.prototype.releasePointerCapture = vi.fn();
+    class ResizeObserverMock {
+      observe(): void {}

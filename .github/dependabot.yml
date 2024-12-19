@@ -34,3 +34,5 @@ updates:
       - dependency-name: "@eslint/js"
         versions: ["10.x.x"]
       - dependency-name: "eslint"
+        versions: ["10.x.x"]
+    groups:

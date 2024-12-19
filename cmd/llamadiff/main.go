@@ -90,3 +90,7 @@ func main() {
 		for _, conflict := range conflicts {
 			fmt.Printf("  Field '%s' is set by both:\n", conflict.Field)
 			for _, flag := range conflict.Flags {
+				fmt.Printf("    %s\n", flag)
+			}
+			fmt.Println()
+		}

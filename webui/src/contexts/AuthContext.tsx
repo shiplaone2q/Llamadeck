@@ -73,3 +73,4 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const response = await fetch(`${document.baseURI}api/v1/instances`, {
         headers: {
           'Authorization': `Bearer ${key}`,
+          'Content-Type': 'application/json'

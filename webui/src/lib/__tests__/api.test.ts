@@ -29,3 +29,6 @@ describe('API Error Handling', () => {
       statusText: 'Internal Server Error'
     })
     mockFetch.mockResolvedValue(mockResponse)
+
+    await expect(instancesApi.list())
+      .rejects

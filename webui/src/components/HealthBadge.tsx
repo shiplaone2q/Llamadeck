@@ -40,3 +40,5 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
         return "outline";
       case "shutting_down":
         return "outline";
+      case "stopped":
+        return "secondary";

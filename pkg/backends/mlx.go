@@ -79,3 +79,5 @@ func (o *MlxServerOptions) GetModel() string {
 func (o *MlxServerOptions) GetPort() int {
 	return o.Port
 }
+
+func (o *MlxServerOptions) SetPort(port int) {

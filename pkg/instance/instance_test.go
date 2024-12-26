@@ -254,3 +254,5 @@ func TestUnmarshalJSON(t *testing.T) {
 	}
 	if opts.BackendOptions.BackendType != backends.BackendTypeLlamaCpp {
 		t.Errorf("Expected backend_type '%s', got %s", backends.BackendTypeLlamaCpp, opts.BackendOptions.BackendType)
+	}
+	if opts.BackendOptions.LlamaServerOptions == nil {

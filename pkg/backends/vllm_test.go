@@ -93,3 +93,4 @@ func TestParseVllmCommand(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			var opts backends.VllmServerOptions
+			resultAny, err := opts.ParseCommand(tt.command)

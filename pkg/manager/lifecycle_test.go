@@ -67,3 +67,7 @@ func TestInstanceWithoutTimeoutNeverExpires(t *testing.T) {
 func TestEvictLRUInstance_Success(t *testing.T) {
 	manager := createTestManager(t)
 	defer manager.Shutdown()
+
+	// Create 3 instances with idle timeout enabled (value doesn't matter for LRU logic)
+	validTimeout := 1
+	inst1 := createInstanceWithTimeout(t, manager, "instance-1", "/path/to/model1.gguf", &validTimeout)

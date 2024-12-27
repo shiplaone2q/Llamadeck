@@ -100,3 +100,6 @@ func main() {
 				Name:    fieldName,
 				Type:    goType,
 				JSONTag: jsonTag,
+				Comment: comment,
+				AltKeys: altKeys,
+			})

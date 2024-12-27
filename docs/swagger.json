@@ -518,3 +518,6 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Backends"
+                ],

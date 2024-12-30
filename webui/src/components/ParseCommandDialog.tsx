@@ -49,3 +49,7 @@ const ParseCommandDialog: React.FC<ParseCommandDialogProps> = ({
           options = await backendsApi.llamaCpp.parseCommand(command);
           break;
         case BackendType.MLX_LM:
+          options = await backendsApi.mlx.parseCommand(command);
+          break;
+        case BackendType.VLLM:
+          options = await backendsApi.vllm.parseCommand(command);

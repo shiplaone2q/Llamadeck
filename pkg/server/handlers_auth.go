@@ -103,3 +103,6 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 
 		// Validate instance IDs exist
 		if req.PermissionMode == auth.PermissionModePerInstance {
+			instances, err := h.InstanceManager.ListInstances()
+			if err != nil {
+				writeError(w, http.StatusInternalServerError, "fetch_instances_failed", fmt.Sprintf("Failed to fetch instances: %v", err))

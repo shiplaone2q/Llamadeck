@@ -38,3 +38,7 @@ def on_page_markdown(markdown, page, config, **kwargs):
         # - Blockquotes (>)
         # - Table rows (|)
         # - Lines already ending with two spaces
+        # - YAML front matter and HTML tags
+        # - Standalone punctuation lines
+        if (stripped.startswith('#') or 
+            stripped.startswith('>') or

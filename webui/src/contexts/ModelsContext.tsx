@@ -78,3 +78,7 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
       setError(message)
       throw err
     }
+  }, [fetchModels])
+
+  const deleteDownload = useCallback(async (jobId: string, node?: string) => {
+    setError(null)

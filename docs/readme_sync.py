@@ -39,3 +39,6 @@ def on_page_markdown(markdown, page, config, **kwargs):
         features_with_breaks = "Features content not found in README.md"
 
     # Replace placeholders in the markdown
+    markdown = markdown.replace('{{HEADLINE}}', headline)
+    markdown = markdown.replace('{{FEATURES}}', features_with_breaks)
+

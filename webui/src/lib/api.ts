@@ -122,3 +122,4 @@ export interface NodeResponse {
 
 export type NodesMap = Record<string, NodeResponse>;
 
+// Node health response from GET /nodes/{name}/health

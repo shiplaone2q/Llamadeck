@@ -186,3 +186,5 @@ func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 				if opts.ThreadsBatch != 2 {
 					return fmt.Errorf("expected threads_batch 2, got %d", opts.ThreadsBatch)
 				}
+				return nil
+			},

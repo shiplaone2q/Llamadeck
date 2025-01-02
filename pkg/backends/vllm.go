@@ -70,3 +70,6 @@ type VllmServerOptions struct {
 	TokenizerPoolSize        int     `json:"tokenizer_pool_size,omitempty"`
 	TokenizerPoolType        string  `json:"tokenizer_pool_type,omitempty"`
 	TokenizerPoolExtraConfig string  `json:"tokenizer_pool_extra_config,omitempty"`
+	EnableLoraBias           bool    `json:"enable_lora_bias,omitempty"`
+	LoraExtraVocabSize       int     `json:"lora_extra_vocab_size,omitempty"`
+	LoraRank                 int     `json:"lora_rank,omitempty"`

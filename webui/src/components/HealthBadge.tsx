@@ -42,3 +42,7 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
         return "outline";
       case "stopped":
         return "secondary";
+      case "failed":
+        return "destructive";
+    }
+  };

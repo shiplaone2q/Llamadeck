@@ -187,3 +187,4 @@ func TestDeleteInstance_RunningInstanceFails(t *testing.T) {
 
 	// Should fail to delete running instance
 	err = mgr.DeleteInstance("test-instance")
+	if err == nil {

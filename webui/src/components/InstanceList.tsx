@@ -32,3 +32,5 @@ function InstanceList({ editInstance }: InstanceListProps) {
           <p className="text-lg font-semibold">Error loading instances</p>
           <p className="text-sm">{error}</p>
         </div>
+      </div>
+    )

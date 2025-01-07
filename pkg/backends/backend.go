@@ -102,3 +102,6 @@ func (o *Options) MarshalJSON() ([]byte, error) {
 			return nil, fmt.Errorf("failed to unmarshal backend options to map: %w", err)
 		}
 	}
+
+	return json.Marshal(&struct {
+		BackendType    BackendType    `json:"backend_type"`

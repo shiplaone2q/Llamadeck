@@ -63,3 +63,4 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 			p.serveHTTP(w, req)
 		}()
 
+		select {

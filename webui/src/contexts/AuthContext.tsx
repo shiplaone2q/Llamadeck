@@ -74,3 +74,5 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         headers: {
           'Authorization': `Bearer ${key}`,
           'Content-Type': 'application/json'
+        }
+      })

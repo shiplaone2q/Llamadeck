@@ -55,3 +55,4 @@ CREATE TABLE IF NOT EXISTS key_permissions (
 -- -----------------------------------------------------------------------------
 -- Indexes for API keys and permissions
 -- -----------------------------------------------------------------------------
+CREATE INDEX IF NOT EXISTS idx_api_keys_user_id ON api_keys(user_id);

@@ -44,3 +44,4 @@ func (o *CustomServerOptions) GetHost() string {
 		return "localhost"
 	}
 	return o.Host
+}

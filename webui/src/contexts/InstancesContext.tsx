@@ -90,3 +90,7 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create instance')
+    }
+  }, [])
+
+  const updateInstance = useCallback(async (name: string, options: CreateInstanceOptions) => {

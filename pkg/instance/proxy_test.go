@@ -64,3 +64,5 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 		}()
 
 		select {
+		case <-backendDone:
+		case <-time.After(2 * time.Second):

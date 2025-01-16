@@ -74,3 +74,6 @@ func TestGetNodeHealth(t *testing.T) {
 			expectedStatus: http.StatusOK,
 			expectedHealth: server.NodeStatusUnreachable,
 		},
+		{
+			name: "unreachable remote node",
+			nodes: map[string]config.NodeConfig{

@@ -45,3 +45,6 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 		},
 		Database: config.DatabaseConfig{
 			Path:               ":memory:",
+			MaxOpenConnections: 25,
+			MaxIdleConnections: 5,
+			ConnMaxLifetime:    5 * time.Minute,

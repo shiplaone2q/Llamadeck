@@ -74,3 +74,5 @@ describe('NodesList', () => {
     window.HTMLElement.prototype.releasePointerCapture = vi.fn();
     class ResizeObserverMock {
       observe(): void {}
+      unobserve(): void {}
+      disconnect(): void {}

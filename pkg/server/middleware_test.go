@@ -85,3 +85,4 @@ func TestInferenceAuthMiddleware(t *testing.T) {
 			if recorder.Code == http.StatusUnauthorized {
 				contentType := recorder.Header().Get("Content-Type")
 				if contentType != "application/json" {
+					t.Errorf("Unauthorized response Content-Type = %v, expected application/json", contentType)

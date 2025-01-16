@@ -118,3 +118,7 @@ curl -X POST http://localhost:8080/api/v1/instances/my-llama-instance \
     "auto_restart": true,
     "max_restarts": 3,
     "docker_enabled": false,
+    "command_override": "/opt/llama-server-dev",
+    "nodes": ["main"]
+  }'
+

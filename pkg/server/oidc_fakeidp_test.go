@@ -75,3 +75,5 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 		writeJSONTest(w, map[string]any{
 			"access_token": "fake-access-token",
 			"token_type":   "Bearer",
+			"expires_in":   3600,
+			"id_token":     token,

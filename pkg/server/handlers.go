@@ -58,3 +58,7 @@ func writeText(w http.ResponseWriter, status int, data string) {
 	w.Header().Set("Content-Type", "text/plain")
 	w.WriteHeader(status)
 	if _, err := w.Write([]byte(data)); err != nil {
+		log.Printf("Failed to write text response: %v", err)
+	}
+}
+

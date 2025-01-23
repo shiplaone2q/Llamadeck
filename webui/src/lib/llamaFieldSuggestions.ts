@@ -21,3 +21,4 @@ export function getLlamaFieldSuggestions(input: string): FieldSuggestion[] {
 
   const suggestionsMap = new Map<string, FieldSuggestion>()
 
+  allFields

@@ -118,3 +118,4 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 // @Produces json
 // @Param name path string true "Instance Name"
 // @Param options body instance.Options true "Instance configuration options"
+// @Success 200 {object} instance.Instance "Updated instance details"

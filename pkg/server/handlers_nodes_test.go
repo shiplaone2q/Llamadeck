@@ -77,3 +77,5 @@ func TestGetNodeHealth(t *testing.T) {
 		{
 			name: "unreachable remote node",
 			nodes: map[string]config.NodeConfig{
+				"main":  {},
+				"other": {Address: "http://127.0.0.1:1", APIKey: "node-key"},

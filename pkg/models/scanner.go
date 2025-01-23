@@ -88,3 +88,4 @@ func ScanCache(cacheDir, nodeName string) ([]CachedModel, error) {
 	}
 
 	// Backwards-compatible: scan old flat manifest= layout in cacheDir
+	legacyModels, err := scanLegacyCache(cacheDir, nodeName)

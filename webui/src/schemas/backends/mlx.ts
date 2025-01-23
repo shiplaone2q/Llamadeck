@@ -35,3 +35,6 @@ export type MlxBackendOptions = z.infer<typeof MlxBackendOptionsSchema>
 
 // Helper to get all MLX backend option field keys
 export function getAllMlxFieldKeys(): (keyof MlxBackendOptions)[] {
+  return Object.keys(MlxBackendOptionsSchema.shape) as (keyof MlxBackendOptions)[]
+}
+

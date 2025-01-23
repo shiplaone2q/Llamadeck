@@ -75,3 +75,7 @@ function App() {
         </div>
       </ThemeProvider>
     );
+  }
+
+  // Show main app if authenticated
+  return (

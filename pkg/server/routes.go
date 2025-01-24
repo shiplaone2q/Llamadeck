@@ -81,3 +81,6 @@ func SetupRouter(handler *Handler) *chi.Mux {
 			r.Route("/llama-cpp", func(r chi.Router) {
 				r.Get("/help", handler.LlamaServerHelpHandler())
 				r.Get("/version", handler.LlamaServerVersionHandler())
+				r.Get("/devices", handler.LlamaServerListDevicesHandler())
+				r.Post("/parse-command", handler.ParseLlamaCommand())
+			})

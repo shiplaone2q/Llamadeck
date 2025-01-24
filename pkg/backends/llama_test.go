@@ -188,3 +188,4 @@ func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 				}
 				return nil
 			},
+		},

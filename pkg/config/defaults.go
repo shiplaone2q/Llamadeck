@@ -90,3 +90,5 @@ func getDefaultConfig(dataDir string) AppConfig {
 			ManagementKeys:        []string{},
 			OIDC: OIDCConfig{
 				Scopes:       []string{"openid", "profile", "email"},
+				GroupsClaim:  "groups",
+				SessionTTL:   12 * time.Hour,

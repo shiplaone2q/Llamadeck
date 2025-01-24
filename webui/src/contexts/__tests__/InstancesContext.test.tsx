@@ -126,3 +126,5 @@ function renderWithProvider(children: ReactNode) {
   );
 }
 
+describe("InstancesContext", () => {
+  const mockInstances: Instance[] = [

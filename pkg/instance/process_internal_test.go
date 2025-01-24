@@ -65,3 +65,5 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 	})
 
 	t.Run("204 No Content counts as healthy", func(t *testing.T) {
+		if err := newTestInstance("/nocontent").process.waitForHealthy(2); err != nil {
+			t.Errorf("expected healthy on 204 path, got: %v", err)

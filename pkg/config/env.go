@@ -126,3 +126,6 @@ func loadEnvVars(cfg *AppConfig) {
 		}
 	}
 
+	// vLLM backend
+	if vllmCmd := os.Getenv("LLAMADECK_VLLM_COMMAND"); vllmCmd != "" {
+		cfg.Backends.VLLM.Command = vllmCmd

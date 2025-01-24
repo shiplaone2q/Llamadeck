@@ -106,3 +106,6 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
       request.expires_at = Math.floor(expirationDate.getTime() / 1000);
     }
 
+    setLoading(true);
+    try {
+      const response = await apiKeysApi.create(request);

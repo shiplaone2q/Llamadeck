@@ -53,3 +53,7 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
   }, [])
 
   const nodeOptions = Object.keys(nodes).map(nodeName => ({
+    value: nodeName,
+    label: nodeName
+  }))
+

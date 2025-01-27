@@ -56,3 +56,6 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
       ? `${health.latencyMs}ms`
       : '—';
 
+  return (
+    <TableRow>
+      <TableCell className="font-medium">{name}</TableCell>

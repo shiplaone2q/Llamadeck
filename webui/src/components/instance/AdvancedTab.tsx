@@ -52,3 +52,5 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
             </div>
           </div>
 
+          {showAdvanced && (
+            <div className="space-y-4 pl-6 border-l-2 border-muted">

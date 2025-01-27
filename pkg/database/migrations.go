@@ -46,3 +46,6 @@ func RunMigrations(db *sqliteDB) error {
 	if dirty {
 		return fmt.Errorf("database is in dirty state at version %d - manual intervention required", currentVersion)
 	}
+
+	// Run migrations
+	log.Printf("Running database migrations (current version: %v)", currentVersionString(currentVersion, err))

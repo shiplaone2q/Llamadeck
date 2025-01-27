@@ -38,3 +38,7 @@ export function getAllMlxFieldKeys(): (keyof MlxBackendOptions)[] {
   return Object.keys(MlxBackendOptionsSchema.shape) as (keyof MlxBackendOptions)[]
 }
 
+// Get field type for MLX backend options
+export function getMlxFieldType(key: keyof MlxBackendOptions): 'text' | 'number' | 'boolean' | 'array' {
+  const fieldSchema = MlxBackendOptionsSchema.shape[key]
+  if (!fieldSchema) return 'text'

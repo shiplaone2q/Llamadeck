@@ -153,3 +153,5 @@ afterEach(() => {
       const deleteButton = screen.getByTitle('Delete instance')
       await user.click(deleteButton)
 
+      expect(confirmSpy).toHaveBeenCalledWith('Are you sure you want to delete instance "test-instance"?')
+      expect(mockDeleteInstance).toHaveBeenCalledWith('test-instance')

@@ -179,3 +179,7 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 		return validatedCommit(first.TargetCommit, first.Name)
 	}
 
+	return "", fmt.Errorf("could not resolve commit for branch %s", branch)
+}
+
+func validatedCommit(commit, branch string) (string, error) {

@@ -79,3 +79,4 @@ You should see the Llamadeck web interface.
 
     !!! note "Remote Node Deployment"
         If you have configured remote nodes in your configuration file, you can select which node to deploy the instance to. This allows you to distribute instances across multiple machines. See the [Configuration](configuration.md#remote-node-configuration) guide for details on setting up remote nodes.
+

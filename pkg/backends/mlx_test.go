@@ -89,3 +89,4 @@ func TestParseMlxCommand(t *testing.T) {
 			expectErr: true,
 		},
 		{
+			name:      "malformed flag",

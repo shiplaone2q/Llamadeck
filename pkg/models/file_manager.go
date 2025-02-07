@@ -59,3 +59,7 @@ func (fm *FileManager) HFHubRoot() string {
 		}
 		if v := os.Getenv("HOME"); v != "" {
 			fm.hubRootVal = filepath.Join(v, ".cache", "huggingface", "hub")
+			return
+		}
+		fm.hubRootVal = filepath.Join(fm.cacheDir, "huggingface", "hub")
+	})

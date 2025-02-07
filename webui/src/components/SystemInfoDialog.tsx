@@ -102,3 +102,5 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
       return (
         <div className="flex items-center justify-center py-8">
           <div className="text-center space-y-3">
+            <Info className="h-8 w-8 text-gray-400 mx-auto" />
+            <div>

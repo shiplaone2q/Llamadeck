@@ -71,3 +71,5 @@ func TestEvictLRUInstance_Success(t *testing.T) {
 	// Create 3 instances with idle timeout enabled (value doesn't matter for LRU logic)
 	validTimeout := 1
 	inst1 := createInstanceWithTimeout(t, manager, "instance-1", "/path/to/model1.gguf", &validTimeout)
+	inst2 := createInstanceWithTimeout(t, manager, "instance-2", "/path/to/model2.gguf", &validTimeout)
+	inst3 := createInstanceWithTimeout(t, manager, "instance-3", "/path/to/model3.gguf", &validTimeout)

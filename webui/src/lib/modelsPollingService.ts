@@ -57,3 +57,4 @@ class ModelsPollingService {
         // 1. We're not expecting jobs (no recent download started), AND
         // 2. We've had at least 2 consecutive empty polls (to handle timing issues)
         if (!this.expectingJobs && this.emptyPollCount >= 2) {
+          this.stopPolling()

@@ -84,3 +84,7 @@ function ApiKeysSection() {
   const handleRowClick = (key: ApiKey) => {
     if (expandedRowId === key.id) {
       setExpandedRowId(null);
+    } else {
+      setExpandedRowId(key.id);
+      if (key.permission_mode === PermissionMode.PerInstance) {
+        void fetchPermissions(key.id);

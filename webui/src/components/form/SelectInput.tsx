@@ -47,3 +47,5 @@ const SelectInput: React.FC<SelectInputProps> = ({
       </select>
       {description && (
         <p className="text-sm text-muted-foreground">{description}</p>
+      )}
+    </div>

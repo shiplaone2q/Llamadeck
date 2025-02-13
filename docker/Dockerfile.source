@@ -48,3 +48,6 @@ FROM alpine:latest
 # Install runtime dependencies
 RUN apk --no-cache add ca-certificates
 
+# Create data directory
+RUN mkdir -p /data
+

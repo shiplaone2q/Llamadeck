@@ -111,3 +111,4 @@ function DownloadingRow({ job }: { job: DownloadJob }) {
       console.error('Failed to cancel download:', error)
     } finally {
       setCancelling(false)
+    }

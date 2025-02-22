@@ -50,3 +50,7 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
       />
 
       {formData.backend_type !== BackendType.MLX_LM && (
+        <CheckboxInput
+          id="docker_enabled"
+          label="Enable Docker"
+          value={formData.docker_enabled}

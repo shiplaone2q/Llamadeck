@@ -61,3 +61,4 @@ func TestValidateInstanceOptions_PortValidation(t *testing.T) {
 	tests := []struct {
 		name    string
 		port    int
+		wantErr bool

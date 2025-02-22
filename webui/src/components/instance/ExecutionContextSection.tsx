@@ -45,3 +45,4 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
           id="docker_enabled"
           label="Enable Docker"
           value={formData.docker_enabled}
+          onChange={(value) => onChange('docker_enabled', value)}

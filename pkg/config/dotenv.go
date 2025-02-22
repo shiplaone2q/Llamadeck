@@ -53,3 +53,5 @@ func parseDotEnv(data []byte) map[string]string {
 
 		if len(line) == 0 || line[0] == '#' {
 			continue
+		}
+

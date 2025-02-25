@@ -86,3 +86,6 @@ class HealthService {
       console.error(`Failed to get instance status for ${instanceName}:`, error)
       throw error
     }
+  }
+
+  /**

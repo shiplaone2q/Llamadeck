@@ -23,3 +23,5 @@ export function getLlamaFieldSuggestions(input: string): FieldSuggestion[] {
 
   allFields
     .filter(field => field !== 'extra_args')
+    .forEach(field => {
+      const kebabName = snakeToKebab(field)

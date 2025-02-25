@@ -68,3 +68,4 @@ const basicMlxFieldsConfig: Record<string, {
   },
   top_k: {
     label: 'Top-K',
+    placeholder: '0',

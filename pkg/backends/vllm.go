@@ -73,3 +73,7 @@ type VllmServerOptions struct {
 	EnableLoraBias           bool    `json:"enable_lora_bias,omitempty"`
 	LoraExtraVocabSize       int     `json:"lora_extra_vocab_size,omitempty"`
 	LoraRank                 int     `json:"lora_rank,omitempty"`
+	PromptLookbackDistance   int     `json:"prompt_lookback_distance,omitempty"`
+	PreemptionMode           string  `json:"preemption_mode,omitempty"`
+
+	// Distributed and parallel processing

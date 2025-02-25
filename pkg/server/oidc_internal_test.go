@@ -91,3 +91,7 @@ func TestGroupsFromClaims(t *testing.T) {
 			}
 			if !slices.Equal(groups, tt.groups) {
 				t.Errorf("groups = %v, expected %v", groups, tt.groups)
+			}
+		})
+	}
+}

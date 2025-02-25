@@ -22,3 +22,4 @@ export function getLlamaFieldSuggestions(input: string): FieldSuggestion[] {
   const suggestionsMap = new Map<string, FieldSuggestion>()
 
   allFields
+    .filter(field => field !== 'extra_args')

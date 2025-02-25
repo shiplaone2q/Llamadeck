@@ -49,3 +49,6 @@ export const useBackendSettings = (backendType: string | undefined) => {
   return {
     command: backendConfig.command || '',
     dockerEnabled: backendConfig.docker?.enabled ?? false,
+    dockerImage: backendConfig.docker?.image || '',
+  }
+}

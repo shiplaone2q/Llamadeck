@@ -40,3 +40,7 @@ describe('AuthContext OIDC callback errors', () => {
     await waitFor(() => expect(window.location.search).toBe(''))
     expect(await screen.findByRole('button', { name: /sign in with sso/i })).toBeInTheDocument()
   })
+
+  it('falls back to a generic message for unknown codes', async () => {
+    window.history.pushState({}, '', '/?auth_error=something_new')
+

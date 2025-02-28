@@ -521,3 +521,4 @@
                 "tags": [
                     "Backends"
                 ],
+                "summary": "Parse vllm serve command",

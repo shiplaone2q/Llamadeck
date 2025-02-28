@@ -45,3 +45,5 @@ How a request is handled depends on the instance's state and the key's access le
 |---|---|---|
 | Running | any | Request proxied normally |
 | Stopped, free capacity | Use running only | `503 instance_not_running` |
+| Stopped, free capacity | Can start (either) | Instance started, request proxied |
+| Stopped, at capacity | Use running only | `503 instance_not_running` |

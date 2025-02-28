@@ -189,3 +189,6 @@ func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 				return nil
 			},
 		},
+		{
+			name:     "context size alternatives",
+			jsonData: `{"c": 2048}`,

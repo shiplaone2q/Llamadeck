@@ -24,3 +24,4 @@ Welcome to the Llamadeck documentation!
 - [API Reference](api-reference.md) - Complete API documentation
 
 
+## Getting Help

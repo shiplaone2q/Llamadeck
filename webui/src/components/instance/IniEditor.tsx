@@ -47,3 +47,6 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
 
       if (textareaRef.current && allSuggestions.length > 0) {
         const lines = text.substring(0, cursorPos).split('\n')
+        const currentLineNumber = lines.length - 1
+        const lineHeight = 21
+        const charWidth = 8.5

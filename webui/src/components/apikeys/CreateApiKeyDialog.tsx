@@ -109,3 +109,7 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
     setLoading(true);
     try {
       const response = await apiKeysApi.create(request);
+      onKeyCreated(response.key);
+      // Reset form
+      setName("");
+      setPermissionMode(PermissionMode.AllowAll);

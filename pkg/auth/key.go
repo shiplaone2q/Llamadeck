@@ -39,3 +39,6 @@ func GenerateKey(prefix string) (string, error) {
 	_, err := rand.Read(bytes)
 	if err != nil {
 		return "", fmt.Errorf("failed to generate random bytes: %w", err)
+	}
+
+	// Convert to hex (64 characters)

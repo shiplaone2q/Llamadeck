@@ -104,3 +104,7 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
           <div className="text-center space-y-3">
             <Info className="h-8 w-8 text-gray-400 mx-auto" />
             <div>
+              <h3 className="font-semibold text-gray-700">Backend Info Not Available</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Information for {BACKEND_OPTIONS.find(b => b.value === selectedBackend)?.label} backend is not yet implemented.
+              </p>

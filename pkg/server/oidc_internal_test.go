@@ -95,3 +95,6 @@ func TestGroupsFromClaims(t *testing.T) {
 		})
 	}
 }
+
+func TestAuthorizedForGroups(t *testing.T) {
+	allow := []string{"llamadeck-users", "admins"}

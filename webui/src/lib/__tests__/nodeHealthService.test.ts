@@ -49,3 +49,4 @@ describe('nodeHealthService', () => {
     expect(health.state).toBe('unreachable');
     expect(health.error).toMatch(/404/);
   });
+

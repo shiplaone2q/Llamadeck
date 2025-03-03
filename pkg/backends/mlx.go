@@ -84,3 +84,6 @@ func (o *MlxServerOptions) SetPort(port int) {
 	o.Port = port
 }
 
+func (o *MlxServerOptions) GetHost() string {
+	return o.Host
+}

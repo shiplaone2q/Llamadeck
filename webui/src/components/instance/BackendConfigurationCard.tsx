@@ -44,3 +44,7 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
             { value: BackendType.VLLM, label: 'vLLM' }
           ]}
           description="Select the backend server type"
+        />
+
+        {/* Parse Command Section */}
+        <div className="flex flex-col gap-2">

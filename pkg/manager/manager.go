@@ -121,3 +121,7 @@ func (im *instanceManager) Shutdown() {
 
 // loadInstances restores all instances from the persistence layer
 func (im *instanceManager) loadInstances() error {
+	// Load all instances from persistence
+	instances, err := im.db.LoadAll()
+	if err != nil {
+		return fmt.Errorf("failed to load instances: %w", err)

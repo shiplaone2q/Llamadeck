@@ -54,3 +54,6 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
       <div className="space-y-4">
         <BackendFormField
           key="extra_args"
+          fieldKey="extra_args"
+          value={(formData.backend_options as Record<string, BackendFieldValue> | undefined)?.extra_args}
+          onChange={onBackendFieldChange}

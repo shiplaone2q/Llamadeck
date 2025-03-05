@@ -49,3 +49,7 @@ func RunMigrations(db *sqliteDB) error {
 
 	// Run migrations
 	log.Printf("Running database migrations (current version: %v)", currentVersionString(currentVersion, err))
+
+	if err := migrator.Up(); err != nil {
+		if err == migrate.ErrNoChange {
+			log.Println("Database schema is up to date")

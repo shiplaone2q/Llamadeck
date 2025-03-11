@@ -110,3 +110,7 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 			}
 			instanceIDMap := make(map[int]bool)
 			for _, inst := range instances {
+				instanceIDMap[inst.ID] = true
+			}
+
+			for _, p := range req.Permissions {

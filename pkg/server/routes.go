@@ -84,3 +84,6 @@ func SetupRouter(handler *Handler) *chi.Mux {
 				r.Get("/devices", handler.LlamaServerListDevicesHandler())
 				r.Post("/parse-command", handler.ParseLlamaCommand())
 			})
+			r.Route("/mlx", func(r chi.Router) {
+				r.Post("/parse-command", handler.ParseMlxCommand())
+			})

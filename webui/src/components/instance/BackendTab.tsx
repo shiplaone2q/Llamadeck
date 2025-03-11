@@ -65,3 +65,4 @@ const BackendTab: React.FC<BackendTabProps> = ({
       case BackendType.MLX_LM:
         return "mlx_lm.server"
       default:
+        return ""

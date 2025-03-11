@@ -106,3 +106,7 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 			instances, err := h.InstanceManager.ListInstances()
 			if err != nil {
 				writeError(w, http.StatusInternalServerError, "fetch_instances_failed", fmt.Sprintf("Failed to fetch instances: %v", err))
+				return
+			}
+			instanceIDMap := make(map[int]bool)
+			for _, inst := range instances {

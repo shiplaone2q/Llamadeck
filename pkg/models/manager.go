@@ -78,3 +78,6 @@ func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, e
 	if tag == "" {
 		tag = "main"
 	}
+
+	job, err := m.jobStore.Create(repo, tag)
+	if err != nil {

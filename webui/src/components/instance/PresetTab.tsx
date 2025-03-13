@@ -40,3 +40,7 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
     a.click()
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
+  }
+
+  return (
+    <div className="h-full flex flex-col space-y-4">

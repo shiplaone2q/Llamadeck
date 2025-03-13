@@ -76,3 +76,5 @@ describe('NodesList', () => {
       observe(): void {}
       unobserve(): void {}
       disconnect(): void {}
+    }
+    window.ResizeObserver =

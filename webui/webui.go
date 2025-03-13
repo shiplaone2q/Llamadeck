@@ -19,3 +19,4 @@ func SetupWebUI(r chi.Router) error {
 
 	fileServer := http.FileServer(http.FS(distFS))
 	r.Handle("/*", fileServer)
+	return nil

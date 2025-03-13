@@ -169,3 +169,5 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 		t.Fatalf("BuildDownloadPlan: %v", err)
 	}
 
+	if plan.MainGGUF != nil {
+		t.Error("expected MainGGUF to be nil for safetensors plan")

@@ -90,3 +90,7 @@ func TestParseMlxCommand(t *testing.T) {
 		},
 		{
 			name:      "malformed flag",
+			command:   "mlx_lm.server ---model test.mlx",
+			expectErr: true,
+		},
+	}

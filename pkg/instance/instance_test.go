@@ -256,3 +256,7 @@ func TestUnmarshalJSON(t *testing.T) {
 		t.Errorf("Expected backend_type '%s', got %s", backends.BackendTypeLlamaCpp, opts.BackendOptions.BackendType)
 	}
 	if opts.BackendOptions.LlamaServerOptions == nil {
+		t.Fatal("Expected LlamaServerOptions to be set")
+	}
+	if opts.BackendOptions.LlamaServerOptions.Model != "/path/to/model.gguf" {
+		t.Errorf("Expected model '/path/to/model.gguf', got %q", opts.BackendOptions.LlamaServerOptions.Model)

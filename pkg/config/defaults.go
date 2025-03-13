@@ -92,3 +92,7 @@ func getDefaultConfig(dataDir string) AppConfig {
 				Scopes:       []string{"openid", "profile", "email"},
 				GroupsClaim:  "groups",
 				SessionTTL:   12 * time.Hour,
+				SecureCookie: true,
+			},
+		},
+	}

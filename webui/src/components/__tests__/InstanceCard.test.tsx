@@ -155,3 +155,7 @@ afterEach(() => {
 
       expect(confirmSpy).toHaveBeenCalledWith('Are you sure you want to delete instance "test-instance"?')
       expect(mockDeleteInstance).toHaveBeenCalledWith('test-instance')
+
+      confirmSpy.mockRestore()
+    })
+

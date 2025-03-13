@@ -153,3 +153,4 @@ func verifyStateValue(key []byte, cookieValue, queryState string) (verifier, non
 
 	expected := signStateValue(key, state, verifier, nonce)
 	if subtle.ConstantTimeCompare([]byte(expected), []byte(cookieValue)) != 1 {
+		return "", "", false

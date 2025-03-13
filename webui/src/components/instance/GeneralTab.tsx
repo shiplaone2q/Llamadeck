@@ -63,3 +63,4 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
     } else {
       onChange("nodes", undefined);
     }
+  };

@@ -25,3 +25,4 @@ export function useInstanceHealth(instanceName: string, instanceStatus: Instance
     }
   }, [instanceName, instanceStatus])
 
+  return health

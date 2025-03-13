@@ -58,3 +58,7 @@ class ModelsPollingService {
         // 2. We've had at least 2 consecutive empty polls (to handle timing issues)
         if (!this.expectingJobs && this.emptyPollCount >= 2) {
           this.stopPolling()
+        }
+      } else {
+        // Reset counters when we have active jobs
+        this.emptyPollCount = 0

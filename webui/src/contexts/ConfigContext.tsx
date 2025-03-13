@@ -52,3 +52,6 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
     </ConfigContext.Provider>
   )
 }
+
+export const useConfig = (): ConfigContextType => {
+  const context = useContext(ConfigContext)

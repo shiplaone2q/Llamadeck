@@ -62,3 +62,6 @@ func TestValidateInstanceOptions_PortValidation(t *testing.T) {
 		name    string
 		port    int
 		wantErr bool
+	}{
+		{"valid port 0", 0, false},
+		{"valid port 80", 80, false},

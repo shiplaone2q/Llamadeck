@@ -66,3 +66,4 @@ func main() {
 
 	// Initialize database
 	db, err := database.Open(&database.Config{
+		Path:               cfg.Database.Path,

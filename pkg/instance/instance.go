@@ -136,3 +136,6 @@ func (i *Instance) Stop() error {
 
 // Restart restarts the instance
 func (i *Instance) Restart() error {
+	if i.process == nil {
+		return fmt.Errorf("instance %s has no process component (remote instances cannot be restarted locally)", i.Name)
+	}

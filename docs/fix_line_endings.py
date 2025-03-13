@@ -42,3 +42,6 @@ def on_page_markdown(markdown, page, config, **kwargs):
         # - Standalone punctuation lines
         if (stripped.startswith('#') or 
             stripped.startswith('>') or
+            '|' in stripped or
+            line.endswith('  ') or
+            stripped.startswith('---') or

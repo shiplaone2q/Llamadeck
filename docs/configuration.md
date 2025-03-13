@@ -83,3 +83,5 @@ local_node: "main"               # Name of the local node (default: "main")
 nodes:                           # Node configuration for multi-node deployment
   main:                          # Default local node (empty config)
 ```
+
+## Configuration Files

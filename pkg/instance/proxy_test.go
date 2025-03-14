@@ -66,3 +66,7 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 		select {
 		case <-backendDone:
 		case <-time.After(2 * time.Second):
+			t.Fatal("Timeout waiting for backend to be reached")
+		}
+		
+		if p.getInflightRequests() != 1 {

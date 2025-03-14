@@ -39,3 +39,5 @@ type Config struct {
 	Path string
 
 	// Connection settings
+	MaxOpenConnections int
+	MaxIdleConnections int

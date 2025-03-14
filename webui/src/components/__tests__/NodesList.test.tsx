@@ -78,3 +78,6 @@ describe('NodesList', () => {
       disconnect(): void {}
     }
     window.ResizeObserver =
+      ResizeObserverMock as unknown as typeof ResizeObserver;
+
+    vi.mocked(nodesApi.list).mockResolvedValue(mockNodes);

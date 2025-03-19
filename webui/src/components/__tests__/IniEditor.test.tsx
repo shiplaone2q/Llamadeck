@@ -47,3 +47,6 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
     const user = userEvent.setup()
     renderEditor()
 
+    const textarea = screen.getByRole('textbox')
+    await user.type(textarea, 'm')
+    expect(screen.getByText(first.name)).toBeInTheDocument()

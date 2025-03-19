@@ -467,3 +467,5 @@ definitions:
     properties:
       jobs:
         items:
+          $ref: '#/definitions/server.JobResponse'
+        type: array

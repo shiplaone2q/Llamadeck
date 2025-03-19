@@ -31,3 +31,6 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
       />
       <Label htmlFor={id} className="text-sm font-normal">
         {label}
+        {description && (
+          <span className="text-muted-foreground ml-1">- {description}</span>
+        )}

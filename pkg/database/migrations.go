@@ -56,3 +56,7 @@ func RunMigrations(db *sqliteDB) error {
 			return nil
 		}
 		return fmt.Errorf("failed to run migrations: %w", err)
+	}
+
+	// Get new version
+	newVersion, _, err := migrator.Version()

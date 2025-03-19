@@ -74,3 +74,7 @@ func (p *portAllocator) allocateSpecific(port int, instanceName string) error {
 	if p.isBitSet(port) {
 		return fmt.Errorf("port %d is already allocated", port)
 	}
+
+	p.setBit(port)
+	p.allocated[port] = instanceName
+

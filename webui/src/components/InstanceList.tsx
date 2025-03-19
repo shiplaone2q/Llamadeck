@@ -34,3 +34,5 @@ function InstanceList({ editInstance }: InstanceListProps) {
         </div>
       </div>
     )
+  }
+

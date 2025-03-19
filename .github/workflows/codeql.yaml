@@ -46,3 +46,5 @@ jobs:
         - language: actions
           build-mode: none
         - language: go
+          build-mode: autobuild
+        - language: javascript-typescript

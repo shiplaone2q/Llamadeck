@@ -128,3 +128,6 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 	return instances, nil
 }
 
+// Update updates an existing instance
+func (db *sqliteDB) Update(ctx context.Context, inst *instance.Instance) error {
+	if inst == nil {

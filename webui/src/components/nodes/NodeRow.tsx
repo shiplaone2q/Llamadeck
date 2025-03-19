@@ -59,3 +59,4 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
   return (
     <TableRow>
       <TableCell className="font-medium">{name}</TableCell>
+      <TableCell>

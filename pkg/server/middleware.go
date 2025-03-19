@@ -63,3 +63,7 @@ func NewAPIAuthMiddleware(authCfg config.AuthConfig, authStore database.AuthStor
 		fmt.Println(banner)
 	}
 
+	return &APIAuthMiddleware{
+		authStore:             authStore,
+		requireInferenceAuth:  authCfg.RequireInferenceAuth,
+		requireManagementAuth: authCfg.RequireManagementAuth,

@@ -76,3 +76,7 @@ func newProxy(instance *Instance) (*proxy, error) {
 		}
 
 		p.targetURL, err = url.Parse(node.Address)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse target URL for remote instance %s: %w", p.instance.Name, err)
+		}
+

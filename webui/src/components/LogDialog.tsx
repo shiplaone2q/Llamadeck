@@ -117,3 +117,4 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
+    a.download = `${instanceName}-logs.txt`

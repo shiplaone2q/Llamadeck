@@ -25,3 +25,6 @@ Welcome to the Llamadeck documentation!
 
 
 ## Getting Help
+
+If you need help or have questions:
+

@@ -42,3 +42,4 @@ export function getAllMlxFieldKeys(): (keyof MlxBackendOptions)[] {
 export function getMlxFieldType(key: keyof MlxBackendOptions): 'text' | 'number' | 'boolean' | 'array' {
   const fieldSchema = MlxBackendOptionsSchema.shape[key]
   if (!fieldSchema) return 'text'
+

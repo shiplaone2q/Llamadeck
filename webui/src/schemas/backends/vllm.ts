@@ -46,3 +46,5 @@ export const VllmBackendOptionsSchema = z.object({
   rope_scaling: z.string().optional(),
   rope_theta: z.number().optional(),
   enforce_eager: z.boolean().optional(),
+  max_context_len_to_capture: z.number().optional(),
+  max_seq_len_to_capture: z.number().optional(),

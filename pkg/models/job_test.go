@@ -73,3 +73,7 @@ func TestJobStore_CancelJob(t *testing.T) {
 	// Update job in store with cancel func
 	store.mutex.Lock()
 	store.jobs[job.ID].CancelFunc = cancel
+	store.mutex.Unlock()
+
+	err := store.Cancel(job.ID)
+	if err != nil {

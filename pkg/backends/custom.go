@@ -48,3 +48,4 @@ func (o *CustomServerOptions) GetHost() string {
 
 func (o *CustomServerOptions) Validate() error {
 	if o == nil {
+		return validation.ValidationError(fmt.Errorf("custom server options cannot be nil for custom backend"))

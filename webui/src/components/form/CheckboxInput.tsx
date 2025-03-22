@@ -34,3 +34,5 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
         {description && (
           <span className="text-muted-foreground ml-1">- {description}</span>
         )}
+      </Label>
+    </div>

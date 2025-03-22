@@ -91,3 +91,6 @@ func TestScanCache(t *testing.T) {
 		}
 		if file.Type == "mmproj" {
 			hasMMProj = true
+		}
+	}
+

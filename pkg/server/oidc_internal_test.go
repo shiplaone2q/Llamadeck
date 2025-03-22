@@ -102,3 +102,7 @@ func TestAuthorizedForGroups(t *testing.T) {
 	if !authorizedForGroups(nil, nil) {
 		t.Error("empty allowlist must admit everyone (gate disabled)")
 	}
+	if !authorizedForGroups(allow, []string{"devs", "admins"}) {
+		t.Error("expected overlap to authorize")
+	}
+	if authorizedForGroups(allow, []string{"devs"}) {

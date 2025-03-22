@@ -78,3 +78,6 @@ func (p *portAllocator) allocateSpecific(port int, instanceName string) error {
 	p.setBit(port)
 	p.allocated[port] = instanceName
 
+	return nil
+}
+

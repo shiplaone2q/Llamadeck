@@ -45,3 +45,6 @@ func (o *CustomServerOptions) GetHost() string {
 	}
 	return o.Host
 }
+
+func (o *CustomServerOptions) Validate() error {
+	if o == nil {

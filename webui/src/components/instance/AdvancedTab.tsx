@@ -54,3 +54,7 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
 
           {showAdvanced && (
             <div className="space-y-4 pl-6 border-l-2 border-muted">
+              {advancedBackendFields
+                .sort()
+                .map((fieldKey) => (
+                  <BackendFormField

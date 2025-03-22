@@ -98,3 +98,7 @@ func TestGroupsFromClaims(t *testing.T) {
 
 func TestAuthorizedForGroups(t *testing.T) {
 	allow := []string{"llamadeck-users", "admins"}
+
+	if !authorizedForGroups(nil, nil) {
+		t.Error("empty allowlist must admit everyone (gate disabled)")
+	}

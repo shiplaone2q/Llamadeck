@@ -62,3 +62,7 @@ function NodesList() {
         </div>
       </div>
     );
+  }
+
+  if (error) {
+    return (

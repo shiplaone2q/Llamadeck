@@ -260,3 +260,5 @@ func TestUnmarshalJSON(t *testing.T) {
 	}
 	if opts.BackendOptions.LlamaServerOptions.Model != "/path/to/model.gguf" {
 		t.Errorf("Expected model '/path/to/model.gguf', got %q", opts.BackendOptions.LlamaServerOptions.Model)
+	}
+	if inst.GetPort() != 8080 {

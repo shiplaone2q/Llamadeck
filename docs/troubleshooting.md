@@ -93,3 +93,7 @@ vllm serve microsoft/DialoGPT-medium --port 8081
 ### CORS Errors
 
 **Problem:** Web UI shows CORS errors in browser console
+
+**Solutions:**
+1. **Configure allowed origins:**
+   ```yaml

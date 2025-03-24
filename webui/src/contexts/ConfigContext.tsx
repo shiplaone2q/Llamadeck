@@ -55,3 +55,6 @@ export const ConfigProvider = ({ children }: ConfigProviderProps) => {
 
 export const useConfig = (): ConfigContextType => {
   const context = useContext(ConfigContext)
+  if (context === undefined) {
+    throw new Error('useConfig must be used within a ConfigProvider')
+  }

@@ -43,3 +43,5 @@ export const CreateInstanceOptionsSchema = z.object({
 
   // Environment variables
   environment: z.record(z.string(), z.string()).optional(),
+
+  // Execution context overrides

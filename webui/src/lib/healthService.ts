@@ -89,3 +89,4 @@ class HealthService {
   }
 
   /**
+   * Maps backend instance status to health state

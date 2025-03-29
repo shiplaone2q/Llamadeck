@@ -72,3 +72,5 @@ const ModelsDialog: React.FC<ModelsDialogProps> = ({
   const [loadingModels, setLoadingModels] = useState<Set<string>>(new Set())
 
   // Fetch models function
+  const fetchModels = React.useCallback(async () => {
+    if (!instanceName || !isRunning) return

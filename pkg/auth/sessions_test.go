@@ -37,3 +37,4 @@ func TestSessionStoreExpiry(t *testing.T) {
 }
 
 func TestSessionStoreSweep(t *testing.T) {
+	// Sessions that expired without being revisited must not linger forever

@@ -183,3 +183,5 @@ func (md *Downloader) FetchRefs(ctx context.Context, repo, branch string) (strin
 }
 
 func validatedCommit(commit, branch string) (string, error) {
+	if !commitPattern.MatchString(commit) {
+		return "", fmt.Errorf("invalid commit %q for branch %s", commit, branch)

@@ -73,3 +73,7 @@ func TestEvictLRUInstance_Success(t *testing.T) {
 	inst1 := createInstanceWithTimeout(t, manager, "instance-1", "/path/to/model1.gguf", &validTimeout)
 	inst2 := createInstanceWithTimeout(t, manager, "instance-2", "/path/to/model2.gguf", &validTimeout)
 	inst3 := createInstanceWithTimeout(t, manager, "instance-3", "/path/to/model3.gguf", &validTimeout)
+
+	// Set up mock time and set instances to running
+	mockTime := NewMockTimeProvider(time.Now())
+	inst1.SetTimeProvider(mockTime)

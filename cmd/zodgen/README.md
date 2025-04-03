@@ -33,3 +33,6 @@ The tool generates two schemas:
 1. **Main Schema** (`LlamaCppBackendOptionsSchema`): The primary schema with all backend options
 2. **Alt Keys Schema** (`LlamaCppAltKeysSchema`): Alternative flag names that can be used in preset.ini files (e.g., `n-predict` instead of `predict`)
 
+### Alt Keys Schema
+
+The alt keys schema includes alternative command-line flag names extracted from the comments. For example:

@@ -119,3 +119,6 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 // @Param name path string true "Instance Name"
 // @Param options body instance.Options true "Instance configuration options"
 // @Success 200 {object} instance.Instance "Updated instance details"
+// @Failure 400 {string} string "Invalid name format"
+// @Failure 404 {string} string "Instance does not exist"
+// @Failure 500 {string} string "Internal Server Error"

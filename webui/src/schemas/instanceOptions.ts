@@ -45,3 +45,4 @@ export const CreateInstanceOptionsSchema = z.object({
   environment: z.record(z.string(), z.string()).optional(),
 
   // Execution context overrides
+  docker_enabled: z.boolean().optional(),

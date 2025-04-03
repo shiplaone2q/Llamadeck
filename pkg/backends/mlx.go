@@ -87,3 +87,5 @@ func (o *MlxServerOptions) SetPort(port int) {
 func (o *MlxServerOptions) GetHost() string {
 	return o.Host
 }
+
+func (o *MlxServerOptions) Validate() error {

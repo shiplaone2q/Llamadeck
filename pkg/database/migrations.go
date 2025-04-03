@@ -62,3 +62,7 @@ func RunMigrations(db *sqliteDB) error {
 	newVersion, _, err := migrator.Version()
 	if err != nil {
 		log.Printf("Migrations completed (unable to determine new version: %v)", err)
+	} else {
+		log.Printf("Migrations completed successfully (new version: %d)", newVersion)
+	}
+

@@ -81,3 +81,6 @@ llamadeck can run backends in Docker containers, eliminating the need for local 
 
 ```yaml
 backends:
+  llama-cpp:
+    docker:
+      enabled: true

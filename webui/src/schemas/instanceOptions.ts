@@ -46,3 +46,6 @@ export const CreateInstanceOptionsSchema = z.object({
 
   // Execution context overrides
   docker_enabled: z.boolean().optional(),
+  command_override: z.string().optional(),
+
+  // Backend configuration

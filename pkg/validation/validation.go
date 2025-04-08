@@ -16,3 +16,5 @@ func ValidateInstanceName(name string) (string, error) {
 	}
 	if !validNamePattern.MatchString(name) {
 		return "", ValidationError(fmt.Errorf("name contains invalid characters (only alphanumeric, periods, hyphens, underscores allowed)"))
+	}
+	if len(name) > 50 {

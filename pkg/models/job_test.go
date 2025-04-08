@@ -77,3 +77,7 @@ func TestJobStore_CancelJob(t *testing.T) {
 
 	err := store.Cancel(job.ID)
 	if err != nil {
+		t.Errorf("Cancel failed: %v", err)
+	}
+
+	retrieved, _ := store.Get(job.ID)

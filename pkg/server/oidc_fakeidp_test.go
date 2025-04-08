@@ -77,3 +77,7 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 			"token_type":   "Bearer",
 			"expires_in":   3600,
 			"id_token":     token,
+		})
+	})
+
+	idp.server = httptest.NewServer(mux)

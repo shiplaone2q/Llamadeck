@@ -67,3 +67,6 @@ func main() {
 	// Initialize database
 	db, err := database.Open(&database.Config{
 		Path:               cfg.Database.Path,
+		MaxOpenConnections: cfg.Database.MaxOpenConnections,
+		MaxIdleConnections: cfg.Database.MaxIdleConnections,
+		ConnMaxLifetime:    cfg.Database.ConnMaxLifetime,

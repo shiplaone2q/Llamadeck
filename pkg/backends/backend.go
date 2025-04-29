@@ -108,3 +108,4 @@ func (o *Options) MarshalJSON() ([]byte, error) {
 		BackendOptions map[string]any `json:"backend_options,omitempty"`
 	}{
 		BackendType:    o.BackendType,
+		BackendOptions: backendOptions,

@@ -50,3 +50,7 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
     const textarea = screen.getByRole('textbox')
     await user.type(textarea, 'm')
     expect(screen.getByText(first.name)).toBeInTheDocument()
+
+    await user.keyboard('{Escape}')
+
+    expect(screen.queryByText(first.name)).not.toBeInTheDocument()

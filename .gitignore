@@ -40,3 +40,7 @@ site/
 
 # Dev config
 llamadeck.dev.yaml
+
+# Debug files
+__debug*
+

@@ -81,3 +81,5 @@ describe('NodesList', () => {
       ResizeObserverMock as unknown as typeof ResizeObserver;
 
     vi.mocked(nodesApi.list).mockResolvedValue(mockNodes);
+    vi.mocked(nodeHealthService.subscribe).mockImplementation(
+      (_name: string, cb: (health: NodeHealth) => void) => {

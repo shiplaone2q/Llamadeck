@@ -61,3 +61,4 @@ func (h *Handler) ListNodes() http.HandlerFunc {
 // @Description Returns the details of a specific node by name
 // @Tags Nodes
 // @Security ApiKeyAuth
+// @Produces json

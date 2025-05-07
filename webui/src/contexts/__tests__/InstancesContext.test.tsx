@@ -128,3 +128,7 @@ function renderWithProvider(children: ReactNode) {
 
 describe("InstancesContext", () => {
   const mockInstances: Instance[] = [
+    { id: 1, name: "instance1", status: "running", options: { backend_type: BackendType.LLAMA_CPP, backend_options: { model: "model1.gguf" } } },
+    { id: 2, name: "instance2", status: "stopped", options: { backend_type: BackendType.LLAMA_CPP, backend_options: { model: "model2.gguf" } } },
+  ];
+

@@ -36,3 +36,7 @@ dist/
 
 __pycache__/
 
+site/
+
+# Dev config
+llamadeck.dev.yaml

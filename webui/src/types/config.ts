@@ -50,3 +50,7 @@ export interface DatabaseConfig {
   max_open_connections: number
   max_idle_connections: number
   connection_max_lifetime: number
+}
+
+export interface AuthConfig {
+  require_inference_auth: boolean

@@ -94,3 +94,4 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
   }, [])
 
   const updateInstance = useCallback(async (name: string, options: CreateInstanceOptions) => {
+    try {

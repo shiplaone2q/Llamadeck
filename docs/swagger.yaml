@@ -469,3 +469,6 @@ definitions:
         items:
           $ref: '#/definitions/server.JobResponse'
         type: array
+    type: object
+  server.NodeHealthResponse:
+    properties:

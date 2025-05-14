@@ -66,3 +66,6 @@ func RunMigrations(db *sqliteDB) error {
 		log.Printf("Migrations completed successfully (new version: %d)", newVersion)
 	}
 
+	return nil
+}
+

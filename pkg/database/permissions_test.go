@@ -82,3 +82,4 @@ func TestGetInstancePermission(t *testing.T) {
 
 func TestGetPermissionsReturnsFlags(t *testing.T) {
 	db := newTestDB(t)
+	insertTestInstance(t, db, 20, "m20")

@@ -42,3 +42,6 @@ func GenerateKey(prefix string) (string, error) {
 	}
 
 	// Convert to hex (64 characters)
+	hexStr := hex.EncodeToString(bytes)
+
+	return fmt.Sprintf("%s-%s", prefix, hexStr), nil

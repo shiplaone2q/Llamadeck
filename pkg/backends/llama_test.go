@@ -192,3 +192,6 @@ func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 		{
 			name:     "context size alternatives",
 			jsonData: `{"c": 2048}`,
+			checkFn: func(opts backends.LlamaServerOptions) error {
+				if opts.CtxSize != 2048 {
+					return fmt.Errorf("expected ctx_size 4096, got %d", opts.CtxSize)

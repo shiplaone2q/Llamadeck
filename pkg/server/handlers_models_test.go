@@ -62,3 +62,7 @@ func TestDeleteModel(t *testing.T) {
 		req := httptest.NewRequest(http.MethodDelete, url, nil)
 		rec := httptest.NewRecorder()
 		h.DeleteModel()(rec, req)
+		return rec
+	}
+
+	t.Run("missing repo", func(t *testing.T) {

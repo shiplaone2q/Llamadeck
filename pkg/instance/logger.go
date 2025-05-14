@@ -62,3 +62,7 @@ func (l *logger) create() error {
 				return "gzip"
 			}
 			return "none"
+		}(),
+		FileMode:  0644,
+		LocalTime: true,
+	}

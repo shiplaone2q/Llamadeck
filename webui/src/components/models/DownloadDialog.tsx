@@ -66,3 +66,7 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
       return false
     }
     if (format === ModelFormat.GGUF && !value.includes('/')) {
+      setModelError('Format must be: org/model-name or org/model-name:tag')
+      return false
+    }
+    if (!value.includes('/')) {

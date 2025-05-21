@@ -42,3 +42,5 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
       }
       reader.readAsText(file)
     }
+  }
+

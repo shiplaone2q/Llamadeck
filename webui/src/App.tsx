@@ -79,3 +79,5 @@ function App() {
 
   // Show main app if authenticated
   return (
+    <ThemeProvider>
+      <div className="min-h-screen bg-background">

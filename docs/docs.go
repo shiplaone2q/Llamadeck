@@ -977,3 +977,5 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/instance.Instance"
                         }
+                    },
+                    "400": {

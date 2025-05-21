@@ -62,3 +62,4 @@ class ModelsPollingService {
       } else {
         // Reset counters when we have active jobs
         this.emptyPollCount = 0
+        this.expectingJobs = false

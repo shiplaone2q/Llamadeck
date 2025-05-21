@@ -139,3 +139,7 @@ func (i *Instance) Restart() error {
 	if i.process == nil {
 		return fmt.Errorf("instance %s has no process component (remote instances cannot be restarted locally)", i.Name)
 	}
+	return i.process.restart()
+}
+
+// WaitForHealthy waits for the instance to become healthy

@@ -123,3 +123,6 @@ export interface NodeResponse {
 export type NodesMap = Record<string, NodeResponse>;
 
 // Node health response from GET /nodes/{name}/health
+export interface NodeHealthResponse {
+  status: 'healthy' | 'unreachable';
+  latency_ms?: number;

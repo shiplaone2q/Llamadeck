@@ -44,3 +44,5 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
 
   return (
     <div className="h-full flex flex-col space-y-4">
+      <div>
+        <h3 className="text-lg font-semibold">Model Presets (preset.ini)</h3>

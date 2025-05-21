@@ -41,3 +41,4 @@ const BackendBadge: React.FC<BackendBadgeProps> = ({ backend, docker, customName
         return "bg-indigo-100 text-indigo-800 border-indigo-200 dark:bg-indigo-900 dark:text-indigo-200 dark:border-indigo-800";
       default:
         return "bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800";
+    }

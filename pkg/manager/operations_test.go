@@ -189,3 +189,7 @@ func TestDeleteInstance_RunningInstanceFails(t *testing.T) {
 	err = mgr.DeleteInstance("test-instance")
 	if err == nil {
 		t.Error("Expected error when deleting running instance")
+	}
+}
+
+func TestUpdateInstance(t *testing.T) {

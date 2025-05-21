@@ -77,3 +77,6 @@ func TestEvictLRUInstance_Success(t *testing.T) {
 	// Set up mock time and set instances to running
 	mockTime := NewMockTimeProvider(time.Now())
 	inst1.SetTimeProvider(mockTime)
+	inst2.SetTimeProvider(mockTime)
+	inst3.SetTimeProvider(mockTime)
+

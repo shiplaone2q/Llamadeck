@@ -70,3 +70,5 @@ func main() {
 		MaxOpenConnections: cfg.Database.MaxOpenConnections,
 		MaxIdleConnections: cfg.Database.MaxIdleConnections,
 		ConnMaxLifetime:    cfg.Database.ConnMaxLifetime,
+	})
+	if err != nil {

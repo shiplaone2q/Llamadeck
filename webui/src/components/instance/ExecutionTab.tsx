@@ -56,3 +56,5 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
           value={formData.docker_enabled}
           onChange={(value) => onChange('docker_enabled', value)}
           description="Run backend in Docker container"
+        />
+      )}

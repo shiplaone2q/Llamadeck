@@ -148,3 +148,4 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 // 4xx whose JSON body has error == "invalid_instance"/"not_found"), the
 // returned error is *RemoteNotFoundError so callers can distinguish "not there"
 // from real failures and complete local cleanup, idempotent-retry, etc.
+func parseRemoteResponse(resp *http.Response, result any) error {

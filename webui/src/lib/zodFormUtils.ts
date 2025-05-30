@@ -70,3 +70,5 @@ const basicMlxFieldsConfig: Record<string, {
     label: 'Top-K',
     placeholder: '0',
     description: 'Default top-k sampling (default: 0, disables top-k)'
+  },
+  min_p: {

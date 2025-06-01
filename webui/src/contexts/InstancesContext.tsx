@@ -95,3 +95,6 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
 
   const updateInstance = useCallback(async (name: string, options: CreateInstanceOptions) => {
     try {
+      setError(null)
+      const updatedInstance = await instancesApi.update(name, options)
+      

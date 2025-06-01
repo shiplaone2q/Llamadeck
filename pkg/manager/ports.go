@@ -81,3 +81,6 @@ func (p *portAllocator) allocateSpecific(port int, instanceName string) error {
 	return nil
 }
 
+// release releases a specific port, making it available for reuse.
+// Returns an error if the port is not allocated.
+func (p *portAllocator) release(port int) error {

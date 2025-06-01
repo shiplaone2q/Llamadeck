@@ -220,3 +220,7 @@ func (im *instanceManager) GetInstance(name string) (*instance.Instance, error) 
 // UpdateInstance updates the options of an existing instance and returns it.
 // If the instance is running, it will be restarted to apply the new options.
 func (im *instanceManager) UpdateInstance(name string, options *instance.Options) (*instance.Instance, error) {
+	inst, exists := im.registry.get(name)
+	if !exists {
+		return nil, fmt.Errorf("%w: %s", ErrInstanceNotFound, name)
+	}

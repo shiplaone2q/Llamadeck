@@ -60,3 +60,7 @@ func (r *instanceRegistry) listRunning() []*instance.Instance {
 // Add adds a new instance to the registry.
 // Returns an error if an instance with the same name already exists.
 func (r *instanceRegistry) add(inst *instance.Instance) error {
+	if inst == nil {
+		return fmt.Errorf("cannot add nil instance")
+	}
+

@@ -41,3 +41,5 @@ type Config struct {
 	// Connection settings
 	MaxOpenConnections int
 	MaxIdleConnections int
+	ConnMaxLifetime    time.Duration
+}

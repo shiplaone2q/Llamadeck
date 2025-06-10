@@ -113,3 +113,5 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
       // Reset form
       setName("");
       setPermissionMode(PermissionMode.AllowAll);
+      setExpiresAt("");
+      setInstancePermissions({});

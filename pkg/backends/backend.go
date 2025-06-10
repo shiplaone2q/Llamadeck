@@ -109,3 +109,4 @@ func (o *Options) MarshalJSON() ([]byte, error) {
 	}{
 		BackendType:    o.BackendType,
 		BackendOptions: backendOptions,
+	})

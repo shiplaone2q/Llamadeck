@@ -66,3 +66,5 @@ function NodesList() {
 
   if (error) {
     return (
+      <div className="text-center py-12">
+        <div className="text-destructive mb-4">

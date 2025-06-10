@@ -44,3 +44,7 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
     }
   }
 
+  const handleExport = () => {
+    const content = formData.preset_ini || ''
+    const blob = new Blob([content], { type: 'text/plain' })
+    const url = URL.createObjectURL(blob)

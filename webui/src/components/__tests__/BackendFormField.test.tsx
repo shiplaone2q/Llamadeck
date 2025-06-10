@@ -78,3 +78,7 @@ describe('BackendFormField - models_preset Field States', () => {
           formData={formData}
         />
       )
+
+      expect(screen.getByLabelText('Models Preset Path')).toBeInTheDocument()
+      expect(screen.getByText('Custom')).toBeInTheDocument()
+      expect(screen.getByDisplayValue('/custom/path/to/preset.ini')).toBeInTheDocument()

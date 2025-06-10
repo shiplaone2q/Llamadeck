@@ -50,3 +50,6 @@ describe('nodeHealthService', () => {
     expect(health.error).toMatch(/404/);
   });
 
+  it('hits the network on resubscribe even if a failure was just cached', async () => {
+    // subscribe against a dead backend, caching a failure
+    global.fetch = vi.fn(() =>

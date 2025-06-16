@@ -160,3 +160,7 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
         });
 
         // Only include backend_options if it has content
+        if (Object.keys(cleanBackendOptions).length > 0) {
+          (cleanOptions as Record<string, unknown>)[typedKey] = cleanBackendOptions as BackendOptions;
+        }
+      } else if (value !== undefined && value !== null) {

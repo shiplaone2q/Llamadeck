@@ -472,3 +472,7 @@ definitions:
     type: object
   server.NodeHealthResponse:
     properties:
+      checked_at:
+        type: integer
+      error:
+        type: string

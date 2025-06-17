@@ -88,3 +88,5 @@ function ApiKeysSection() {
       setExpandedRowId(key.id);
       if (key.permission_mode === PermissionMode.PerInstance) {
         void fetchPermissions(key.id);
+      }
+    }

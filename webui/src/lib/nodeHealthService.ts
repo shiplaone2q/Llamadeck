@@ -72,3 +72,6 @@ class NodeHealthService {
 
   private startHealthCheck(nodeName: string): void {
     if (this.intervals.has(nodeName)) {
+      return; // already checking
+    }
+

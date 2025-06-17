@@ -80,3 +80,5 @@ func TestEvictLRUInstance_Success(t *testing.T) {
 	inst2.SetTimeProvider(mockTime)
 	inst3.SetTimeProvider(mockTime)
 
+	inst1.SetStatus(instance.Running)
+	inst2.SetStatus(instance.Running)

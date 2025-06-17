@@ -46,3 +46,5 @@ def on_page_markdown(markdown, page, config, **kwargs):
     markdown = re.sub(r'docs/images/', 'images/', markdown)
 
     return markdown
+
+

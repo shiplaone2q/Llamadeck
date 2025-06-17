@@ -84,3 +84,5 @@ func (p *portAllocator) allocateSpecific(port int, instanceName string) error {
 // release releases a specific port, making it available for reuse.
 // Returns an error if the port is not allocated.
 func (p *portAllocator) release(port int) error {
+	if port < p.minPort || port > p.maxPort {
+		return fmt.Errorf("port %d is out of range [%d-%d]", port, p.minPort, p.maxPort)

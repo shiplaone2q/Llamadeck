@@ -84,3 +84,4 @@ backends:
   llama-cpp:
     docker:
       enabled: true
+  vllm:

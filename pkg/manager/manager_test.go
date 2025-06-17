@@ -99,3 +99,5 @@ func TestDeleteInstance_RemovesFromDatabase(t *testing.T) {
 
 	options := &instance.Options{
 		BackendOptions: backends.Options{
+			BackendType: backends.BackendTypeLlamaCpp,
+			LlamaServerOptions: &backends.LlamaServerOptions{

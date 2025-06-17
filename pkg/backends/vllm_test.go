@@ -96,3 +96,6 @@ func TestParseVllmCommand(t *testing.T) {
 			resultAny, err := opts.ParseCommand(tt.command)
 			result, _ := resultAny.(*backends.VllmServerOptions)
 
+			if tt.expectErr {
+				if err == nil {
+					t.Errorf("expected error but got none")

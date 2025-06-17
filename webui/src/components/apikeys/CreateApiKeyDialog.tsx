@@ -115,3 +115,5 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
       setPermissionMode(PermissionMode.AllowAll);
       setExpiresAt("");
       setInstancePermissions({});
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to create API key");

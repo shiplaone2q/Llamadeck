@@ -75,3 +75,7 @@ class NodeHealthService {
       return; // already checking
     }
 
+    // never replay a stale cached result on resubscribe
+    this.healthCache.delete(nodeName);
+
+    void this.refreshHealth(nodeName);

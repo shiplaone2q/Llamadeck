@@ -83,3 +83,4 @@ describe('NodesList', () => {
     vi.mocked(nodesApi.list).mockResolvedValue(mockNodes);
     vi.mocked(nodeHealthService.subscribe).mockImplementation(
       (_name: string, cb: (health: NodeHealth) => void) => {
+        cb(healthy);

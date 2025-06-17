@@ -156,3 +156,5 @@ func verifyStateValue(key []byte, cookieValue, queryState string) (verifier, non
 		return "", "", false
 	}
 
+	return verifier, nonce, true
+}

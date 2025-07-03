@@ -84,3 +84,5 @@ describe('NodesList', () => {
     vi.mocked(nodeHealthService.subscribe).mockImplementation(
       (_name: string, cb: (health: NodeHealth) => void) => {
         cb(healthy);
+        return () => {};
+      },

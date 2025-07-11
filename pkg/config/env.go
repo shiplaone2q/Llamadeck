@@ -133,3 +133,7 @@ func loadEnvVars(cfg *AppConfig) {
 	if vllmArgs := os.Getenv("LLAMADECK_VLLM_ARGS"); vllmArgs != "" {
 		cfg.Backends.VLLM.Args = strings.Split(vllmArgs, " ")
 	}
+	if vllmEnv := os.Getenv("LLAMADECK_VLLM_ENV"); vllmEnv != "" {
+		if cfg.Backends.VLLM.Environment == nil {
+			cfg.Backends.VLLM.Environment = make(map[string]string)
+		}

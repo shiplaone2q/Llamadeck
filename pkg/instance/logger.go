@@ -66,3 +66,5 @@ func (l *logger) create() error {
 		FileMode:  0644,
 		LocalTime: true,
 	}
+
+	// If rotation is disabled, set MaxSize to 0 so no rotation occurs

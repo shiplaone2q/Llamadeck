@@ -79,3 +79,5 @@ class NodeHealthService {
     this.healthCache.delete(nodeName);
 
     void this.refreshHealth(nodeName);
+
+    const interval = setInterval(() => {

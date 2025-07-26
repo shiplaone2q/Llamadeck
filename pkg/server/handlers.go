@@ -62,3 +62,4 @@ func writeText(w http.ResponseWriter, status int, data string) {
 	}
 }
 
+// Handler provides HTTP handlers for the llamadeck server API

@@ -65,3 +65,7 @@ All the following must pass:
 
 1. **Backend**
    ```bash
+   go test ./... -v
+   go test -race ./... -v
+   go fmt ./... && go vet ./...
+   go build -o llamadeck ./cmd/server

@@ -90,3 +90,4 @@ function ApiKeysSection() {
         void fetchPermissions(key.id);
       }
     }
+  };

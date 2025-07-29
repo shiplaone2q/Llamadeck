@@ -86,3 +86,7 @@ func (p *portAllocator) allocateSpecific(port int, instanceName string) error {
 func (p *portAllocator) release(port int) error {
 	if port < p.minPort || port > p.maxPort {
 		return fmt.Errorf("port %d is out of range [%d-%d]", port, p.minPort, p.maxPort)
+	}
+
+	p.mu.Lock()
+	defer p.mu.Unlock()

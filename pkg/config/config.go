@@ -66,3 +66,7 @@ func LoadConfig(configPath string) (AppConfig, error) {
 
 	return cfg, nil
 }
+
+// readConfigFile attempts to read config from file with fallback locations.
+// Returns nil data if no config file is found (not an error).
+func readConfigFile(configPath string) ([]byte, error) {

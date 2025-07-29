@@ -51,3 +51,4 @@ export const CreateInstanceOptionsSchema = z.object({
   // Backend configuration
   backend_type: z.enum([BackendType.LLAMA_CPP, BackendType.MLX_LM, BackendType.VLLM, BackendType.CUSTOM]).optional(),
   backend_options: BackendOptionsSchema.optional(),
+

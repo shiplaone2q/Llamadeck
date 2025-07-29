@@ -74,3 +74,4 @@ const ModelsDialog: React.FC<ModelsDialogProps> = ({
   // Fetch models function
   const fetchModels = React.useCallback(async () => {
     if (!instanceName || !isRunning) return
+

@@ -90,3 +90,5 @@ class HealthService {
 
   /**
    * Maps backend instance status to health state
+   */
+  private mapStatusToHealthState(status: InstanceStatus): HealthState {

@@ -69,3 +69,7 @@ All the following must pass:
    go test -race ./... -v
    go fmt ./... && go vet ./...
    go build -o llamadeck ./cmd/server
+   ```
+
+2. **Frontend**
+   ```bash

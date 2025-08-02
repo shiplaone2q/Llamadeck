@@ -90,3 +90,7 @@ func (p *portAllocator) release(port int) error {
 
 	p.mu.Lock()
 	defer p.mu.Unlock()
+
+	if !p.isBitSet(port) {
+		return fmt.Errorf("port %d is not allocated", port)
+	}

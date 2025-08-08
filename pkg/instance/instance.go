@@ -143,3 +143,4 @@ func (i *Instance) Restart() error {
 }
 
 // WaitForHealthy waits for the instance to become healthy
+func (i *Instance) WaitForHealthy(timeout int) error {

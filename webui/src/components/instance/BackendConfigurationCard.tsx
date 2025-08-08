@@ -48,3 +48,5 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
 
         {/* Parse Command Section */}
         <div className="flex flex-col gap-2">
+          <Button
+            variant="outline"

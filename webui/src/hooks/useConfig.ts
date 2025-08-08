@@ -52,3 +52,7 @@ export const useBackendSettings = (backendType: string | undefined) => {
     dockerImage: backendConfig.docker?.image || '',
   }
 }
+
+// All configured custom backends (backends.custom), keyed by name
+export const useCustomBackends = () => {
+  const { config } = useConfig()

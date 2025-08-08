@@ -122,3 +122,7 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 // @Failure 400 {string} string "Invalid name format"
 // @Failure 404 {string} string "Instance does not exist"
 // @Failure 500 {string} string "Internal Server Error"
+// @Router /api/v1/instances/{name} [put]
+func (h *Handler) UpdateInstance() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		name := chi.URLParam(r, "name")

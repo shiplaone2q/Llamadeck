@@ -81,3 +81,4 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
           placeholder="/path/to/preset.ini"
         />
         {callout || (
+          <p className="text-sm text-muted-foreground">Optional: Path to preset.ini for router mode</p>

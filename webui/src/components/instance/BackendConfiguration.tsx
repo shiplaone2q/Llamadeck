@@ -57,3 +57,5 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
           fieldKey="extra_args"
           value={(formData.backend_options as Record<string, BackendFieldValue> | undefined)?.extra_args}
           onChange={onBackendFieldChange}
+        />
+      </div>

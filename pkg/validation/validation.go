@@ -20,3 +20,4 @@ func ValidateInstanceName(name string) (string, error) {
 	if len(name) > 50 {
 		return "", ValidationError(fmt.Errorf("name too long (max 50 characters)"))
 	}
+	return name, nil

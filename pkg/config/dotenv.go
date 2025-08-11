@@ -55,3 +55,4 @@ func parseDotEnv(data []byte) map[string]string {
 			continue
 		}
 
+		lineStr := string(line)

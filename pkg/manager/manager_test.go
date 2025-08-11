@@ -103,3 +103,4 @@ func TestDeleteInstance_RemovesFromDatabase(t *testing.T) {
 			LlamaServerOptions: &backends.LlamaServerOptions{
 				Model: "/path/to/model.gguf",
 				Port:  8080,
+			},

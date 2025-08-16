@@ -45,3 +45,4 @@ function TooltipContent({
         )}
         {...props}
       >
+        {children}

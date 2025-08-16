@@ -158,3 +158,6 @@ func verifyStateValue(key []byte, cookieValue, queryState string) (verifier, non
 
 	return verifier, nonce, true
 }
+
+// sessionFromRequest returns the session for the request's session cookie,
+// or nil when there is no store, no cookie, or no valid session.

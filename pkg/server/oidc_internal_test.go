@@ -106,3 +106,6 @@ func TestAuthorizedForGroups(t *testing.T) {
 		t.Error("expected overlap to authorize")
 	}
 	if authorizedForGroups(allow, []string{"devs"}) {
+		t.Error("expected disjoint groups to be denied")
+	}
+	if authorizedForGroups(allow, nil) {

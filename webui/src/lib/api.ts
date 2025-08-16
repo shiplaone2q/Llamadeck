@@ -126,3 +126,4 @@ export type NodesMap = Record<string, NodeResponse>;
 export interface NodeHealthResponse {
   status: 'healthy' | 'unreachable';
   latency_ms?: number;
+  error?: string;

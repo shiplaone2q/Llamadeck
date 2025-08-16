@@ -103,3 +103,7 @@ func main() {
 				Comment: comment,
 				AltKeys: altKeys,
 			})
+		}
+
+		return false
+	})

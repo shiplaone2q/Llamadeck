@@ -62,3 +62,4 @@ func (h *Handler) ListNodes() http.HandlerFunc {
 // @Tags Nodes
 // @Security ApiKeyAuth
 // @Produces json
+// @Param name path string true "Node Name"

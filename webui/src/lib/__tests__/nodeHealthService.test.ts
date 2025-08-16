@@ -53,3 +53,7 @@ describe('nodeHealthService', () => {
   it('hits the network on resubscribe even if a failure was just cached', async () => {
     // subscribe against a dead backend, caching a failure
     global.fetch = vi.fn(() =>
+      Promise.reject(new Error('backend down')),
+    ) as unknown as typeof fetch;
+    const unsubscribe = nodeHealthService.subscribe('main', () => {});
+    await new Promise((r) => setTimeout(r, 10));

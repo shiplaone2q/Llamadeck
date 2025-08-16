@@ -58,3 +58,4 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
                 .sort()
                 .map((fieldKey) => (
                   <BackendFormField
+                    key={fieldKey}

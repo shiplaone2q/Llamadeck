@@ -47,3 +47,4 @@ export function getMlxFieldType(key: keyof MlxBackendOptions): 'text' | 'number'
   const innerSchema = fieldSchema instanceof z.ZodOptional ? fieldSchema.unwrap() : fieldSchema
 
   if (innerSchema instanceof z.ZodBoolean) return 'boolean'
+  if (innerSchema instanceof z.ZodNumber) return 'number'

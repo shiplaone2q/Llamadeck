@@ -81,3 +81,7 @@ class NodeHealthService {
     void this.refreshHealth(nodeName);
 
     const interval = setInterval(() => {
+      void this.refreshHealth(nodeName);
+    }, POLL_INTERVAL);
+
+    this.intervals.set(nodeName, interval);

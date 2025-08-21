@@ -48,3 +48,7 @@ export const VllmBackendOptionsSchema = z.object({
   enforce_eager: z.boolean().optional(),
   max_context_len_to_capture: z.number().optional(),
   max_seq_len_to_capture: z.number().optional(),
+  disable_custom_all_reduce: z.boolean().optional(),
+  tokenizer_pool_size: z.number().optional(),
+  tokenizer_pool_type: z.string().optional(),
+  tokenizer_pool_extra_config: z.string().optional(),

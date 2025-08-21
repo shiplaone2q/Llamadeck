@@ -81,3 +81,4 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 	})
 
 	idp.server = httptest.NewServer(mux)
+	t.Cleanup(idp.server.Close)

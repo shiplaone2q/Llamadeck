@@ -58,3 +58,6 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
           description="Run backend in Docker container"
         />
       )}
+
+      {(formData.backend_type === BackendType.MLX_LM || formData.docker_enabled !== true) && (
+        <TextInput

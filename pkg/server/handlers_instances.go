@@ -126,3 +126,6 @@ func (h *Handler) GetInstance() http.HandlerFunc {
 func (h *Handler) UpdateInstance() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		name := chi.URLParam(r, "name")
+		validatedName, err := validation.ValidateInstanceName(name)
+		if err != nil {
+			writeError(w, http.StatusBadRequest, "invalid_instance_name", err.Error())

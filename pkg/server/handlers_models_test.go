@@ -66,3 +66,5 @@ func TestDeleteModel(t *testing.T) {
 	}
 
 	t.Run("missing repo", func(t *testing.T) {
+		rec := request("/api/v1/models?repo=org/missing")
+		if rec.Code != http.StatusNotFound {

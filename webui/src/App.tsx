@@ -81,3 +81,5 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-background">
+        <Header
+          onCreateInstance={handleCreateInstance}

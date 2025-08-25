@@ -132,3 +132,6 @@ func (p *process) start() error {
 	p.instance.SetStatus(Running)
 
 	// Create channel for monitor completion signaling
+	p.monitorDone = make(chan struct{})
+
+	go p.instance.logger.readOutput(p.stdout)

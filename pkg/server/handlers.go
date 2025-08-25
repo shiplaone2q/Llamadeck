@@ -65,3 +65,7 @@ func writeText(w http.ResponseWriter, status int, data string) {
 // Handler provides HTTP handlers for the llamadeck server API
 type Handler struct {
 	InstanceManager manager.InstanceManager
+	modelManager    *models.Manager
+	cfg             config.AppConfig
+	httpClient      *http.Client
+	authStore       database.AuthStore

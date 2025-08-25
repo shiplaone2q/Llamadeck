@@ -137,3 +137,7 @@ func loadEnvVars(cfg *AppConfig) {
 		if cfg.Backends.VLLM.Environment == nil {
 			cfg.Backends.VLLM.Environment = make(map[string]string)
 		}
+		parseEnvVars(vllmEnv, cfg.Backends.VLLM.Environment)
+	}
+	if vllmDockerEnabled := os.Getenv("LLAMADECK_VLLM_DOCKER_ENABLED"); vllmDockerEnabled != "" {
+		if b, err := strconv.ParseBool(vllmDockerEnabled); err == nil {

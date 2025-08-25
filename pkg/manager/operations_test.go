@@ -193,3 +193,6 @@ func TestDeleteInstance_RunningInstanceFails(t *testing.T) {
 }
 
 func TestUpdateInstance(t *testing.T) {
+	mgr := createTestManager(t)
+	defer mgr.Shutdown()
+

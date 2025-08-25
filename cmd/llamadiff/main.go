@@ -94,3 +94,6 @@ func main() {
 			}
 			fmt.Println()
 		}
+	}
+
+	fmt.Printf("\n=== SUMMARY ===\n")

@@ -43,3 +43,5 @@ type Config struct {
 	MaxIdleConnections int
 	ConnMaxLifetime    time.Duration
 }
+
+// sqliteDB wraps database connection with configuration

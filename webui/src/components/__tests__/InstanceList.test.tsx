@@ -79,3 +79,5 @@ describe('InstanceList - State Management and UI Logic', () => {
     it('shows loading spinner while instances are being fetched', () => {
       // Mock a delayed response to test loading state
       vi.mocked(instancesApi.list).mockImplementation(() => 
+        new Promise(resolve => setTimeout(() => resolve(mockInstances), 100))
+      )

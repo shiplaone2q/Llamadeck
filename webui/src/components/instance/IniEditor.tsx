@@ -50,3 +50,7 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
         const currentLineNumber = lines.length - 1
         const lineHeight = 21
         const charWidth = 8.5
+        const currentLineLength = (lines[lines.length - 1] || '').length
+
+        const top = (currentLineNumber + 1) * lineHeight - textareaRef.current.scrollTop + 5
+        const left = currentLineLength * charWidth + 10

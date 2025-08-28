@@ -149,3 +149,7 @@ func (rm *remoteManager) makeRemoteRequest(ctx context.Context, nodeConfig *conf
 // returned error is *RemoteNotFoundError so callers can distinguish "not there"
 // from real failures and complete local cleanup, idempotent-retry, etc.
 func parseRemoteResponse(resp *http.Response, result any) error {
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {

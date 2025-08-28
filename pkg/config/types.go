@@ -76,3 +76,4 @@ type DatabaseConfig struct {
 	Path string `yaml:"path" json:"path"`
 
 	// Connection settings
+	MaxOpenConnections int           `yaml:"max_open_connections" json:"max_open_connections"`

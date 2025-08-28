@@ -86,3 +86,7 @@ describe('NodesList', () => {
         cb(healthy);
         return () => {};
       },
+    );
+  });
+
+  afterEach(() => {

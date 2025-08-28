@@ -59,3 +59,7 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
           onChange={onBackendFieldChange}
         />
       </div>
+    </div>
+  )
+}
+

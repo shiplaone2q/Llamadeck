@@ -54,3 +54,4 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
     await user.keyboard('{Escape}')
 
     expect(screen.queryByText(first.name)).not.toBeInTheDocument()
+  })

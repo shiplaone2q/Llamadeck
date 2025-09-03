@@ -66,3 +66,7 @@ const BackendTab: React.FC<BackendTabProps> = ({
         return "mlx_lm.server"
       default:
         return ""
+    }
+  }
+
+  const configuredNames = Object.keys(customBackends)

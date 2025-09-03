@@ -48,3 +48,5 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 			MaxOpenConnections: 25,
 			MaxIdleConnections: 5,
 			ConnMaxLifetime:    5 * time.Minute,
+		},
+		LocalNode: "main",

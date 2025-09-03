@@ -129,3 +129,7 @@ func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 				writeStartError(w, err)
 				return
 			}
+		}
+
+		if !inst.IsRemote() {
+			h.stripLlamaCppPrefix(r, inst.Name)

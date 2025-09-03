@@ -47,3 +47,4 @@ __debug*
 # Binary
 llamadeck-*
 
+# Air live-reload build output

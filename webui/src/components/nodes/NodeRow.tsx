@@ -60,3 +60,7 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
     <TableRow>
       <TableCell className="font-medium">{name}</TableCell>
       <TableCell>
+        {isLocal ? (
+          <span className="text-muted-foreground">Local</span>
+        ) : (
+          <Tooltip>

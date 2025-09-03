@@ -83,3 +83,5 @@ function App() {
       <div className="min-h-screen bg-background">
         <Header
           onCreateInstance={handleCreateInstance}
+          onShowSystemInfo={handleShowSystemInfo}
+          onShowSettings={handleShowSettings}

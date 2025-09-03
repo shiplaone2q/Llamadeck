@@ -110,3 +110,7 @@ func (h *Handler) DownloadModel() http.HandlerFunc {
 		}
 
 		var req DownloadRequest
+		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+			writeError(w, http.StatusBadRequest, "invalid_request", "Failed to parse request body")
+			return
+		}

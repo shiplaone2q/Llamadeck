@@ -96,3 +96,5 @@ func getDefaultConfig(dataDir string) AppConfig {
 			},
 		},
 	}
+}
+

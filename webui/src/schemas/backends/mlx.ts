@@ -48,3 +48,6 @@ export function getMlxFieldType(key: keyof MlxBackendOptions): 'text' | 'number'
 
   if (innerSchema instanceof z.ZodBoolean) return 'boolean'
   if (innerSchema instanceof z.ZodNumber) return 'number'
+  if (innerSchema instanceof z.ZodArray) return 'array'
+  if (innerSchema instanceof z.ZodEnum) return 'text' // Enum treated as text/select
+  return 'text' // ZodString and others default to text

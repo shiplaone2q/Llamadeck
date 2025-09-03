@@ -48,3 +48,4 @@ def on_page_markdown(markdown, page, config, **kwargs):
     return markdown
 
 
+def add_line_breaks(content):

@@ -64,3 +64,6 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
           <span className="text-muted-foreground">Local</span>
         ) : (
           <Tooltip>
+            <TooltipTrigger asChild>
+              <span
+                className="text-muted-foreground cursor-default"

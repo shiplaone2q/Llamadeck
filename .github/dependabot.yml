@@ -36,3 +36,5 @@ updates:
       - dependency-name: "eslint"
         versions: ["10.x.x"]
     groups:
+      npm-production:
+        dependency-type: "production"

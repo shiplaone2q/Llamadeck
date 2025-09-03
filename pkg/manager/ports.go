@@ -94,3 +94,5 @@ func (p *portAllocator) release(port int) error {
 	if !p.isBitSet(port) {
 		return fmt.Errorf("port %d is not allocated", port)
 	}
+
+	p.clearBit(port)

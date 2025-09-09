@@ -129,3 +129,6 @@ func (h *Handler) UpdateInstance() http.HandlerFunc {
 		validatedName, err := validation.ValidateInstanceName(name)
 		if err != nil {
 			writeError(w, http.StatusBadRequest, "invalid_instance_name", err.Error())
+			return
+		}
+

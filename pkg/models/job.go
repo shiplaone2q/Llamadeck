@@ -85,3 +85,7 @@ func (s *JobStore) Create(repo, tag string) (*Job, error) {
 func (s *JobStore) Get(jobID string) (*Job, error) {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
+
+	job, exists := s.jobs[jobID]
+	if !exists {
+		return nil, fmt.Errorf("job not found: %s", jobID)

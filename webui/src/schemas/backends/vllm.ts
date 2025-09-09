@@ -52,3 +52,7 @@ export const VllmBackendOptionsSchema = z.object({
   tokenizer_pool_size: z.number().optional(),
   tokenizer_pool_type: z.string().optional(),
   tokenizer_pool_extra_config: z.string().optional(),
+  enable_lora_bias: z.boolean().optional(),
+  lora_extra_vocab_size: z.number().optional(),
+  lora_rank: z.number().optional(),
+  prompt_lookback_distance: z.number().optional(),

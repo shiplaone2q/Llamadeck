@@ -96,3 +96,5 @@ func (p *portAllocator) release(port int) error {
 	}
 
 	p.clearBit(port)
+	delete(p.allocated, port)
+

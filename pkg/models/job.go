@@ -81,3 +81,7 @@ func (s *JobStore) Create(repo, tag string) (*Job, error) {
 
 	return job, nil
 }
+
+func (s *JobStore) Get(jobID string) (*Job, error) {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()

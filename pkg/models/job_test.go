@@ -81,3 +81,6 @@ func TestJobStore_CancelJob(t *testing.T) {
 	}
 
 	retrieved, _ := store.Get(job.ID)
+	if retrieved.Status != JobStatusCancelled {
+		t.Errorf("status = %v, want %v", retrieved.Status, JobStatusCancelled)
+	}

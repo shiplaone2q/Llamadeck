@@ -262,3 +262,4 @@ func TestUnmarshalJSON(t *testing.T) {
 		t.Errorf("Expected model '/path/to/model.gguf', got %q", opts.BackendOptions.LlamaServerOptions.Model)
 	}
 	if inst.GetPort() != 8080 {
+		t.Errorf("Expected port 8080, got %d", inst.GetPort())

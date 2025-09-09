@@ -103,3 +103,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
   const removePair = (index: number) => {
     if (pairs.length === 1) {
       // Reset to empty if it's the last one
+      const newPairs = [{ key: '', value: '' }]
+      setPairs(newPairs)
+      updateParent(newPairs)
+    } else {

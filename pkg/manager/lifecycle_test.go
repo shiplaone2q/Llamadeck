@@ -82,3 +82,6 @@ func TestEvictLRUInstance_Success(t *testing.T) {
 
 	inst1.SetStatus(instance.Running)
 	inst2.SetStatus(instance.Running)
+	inst3.SetStatus(instance.Running)
+	defer func() {
+		// Clean up - ensure all instances are stopped

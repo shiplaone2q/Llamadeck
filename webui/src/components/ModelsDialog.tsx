@@ -75,3 +75,5 @@ const ModelsDialog: React.FC<ModelsDialogProps> = ({
   const fetchModels = React.useCallback(async () => {
     if (!instanceName || !isRunning) return
 
+    setLoading(true)
+    setError(null)

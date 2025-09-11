@@ -49,3 +49,4 @@ How a request is handled depends on the instance's state and the key's access le
 | Stopped, at capacity | Use running only | `503 instance_not_running` |
 | Stopped, at capacity | Can start on demand | `503 max_instances_reached` |
 | Stopped, at capacity | Can start and evict | Evicts LRU instance, starts, request proxied |
+

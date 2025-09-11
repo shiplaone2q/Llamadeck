@@ -42,3 +42,7 @@ const BackendBadge: React.FC<BackendBadgeProps> = ({ backend, docker, customName
       default:
         return "bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-800";
     }
+  };
+
+  return (
+    <div className="flex items-center gap-1">

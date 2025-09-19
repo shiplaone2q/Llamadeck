@@ -127,3 +127,7 @@ export interface NodeHealthResponse {
   status: 'healthy' | 'unreachable';
   latency_ms?: number;
   error?: string;
+  checked_at: number;
+}
+
+// Node API functions

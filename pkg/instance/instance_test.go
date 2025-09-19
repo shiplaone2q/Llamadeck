@@ -263,3 +263,5 @@ func TestUnmarshalJSON(t *testing.T) {
 	}
 	if inst.GetPort() != 8080 {
 		t.Errorf("Expected port 8080, got %d", inst.GetPort())
+	}
+	if opts.AutoRestart == nil || *opts.AutoRestart {

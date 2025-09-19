@@ -51,3 +51,5 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
     const a = document.createElement('a')
     a.href = url
     a.download = 'preset.ini'
+    document.body.appendChild(a)
+    a.click()

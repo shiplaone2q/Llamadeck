@@ -50,3 +50,4 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 			ConnMaxLifetime:    5 * time.Minute,
 		},
 		LocalNode: "main",
+		Nodes:     map[string]config.NodeConfig{},

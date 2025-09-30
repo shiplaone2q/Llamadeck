@@ -68,3 +68,5 @@ func NewAPIAuthMiddleware(authCfg config.AuthConfig, authStore database.AuthStor
 		requireInferenceAuth:  authCfg.RequireInferenceAuth,
 		requireManagementAuth: authCfg.RequireManagementAuth,
 		managementKeys:        managementKeys,
+	}
+}

@@ -52,3 +52,7 @@ export const CreateInstanceOptionsSchema = z.object({
   backend_type: z.enum([BackendType.LLAMA_CPP, BackendType.MLX_LM, BackendType.VLLM, BackendType.CUSTOM]).optional(),
   backend_options: BackendOptionsSchema.optional(),
 
+  // Node configuration
+  nodes: z.array(z.string()).optional(),
+
+  // Instance group for hierarchical eviction

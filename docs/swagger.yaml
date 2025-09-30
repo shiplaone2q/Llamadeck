@@ -476,3 +476,5 @@ definitions:
         type: integer
       error:
         type: string
+      latency_ms:
+        description: 'no omitempty: 0 is meaningful (local node, sub-ms ping)'

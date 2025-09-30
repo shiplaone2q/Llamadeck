@@ -92,3 +92,6 @@ func TestInferenceAuthMiddleware(t *testing.T) {
 				if !strings.Contains(body, `"type": "authentication_error"`) {
 					t.Errorf("Unauthorized response missing proper error type: %v", body)
 				}
+			}
+		})
+	}

@@ -107,3 +107,4 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
       setPairs(newPairs)
       updateParent(newPairs)
     } else {
+      const newPairs = pairs.filter((_, i) => i !== index)

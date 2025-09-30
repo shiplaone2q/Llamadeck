@@ -61,3 +61,7 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
 
       {(formData.backend_type === BackendType.MLX_LM || formData.docker_enabled !== true) && (
         <TextInput
+          id="command_override"
+          label="Command Override"
+          value={formData.command_override || ''}
+          onChange={(value) => onChange('command_override', value)}

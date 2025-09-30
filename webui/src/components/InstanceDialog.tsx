@@ -164,3 +164,5 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
           (cleanOptions as Record<string, unknown>)[typedKey] = cleanBackendOptions as BackendOptions;
         }
       } else if (value !== undefined && value !== null) {
+        // Skip empty strings
+        if (typeof value === 'string' && value.trim() === "") {

@@ -65,3 +65,4 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
           label="Command Override"
           value={formData.command_override || ''}
           onChange={(value) => onChange('command_override', value)}
+          placeholder={getCommandPlaceholder()}

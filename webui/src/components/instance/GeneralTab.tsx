@@ -67,3 +67,5 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
 
   const selectedNode =
     formData.nodes && formData.nodes.length > 0 ? formData.nodes[0] : "";
+
+  return (

@@ -82,3 +82,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
 
   const deleteDownload = useCallback(async (jobId: string, node?: string) => {
     setError(null)
+    try {
+      await llamaCppModelsApi.deleteJob(jobId, node)
+    } catch (err) {

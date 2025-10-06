@@ -94,3 +94,7 @@ class HealthService {
   private mapStatusToHealthState(status: InstanceStatus): HealthState {
     switch (status) {
       case 'stopped': return 'stopped'
+      case 'running': return 'starting' // Should not happen as we check HTTP for running
+      case 'failed': return 'failed'
+      case 'restarting': return 'restarting'
+      case 'shutting_down': return 'shutting_down'

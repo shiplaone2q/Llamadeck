@@ -50,3 +50,5 @@ function Header({ onCreateInstance, onShowSystemInfo, onShowSettings }: HeaderPr
               <Settings className="h-4 w-4" />
             </Button>
 
+            <Button
+              variant="outline"

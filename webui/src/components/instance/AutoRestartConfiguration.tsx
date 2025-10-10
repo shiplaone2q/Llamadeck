@@ -58,3 +58,7 @@ const AutoRestartConfiguration: React.FC<AutoRestartConfigurationProps> = ({
           <CheckboxInput
             id="auto_restart"
             label="Auto Restart"
+            value={formData.auto_restart}
+            onChange={(value) => onChange('auto_restart', value)}
+            description="Automatically restart the instance on failure"
+          />

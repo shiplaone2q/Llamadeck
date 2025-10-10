@@ -70,3 +70,4 @@ const BackendTab: React.FC<BackendTabProps> = ({
   }
 
   const configuredNames = Object.keys(customBackends)
+  // Keep an existing selection resolvable even if its config entry was

@@ -123,3 +123,7 @@ describe('InstanceModal - Form Logic and Validation', () => {
       })
     })
 
+    it('submits form with correct data structure', async () => {
+      const user = userEvent.setup()
+
+      render(

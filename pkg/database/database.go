@@ -49,3 +49,7 @@ type sqliteDB struct {
 	*sql.DB
 	config *Config
 }
+
+// Open creates a new database connection with provided configuration
+func Open(config *Config) (*sqliteDB, error) {
+	if config == nil {

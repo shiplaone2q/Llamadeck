@@ -109,3 +109,6 @@ func TestAuthorizedForGroups(t *testing.T) {
 		t.Error("expected disjoint groups to be denied")
 	}
 	if authorizedForGroups(allow, nil) {
+		t.Error("expected missing/empty groups to be denied when the gate is on")
+	}
+}

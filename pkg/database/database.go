@@ -45,3 +45,7 @@ type Config struct {
 }
 
 // sqliteDB wraps database connection with configuration
+type sqliteDB struct {
+	*sql.DB
+	config *Config
+}

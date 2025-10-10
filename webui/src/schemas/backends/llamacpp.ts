@@ -108,3 +108,5 @@ export const LlamaCppBackendOptionsSchema = z.object({
   presence_penalty: z.number().optional(), // --presence-penalty N
   frequency_penalty: z.number().optional(), // --frequency-penalty N
   dry_multiplier: z.number().optional(), // --dry-multiplier N
+  dry_base: z.number().optional(), // --dry-base N
+  dry_allowed_length: z.number().optional(),

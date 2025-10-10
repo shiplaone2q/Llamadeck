@@ -166,3 +166,5 @@ type LlamaServerOptions struct {
 	NoContBatching       bool     `json:"no_cont_batching,omitempty"`       // -nocb, --no-cont-batching
 	MMProj               string   `json:"mmproj,omitempty"`                 // -mm, --mmproj FILE
 	MMProjURL            string   `json:"mmproj_url,omitempty"`             // -mmu, --mmproj-url URL
+	MMProjAuto           bool     `json:"mmproj_auto,omitempty"`            // --mmproj-auto
+	NoMMProj             bool     `json:"no_mmproj,omitempty"`              // --no-mmproj

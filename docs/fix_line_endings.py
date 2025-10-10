@@ -45,3 +45,7 @@ def on_page_markdown(markdown, page, config, **kwargs):
             '|' in stripped or
             line.endswith('  ') or
             stripped.startswith('---') or
+            stripped.startswith('<') or
+            stripped.endswith('>') or
+            stripped in ('.', '!', '?', ':', ';', '```', '---', ',')):
+            processed_lines.append(line)

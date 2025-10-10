@@ -32,3 +32,5 @@ describe('API Error Handling', () => {
 
     await expect(instancesApi.list())
       .rejects
+      .toThrow('HTTP 500')
+  })

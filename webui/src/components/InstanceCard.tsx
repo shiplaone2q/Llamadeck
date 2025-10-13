@@ -59,3 +59,4 @@ function InstanceCard({
 
   const handleStart = () => {
     startInstance(instance.name);
+  };

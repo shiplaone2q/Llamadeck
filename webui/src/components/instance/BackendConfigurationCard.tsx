@@ -50,3 +50,6 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
         <div className="flex flex-col gap-2">
           <Button
             variant="outline"
+            onClick={onParseCommand}
+            className="flex items-center gap-2 w-fit"
+          >

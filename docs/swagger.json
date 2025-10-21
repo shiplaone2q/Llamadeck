@@ -522,3 +522,6 @@
                     "Backends"
                 ],
                 "summary": "Parse vllm serve command",
+                "parameters": [
+                    {
+                        "description": "Command to parse",

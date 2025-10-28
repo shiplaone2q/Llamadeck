@@ -40,3 +40,5 @@ func RandomToken() string {
 	return hex.EncodeToString(b)
 }
 
+// Create starts a new session for the given OIDC user and returns it.
+func (s *SessionStore) Create(sub, name, email string) *Session {

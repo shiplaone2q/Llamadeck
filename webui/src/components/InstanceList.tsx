@@ -36,3 +36,6 @@ function InstanceList({ editInstance }: InstanceListProps) {
     )
   }
 
+  if (instances.length === 0) {
+    return (
+      <div className="text-center py-12">

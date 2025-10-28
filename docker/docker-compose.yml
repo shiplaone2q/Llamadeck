@@ -42,3 +42,6 @@ services:
     environment:
       # Set data directory for persistence
       - LLAMADECK_DATA_DIR=/data
+      # Enable Docker mode for nested containers (if needed)
+      - LLAMADECK_VLLM_DOCKER_ENABLED=false
+      # vLLM specific environment variables

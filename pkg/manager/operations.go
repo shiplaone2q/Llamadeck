@@ -224,3 +224,5 @@ func (im *instanceManager) UpdateInstance(name string, options *instance.Options
 	if !exists {
 		return nil, fmt.Errorf("%w: %s", ErrInstanceNotFound, name)
 	}
+
+	// Check if instance is remote and delegate to remote operation

@@ -75,3 +75,4 @@ func newStatus(initial Status) *status {
 	}
 }
 
+// get returns the current status

@@ -131,3 +131,7 @@ func (db *sqliteDB) GetAll(ctx context.Context) ([]*instance.Instance, error) {
 // Update updates an existing instance
 func (db *sqliteDB) Update(ctx context.Context, inst *instance.Instance) error {
 	if inst == nil {
+		return fmt.Errorf("instance cannot be nil")
+	}
+
+	opts := inst.GetOptions()

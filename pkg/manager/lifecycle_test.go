@@ -87,3 +87,4 @@ func TestEvictLRUInstance_Success(t *testing.T) {
 		// Clean up - ensure all instances are stopped
 		for _, inst := range []*instance.Instance{inst1, inst2, inst3} {
 			if inst.IsRunning() {
+				inst.SetStatus(instance.Stopped)

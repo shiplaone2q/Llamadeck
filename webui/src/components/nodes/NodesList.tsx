@@ -72,3 +72,7 @@ function NodesList() {
           <p className="text-sm">{error}</p>
         </div>
       </div>
+    );
+  }
+
+  const entries = nodes ? Object.entries(nodes) : [];

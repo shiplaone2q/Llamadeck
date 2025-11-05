@@ -58,3 +58,4 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
   }))
 
   const handleNodeChange = (value: string | undefined) => {
+    if (value) {

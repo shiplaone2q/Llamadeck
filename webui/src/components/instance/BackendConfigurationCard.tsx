@@ -53,3 +53,4 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
             onClick={onParseCommand}
             className="flex items-center gap-2 w-fit"
           >
+            <Terminal className="h-4 w-4" />

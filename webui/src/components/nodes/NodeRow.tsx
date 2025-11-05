@@ -67,3 +67,4 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
             <TooltipTrigger asChild>
               <span
                 className="text-muted-foreground cursor-default"
+                data-testid="node-remote"

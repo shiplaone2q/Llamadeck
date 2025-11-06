@@ -125,3 +125,6 @@ func (im *instanceManager) loadInstances() error {
 	instances, err := im.db.LoadAll()
 	if err != nil {
 		return fmt.Errorf("failed to load instances: %w", err)
+	}
+
+	if len(instances) == 0 {

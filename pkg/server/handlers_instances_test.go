@@ -51,3 +51,5 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 		},
 		LocalNode: "main",
 		Nodes:     map[string]config.NodeConfig{},
+	}
+

@@ -53,3 +53,4 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
     a.download = 'preset.ini'
     document.body.appendChild(a)
     a.click()
+    document.body.removeChild(a)

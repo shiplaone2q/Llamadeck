@@ -101,3 +101,5 @@ vllm serve microsoft/DialoGPT-medium --port 8081
      allowed_origins:
        - "http://localhost:3000"
        - "https://yourdomain.com"
+   ```
+

@@ -66,3 +66,5 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
           value={formData.command_override || ''}
           onChange={(value) => onChange('command_override', value)}
           placeholder={getCommandPlaceholder()}
+          description="Custom path to backend executable (leave empty to use config default)"
+        />

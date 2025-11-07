@@ -77,3 +77,7 @@ type VllmServerOptions struct {
 	PreemptionMode           string  `json:"preemption_mode,omitempty"`
 
 	// Distributed and parallel processing
+	TensorParallelSize            int     `json:"tensor_parallel_size,omitempty"`
+	PipelineParallelSize          int     `json:"pipeline_parallel_size,omitempty"`
+	MaxParallelLoadingWorkers     int     `json:"max_parallel_loading_workers,omitempty"`
+	DisableAsyncOutputProc        bool    `json:"disable_async_output_proc,omitempty"`

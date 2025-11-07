@@ -36,3 +36,5 @@ const CheckboxInput: React.FC<CheckboxInputProps> = ({
         )}
       </Label>
     </div>
+  )
+}

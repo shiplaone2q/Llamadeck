@@ -40,3 +40,7 @@ Object.defineProperty(global, 'localStorage', {
 })
 
 // Create a default fetch mock that handles common API endpoints
+const createMockFetch = () => {
+  return vi.fn((url: string) => {
+    // Handle API endpoints that return JSON
+    if (url.includes('/api/v1/')) {

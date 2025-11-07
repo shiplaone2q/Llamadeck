@@ -153,3 +153,5 @@ func parseRemoteResponse(resp *http.Response, result any) error {
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
+		return fmt.Errorf("failed to read response body: %w", err)
+	}

@@ -57,3 +57,6 @@ describe('nodeHealthService', () => {
     ) as unknown as typeof fetch;
     const unsubscribe = nodeHealthService.subscribe('main', () => {});
     await new Promise((r) => setTimeout(r, 10));
+    unsubscribe();
+
+    // resubscribe within the 2s cache TTL: must not replay the cached failure

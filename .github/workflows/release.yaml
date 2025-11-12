@@ -73,3 +73,5 @@ jobs:
           cache: true
 
       - name: Download Web UI artifacts
+        uses: actions/download-artifact@v4
+        with:

@@ -46,3 +46,4 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
         return "destructive";
     }
   };
+

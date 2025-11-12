@@ -69,3 +69,4 @@ func RunMigrations(db *sqliteDB) error {
 	return nil
 }
 
+// currentVersionString returns a string representation of the current version

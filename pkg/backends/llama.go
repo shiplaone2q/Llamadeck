@@ -168,3 +168,4 @@ type LlamaServerOptions struct {
 	MMProjURL            string   `json:"mmproj_url,omitempty"`             // -mmu, --mmproj-url URL
 	MMProjAuto           bool     `json:"mmproj_auto,omitempty"`            // --mmproj-auto
 	NoMMProj             bool     `json:"no_mmproj,omitempty"`              // --no-mmproj
+	NoMMProjAuto         bool     `json:"no_mmproj_auto,omitempty"`         // --no-mmproj-auto

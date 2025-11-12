@@ -90,3 +90,6 @@ describe('NodesList', () => {
   });
 
   afterEach(() => {
+    vi.restoreAllMocks();
+  });
+

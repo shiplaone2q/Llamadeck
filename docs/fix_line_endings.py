@@ -49,3 +49,5 @@ def on_page_markdown(markdown, page, config, **kwargs):
             stripped.endswith('>') or
             stripped in ('.', '!', '?', ':', ';', '```', '---', ',')):
             processed_lines.append(line)
+            continue
+            

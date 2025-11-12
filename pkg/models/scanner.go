@@ -92,3 +92,4 @@ func ScanCache(cacheDir, nodeName string) ([]CachedModel, error) {
 	if err == nil {
 		models = append(models, legacyModels...)
 	}
+

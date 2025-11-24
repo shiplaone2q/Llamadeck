@@ -135,3 +135,5 @@ func (p *process) start() error {
 	p.monitorDone = make(chan struct{})
 
 	go p.instance.logger.readOutput(p.stdout)
+	go p.instance.logger.readOutput(p.stderr)
+

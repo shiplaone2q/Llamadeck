@@ -69,3 +69,4 @@ type Handler struct {
 	cfg             config.AppConfig
 	httpClient      *http.Client
 	authStore       database.AuthStore
+	authMiddleware  *APIAuthMiddleware

@@ -166,3 +166,6 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
       } else if (value !== undefined && value !== null) {
         // Skip empty strings
         if (typeof value === 'string' && value.trim() === "") {
+          return;
+        }
+        // Skip empty arrays

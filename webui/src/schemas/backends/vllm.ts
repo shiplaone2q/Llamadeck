@@ -56,3 +56,5 @@ export const VllmBackendOptionsSchema = z.object({
   lora_extra_vocab_size: z.number().optional(),
   lora_rank: z.number().optional(),
   prompt_lookback_distance: z.number().optional(),
+  preemption_mode: z.string().optional(),
+

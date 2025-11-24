@@ -49,3 +49,7 @@ def on_page_markdown(markdown, page, config, **kwargs):
 
 
 def add_line_breaks(content):
+    """Add two spaces at the end of each line for proper MkDocs line breaks"""
+    lines = content.split('\n')
+    processed_lines = []
+

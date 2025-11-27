@@ -171,3 +171,5 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 
 	if plan.MainGGUF != nil {
 		t.Error("expected MainGGUF to be nil for safetensors plan")
+	}
+	if plan.Format != FormatSafetensors {

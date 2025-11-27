@@ -85,3 +85,5 @@ backends:
     docker:
       enabled: true
   vllm:
+    docker:
+      enabled: true

@@ -52,3 +52,4 @@ const SelectInput: React.FC<SelectInputProps> = ({
   )
 }
 
+export default SelectInput

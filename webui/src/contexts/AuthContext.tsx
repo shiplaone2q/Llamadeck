@@ -77,3 +77,160 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
       })
 
+      return response.ok
+    } catch (err) {
+      console.error('Auth validation error:', err)
+      return false
+    }
+  }, [])
+
+  // Load auth state on mount: stored API key first, then an existing OIDC
+  // session cookie
+  useEffect(() => {
+    const loadStoredAuth = async () => {
+      let whoami: WhoamiResponse | null = null
+      try {
+        whoami = await authApi.whoami()
+        setOidcEnabled(whoami.oidc_enabled)
+      } catch (err) {
+        console.error('Error fetching auth state:', err)
+      }
+
+      try {
+        const storedKey = sessionStorage.getItem(AUTH_STORAGE_KEY)
+        if (storedKey) {
+          const isValid = await validateApiKey(storedKey)
+          if (isValid) {
+            setApiKey(storedKey)
+            setAuthMethod('key')
+            setIsAuthenticated(true)
+            return
+          }
+          // Invalid key, remove it
+          sessionStorage.removeItem(AUTH_STORAGE_KEY)
+        }
+
+        if (whoami?.authenticated && whoami.user) {
+          setUser(whoami.user)
+          setAuthMethod('session')
+          setIsAuthenticated(true)
+        }
+      } catch (err) {
+        console.error('Error loading stored auth:', err)
+        // Clear potentially corrupted storage
+        sessionStorage.removeItem(AUTH_STORAGE_KEY)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    void loadStoredAuth()
+  }, [validateApiKey])
+
+  // A 401 from any API call means the key or session died mid-flight; drop
+  // back to the login dialog
+  useEffect(() => {
+    const onUnauthorized = () => {
+      sessionStorage.removeItem(AUTH_STORAGE_KEY)
+      setApiKey(null)
+      setUser(null)
+      setAuthMethod(null)
+      setIsAuthenticated(false)
+    }
+    window.addEventListener('llamadeck:unauthorized', onUnauthorized)
+    return () => window.removeEventListener('llamadeck:unauthorized', onUnauthorized)
+  }, [])
+
+  const login = useCallback(async (key: string) => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      // Validate the provided API key
+      const isValid = await validateApiKey(key)
+
+      if (!isValid) {
+        throw new Error('Invalid API key')
+      }
+
+      // Store the key and update state
+      sessionStorage.setItem(AUTH_STORAGE_KEY, key)
+      setApiKey(key)
+      setAuthMethod('key')
+      setIsAuthenticated(true)
+      setOidcError(null)
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Authentication failed'
+      setError(errorMessage)
+      throw new Error(errorMessage)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [validateApiKey])
+
+  const logout = useCallback(() => {
+    if (authMethod === 'session') {
+      // Revoke the server-side session; best-effort, the local state is
+      // cleared regardless
+      void fetch(`${document.baseURI}api/v1/auth/oidc/logout`, {
+        method: 'POST',
+        keepalive: true,
+      }).catch(() => {})
+    }
+    sessionStorage.removeItem(AUTH_STORAGE_KEY)
+    setApiKey(null)
+    setUser(null)
+    setAuthMethod(null)
+    setIsAuthenticated(false)
+    setError(null)
+    setOidcError(null)
+  }, [authMethod])
+
+  const clearError = useCallback(() => {
+    setError(null)
+  }, [])
+
+  const clearOIDCError = useCallback(() => {
+    setOidcError(null)
+  }, [])
+
+  const validateAuth = useCallback(async (): Promise<boolean> => {
+    if (!apiKey) return false
+
+    const isValid = await validateApiKey(apiKey)
+    if (!isValid) {
+      logout()
+    }
+    return isValid
+  }, [apiKey, logout, validateApiKey])
+
+  const value: AuthContextType = {
+    isAuthenticated,
+    isLoading,
+    apiKey,
+    user,
+    authMethod,
+    oidcEnabled,
+    error,
+    oidcError,
+    login,
+    logout,
+    clearError,
+    clearOIDCError,
+    validateAuth,
+  }
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  )
+}
+
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext)
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+  return context
+}

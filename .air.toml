@@ -27,3 +27,4 @@ time = true
 clear_on_rebuild = false
 
 [misc]
+clean_on_exit = true

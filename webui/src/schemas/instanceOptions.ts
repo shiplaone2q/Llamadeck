@@ -56,3 +56,56 @@ export const CreateInstanceOptionsSchema = z.object({
   nodes: z.array(z.string()).optional(),
 
   // Instance group for hierarchical eviction
+  group: z.string().optional(),
+
+  // Preset configuration
+  preset_ini: z.string().optional(),
+})
+
+// Re-export types and schemas from backend files
+export {
+  LlamaCppBackendOptionsSchema,
+  MlxBackendOptionsSchema,
+  VllmBackendOptionsSchema,
+  CustomBackendOptionsSchema,
+  type LlamaCppBackendOptions,
+  type MlxBackendOptions,
+  type VllmBackendOptions,
+  type CustomBackendOptions,
+  getAllLlamaCppFieldKeys,
+  getAllMlxFieldKeys,
+  getAllVllmFieldKeys,
+  getAllCustomFieldKeys,
+  getLlamaCppFieldType,
+  getMlxFieldType,
+  getVllmFieldType,
+  getCustomFieldType,
+  // LlamaCpp Alt Keys
+  getAllLlamaCppAltKeys,
+  getLlamaCppAltKeyType
+}
+
+// Infer the TypeScript types from the schemas
+export type BackendOptions = z.infer<typeof BackendOptionsSchema>
+export type CreateInstanceOptions = z.infer<typeof CreateInstanceOptionsSchema>
+
+// Helper to get all field keys for CreateInstanceOptions
+export function getAllFieldKeys(): (keyof CreateInstanceOptions)[] {
+  return Object.keys(CreateInstanceOptionsSchema.shape) as (keyof CreateInstanceOptions)[]
+}
+
+// Get field type from Zod schema
+export function getFieldType(key: keyof CreateInstanceOptions): 'text' | 'number' | 'boolean' | 'array' | 'object' {
+  const fieldSchema = CreateInstanceOptionsSchema.shape[key]
+  if (!fieldSchema) return 'text'
+
+  // Handle ZodOptional wrapper
+  const innerSchema = fieldSchema instanceof z.ZodOptional ? fieldSchema.unwrap() : fieldSchema
+
+  if (innerSchema instanceof z.ZodBoolean) return 'boolean'
+  if (innerSchema instanceof z.ZodNumber) return 'number'
+  if (innerSchema instanceof z.ZodArray) return 'array'
+  if (innerSchema instanceof z.ZodObject) return 'object'
+  if (innerSchema instanceof z.ZodRecord) return 'object' // Handle ZodRecord as object
+  return 'text' // ZodString and others default to text
+}

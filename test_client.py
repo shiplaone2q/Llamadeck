@@ -80,3 +80,56 @@ def interactive_mode():
         print("No models available. Exiting.")
         return
 
+    print("\nAvailable models:")
+    for i, m in enumerate(models, 1):
+        print(f"{i}. {m['id']}")
+
+    while True:
+        try:
+            selection = int(input("\nSelect model: "))
+            if 1 <= selection <= len(models):
+                MODEL_NAME = models[selection - 1]["id"]
+                break
+            print(f"Please enter a number between 1 and {len(models)}")
+        except ValueError:
+            print("Please enter a valid number")
+
+    print(f"\nUsing model: {MODEL_NAME}")
+    print("Type 'quit' or 'exit' to stop")
+    print("-" * 40)
+    
+    while True:
+        try:
+            user_input = input("\nYou: ").strip()
+            
+            if user_input.lower() in ['quit', 'exit', 'q']:
+                print("Goodbye!")
+                break
+                
+            if not user_input:
+                continue
+                
+            print("AI: ", end="", flush=True)
+            response = send_message(user_input)
+            print(response)
+            
+        except KeyboardInterrupt:
+            print("\nGoodbye!")
+            break
+        except EOFError:
+            print("\nGoodbye!")
+            break
+
+def main():
+    """Main function"""
+    if len(sys.argv) > 1:
+        # Single message mode
+        message = " ".join(sys.argv[1:])
+        response = send_message(message)
+        print(response)
+    else:
+        # Interactive mode
+        interactive_mode()
+
+if __name__ == "__main__":
+    main()

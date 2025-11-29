@@ -54,3 +54,25 @@ export interface DatabaseConfig {
 
 export interface AuthConfig {
   require_inference_auth: boolean
+  require_management_auth: boolean
+  management_keys: string[] // Will be empty in sanitized response
+}
+
+export interface NodeConfig {
+  address: string
+  api_key: string // Will be empty in sanitized response
+}
+
+export interface AppConfig {
+  server: ServerConfig
+  backends: BackendConfig
+  instances: InstancesConfig
+  database: DatabaseConfig
+  auth: AuthConfig
+  local_node: string
+  nodes: Record<string, NodeConfig>
+  data_dir: string
+  version?: string
+  commit_hash?: string
+  build_time?: string
+}

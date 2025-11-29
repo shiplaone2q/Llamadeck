@@ -62,3 +62,31 @@ const AutoRestartConfiguration: React.FC<AutoRestartConfigurationProps> = ({
             onChange={(value) => onChange('auto_restart', value)}
             description="Automatically restart the instance on failure"
           />
+
+          {isAutoRestartEnabled && (
+            <div className="space-y-4">
+              <NumberInput
+                id="max_restarts"
+                label="Max Restarts"
+                value={formData.max_restarts}
+                onChange={(value) => onChange('max_restarts', value)}
+                placeholder="3"
+                description="Maximum number of restart attempts (0 = unlimited)"
+              />
+              <NumberInput
+                id="restart_delay"
+                label="Restart Delay (seconds)"
+                value={formData.restart_delay}
+                onChange={(value) => onChange('restart_delay', value)}
+                placeholder="5"
+                description="Delay in seconds before attempting restart"
+              />
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default AutoRestartConfiguration

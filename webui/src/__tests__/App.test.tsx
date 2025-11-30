@@ -93,3 +93,178 @@ describe('App Component - Critical Business Logic Only', () => {
     
     // Mock window.matchMedia for dark mode functionality
     Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation((query: string) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    })
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  describe('End-to-End Instance Management', () => {
+    it('creates new instance with correct API call and updates UI', async () => {
+      const user = userEvent.setup()
+      const newInstance: Instance = {
+        id: 3,
+        name: 'new-test-instance',
+        status: 'stopped',
+        options: { backend_type: BackendType.LLAMA_CPP, backend_options: { model: 'new-model.gguf' } }
+      }
+      vi.mocked(instancesApi.create).mockResolvedValue(newInstance)
+
+      renderApp()
+
+      // Wait for app to load
+      await waitFor(() => {
+        expect(screen.getByText('test-instance-1')).toBeInTheDocument()
+      })
+
+      // Complete create flow: button → form → API call → UI update
+      await user.click(screen.getByText('Create Instance'))
+
+      const nameInput = screen.getByLabelText(/Instance Name/)
+      await user.type(nameInput, 'new-test-instance')
+
+      // Navigate to the advanced tab where the save button is
+      const advancedTab = screen.getByRole('tab', { name: /Advanced/i })
+      await user.click(advancedTab)
+
+      await user.click(screen.getByTestId('dialog-save-button'))
+
+      // Verify correct API call
+      await waitFor(() => {
+        expect(instancesApi.create).toHaveBeenCalledWith('new-test-instance', {
+          auto_restart: true, // Default value from config
+          backend_type: BackendType.LLAMA_CPP,
+          docker_enabled: false,
+          idle_timeout: 30,
+          max_restarts: 3,
+          on_demand_start: false,
+          restart_delay: 5
+        })
+      })
+
+      // Verify UI updates with new instance
+      await waitFor(() => {
+        expect(screen.getByText('new-test-instance')).toBeInTheDocument()
+      })
+    })
+
+    it('updates existing instance with correct API call', async () => {
+      const user = userEvent.setup()
+      const updatedInstance: Instance = {
+        id: 1,
+        name: 'test-instance-1',
+        status: 'stopped',
+        options: { backend_type: BackendType.LLAMA_CPP, backend_options: { model: 'updated-model.gguf' } }
+      }
+      vi.mocked(instancesApi.update).mockResolvedValue(updatedInstance)
+
+      renderApp()
+
+      await waitFor(() => {
+        expect(screen.getByText('test-instance-1')).toBeInTheDocument()
+      })
+
+      // Complete edit flow: edit button → form → API call
+      const editButtons = screen.getAllByTitle('Edit instance')
+      await user.click(editButtons[0])
+
+      // Navigate to the advanced tab where the save button is
+      const advancedTab = screen.getByRole('tab', { name: /Advanced/i })
+      await user.click(advancedTab)
+
+      await user.click(screen.getByTestId('dialog-save-button'))
+
+      // Verify correct API call with existing instance data
+      await waitFor(() => {
+        expect(instancesApi.update).toHaveBeenCalledWith('test-instance-1', {
+          backend_type: BackendType.LLAMA_CPP,
+          backend_options: { model: "model1.gguf" } // Pre-filled from existing instance
+        })
+      })
+    })
+
+    it('renders instances and provides working interface', async () => {
+      renderApp()
+
+      // Verify the app loads instances and renders them
+      await waitFor(() => {
+        expect(screen.getByText('test-instance-1')).toBeInTheDocument()
+        expect(screen.getByText('test-instance-2')).toBeInTheDocument()
+        expect(screen.getByText('Instances (2)')).toBeInTheDocument()
+      })
+
+      // Verify action buttons are present (testing integration, not specific actions)
+      expect(screen.getAllByTitle('Start instance').length).toBeGreaterThan(0)
+      expect(screen.getAllByTitle('Stop instance').length).toBeGreaterThan(0)
+      expect(screen.getAllByTitle('Edit instance').length).toBe(2)
+      expect(screen.getAllByTitle('More actions').length).toBe(2)
+    })
+
+    it('delete confirmation calls correct API', async () => {
+      const user = userEvent.setup()
+      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true)
+      vi.mocked(instancesApi.delete).mockResolvedValue(undefined)
+
+      renderApp()
+
+      await waitFor(() => {
+        expect(screen.getByText('test-instance-1')).toBeInTheDocument()
+      })
+
+      // First click the "More actions" button to reveal the delete button
+      const moreActionsButtons = screen.getAllByTitle('More actions')
+      await user.click(moreActionsButtons[0])
+
+      // Wait for the delete button to appear and click it
+      await waitFor(() => {
+        expect(screen.getByTitle('Delete instance')).toBeInTheDocument()
+      })
+
+      const deleteButton = screen.getByTitle('Delete instance')
+      await user.click(deleteButton)
+
+      // Verify confirmation and API call
+      expect(confirmSpy).toHaveBeenCalledWith('Are you sure you want to delete instance "test-instance-1"?')
+      await waitFor(() => {
+        expect(instancesApi.delete).toHaveBeenCalledWith('test-instance-1')
+      })
+
+      confirmSpy.mockRestore()
+    })
+  })
+
+  describe('Error Handling', () => {
+    it('handles instance loading errors gracefully', async () => {
+      vi.mocked(instancesApi.list).mockRejectedValue(new Error('Failed to load instances'))
+
+      renderApp()
+
+      // App should still render and show error
+      await waitFor(() => {
+        expect(screen.getByText('Error loading instances')).toBeInTheDocument()
+      })
+    })
+
+    it('shows empty state when no instances exist', async () => {
+      vi.mocked(instancesApi.list).mockResolvedValue([])
+
+      renderApp()
+
+      await waitFor(() => {
+        expect(screen.getByText('No instances found')).toBeInTheDocument()
+      })
+    })
+  })
+})

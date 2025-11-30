@@ -64,3 +64,10 @@ func VerifyKey(plainTextKey, hash string) bool {
 	if err != nil {
 		return false
 	}
+
+	// Compute hash of the provided key
+	computedHash := argon2.IDKey([]byte(plainTextKey), salt, uint32(time), uint32(memory), uint8(threads), uint32(len(expectedHash)))
+
+	// Compare hashes using constant-time comparison
+	return subtle.ConstantTimeCompare(computedHash, expectedHash) == 1
+}

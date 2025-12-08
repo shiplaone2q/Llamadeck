@@ -86,3 +86,5 @@ You should see the Llamadeck web interface.
 
 Once created, you can:
 
+- **Start** the instance by clicking the start button
+- **Monitor** its status in real-time

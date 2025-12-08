@@ -71,3 +71,7 @@ func TestExpandEnvVars(t *testing.T) {
 			input:    "val: ${VAR:-/usr/local/bin}",
 			envVars:  nil,
 			expected: "val: /usr/local/bin",
+		},
+		{
+			name:     "empty input",
+			input:    "",

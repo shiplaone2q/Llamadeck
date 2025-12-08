@@ -133,3 +133,7 @@ func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 
 		if !inst.IsRemote() {
 			h.stripLlamaCppPrefix(r, inst.Name)
+		}
+
+		// Use instance's ServeHTTP which tracks inflight requests and handles shutting down state
+		err = inst.ServeHTTP(w, r)

@@ -72,3 +72,4 @@ func main() {
 		ConnMaxLifetime:    cfg.Database.ConnMaxLifetime,
 	})
 	if err != nil {
+		log.Fatalf("Failed to open database: %v", err)

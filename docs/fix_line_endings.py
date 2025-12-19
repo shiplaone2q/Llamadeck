@@ -51,3 +51,7 @@ def on_page_markdown(markdown, page, config, **kwargs):
             processed_lines.append(line)
             continue
             
+        # Add two spaces to lines that end with regular text or most punctuation
+        if stripped and not in_code_block:
+            processed_lines.append(line.rstrip() + '  ')
+        else:

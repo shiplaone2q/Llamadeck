@@ -132,3 +132,7 @@ func (h *Handler) UpdateInstance() http.HandlerFunc {
 			return
 		}
 
+		var options instance.Options
+		if err := json.NewDecoder(r.Body).Decode(&options); err != nil {
+			writeError(w, http.StatusBadRequest, "invalid_request", "Invalid request body")
+			return

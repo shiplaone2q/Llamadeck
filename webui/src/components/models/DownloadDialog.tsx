@@ -70,3 +70,7 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
       return false
     }
     if (!value.includes('/')) {
+      setModelError('Format must be: org/model-name or org/model-name:tag')
+      return false
+    }
+    setModelError('')

@@ -76,3 +76,6 @@ func newStatus(initial Status) *status {
 }
 
 // get returns the current status
+func (st *status) get() Status {
+	st.mu.RLock()
+	defer st.mu.RUnlock()

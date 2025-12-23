@@ -73,3 +73,6 @@ func TestProxy_HealthRequestsExcluded(t *testing.T) {
 			t.Errorf("Expected 1 inflight request, got %d", p.getInflightRequests())
 		}
 		
+		backendBlock <- struct{}{}
+		time.Sleep(50 * time.Millisecond)
+		

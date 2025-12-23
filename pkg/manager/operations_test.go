@@ -196,3 +196,6 @@ func TestUpdateInstance(t *testing.T) {
 	mgr := createTestManager(t)
 	defer mgr.Shutdown()
 
+	options := &instance.Options{
+		BackendOptions: backends.Options{
+			BackendType: backends.BackendTypeLlamaCpp,

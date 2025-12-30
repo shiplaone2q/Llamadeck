@@ -68,3 +68,6 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
               <span
                 className="text-muted-foreground cursor-default"
                 data-testid="node-remote"
+              >
+                Remote
+              </span>

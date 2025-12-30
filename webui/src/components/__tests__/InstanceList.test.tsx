@@ -81,3 +81,6 @@ describe('InstanceList - State Management and UI Logic', () => {
       vi.mocked(instancesApi.list).mockImplementation(() => 
         new Promise(resolve => setTimeout(() => resolve(mockInstances), 100))
       )
+
+      renderInstanceList(mockEditInstance)
+

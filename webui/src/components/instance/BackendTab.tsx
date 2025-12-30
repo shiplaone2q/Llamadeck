@@ -71,3 +71,7 @@ const BackendTab: React.FC<BackendTabProps> = ({
 
   const configuredNames = Object.keys(customBackends)
   // Keep an existing selection resolvable even if its config entry was
+  // removed after creation; the server rejects the save with a clear error
+  if (isCustom && customName && !configuredNames.includes(customName)) {
+    configuredNames.push(customName)
+  }

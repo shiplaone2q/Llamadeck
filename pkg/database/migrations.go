@@ -72,3 +72,6 @@ func RunMigrations(db *sqliteDB) error {
 // currentVersionString returns a string representation of the current version
 func currentVersionString(version uint, err error) string {
 	if err == migrate.ErrNilVersion {
+		return "none"
+	}
+	return fmt.Sprintf("%d", version)

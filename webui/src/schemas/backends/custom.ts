@@ -28,3 +28,4 @@ export function getCustomFieldType(key: keyof CustomBackendOptions): 'text' | 'n
 
   if (innerSchema instanceof z.ZodBoolean) return 'boolean'
   if (innerSchema instanceof z.ZodNumber) return 'number'
+  if (innerSchema instanceof z.ZodArray) return 'array'

@@ -70,3 +70,7 @@ func NewAPIAuthMiddleware(authCfg config.AuthConfig, authStore database.AuthStor
 		managementKeys:        managementKeys,
 	}
 }
+
+// InferenceAuthMiddleware returns middleware for inference endpoints
+func (a *APIAuthMiddleware) InferenceAuthMiddleware() func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {

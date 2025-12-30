@@ -93,3 +93,4 @@ func ScanCache(cacheDir, nodeName string) ([]CachedModel, error) {
 		models = append(models, legacyModels...)
 	}
 
+	return models, nil

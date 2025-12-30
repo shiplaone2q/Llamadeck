@@ -74,3 +74,7 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
       return false
     }
     setModelError('')
+    return true
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {

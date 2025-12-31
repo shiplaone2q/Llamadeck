@@ -68,3 +68,5 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
           placeholder={getCommandPlaceholder()}
           description="Custom path to backend executable (leave empty to use config default)"
         />
+      )}
+

@@ -110,3 +110,7 @@ func (o *Options) MarshalJSON() ([]byte, error) {
 		BackendType:    o.BackendType,
 		BackendOptions: backendOptions,
 	})
+}
+
+// setBackendOptions stores the backend in the appropriate typed field
+func (o *Options) setBackendOptions(bcknd backend) {

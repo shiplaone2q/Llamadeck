@@ -132,3 +132,7 @@ describe("InstancesContext", () => {
     { id: 2, name: "instance2", status: "stopped", options: { backend_type: BackendType.LLAMA_CPP, backend_options: { model: "model2.gguf" } } },
   ];
 
+  beforeEach(() => {
+    vi.clearAllMocks();
+    window.sessionStorage.setItem('llamadeck_management_key', 'test-api-key-123');
+    global.fetch = vi.fn(() => Promise.resolve(new Response(null, { status: 200 })));

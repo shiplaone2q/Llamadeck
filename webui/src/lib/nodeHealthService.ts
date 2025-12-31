@@ -85,3 +85,5 @@ class NodeHealthService {
     }, POLL_INTERVAL);
 
     this.intervals.set(nodeName, interval);
+  }
+

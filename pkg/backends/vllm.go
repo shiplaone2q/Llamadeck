@@ -81,3 +81,5 @@ type VllmServerOptions struct {
 	PipelineParallelSize          int     `json:"pipeline_parallel_size,omitempty"`
 	MaxParallelLoadingWorkers     int     `json:"max_parallel_loading_workers,omitempty"`
 	DisableAsyncOutputProc        bool    `json:"disable_async_output_proc,omitempty"`
+	WorkerClass                   string  `json:"worker_class,omitempty"`
+	EnabledLoraModules            string  `json:"enabled_lora_modules,omitempty"`

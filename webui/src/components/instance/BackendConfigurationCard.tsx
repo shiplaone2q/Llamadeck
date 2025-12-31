@@ -55,3 +55,6 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
           >
             <Terminal className="h-4 w-4" />
             Parse Command
+          </Button>
+          <p className="text-sm text-muted-foreground">
+            Import settings from your backend command

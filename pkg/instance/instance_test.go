@@ -265,3 +265,4 @@ func TestUnmarshalJSON(t *testing.T) {
 		t.Errorf("Expected port 8080, got %d", inst.GetPort())
 	}
 	if opts.AutoRestart == nil || *opts.AutoRestart {
+		t.Error("Expected AutoRestart to be false")

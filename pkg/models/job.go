@@ -89,3 +89,5 @@ func (s *JobStore) Get(jobID string) (*Job, error) {
 	job, exists := s.jobs[jobID]
 	if !exists {
 		return nil, fmt.Errorf("job not found: %s", jobID)
+	}
+

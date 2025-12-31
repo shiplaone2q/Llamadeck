@@ -71,3 +71,4 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
               >
                 Remote
               </span>
+            </TooltipTrigger>

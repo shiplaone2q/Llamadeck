@@ -419,3 +419,7 @@
 }
 
 .nt-group-4 .nt-plan-group-summary,
+.nt-group-4 .nt-timeline-dot {
+  color: var(--nt-group-4-dark);
+  background-color: var(--nt-group-4-dark-bg);
+}

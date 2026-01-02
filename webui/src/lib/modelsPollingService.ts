@@ -63,3 +63,7 @@ class ModelsPollingService {
         // Reset counters when we have active jobs
         this.emptyPollCount = 0
         this.expectingJobs = false
+      }
+    } catch (error) {
+      console.error('Failed to poll jobs:', error)
+      // Continue polling even on error - don't break the polling loop

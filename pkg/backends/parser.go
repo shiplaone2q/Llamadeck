@@ -98,3 +98,191 @@ func extractArgs(command string, executableNames []string, subcommandNames []str
 		}
 	}
 
+	// Skip subcommand if present
+	if start < len(tokens) {
+		for _, subCmd := range subcommandNames {
+			if strings.EqualFold(tokens[start], subCmd) {
+				start++
+				break
+			}
+		}
+	}
+
+	// Handle case where command starts with subcommand (no executable)
+	if start == 0 {
+		for _, subCmd := range subcommandNames {
+			if strings.EqualFold(firstToken, subCmd) {
+				start = 1
+				break
+			}
+		}
+	}
+
+	args := tokens[start:]
+
+	// Extract first positional argument (model) if present and not a flag
+	var modelFromPositional string
+	if len(args) > 0 && !strings.HasPrefix(args[0], "-") {
+		modelFromPositional = args[0]
+		args = args[1:] // Remove the model from args to process remaining flags
+	}
+
+	return args, modelFromPositional, nil
+}
+
+// parseFlags parses command line flags into a map
+func parseFlags(args []string, multiValuedFlags map[string]struct{}, flagAliases map[string]string) (map[string]any, error) {
+	options := make(map[string]any)
+
+	for i := 0; i < len(args); i++ {
+		arg := args[i]
+
+		if !strings.HasPrefix(arg, "-") {
+			continue
+		}
+
+		// Check for malformed flags (more than two leading dashes)
+		if strings.HasPrefix(arg, "---") {
+			return nil, fmt.Errorf("malformed flag: %s", arg)
+		}
+
+		// Get flag name and value
+		var flagName, value string
+		var hasValue bool
+
+		if strings.Contains(arg, "=") {
+			parts := strings.SplitN(arg, "=", 2)
+			flagName = strings.TrimLeft(parts[0], "-")
+			value = parts[1]
+			hasValue = true
+		} else {
+			flagName = strings.TrimLeft(arg, "-")
+			if i+1 < len(args) && !strings.HasPrefix(args[i+1], "-") {
+				value = args[i+1]
+				hasValue = true
+				i++ // Skip next arg since we consumed it
+			}
+		}
+
+		// Convert kebab-case to snake_case for JSON
+		flagName = strings.ReplaceAll(flagName, "-", "_")
+
+		// Check for flag aliases
+		if flagAliases != nil {
+			if canonical, exists := flagAliases[flagName]; exists {
+				flagName = canonical
+			}
+		}
+
+		if hasValue {
+			// Handle multi-valued flags
+			if _, isMultiValue := multiValuedFlags[flagName]; isMultiValue {
+				if existing, ok := options[flagName].([]string); ok {
+					options[flagName] = append(existing, value)
+				} else {
+					options[flagName] = []string{value}
+				}
+			} else {
+				options[flagName] = parseValue(value)
+			}
+		} else {
+			// Boolean flag
+			options[flagName] = true
+		}
+	}
+
+	return options, nil
+}
+
+// parseValue converts string to appropriate type
+func parseValue(value string) any {
+	// Remove quotes
+	if len(value) >= 2 {
+		if (value[0] == '"' && value[len(value)-1] == '"') || (value[0] == '\'' && value[len(value)-1] == '\'') {
+			value = value[1 : len(value)-1]
+		}
+	}
+
+	// Try boolean
+	switch strings.ToLower(value) {
+	case "true":
+		return true
+	case "false":
+		return false
+	}
+
+	// Try integer
+	if intVal, err := strconv.Atoi(value); err == nil {
+		return intVal
+	}
+
+	// Try float
+	if floatVal, err := strconv.ParseFloat(value, 64); err == nil {
+		return floatVal
+	}
+
+	// Return as string
+	return value
+}
+
+// setFieldValue sets a field value using reflection, handling type conversions
+// Used by UnmarshalJSON implementations to handle alternative field names
+func setFieldValue(field reflect.Value, value any) {
+	switch field.Kind() {
+	case reflect.Int:
+		if intVal, ok := value.(float64); ok {
+			field.SetInt(int64(intVal))
+		} else if strVal, ok := value.(string); ok {
+			if intVal, err := strconv.Atoi(strVal); err == nil {
+				field.SetInt(int64(intVal))
+			}
+		}
+	case reflect.Float64:
+		if floatVal, ok := value.(float64); ok {
+			field.SetFloat(floatVal)
+		} else if strVal, ok := value.(string); ok {
+			if floatVal, err := strconv.ParseFloat(strVal, 64); err == nil {
+				field.SetFloat(floatVal)
+			}
+		}
+	case reflect.String:
+		if strVal, ok := value.(string); ok {
+			field.SetString(strVal)
+		}
+	case reflect.Bool:
+		if boolVal, ok := value.(bool); ok {
+			field.SetBool(boolVal)
+		}
+	case reflect.Slice:
+		// Handle string slices
+		if field.Type().Elem().Kind() == reflect.String {
+			if slice, ok := value.([]any); ok {
+				strSlice := make([]string, 0, len(slice))
+				for _, v := range slice {
+					if s, ok := v.(string); ok {
+						strSlice = append(strSlice, s)
+					}
+				}
+				field.Set(reflect.ValueOf(strSlice))
+			}
+		}
+	}
+}
+
+// getKnownFieldNames extracts all known field names from struct json tags
+// Used by UnmarshalJSON implementations to identify unknown fields for ExtraArgs
+func getKnownFieldNames(v any) map[string]bool {
+	fields := make(map[string]bool)
+	t := reflect.TypeOf(v).Elem()
+
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		jsonTag := field.Tag.Get("json")
+		if jsonTag != "" && jsonTag != "-" {
+			// Handle "name,omitempty" format
+			name := strings.Split(jsonTag, ",")[0]
+			fields[name] = true
+		}
+	}
+	return fields
+}

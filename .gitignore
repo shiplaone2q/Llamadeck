@@ -48,3 +48,4 @@ __debug*
 llamadeck-*
 
 # Air live-reload build output
+tmp/

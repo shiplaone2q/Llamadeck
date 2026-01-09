@@ -17,3 +17,7 @@ WORKDIR /data
 EXPOSE 8080
 
 ENV LLAMACTL_LLAMACPP_COMMAND=/app/llama-server
+ENV LD_LIBRARY_PATH="/app:/usr/local/lib:/usr/lib"
+
+# Set llamactl as the entrypoint
+ENTRYPOINT ["llamactl"]

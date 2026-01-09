@@ -128,3 +128,211 @@ func (im *instanceManager) loadInstances() error {
 	}
 
 	if len(instances) == 0 {
+		return nil
+	}
+
+	// Process each loaded instance
+	for _, persistedInst := range instances {
+		if err := im.loadInstance(persistedInst); err != nil {
+			log.Printf("Failed to load instance %s: %v", persistedInst.Name, err)
+			continue
+		}
+	}
+
+	log.Printf("Loaded %d instances from persistence", len(instances))
+
+	// Auto-start instances that have auto-restart enabled
+	go im.autoStartInstances()
+
+	return nil
+}
+
+// loadInstance loads a single persisted instance and adds it to the registry
+func (im *instanceManager) loadInstance(persistedInst *instance.Instance) error {
+	name := persistedInst.Name
+	options := persistedInst.GetOptions()
+
+	// Check if this is a remote instance (local node not in the Nodes set)
+	var isRemote bool
+	var nodeName string
+	if options != nil {
+		if _, isLocal := options.Nodes[im.globalConfig.LocalNode]; !isLocal && len(options.Nodes) > 0 {
+			// Get the first node from the set
+			for node := range options.Nodes {
+				nodeName = node
+				isRemote = true
+				break
+			}
+		}
+	}
+
+	var statusCallback func(oldStatus, newStatus instance.Status)
+	if !isRemote {
+		// Only set status callback for local instances
+		statusCallback = func(oldStatus, newStatus instance.Status) {
+			im.onStatusChange(name, oldStatus, newStatus)
+		}
+	}
+
+	// Create new inst using NewInstance (handles validation, defaults, setup)
+	inst := instance.New(name, im.globalConfig, options, statusCallback)
+
+	// Restore persisted fields that NewInstance doesn't set
+	inst.ID = persistedInst.ID
+	inst.Created = persistedInst.Created
+	inst.SetStatus(persistedInst.GetStatus())
+
+	// Handle remote instance mapping
+	if isRemote {
+		// Map instance to node in remote manager
+		if err := im.remote.setInstanceNode(name, nodeName); err != nil {
+			return fmt.Errorf("failed to set instance node: %w", err)
+		}
+	} else {
+		// Allocate port for local instances
+		if inst.GetPort() > 0 {
+			port := inst.GetPort()
+			if err := im.ports.allocateSpecific(port, name); err != nil {
+				return fmt.Errorf("port conflict: instance %s wants port %d which is already in use: %w", name, port, err)
+			}
+		}
+	}
+
+	// Add instance to registry
+	if err := im.registry.add(inst); err != nil {
+		return fmt.Errorf("failed to add instance to registry: %w", err)
+	}
+
+	return nil
+}
+
+// autoStartInstances starts instances that were running when persisted and have auto-restart enabled
+// For instances with auto-restart disabled, it sets their status to Stopped
+func (im *instanceManager) autoStartInstances() {
+	instances := im.registry.list()
+
+	var instancesToStart []*instance.Instance
+	var instancesToStop []*instance.Instance
+
+	for _, inst := range instances {
+		if inst.IsRunning() && // Was running when persisted
+			inst.GetOptions() != nil &&
+			inst.GetOptions().AutoRestart != nil {
+			if *inst.GetOptions().AutoRestart {
+				instancesToStart = append(instancesToStart, inst)
+			} else {
+				// Instance was running but auto-restart is disabled, mark as stopped
+				instancesToStop = append(instancesToStop, inst)
+			}
+		}
+	}
+
+	// Stop instances that have auto-restart disabled
+	for _, inst := range instancesToStop {
+		log.Printf("Instance %s was running but auto-restart is disabled, setting status to stopped", inst.Name)
+		inst.SetStatus(instance.Stopped)
+		im.registry.markStopped(inst.Name)
+	}
+
+	// Start instances that have auto-restart enabled. Enforce group and
+	// global limits: start the most recently used first and leave the rest
+	// stopped (they start on demand). Previously this started every
+	// persisted-running instance, which could boot two large models at
+	// once and spill VRAM into system RAM.
+	sort.Slice(instancesToStart, func(i, j int) bool {
+		return instancesToStart[i].LastRequestTime() > instancesToStart[j].LastRequestTime()
+	})
+
+	// Clear the persisted "running" state of every candidate *before* the limit
+	// checks below. loadInstance restored these instances as running, so the
+	// registry still reports them as running; counting that phantom occupancy
+	// skips candidates this loop has not reached yet and starts fewer instances
+	// than the limits allow (with a group limit, possibly none). Each successful
+	// Start() marks its own instance running again, so earlier starts in this
+	// loop — and concurrent on-demand starts — still count against the limits.
+	for _, inst := range instancesToStart {
+		inst.SetStatus(instance.Stopped)
+		im.registry.markStopped(inst.Name)
+	}
+
+	limits := im.globalConfig.Instances
+	for _, inst := range instancesToStart {
+		group := ""
+		if inst.GetOptions() != nil {
+			group = inst.GetOptions().Group
+		}
+
+		// Enforce limits against live registry state (not loop-local tallies):
+		// on-demand starts made concurrently during boot are visible here, so
+		// the loop can't approve a start past a limit that is already reached.
+		if group != "" {
+			if limit, ok := limits.GroupLimits[group]; ok && limit > 0 &&
+				im.CountRunningInGroup(group) >= limit {
+				log.Printf("Instance %s: group %s already at limit (%d); leaving stopped (will start on demand)", inst.Name, group, limit)
+				continue
+			}
+		}
+		if limits.MaxRunningInstances > 0 && im.AtMaxRunning() {
+			log.Printf("Instance %s: at global running limit; leaving stopped (will start on demand)", inst.Name)
+			continue
+		}
+
+		log.Printf("Auto-starting instance %s", inst.Name)
+
+		// Check if this is a remote instance
+		if node, exists := im.remote.getNodeForInstance(inst.Name); exists && node != nil {
+			// Remote instance - use remote manager with context
+			ctx := context.Background()
+			if _, err := im.remote.startInstance(ctx, node, inst.Name); err != nil {
+				log.Printf("Failed to auto-start remote instance %s: %v", inst.Name, err)
+				continue
+			}
+		} else {
+			// Local instance - call Start() directly
+			if err := inst.Start(); err != nil {
+				log.Printf("Failed to auto-start instance %s: %v", inst.Name, err)
+				continue
+			}
+		}
+	}
+}
+
+func (im *instanceManager) onStatusChange(name string, _, newStatus instance.Status) {
+	if newStatus == instance.Running {
+		im.registry.markRunning(name)
+	} else {
+		im.registry.markStopped(name)
+	}
+}
+
+// getNodeForInstance returns the node configuration for a remote instance
+// Returns nil if the instance is not remote or the node is not found
+func (im *instanceManager) getNodeForInstance(inst *instance.Instance) *config.NodeConfig {
+	if !inst.IsRemote() {
+		return nil
+	}
+
+	// Check if we have a node mapping in remote manager
+	if nodeConfig, exists := im.remote.getNodeForInstance(inst.Name); exists {
+		return nodeConfig
+	}
+
+	return nil
+}
+
+// lockInstance returns the lock for a specific instance, creating one if needed.
+// This allows concurrent operations on different instances while preventing
+// concurrent operations on the same instance.
+func (im *instanceManager) lockInstance(name string) *sync.Mutex {
+	lock, _ := im.instanceLocks.LoadOrStore(name, &sync.Mutex{})
+	return lock.(*sync.Mutex)
+}
+
+// unlockAndCleanup unlocks the instance lock and removes it from the map.
+// This should only be called when deleting an instance to prevent memory leaks.
+func (im *instanceManager) unlockAndCleanup(name string) {
+	if lock, ok := im.instanceLocks.Load(name); ok {
+		lock.(*sync.Mutex).Unlock()
+		im.instanceLocks.Delete(name)
+	}
+}

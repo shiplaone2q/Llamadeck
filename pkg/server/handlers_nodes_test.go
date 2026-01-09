@@ -82,3 +82,49 @@ func TestGetNodeHealth(t *testing.T) {
 			},
 			localNode:      "main",
 			requestName:    "other",
+			expectedStatus: http.StatusOK,
+			expectedHealth: server.NodeStatusUnreachable,
+		},
+		{
+			name:           "unknown node returns 404",
+			nodes:          map[string]config.NodeConfig{"main": {}},
+			localNode:      "main",
+			requestName:    "ghost",
+			expectedStatus: http.StatusNotFound,
+			expectedHealth: "",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Route through chi so URL params are populated
+			r := chi.NewRouter()
+			r.Get("/api/v1/nodes/{name}/health", newNodesTestHandler(t, tt.nodes, tt.localNode).ServeHTTP)
+
+			req := httptest.NewRequest(http.MethodGet, "/api/v1/nodes/"+tt.requestName+"/health", nil)
+			recorder := httptest.NewRecorder()
+			r.ServeHTTP(recorder, req)
+
+			if recorder.Code != tt.expectedStatus {
+				t.Fatalf("GetNodeHealth() status = %d, expected %d, body: %s", recorder.Code, tt.expectedStatus, recorder.Body.String())
+			}
+
+			if tt.expectedStatus != http.StatusOK {
+				return
+			}
+
+			var health server.NodeHealthResponse
+			if err := json.Unmarshal(recorder.Body.Bytes(), &health); err != nil {
+				t.Fatalf("Failed to decode response: %v", err)
+			}
+
+			if health.Status != tt.expectedHealth {
+				t.Errorf("GetNodeHealth() status field = %q, expected %q (error: %q)", health.Status, tt.expectedHealth, health.Error)
+			}
+
+			if health.Status == server.NodeStatusUnreachable && health.Error == "" {
+				t.Errorf("unreachable node should report an error, got empty")
+			}
+		})
+	}
+}

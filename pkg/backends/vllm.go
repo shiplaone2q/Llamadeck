@@ -83,3 +83,7 @@ type VllmServerOptions struct {
 	DisableAsyncOutputProc        bool    `json:"disable_async_output_proc,omitempty"`
 	WorkerClass                   string  `json:"worker_class,omitempty"`
 	EnabledLoraModules            string  `json:"enabled_lora_modules,omitempty"`
+	MaxLoraRank                   int     `json:"max_lora_rank,omitempty"`
+	FullyShardedLoras             bool    `json:"fully_sharded_loras,omitempty"`
+	LoraModules                   string  `json:"lora_modules,omitempty"`
+	PromptAdapters                string  `json:"prompt_adapters,omitempty"`

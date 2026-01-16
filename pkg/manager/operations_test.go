@@ -203,3 +203,6 @@ func TestUpdateInstance(t *testing.T) {
 				Model: "/path/to/model.gguf",
 				Port:  8080,
 			},
+		},
+	}
+

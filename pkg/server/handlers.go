@@ -70,3 +70,7 @@ type Handler struct {
 	httpClient      *http.Client
 	authStore       database.AuthStore
 	authMiddleware  *APIAuthMiddleware
+	oidc            *OIDCService
+
+	// startMu serializes the evict→start critical section in
+	// ensureInstanceRunning. Group quotas are check-then-act; without this,

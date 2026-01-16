@@ -89,3 +89,5 @@ func (o *MlxServerOptions) GetHost() string {
 }
 
 func (o *MlxServerOptions) Validate() error {
+	if o == nil {
+		return validation.ValidationError(fmt.Errorf("MLX server options cannot be nil for MLX backend"))

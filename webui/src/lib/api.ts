@@ -134,3 +134,4 @@ export interface NodeHealthResponse {
 export const nodesApi = {
   // GET /nodes - returns map of node name to NodeResponse
   list: () => apiCall<NodesMap>("/nodes"),
+

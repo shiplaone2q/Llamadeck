@@ -480,3 +480,4 @@ definitions:
         description: 'no omitempty: 0 is meaningful (local node, sub-ms ping)'
         type: integer
       status:
+        $ref: '#/definitions/server.NodeHealthStatus'

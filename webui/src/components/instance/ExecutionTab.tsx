@@ -70,3 +70,5 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
         />
       )}
 
+      <EnvVarsInput
+        id="environment"

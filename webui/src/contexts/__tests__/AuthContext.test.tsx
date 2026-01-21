@@ -47,3 +47,4 @@ describe('AuthContext OIDC callback errors', () => {
     renderLogin()
 
     expect(await screen.findByText('Login failed. Please try again.')).toBeInTheDocument()
+  })

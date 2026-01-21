@@ -57,3 +57,6 @@ const ParseCommandDialog: React.FC<ParseCommandDialogProps> = ({
         default:
           throw new Error(`Unsupported backend type: ${String(backendType)}`);
       }
+
+      onParsed(options);
+      onOpenChange(false);

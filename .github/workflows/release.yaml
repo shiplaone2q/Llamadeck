@@ -75,3 +75,7 @@ jobs:
       - name: Download Web UI artifacts
         uses: actions/download-artifact@v4
         with:
+          name: webui-dist
+          path: webui/dist/
+
+      - name: Install cross-compilation tools (Linux ARM64 only)

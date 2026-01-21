@@ -114,3 +114,7 @@ func (h *Handler) DownloadModel() http.HandlerFunc {
 			writeError(w, http.StatusBadRequest, "invalid_request", "Failed to parse request body")
 			return
 		}
+
+		if req.Repo == "" {
+			writeError(w, http.StatusBadRequest, "invalid_request", "repo is required")
+			return

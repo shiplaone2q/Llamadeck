@@ -159,3 +159,4 @@ afterEach(() => {
       confirmSpy.mockRestore()
     })
 
+    it('does not call deleteInstance when confirmation cancelled', async () => {

@@ -53,3 +53,7 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 		Nodes:     map[string]config.NodeConfig{},
 	}
 
+	db, err := database.Open(&database.Config{
+		Path:               cfg.Database.Path,
+		MaxOpenConnections: cfg.Database.MaxOpenConnections,
+		MaxIdleConnections: cfg.Database.MaxIdleConnections,

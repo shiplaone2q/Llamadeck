@@ -62,3 +62,7 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
       onChange('nodes', [value])
     } else {
       onChange('nodes', undefined)
+    }
+  }
+
+  const selectedNode = formData.nodes && formData.nodes.length > 0 ? formData.nodes[0] : ''

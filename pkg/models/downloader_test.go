@@ -173,3 +173,7 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 		t.Error("expected MainGGUF to be nil for safetensors plan")
 	}
 	if plan.Format != FormatSafetensors {
+		t.Errorf("Format = %q, want %q", plan.Format, FormatSafetensors)
+	}
+
+	filenames := make(map[string]bool)

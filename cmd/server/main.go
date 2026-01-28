@@ -75,3 +75,4 @@ func main() {
 		log.Fatalf("Failed to open database: %v", err)
 	}
 
+	// Run database migrations

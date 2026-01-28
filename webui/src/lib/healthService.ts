@@ -98,3 +98,4 @@ class HealthService {
       case 'failed': return 'failed'
       case 'restarting': return 'restarting'
       case 'shutting_down': return 'shutting_down'
+    }

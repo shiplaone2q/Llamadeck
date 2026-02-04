@@ -38,3 +38,5 @@ updates:
     groups:
       npm-production:
         dependency-type: "production"
+      npm-development:
+        dependency-type: "development"

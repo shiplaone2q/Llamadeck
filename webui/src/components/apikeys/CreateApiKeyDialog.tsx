@@ -119,3 +119,6 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
       setError(err instanceof Error ? err.message : "Failed to create API key");
     } finally {
       setLoading(false);
+    }
+  };
+

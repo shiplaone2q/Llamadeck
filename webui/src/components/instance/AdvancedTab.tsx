@@ -59,3 +59,4 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
                 .map((fieldKey) => (
                   <BackendFormField
                     key={fieldKey}
+                    fieldKey={fieldKey}

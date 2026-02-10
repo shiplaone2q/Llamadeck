@@ -87,3 +87,4 @@ type VllmServerOptions struct {
 	FullyShardedLoras             bool    `json:"fully_sharded_loras,omitempty"`
 	LoraModules                   string  `json:"lora_modules,omitempty"`
 	PromptAdapters                string  `json:"prompt_adapters,omitempty"`
+	MaxPromptAdapterToken         int     `json:"max_prompt_adapter_token,omitempty"`

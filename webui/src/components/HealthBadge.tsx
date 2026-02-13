@@ -47,3 +47,4 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
     }
   };
 
+  const getText = () => {

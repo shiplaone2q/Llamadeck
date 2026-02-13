@@ -73,3 +73,6 @@ All the following must pass:
 
 2. **Frontend**
    ```bash
+   cd webui
+   npm run test:run
+   npm run type-check

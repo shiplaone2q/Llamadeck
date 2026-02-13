@@ -94,3 +94,4 @@ func TestScanCache(t *testing.T) {
 		}
 	}
 
+	if !hasGGUF {

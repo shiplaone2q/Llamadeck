@@ -52,3 +52,39 @@ function Header({ onCreateInstance, onShowSystemInfo, onShowSettings }: HeaderPr
 
             <Button
               variant="outline"
+              size="icon"
+              onClick={onShowSystemInfo}
+              data-testid="system-info-button"
+              title="System Info"
+            >
+              <HelpCircle className="h-4 w-4" />
+            </Button>
+
+            {user && (
+              <div
+                className="hidden sm:flex items-center h-9 px-3 rounded-md border bg-muted text-sm text-muted-foreground"
+                title={user.email || user.sub}
+                data-testid="current-user"
+              >
+                <UserCircle className="h-4 w-4 mr-2" />
+                {user.name || user.email || user.sub}
+              </div>
+            )}
+
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleLogout}
+              data-testid="logout-button"
+              title="Logout"
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export default Header;

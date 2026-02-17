@@ -21,3 +21,4 @@ func ValidateInstanceName(name string) (string, error) {
 		return "", ValidationError(fmt.Errorf("name too long (max 50 characters)"))
 	}
 	return name, nil
+}

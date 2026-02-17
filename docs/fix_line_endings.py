@@ -55,3 +55,6 @@ def on_page_markdown(markdown, page, config, **kwargs):
         if stripped and not in_code_block:
             processed_lines.append(line.rstrip() + '  ')
         else:
+            processed_lines.append(line)
+            
+    return '\n'.join(processed_lines)

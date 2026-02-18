@@ -99,3 +99,183 @@ class HealthService {
       case 'restarting': return 'restarting'
       case 'shutting_down': return 'shutting_down'
     }
+  }
+
+  /**
+   * Updates health cache
+   */
+  private updateCache(instanceName: string, health: HealthStatus): void {
+    this.healthCache.set(instanceName, {
+      health,
+      timestamp: Date.now()
+    })
+  }
+
+  /**
+   * Manually refresh health for an instance
+   */
+  async refreshHealth(instanceName: string): Promise<void> {
+    // Invalidate cache
+    this.healthCache.delete(instanceName)
+
+    try {
+      const health = await this.performHealthCheck(instanceName)
+      this.notifyCallbacks(instanceName, health)
+
+      // Update last state and adjust polling interval if needed
+      const previousState = this.lastHealthState.get(instanceName)
+      this.lastHealthState.set(instanceName, health.state)
+
+      if (previousState !== health.state) {
+        this.adjustPollingInterval(instanceName, health.state)
+      }
+    } catch (error) {
+      // Error getting health - keep polling if active
+      console.error(`Failed to refresh health for ${instanceName}:`, error)
+    }
+  }
+
+  /**
+   * Trigger health check after instance operation
+   */
+  checkHealthAfterOperation(instanceName: string, operation: 'start' | 'stop' | 'restart'): void {
+    // Invalidate cache immediately
+    this.healthCache.delete(instanceName)
+
+    // Perform immediate health check
+    this.refreshHealth(instanceName).catch(error => {
+      console.error(`Failed to check health after ${operation}:`, error)
+    })
+  }
+
+  /**
+   * Subscribe to health updates for an instance
+   */
+  subscribe(instanceName: string, callback: HealthCallback): () => void {
+    if (!this.callbacks.has(instanceName)) {
+      this.callbacks.set(instanceName, new Set())
+    }
+
+    const callbacks = this.callbacks.get(instanceName)
+    if (callbacks) {
+      callbacks.add(callback)
+
+      // Start health checking if this is the first subscriber
+      if (callbacks.size === 1) {
+        this.startHealthCheck(instanceName)
+      }
+    }
+
+    // Return unsubscribe function
+    return () => {
+      const callbacks = this.callbacks.get(instanceName)
+      if (callbacks) {
+        callbacks.delete(callback)
+
+        // Stop health checking if no more subscribers
+        if (callbacks.size === 0) {
+          this.stopHealthCheck(instanceName)
+          this.callbacks.delete(instanceName)
+          this.lastHealthState.delete(instanceName)
+          this.healthCache.delete(instanceName)
+        }
+      }
+    }
+  }
+
+  /**
+   * Start health checking for an instance
+   */
+  private startHealthCheck(instanceName: string): void {
+    if (this.intervals.has(instanceName)) {
+      return // Already checking
+    }
+
+    // Initial check immediately
+    this.refreshHealth(instanceName).then(() => {
+      const currentState = this.lastHealthState.get(instanceName)
+      if (currentState) {
+        this.adjustPollingInterval(instanceName, currentState)
+      }
+    }).catch(error => {
+      console.error(`Failed to start health check for ${instanceName}:`, error)
+    })
+  }
+
+  /**
+   * Adjust polling interval based on current health state
+   */
+  private adjustPollingInterval(instanceName: string, state: HealthState): void {
+    // Clear existing interval
+    this.stopHealthCheck(instanceName)
+
+    const pollInterval = POLLING_INTERVALS[state]
+
+    // Don't poll for stable states (stopped, failed)
+    if (pollInterval === 0) {
+      return
+    }
+
+    // Start new interval with appropriate timing
+    const interval = setInterval(() => {
+      void (async () => {
+        try {
+          const health = await this.performHealthCheck(instanceName)
+          this.notifyCallbacks(instanceName, health)
+
+          // Check if state changed and adjust interval
+          const previousState = this.lastHealthState.get(instanceName)
+          this.lastHealthState.set(instanceName, health.state)
+
+          if (previousState !== health.state) {
+            this.adjustPollingInterval(instanceName, health.state)
+          }
+        } catch (error) {
+          console.error(`Health check failed for ${instanceName}:`, error)
+          // Continue polling even on error
+        }
+      })()
+    }, pollInterval)
+
+    this.intervals.set(instanceName, interval)
+  }
+
+  /**
+   * Stop health checking for an instance
+   */
+  private stopHealthCheck(instanceName: string): void {
+    const interval = this.intervals.get(instanceName)
+    if (interval) {
+      clearInterval(interval)
+      this.intervals.delete(instanceName)
+    }
+  }
+
+  /**
+   * Notify all callbacks with health update
+   */
+  private notifyCallbacks(instanceName: string, health: HealthStatus): void {
+    const callbacks = this.callbacks.get(instanceName)
+    if (callbacks) {
+      callbacks.forEach(callback => { callback(health) })
+    }
+  }
+
+  /**
+   * Stop all health checking and cleanup
+   */
+  destroy(): void {
+    this.intervals.forEach(interval => { clearInterval(interval) })
+    this.intervals.clear()
+    this.callbacks.clear()
+    this.lastHealthState.clear()
+    this.healthCache.clear()
+  }
+}
+
+export const healthService = new HealthService()
+
+// Export the individual performHealthCheck function as well
+export async function checkHealth(instanceName: string): Promise<HealthStatus> {
+  return healthService.performHealthCheck(instanceName)
+}

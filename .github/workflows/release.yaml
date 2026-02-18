@@ -79,3 +79,7 @@ jobs:
           path: webui/dist/
 
       - name: Install cross-compilation tools (Linux ARM64 only)
+        if: matrix.cc != ''
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu

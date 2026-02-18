@@ -206,3 +206,276 @@ func TestUpdateInstance(t *testing.T) {
 		},
 	}
 
+	inst, err := mgr.CreateInstance("test-instance", options)
+	if err != nil {
+		t.Fatalf("CreateInstance failed: %v", err)
+	}
+
+	// Start the instance (will use 'yes' command from test config)
+	if err := inst.Start(); err != nil {
+		t.Fatalf("Failed to start instance: %v", err)
+	}
+
+	// Update running instance with new model
+	newOptions := &instance.Options{
+		BackendOptions: backends.Options{
+			BackendType: backends.BackendTypeLlamaCpp,
+			LlamaServerOptions: &backends.LlamaServerOptions{
+				Model: "/path/to/new-model.gguf",
+				Port:  8080,
+			},
+		},
+	}
+
+	updated, err := mgr.UpdateInstance("test-instance", newOptions)
+	if err != nil {
+		t.Fatalf("UpdateInstance failed: %v", err)
+	}
+
+	// Should be running after update (was running before, should be restarted)
+	if !updated.IsRunning() {
+		t.Errorf("Instance should be running after update, got: %v", updated.GetStatus())
+	}
+
+	if updated.GetOptions().BackendOptions.LlamaServerOptions.Model != "/path/to/new-model.gguf" {
+		t.Errorf("Expected model to be updated")
+	}
+}
+
+func TestUpdateInstance_ReleasesOldPort(t *testing.T) {
+	mgr := createTestManager(t)
+	defer mgr.Shutdown()
+
+	options := &instance.Options{
+		BackendOptions: backends.Options{
+			BackendType: backends.BackendTypeLlamaCpp,
+			LlamaServerOptions: &backends.LlamaServerOptions{
+				Model: "/path/to/model.gguf",
+				Port:  8080,
+			},
+		},
+	}
+
+	inst, err := mgr.CreateInstance("test-instance", options)
+	if err != nil {
+		t.Fatalf("CreateInstance failed: %v", err)
+	}
+
+	if inst.GetPort() != 8080 {
+		t.Errorf("Expected port 8080, got %d", inst.GetPort())
+	}
+
+	// Update with new port
+	newOptions := &instance.Options{
+		BackendOptions: backends.Options{
+			BackendType: backends.BackendTypeLlamaCpp,
+			LlamaServerOptions: &backends.LlamaServerOptions{
+				Model: "/path/to/model.gguf",
+				Port:  8081,
+			},
+		},
+	}
+
+	updated, err := mgr.UpdateInstance("test-instance", newOptions)
+	if err != nil {
+		t.Fatalf("UpdateInstance failed: %v", err)
+	}
+
+	if updated.GetPort() != 8081 {
+		t.Errorf("Expected port 8081, got %d", updated.GetPort())
+	}
+
+	// Old port should be released - try to create new instance with old port
+	options2 := &instance.Options{
+		BackendOptions: backends.Options{
+			BackendType: backends.BackendTypeLlamaCpp,
+			LlamaServerOptions: &backends.LlamaServerOptions{
+				Model: "/path/to/model2.gguf",
+				Port:  8080,
+			},
+		},
+	}
+
+	_, err = mgr.CreateInstance("test-instance-2", options2)
+	if err != nil {
+		t.Errorf("Should be able to use old port 8080: %v", err)
+	}
+}
+
+// TestIsNotFoundError verifies that IsNotFoundError detects the various
+// error shapes the manager produces for missing instances: the local
+// sentinel and remote-side not-found variants (404, or 4xx bodies that
+// report invalid_instance / not_found).
+func TestIsNotFoundError(t *testing.T) {
+	if manager.IsNotFoundError(nil) {
+		t.Error("nil error must not be classified as not-found")
+	}
+	if manager.IsNotFoundError(fmt.Errorf("random failure")) {
+		t.Error("unrelated error must not be classified as not-found")
+	}
+	if !manager.IsNotFoundError(manager.ErrInstanceNotFound) {
+		t.Error("ErrInstanceNotFound must satisfy IsNotFoundError directly")
+	}
+	if !manager.IsNotFoundError(fmt.Errorf("%w: foo", manager.ErrInstanceNotFound)) {
+		t.Error("errors.Is chain with ErrInstanceNotFound must satisfy IsNotFoundError")
+	}
+	if !manager.IsNotFoundError(&manager.RemoteNotFoundError{
+		Err: fmt.Errorf("remote not here"),
+	}) {
+		t.Error("RemoteNotFoundError must satisfy IsNotFoundError via its Is method")
+	}
+	// Unrelated errors that merely contain "not found" in their message must
+	// NOT be classified as not-found — detection is typed, not string-based.
+	// (e.g. "model not found" on an instance that does exist.)
+	if manager.IsNotFoundError(fmt.Errorf(`API request failed with status 400: {"error":"invalid_instance","details":"model /path/x.gguf not found"}`)) {
+		t.Error("an error merely containing 'not found' must not be classified as instance-not-found")
+	}
+	if manager.IsNotFoundError(fmt.Errorf(`API request failed with status 500: {"error":"internal"}`)) {
+		t.Error("500 must not be classified as not-found")
+	}
+}
+
+// TestDeleteInstance_NotFoundReturnsSentinel verifies that asking the
+// manager to delete an instance the registry has never heard of surfaces
+// ErrInstanceNotFound so the HTTP layer can return 404.
+func TestDeleteInstance_NotFoundReturnsSentinel(t *testing.T) {
+	mgr := createTestManager(t)
+
+	err := mgr.DeleteInstance("never-existed")
+	if err == nil {
+		t.Fatal("expected an error deleting a non-existent instance")
+	}
+	if !errors.Is(err, manager.ErrInstanceNotFound) {
+		t.Errorf("expected ErrInstanceNotFound, got: %v", err)
+	}
+}
+
+// TestGetInstance_NotFoundReturnsSentinel mirrors the delete check.
+func TestGetInstance_NotFoundReturnsSentinel(t *testing.T) {
+	mgr := createTestManager(t)
+
+	_, err := mgr.GetInstance("never-existed")
+	if err == nil {
+		t.Fatal("expected an error getting a non-existent instance")
+	}
+	if !errors.Is(err, manager.ErrInstanceNotFound) {
+		t.Errorf("expected ErrInstanceNotFound, got: %v", err)
+	}
+}
+
+func createCustomTestManager(t *testing.T) manager.InstanceManager {
+	appConfig := createTestAppConfig(t.TempDir())
+	appConfig.Backends.Custom = map[string]config.BackendSettings{
+		"my-engine":      {Command: "my-engine", Args: []string{"serve"}},
+		"portless":    {Command: "some-server", Args: []string{"--verbose"}},
+		"commandless": {Args: []string{"--port", "{port}"}},
+		"modely":      {Command: "some-server", Args: []string{"serve", "--model", "{model}", "--port", "{port}"}},
+	}
+
+	db, err := database.Open(&database.Config{
+		Path:               appConfig.Database.Path,
+		MaxOpenConnections: appConfig.Database.MaxOpenConnections,
+		MaxIdleConnections: appConfig.Database.MaxIdleConnections,
+		ConnMaxLifetime:    appConfig.Database.ConnMaxLifetime,
+	})
+	if err != nil {
+		t.Fatalf("Failed to open database: %v", err)
+	}
+	if err := database.RunMigrations(db); err != nil {
+		t.Fatalf("Failed to run migrations: %v", err)
+	}
+	return manager.New(appConfig, db)
+}
+
+func TestCreateInstance_CustomBackendValidation(t *testing.T) {
+	mgr := createCustomTestManager(t)
+
+	tests := []struct {
+		name        string
+		instance    string
+		customOpts  *backends.CustomServerOptions
+		expectError string
+	}{
+		{
+			name:     "valid custom backend",
+			instance: "my-engine-ok",
+			customOpts: &backends.CustomServerOptions{
+				Name: "my-engine",
+				Args: []string{"--port", "{port}"},
+			},
+		},
+		{
+			name:     "port placeholder in instance args",
+			instance: "portless-ok",
+			customOpts: &backends.CustomServerOptions{
+				Name: "portless",
+				Args: []string{"--port", "{port}"},
+			},
+		},
+		{
+			name:        "unknown custom backend name",
+			instance:    "unknown-name",
+			customOpts:  &backends.CustomServerOptions{Name: "nope", Args: []string{"--port", "{port}"}},
+			expectError: "not defined in config",
+		},
+		{
+			name:        "missing port placeholder",
+			instance:    "no-port",
+			customOpts:  &backends.CustomServerOptions{Name: "my-engine"},
+			expectError: "{port}",
+		},
+		{
+			name:        "missing command",
+			instance:    "no-command",
+			customOpts:  &backends.CustomServerOptions{Name: "commandless"},
+			expectError: "no command configured",
+		},
+		{
+			name:        "model placeholder in config args without model",
+			instance:    "no-model",
+			customOpts:  &backends.CustomServerOptions{Name: "modely"},
+			expectError: "{model}",
+		},
+		{
+			name:        "model placeholder in instance args without model",
+			instance:    "no-model-instance-args",
+			customOpts:  &backends.CustomServerOptions{Name: "my-engine", Args: []string{"--model", "{model}", "--port", "{port}"}},
+			expectError: "{model}",
+		},
+		{
+			name:     "model placeholder with model set",
+			instance: "model-ok",
+			customOpts: &backends.CustomServerOptions{
+				Name:  "modely",
+				Model: "org/model",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			options := &instance.Options{
+				BackendOptions: backends.Options{
+					BackendType:         backends.BackendTypeCustom,
+					CustomServerOptions: tt.customOpts,
+				},
+			}
+
+			_, err := mgr.CreateInstance(tt.instance, options)
+
+			if tt.expectError == "" {
+				if err != nil {
+					t.Fatalf("unexpected error: %v", err)
+				}
+				return
+			}
+
+			if err == nil {
+				t.Fatalf("expected error containing %q, got none", tt.expectError)
+			}
+			if !strings.Contains(err.Error(), tt.expectError) {
+				t.Errorf("expected error containing %q, got: %v", tt.expectError, err)
+			}
+		})
+	}
+}

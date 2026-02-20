@@ -91,3 +91,7 @@ func (s *JobStore) Get(jobID string) (*Job, error) {
 		return nil, fmt.Errorf("job not found: %s", jobID)
 	}
 
+	jobCopy := *job
+	jobCopy.CancelFunc = nil
+
+	return &jobCopy, nil

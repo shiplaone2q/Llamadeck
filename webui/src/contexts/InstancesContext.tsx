@@ -98,3 +98,5 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       setError(null)
       const updatedInstance = await instancesApi.update(name, options)
       
+      // Update in map directly
+      setInstancesMap(prev => {

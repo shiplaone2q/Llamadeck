@@ -144,3 +144,4 @@ func loadEnvVars(cfg *AppConfig) {
 			if cfg.Backends.VLLM.Docker == nil {
 				cfg.Backends.VLLM.Docker = &DockerSettings{}
 			}
+			cfg.Backends.VLLM.Docker.Enabled = b

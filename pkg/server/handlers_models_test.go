@@ -70,3 +70,7 @@ func TestDeleteModel(t *testing.T) {
 		if rec.Code != http.StatusNotFound {
 			t.Errorf("status = %d, want 404 (body: %s)", rec.Code, rec.Body.String())
 		}
+		if !strings.Contains(rec.Body.String(), "model_not_found") {
+			t.Errorf("body %q missing model_not_found code", rec.Body.String())
+		}
+	})

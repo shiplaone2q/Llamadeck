@@ -78,3 +78,4 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()

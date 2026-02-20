@@ -88,3 +88,4 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
   }
 
   // Special handling for extra_args
+  if (fieldKey === 'extra_args') {

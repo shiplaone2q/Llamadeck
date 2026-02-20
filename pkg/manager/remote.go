@@ -155,3 +155,5 @@ func parseRemoteResponse(resp *http.Response, result any) error {
 	if err != nil {
 		return fmt.Errorf("failed to read response body: %w", err)
 	}
+
+	if resp.StatusCode == http.StatusNotFound {

@@ -481,3 +481,4 @@ definitions:
         type: integer
       status:
         $ref: '#/definitions/server.NodeHealthStatus'
+    type: object

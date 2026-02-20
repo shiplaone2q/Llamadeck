@@ -60,3 +60,7 @@ function InstanceCard({
   const handleStart = () => {
     startInstance(instance.name);
   };
+
+  const handleStop = () => {
+    stopInstance(instance.name);
+  };

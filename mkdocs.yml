@@ -32,3 +32,4 @@ theme:
     - search.share
     - content.code.copy
 
+markdown_extensions:

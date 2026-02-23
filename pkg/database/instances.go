@@ -135,3 +135,4 @@ func (db *sqliteDB) Update(ctx context.Context, inst *instance.Instance) error {
 	}
 
 	opts := inst.GetOptions()
+	if opts == nil {

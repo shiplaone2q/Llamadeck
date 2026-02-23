@@ -50,3 +50,7 @@ func (o *CustomServerOptions) Validate() error {
 	if o == nil {
 		return validation.ValidationError(fmt.Errorf("custom server options cannot be nil for custom backend"))
 	}
+
+	if o.Name == "" {
+		return validation.ValidationError(fmt.Errorf("custom backend requires a name referencing a backends.custom.<name> config entry"))
+	}

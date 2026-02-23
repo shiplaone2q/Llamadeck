@@ -87,3 +87,7 @@ nodes:                           # Node configuration for multi-node deployment
 ## Configuration Files
 
 ### Configuration File Locations
+
+Configuration files are searched in the following locations (in order of precedence, first found is used):
+
+**Linux:**  

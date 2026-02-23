@@ -122,3 +122,5 @@ curl -X POST http://localhost:8080/api/v1/instances/my-llama-instance \
     "nodes": ["main"]
   }'
 
+# Create vLLM instance with environment variables
+curl -X POST http://localhost:8080/api/v1/instances/my-vllm-instance \

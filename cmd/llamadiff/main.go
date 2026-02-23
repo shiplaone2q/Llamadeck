@@ -99,3 +99,5 @@ func main() {
 	fmt.Printf("\n=== SUMMARY ===\n")
 	fmt.Printf("Total flags: %d\n", len(flags))
 	fmt.Printf("Working: %d\n", len(working))
+	fmt.Printf("Missing: %d\n", len(missing))
+	fmt.Printf("Ignored (utility): %d\n", len(ignored))

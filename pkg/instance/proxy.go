@@ -80,3 +80,6 @@ func newProxy(instance *Instance) (*proxy, error) {
 			return nil, fmt.Errorf("failed to parse target URL for remote instance %s: %w", p.instance.Name, err)
 		}
 
+		p.apiKey = node.APIKey
+	} else {
+		// Get host/port from process

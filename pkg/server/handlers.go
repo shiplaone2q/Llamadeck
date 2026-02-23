@@ -74,3 +74,6 @@ type Handler struct {
 
 	// startMu serializes the evict→start critical section in
 	// ensureInstanceRunning. Group quotas are check-then-act; without this,
+	// two concurrent requests can each see room (or evict the other's LRU)
+	// and start two models in the same group. The health wait deliberately
+	// runs outside this lock so unrelated starts don't serialize behind a

@@ -96,3 +96,7 @@ describe('NodesList', () => {
   it('shows loading spinner while nodes are being fetched', () => {
     vi.mocked(nodesApi.list).mockImplementation(
       () => new Promise((resolve) => setTimeout(() => resolve(mockNodes), 100)),
+    );
+
+    renderNodesList();
+

@@ -70,3 +70,7 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 		}
 	})
 
+	t.Run("path other than the configured one times out", func(t *testing.T) {
+		// The server 404s /health; success here would mean the
+		// configured path was ignored and /health was probed anyway.
+		if err := newTestInstance("/health").process.waitForHealthy(1); err == nil {

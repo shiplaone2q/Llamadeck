@@ -266,3 +266,6 @@ func TestUnmarshalJSON(t *testing.T) {
 	}
 	if opts.AutoRestart == nil || *opts.AutoRestart {
 		t.Error("Expected AutoRestart to be false")
+	}
+	if opts.MaxRestarts == nil || *opts.MaxRestarts != 5 {
+		t.Errorf("Expected MaxRestarts to be 5, got %v", opts.MaxRestarts)

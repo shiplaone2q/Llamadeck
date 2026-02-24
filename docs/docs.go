@@ -979,3 +979,7 @@ const docTemplate = `{
                         }
                     },
                     "400": {
+                        "description": "Invalid name format",
+                        "schema": {
+                            "type": "string"
+                        }

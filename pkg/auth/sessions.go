@@ -42,3 +42,5 @@ func RandomToken() string {
 
 // Create starts a new session for the given OIDC user and returns it.
 func (s *SessionStore) Create(sub, name, email string) *Session {
+	id := RandomToken()
+

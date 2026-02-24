@@ -169,3 +169,7 @@ type LlamaServerOptions struct {
 	MMProjAuto           bool     `json:"mmproj_auto,omitempty"`            // --mmproj-auto
 	NoMMProj             bool     `json:"no_mmproj,omitempty"`              // --no-mmproj
 	NoMMProjAuto         bool     `json:"no_mmproj_auto,omitempty"`         // --no-mmproj-auto
+	MMProjOffload        bool     `json:"mmproj_offload,omitempty"`         // --mmproj-offload
+	NoMMProjOffload      bool     `json:"no_mmproj_offload,omitempty"`      // --no-mmproj-offload
+	ImageMinTokens       int      `json:"image_min_tokens,omitempty"`       // --image-min-tokens N
+	ImageMaxTokens       int      `json:"image_max_tokens,omitempty"`       // --image-max-tokens N

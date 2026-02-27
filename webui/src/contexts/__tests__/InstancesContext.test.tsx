@@ -137,3 +137,7 @@ describe("InstancesContext", () => {
     window.sessionStorage.setItem('llamadeck_management_key', 'test-api-key-123');
     global.fetch = vi.fn(() => Promise.resolve(new Response(null, { status: 200 })));
     // Default successful API responses
+    vi.mocked(instancesApi.list).mockResolvedValue(mockInstances);
+  });
+
+  afterEach(() => {

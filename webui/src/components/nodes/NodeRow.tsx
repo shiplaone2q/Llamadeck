@@ -72,3 +72,6 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
                 Remote
               </span>
             </TooltipTrigger>
+            <TooltipContent>
+              <span className="font-mono" data-testid="node-address">
+                {address || 'no address configured'}

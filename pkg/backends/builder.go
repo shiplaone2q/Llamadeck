@@ -71,3 +71,4 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 	}
 
 	return args
+}

@@ -137,3 +137,7 @@ func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 
 		// Use instance's ServeHTTP which tracks inflight requests and handles shutting down state
 		err = inst.ServeHTTP(w, r)
+		if err != nil {
+			// Error is already handled in ServeHTTP (response written)
+			return
+		}

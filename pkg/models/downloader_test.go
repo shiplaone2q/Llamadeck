@@ -177,3 +177,4 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 	}
 
 	filenames := make(map[string]bool)
+	for _, task := range plan.Tasks {

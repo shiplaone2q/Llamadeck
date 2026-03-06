@@ -141,3 +141,4 @@ describe("InstancesContext", () => {
   });
 
   afterEach(() => {
+    vi.restoreAllMocks();

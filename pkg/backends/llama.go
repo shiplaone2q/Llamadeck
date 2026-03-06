@@ -173,3 +173,4 @@ type LlamaServerOptions struct {
 	NoMMProjOffload      bool     `json:"no_mmproj_offload,omitempty"`      // --no-mmproj-offload
 	ImageMinTokens       int      `json:"image_min_tokens,omitempty"`       // --image-min-tokens N
 	ImageMaxTokens       int      `json:"image_max_tokens,omitempty"`       // --image-max-tokens N
+	OverrideTensorDraft  []string `json:"override_tensor_draft,omitempty"`  // -otd, --override-tensor-draft

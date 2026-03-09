@@ -91,3 +91,4 @@ nodes:                           # Node configuration for multi-node deployment
 Configuration files are searched in the following locations (in order of precedence, first found is used):
 
 **Linux:**  
+- `./llamadeck.yaml` or `./config.yaml` (current directory)  

@@ -99,3 +99,4 @@ func (db *sqliteDB) ListKeys(ctx context.Context) ([]*auth.APIKey, error) {
 		ORDER BY created_at DESC
 	`
 
+	rows, err := db.QueryContext(ctx, query)

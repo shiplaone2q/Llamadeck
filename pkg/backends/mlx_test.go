@@ -95,3 +95,4 @@ func TestParseMlxCommand(t *testing.T) {
 		},
 	}
 
+	for _, tt := range tests {

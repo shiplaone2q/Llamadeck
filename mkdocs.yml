@@ -33,3 +33,5 @@ theme:
     - content.code.copy
 
 markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true

@@ -67,3 +67,5 @@ class ModelsPollingService {
     } catch (error) {
       console.error('Failed to poll jobs:', error)
       // Continue polling even on error - don't break the polling loop
+    }
+  }

@@ -68,3 +68,6 @@ func (l *logger) create() error {
 	}
 
 	// If rotation is disabled, set MaxSize to 0 so no rotation occurs
+	if !l.cfg.Enabled {
+		t.MaxSize = 0
+	}

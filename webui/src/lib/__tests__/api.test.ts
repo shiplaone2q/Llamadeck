@@ -34,3 +34,7 @@ describe('API Error Handling', () => {
       .rejects
       .toThrow('HTTP 500')
   })
+
+  it('handles 204 No Content responses', async () => {
+    const mockResponse = new Response(null, {
+      status: 204,

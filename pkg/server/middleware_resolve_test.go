@@ -56,3 +56,5 @@ func TestResolveInstancePermission(t *testing.T) {
 			ctx:       withKey(context.Background(), allowAllKey),
 			store:     &stubAuthStore{},
 			wantStart: true,
+			wantEvict: true,
+		},

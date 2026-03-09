@@ -93,3 +93,4 @@ func (o *MlxServerOptions) Validate() error {
 		return validation.ValidationError(fmt.Errorf("MLX server options cannot be nil for MLX backend"))
 	}
 
+	if o.Port < 0 || o.Port > 65535 {

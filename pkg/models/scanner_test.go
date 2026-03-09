@@ -95,3 +95,5 @@ func TestScanCache(t *testing.T) {
 	}
 
 	if !hasGGUF {
+		t.Error("expected GGUF file in results")
+	}

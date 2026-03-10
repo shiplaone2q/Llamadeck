@@ -101,3 +101,4 @@ func main() {
 	fmt.Printf("Working: %d\n", len(working))
 	fmt.Printf("Missing: %d\n", len(missing))
 	fmt.Printf("Ignored (utility): %d\n", len(ignored))
+	fmt.Printf("Conflicts: %d\n", len(conflicts))

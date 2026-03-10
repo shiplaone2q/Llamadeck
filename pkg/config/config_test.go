@@ -145,3 +145,7 @@ func TestLoadConfig_CustomBackends(t *testing.T) {
 	configContent := `
 backends:
   custom:
+    my-engine:
+      command: my-server
+      args: ["serve"]
+    other-engine:

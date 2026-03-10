@@ -95,3 +95,5 @@ func (s *JobStore) Get(jobID string) (*Job, error) {
 	jobCopy.CancelFunc = nil
 
 	return &jobCopy, nil
+}
+

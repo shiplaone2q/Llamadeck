@@ -80,3 +80,7 @@ func main() {
 		log.Fatalf("Failed to run database migrations: %v", err)
 	}
 
+	instanceManager := manager.New(&cfg, db)
+	modelManager := models.NewManager(cfg.Backends.LlamaCpp.CacheDir, cfg.Backends.LlamaCpp.DownloadTimeout, cfg.Version)
+
+	var oidcService *server.OIDCService

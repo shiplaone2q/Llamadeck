@@ -83,3 +83,5 @@ func newProxy(instance *Instance) (*proxy, error) {
 		p.apiKey = node.APIKey
 	} else {
 		// Get host/port from process
+		host := p.instance.options.GetHost()
+		port := p.instance.options.GetPort()

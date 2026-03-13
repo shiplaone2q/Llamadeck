@@ -176,3 +176,6 @@ type LlamaServerOptions struct {
 	OverrideTensorDraft  []string `json:"override_tensor_draft,omitempty"`  // -otd, --override-tensor-draft
 	CPUMoeDraft          bool     `json:"cpu_moe_draft,omitempty"`          // -cmoed, --cpu-moe-draft
 	NCPUMoeDraft         int      `json:"n_cpu_moe_draft,omitempty"`        // -ncmoed, --n-cpu-moe-draft N
+	Alias                string   `json:"alias,omitempty"`                  // -a, --alias STRING
+	Host                 string   `json:"host,omitempty"`                   // --host HOST
+	Port                 int      `json:"port,omitempty"`                   // --port PORT

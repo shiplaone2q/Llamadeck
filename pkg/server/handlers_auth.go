@@ -116,3 +116,5 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 			for _, p := range req.Permissions {
 				if !instanceIDMap[p.InstanceID] {
 					writeError(w, http.StatusBadRequest, "invalid_instance_id", fmt.Sprintf("Instance ID %d does not exist", p.InstanceID))
+					return
+				}

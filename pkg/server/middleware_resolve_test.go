@@ -58,3 +58,6 @@ func TestResolveInstancePermission(t *testing.T) {
 			wantStart: true,
 			wantEvict: true,
 		},
+		{
+			name:      "per_instance key both flags true",
+			ctx:       withKey(context.Background(), perInstanceKey),

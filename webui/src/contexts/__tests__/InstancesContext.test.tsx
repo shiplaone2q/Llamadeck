@@ -142,3 +142,7 @@ describe("InstancesContext", () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
+  });
+
+  describe("Initial Loading", () => {
+    it("loads instances on mount", async () => {

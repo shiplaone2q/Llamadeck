@@ -160,3 +160,6 @@ afterEach(() => {
     })
 
     it('does not call deleteInstance when confirmation cancelled', async () => {
+      const user = userEvent.setup()
+      const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false)
+

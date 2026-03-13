@@ -60,3 +60,6 @@ const ParseCommandDialog: React.FC<ParseCommandDialogProps> = ({
 
       onParsed(options);
       onOpenChange(false);
+      setCommand('');
+      setError(null);
+      toast.success('Command parsed successfully');

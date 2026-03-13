@@ -122,3 +122,4 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
     }
   };
 
+  const handleInstanceToggle = (instanceId: number, checked: boolean) => {

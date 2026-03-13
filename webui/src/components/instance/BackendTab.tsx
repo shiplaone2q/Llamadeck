@@ -75,3 +75,7 @@ const BackendTab: React.FC<BackendTabProps> = ({
   if (isCustom && customName && !configuredNames.includes(customName)) {
     configuredNames.push(customName)
   }
+
+  const backendTypeOptions = [
+    { value: BackendType.LLAMA_CPP, label: 'Llama Server' },
+    { value: BackendType.MLX_LM, label: 'MLX LM' },

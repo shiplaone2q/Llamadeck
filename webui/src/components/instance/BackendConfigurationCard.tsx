@@ -58,3 +58,4 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
           </Button>
           <p className="text-sm text-muted-foreground">
             Import settings from your backend command
+          </p>

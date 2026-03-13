@@ -57,3 +57,4 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 		Path:               cfg.Database.Path,
 		MaxOpenConnections: cfg.Database.MaxOpenConnections,
 		MaxIdleConnections: cfg.Database.MaxIdleConnections,
+		ConnMaxLifetime:    cfg.Database.ConnMaxLifetime,

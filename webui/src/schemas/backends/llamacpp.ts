@@ -110,3 +110,7 @@ export const LlamaCppBackendOptionsSchema = z.object({
   dry_multiplier: z.number().optional(), // --dry-multiplier N
   dry_base: z.number().optional(), // --dry-base N
   dry_allowed_length: z.number().optional(),
+  dry_penalty_last_n: z.number().optional(),
+  dry_sequence_breaker: z.array(z.string()).optional(), // --dry-sequence-breaker STRING
+  adaptive_target: z.number().optional(), // --adaptive-target N
+  adaptive_decay: z.number().optional(), // --adaptive-decay N

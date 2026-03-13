@@ -56,3 +56,5 @@ func parseDotEnv(data []byte) map[string]string {
 		}
 
 		lineStr := string(line)
+
+		lineStr = strings.TrimPrefix(lineStr, "export ")

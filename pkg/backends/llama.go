@@ -174,3 +174,5 @@ type LlamaServerOptions struct {
 	ImageMinTokens       int      `json:"image_min_tokens,omitempty"`       // --image-min-tokens N
 	ImageMaxTokens       int      `json:"image_max_tokens,omitempty"`       // --image-max-tokens N
 	OverrideTensorDraft  []string `json:"override_tensor_draft,omitempty"`  // -otd, --override-tensor-draft
+	CPUMoeDraft          bool     `json:"cpu_moe_draft,omitempty"`          // -cmoed, --cpu-moe-draft
+	NCPUMoeDraft         int      `json:"n_cpu_moe_draft,omitempty"`        // -ncmoed, --n-cpu-moe-draft N

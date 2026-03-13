@@ -81,3 +81,7 @@ func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, e
 
 	job, err := m.jobStore.Create(repo, tag)
 	if err != nil {
+		return "", err
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())

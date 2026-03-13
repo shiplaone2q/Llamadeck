@@ -70,3 +70,6 @@ func TestValidateInstanceOptions_PortValidation(t *testing.T) {
 		{"negative port", -1, true},
 		{"port too high", 65536, true},
 	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {

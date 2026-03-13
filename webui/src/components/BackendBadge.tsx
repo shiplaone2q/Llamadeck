@@ -46,3 +46,4 @@ const BackendBadge: React.FC<BackendBadgeProps> = ({ backend, docker, customName
 
   return (
     <div className="flex items-center gap-1">
+      <Badge

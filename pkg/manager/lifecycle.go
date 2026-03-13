@@ -77,3 +77,5 @@ func (l *lifecycleManager) timeoutCheckLoop() {
 // checkTimeouts checks all instances for timeout and stops those that have timed out.
 func (l *lifecycleManager) checkTimeouts() {
 	// Get all instances from registry
+	instances := l.registry.list()
+

@@ -92,3 +92,4 @@ Configuration files are searched in the following locations (in order of precede
 
 **Linux:**  
 - `./llamadeck.yaml` or `./config.yaml` (current directory)  
+- `$HOME/.config/llamadeck/config.yaml`  

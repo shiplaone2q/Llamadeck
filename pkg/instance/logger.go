@@ -71,3 +71,6 @@ func (l *logger) create() error {
 	if !l.cfg.Enabled {
 		t.MaxSize = 0
 	}
+
+	l.logFile = t
+

@@ -179,3 +179,4 @@ type LlamaServerOptions struct {
 	Alias                string   `json:"alias,omitempty"`                  // -a, --alias STRING
 	Host                 string   `json:"host,omitempty"`                   // --host HOST
 	Port                 int      `json:"port,omitempty"`                   // --port PORT
+	Path                 string   `json:"path,omitempty"`                   // --path PATH

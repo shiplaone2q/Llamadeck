@@ -87,3 +87,5 @@ class NodeHealthService {
     this.intervals.set(nodeName, interval);
   }
 
+  private async refreshHealth(nodeName: string): Promise<void> {
+    try {

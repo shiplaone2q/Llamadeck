@@ -146,3 +146,4 @@ describe("InstancesContext", () => {
 
   describe("Initial Loading", () => {
     it("loads instances on mount", async () => {
+      renderWithProvider(<TestComponent />);

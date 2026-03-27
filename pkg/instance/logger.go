@@ -74,3 +74,4 @@ func (l *logger) create() error {
 
 	l.logFile = t
 
+	// Write a startup marker

@@ -40,3 +40,4 @@ updates:
         dependency-type: "production"
       npm-development:
         dependency-type: "development"
+    labels:

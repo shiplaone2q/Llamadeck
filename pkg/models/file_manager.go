@@ -63,3 +63,5 @@ func (fm *FileManager) HFHubRoot() string {
 		}
 		fm.hubRootVal = filepath.Join(fm.cacheDir, "huggingface", "hub")
 	})
+	return fm.hubRootVal
+}

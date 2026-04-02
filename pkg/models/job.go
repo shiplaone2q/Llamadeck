@@ -97,3 +97,7 @@ func (s *JobStore) Get(jobID string) (*Job, error) {
 	return &jobCopy, nil
 }
 
+func (s *JobStore) List() []*Job {
+	s.mutex.RLock()
+	defer s.mutex.RUnlock()
+

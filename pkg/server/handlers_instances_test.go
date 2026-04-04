@@ -58,3 +58,7 @@ func newInstancesTestRouter(t *testing.T) http.Handler {
 		MaxOpenConnections: cfg.Database.MaxOpenConnections,
 		MaxIdleConnections: cfg.Database.MaxIdleConnections,
 		ConnMaxLifetime:    cfg.Database.ConnMaxLifetime,
+	})
+	if err != nil {
+		t.Fatalf("Failed to open database: %v", err)
+	}

@@ -54,3 +54,6 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
 
         const top = (currentLineNumber + 1) * lineHeight - textareaRef.current.scrollTop + 5
         const left = currentLineLength * charWidth + 10
+
+        setSuggestionPosition({ top, left })
+      }

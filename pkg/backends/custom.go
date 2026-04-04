@@ -54,3 +54,6 @@ func (o *CustomServerOptions) Validate() error {
 	if o.Name == "" {
 		return validation.ValidationError(fmt.Errorf("custom backend requires a name referencing a backends.custom.<name> config entry"))
 	}
+
+	if o.Port < 0 || o.Port > 65535 {
+		return validation.ValidationError(fmt.Errorf("invalid port range: %d", o.Port))

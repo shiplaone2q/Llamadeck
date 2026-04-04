@@ -85,3 +85,6 @@ func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, e
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
+	job.CancelFunc = cancel
+
+	go m.downloadWorker(ctx, job, format)

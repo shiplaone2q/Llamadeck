@@ -127,3 +127,5 @@ describe('InstanceModal - Form Logic and Validation', () => {
       const user = userEvent.setup()
 
       render(
+        <InstanceDialog
+          open={true}

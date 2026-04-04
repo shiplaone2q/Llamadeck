@@ -141,3 +141,6 @@ func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 			// Error is already handled in ServeHTTP (response written)
 			return
 		}
+	}
+}
+

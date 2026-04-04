@@ -39,3 +39,6 @@ function InstanceList({ editInstance }: InstanceListProps) {
   if (instances.length === 0) {
     return (
       <div className="text-center py-12">
+        <p className="text-foreground text-lg mb-2">No instances found</p>
+        <p className="text-muted-foreground text-sm">Create your first instance to get started</p>
+      </div>

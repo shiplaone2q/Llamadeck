@@ -82,3 +82,7 @@ func (st *status) get() Status {
 	return st.s
 }
 
+// set updates the status and triggers the onStatusChange callback if set
+func (st *status) set(newStatus Status) {
+	st.mu.Lock()
+	oldStatus := st.s

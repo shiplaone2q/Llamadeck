@@ -48,3 +48,7 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
         <h3 className="text-lg font-semibold">Model Presets (preset.ini)</h3>
         <p className="text-sm text-muted-foreground mt-1">
           Optional: Configure multiple models for router mode. Leave empty to run without router mode.
+          This will auto-set models-preset option unless you specify a custom path.
+        </p>
+      </div>
+

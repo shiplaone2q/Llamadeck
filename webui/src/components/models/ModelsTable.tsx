@@ -112,3 +112,7 @@ function DownloadingRow({ job }: { job: DownloadJob }) {
     } finally {
       setCancelling(false)
     }
+  }
+
+  const handleRetry = async () => {
+    try {

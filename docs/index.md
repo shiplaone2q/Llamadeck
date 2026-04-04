@@ -30,3 +30,5 @@ If you need help or have questions:
 
 - Check the [Troubleshooting](troubleshooting.md) guide
 - Visit the [GitHub repository](https://github.com/lordmathis/llamadeck)
+- Review the [Configuration Guide](configuration.md) for advanced settings
+

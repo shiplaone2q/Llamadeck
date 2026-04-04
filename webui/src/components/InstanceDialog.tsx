@@ -169,3 +169,4 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
           return;
         }
         // Skip empty arrays
+        if (Array.isArray(value) && value.length === 0) {

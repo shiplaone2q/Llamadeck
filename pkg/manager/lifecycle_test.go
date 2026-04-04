@@ -94,3 +94,5 @@ func TestEvictLRUInstance_Success(t *testing.T) {
 
 	// Set different last request times (oldest to newest)
 	// inst1: oldest (will be evicted)
+	inst1.UpdateLastRequestTime()
+

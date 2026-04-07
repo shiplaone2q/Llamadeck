@@ -145,3 +145,228 @@ func loadEnvVars(cfg *AppConfig) {
 				cfg.Backends.VLLM.Docker = &DockerSettings{}
 			}
 			cfg.Backends.VLLM.Docker.Enabled = b
+		}
+	}
+	if vllmDockerImage := os.Getenv("LLAMADECK_VLLM_DOCKER_IMAGE"); vllmDockerImage != "" {
+		if cfg.Backends.VLLM.Docker == nil {
+			cfg.Backends.VLLM.Docker = &DockerSettings{}
+		}
+		cfg.Backends.VLLM.Docker.Image = vllmDockerImage
+	}
+	if vllmDockerArgs := os.Getenv("LLAMADECK_VLLM_DOCKER_ARGS"); vllmDockerArgs != "" {
+		if cfg.Backends.VLLM.Docker == nil {
+			cfg.Backends.VLLM.Docker = &DockerSettings{}
+		}
+		cfg.Backends.VLLM.Docker.Args = strings.Split(vllmDockerArgs, " ")
+	}
+	if vllmDockerEnv := os.Getenv("LLAMADECK_VLLM_DOCKER_ENV"); vllmDockerEnv != "" {
+		if cfg.Backends.VLLM.Docker == nil {
+			cfg.Backends.VLLM.Docker = &DockerSettings{}
+		}
+		if cfg.Backends.VLLM.Docker.Environment == nil {
+			cfg.Backends.VLLM.Docker.Environment = make(map[string]string)
+		}
+		parseEnvVars(vllmDockerEnv, cfg.Backends.VLLM.Docker.Environment)
+	}
+	if llamaEnv := os.Getenv("LLAMADECK_VLLM_RESPONSE_HEADERS"); llamaEnv != "" {
+		if cfg.Backends.VLLM.ResponseHeaders == nil {
+			cfg.Backends.VLLM.ResponseHeaders = make(map[string]string)
+		}
+		parseHeaders(llamaEnv, cfg.Backends.VLLM.ResponseHeaders)
+	}
+
+	// MLX backend
+	if mlxCmd := os.Getenv("LLAMADECK_MLX_COMMAND"); mlxCmd != "" {
+		cfg.Backends.MLX.Command = mlxCmd
+	}
+	if mlxArgs := os.Getenv("LLAMADECK_MLX_ARGS"); mlxArgs != "" {
+		cfg.Backends.MLX.Args = strings.Split(mlxArgs, " ")
+	}
+	if mlxEnv := os.Getenv("LLAMADECK_MLX_ENV"); mlxEnv != "" {
+		if cfg.Backends.MLX.Environment == nil {
+			cfg.Backends.MLX.Environment = make(map[string]string)
+		}
+		parseEnvVars(mlxEnv, cfg.Backends.MLX.Environment)
+	}
+	if llamaEnv := os.Getenv("LLAMADECK_MLX_RESPONSE_HEADERS"); llamaEnv != "" {
+		if cfg.Backends.MLX.ResponseHeaders == nil {
+			cfg.Backends.MLX.ResponseHeaders = make(map[string]string)
+		}
+		parseHeaders(llamaEnv, cfg.Backends.MLX.ResponseHeaders)
+	}
+
+	// Instance defaults
+	if idleTimeout := os.Getenv("LLAMADECK_DEFAULT_IDLE_TIMEOUT"); idleTimeout != "" {
+		if minutes, err := strconv.Atoi(idleTimeout); err == nil {
+			cfg.Instances.DefaultIdleTimeout = minutes
+		}
+	}
+	if autoRestart := os.Getenv("LLAMADECK_DEFAULT_AUTO_RESTART"); autoRestart != "" {
+		if b, err := strconv.ParseBool(autoRestart); err == nil {
+			cfg.Instances.DefaultAutoRestart = b
+		}
+	}
+	if maxRestarts := os.Getenv("LLAMADECK_DEFAULT_MAX_RESTARTS"); maxRestarts != "" {
+		if m, err := strconv.Atoi(maxRestarts); err == nil {
+			cfg.Instances.DefaultMaxRestarts = m
+		}
+	}
+	if restartDelay := os.Getenv("LLAMADECK_DEFAULT_RESTART_DELAY"); restartDelay != "" {
+		if seconds, err := strconv.Atoi(restartDelay); err == nil {
+			cfg.Instances.DefaultRestartDelay = seconds
+		}
+	}
+	if onDemandStart := os.Getenv("LLAMADECK_DEFAULT_ON_DEMAND_START"); onDemandStart != "" {
+		if b, err := strconv.ParseBool(onDemandStart); err == nil {
+			cfg.Instances.DefaultOnDemandStart = b
+		}
+	}
+	if onDemandTimeout := os.Getenv("LLAMADECK_ON_DEMAND_START_TIMEOUT"); onDemandTimeout != "" {
+		if seconds, err := strconv.Atoi(onDemandTimeout); err == nil {
+			cfg.Instances.OnDemandStartTimeout = seconds
+		}
+	}
+	if timeoutCheckInterval := os.Getenv("LLAMADECK_TIMEOUT_CHECK_INTERVAL"); timeoutCheckInterval != "" {
+		if minutes, err := strconv.Atoi(timeoutCheckInterval); err == nil {
+			cfg.Instances.TimeoutCheckInterval = minutes
+		}
+	}
+	// Auth config
+	if requireInferenceAuth := os.Getenv("LLAMADECK_REQUIRE_INFERENCE_AUTH"); requireInferenceAuth != "" {
+		if b, err := strconv.ParseBool(requireInferenceAuth); err == nil {
+			cfg.Auth.RequireInferenceAuth = b
+		}
+	}
+	if requireManagementAuth := os.Getenv("LLAMADECK_REQUIRE_MANAGEMENT_AUTH"); requireManagementAuth != "" {
+		if b, err := strconv.ParseBool(requireManagementAuth); err == nil {
+			cfg.Auth.RequireManagementAuth = b
+		}
+	}
+	if managementKeys := os.Getenv("LLAMADECK_MANAGEMENT_KEYS"); managementKeys != "" {
+		cfg.Auth.ManagementKeys = strings.Split(managementKeys, ",")
+	}
+
+	// OIDC config
+	if v := os.Getenv("LLAMADECK_AUTH_OIDC_ISSUER_URL"); v != "" {
+		cfg.Auth.OIDC.IssuerURL = v
+	}
+	if v := os.Getenv("LLAMADECK_AUTH_OIDC_CLIENT_ID"); v != "" {
+		cfg.Auth.OIDC.ClientID = v
+	}
+	if v := os.Getenv("LLAMADECK_AUTH_OIDC_CLIENT_SECRET"); v != "" {
+		cfg.Auth.OIDC.ClientSecret = v
+	}
+	if v := os.Getenv("LLAMADECK_AUTH_OIDC_REDIRECT_URL"); v != "" {
+		cfg.Auth.OIDC.RedirectURL = v
+	}
+	if v := os.Getenv("LLAMADECK_AUTH_OIDC_SCOPES"); v != "" {
+		cfg.Auth.OIDC.Scopes = strings.Split(v, ",")
+	}
+	if v := os.Getenv("LLAMADECK_AUTH_OIDC_ALLOWED_GROUPS"); v != "" {
+		cfg.Auth.OIDC.AllowedGroups = strings.Split(v, ",")
+	}
+	if v := os.Getenv("LLAMADECK_AUTH_OIDC_GROUPS_CLAIM"); v != "" {
+		cfg.Auth.OIDC.GroupsClaim = v
+	}
+	if v := os.Getenv("LLAMADECK_AUTH_OIDC_SESSION_TTL"); v != "" {
+		if d, err := time.ParseDuration(v); err == nil {
+			cfg.Auth.OIDC.SessionTTL = d
+		}
+	}
+	if v := os.Getenv("LLAMADECK_AUTH_OIDC_SECURE_COOKIE"); v != "" {
+		if b, err := strconv.ParseBool(v); err == nil {
+			cfg.Auth.OIDC.SecureCookie = b
+		}
+	}
+
+	// Local node config
+	if localNode := os.Getenv("LLAMADECK_LOCAL_NODE"); localNode != "" {
+		cfg.LocalNode = localNode
+	}
+
+	// Database config
+	if dbPath := os.Getenv("LLAMADECK_DATABASE_PATH"); dbPath != "" {
+		cfg.Database.Path = dbPath
+	}
+	if maxOpenConns := os.Getenv("LLAMADECK_DATABASE_MAX_OPEN_CONNECTIONS"); maxOpenConns != "" {
+		if m, err := strconv.Atoi(maxOpenConns); err == nil {
+			cfg.Database.MaxOpenConnections = m
+		}
+	}
+	if maxIdleConns := os.Getenv("LLAMADECK_DATABASE_MAX_IDLE_CONNECTIONS"); maxIdleConns != "" {
+		if m, err := strconv.Atoi(maxIdleConns); err == nil {
+			cfg.Database.MaxIdleConnections = m
+		}
+	}
+	if connMaxLifetime := os.Getenv("LLAMADECK_DATABASE_CONN_MAX_LIFETIME"); connMaxLifetime != "" {
+		if d, err := time.ParseDuration(connMaxLifetime); err == nil {
+			cfg.Database.ConnMaxLifetime = d
+		}
+	}
+
+	// Log rotation config
+	if logRotationEnabled := os.Getenv("LLAMADECK_LOG_ROTATION_ENABLED"); logRotationEnabled != "" {
+		if b, err := strconv.ParseBool(logRotationEnabled); err == nil {
+			cfg.Instances.LogRotationEnabled = b
+		}
+	}
+	if logRotationMaxSize := os.Getenv("LLAMADECK_LOG_ROTATION_MAX_SIZE"); logRotationMaxSize != "" {
+		if m, err := strconv.Atoi(logRotationMaxSize); err == nil {
+			cfg.Instances.LogRotationMaxSize = m
+		}
+	}
+	if logRotationCompress := os.Getenv("LLAMADECK_LOG_ROTATION_COMPRESS"); logRotationCompress != "" {
+		if b, err := strconv.ParseBool(logRotationCompress); err == nil {
+			cfg.Instances.LogRotationCompress = b
+		}
+	}
+}
+
+// ParsePortRange parses port range from string formats like "8000-9000" or "8000,9000"
+func ParsePortRange(s string) [2]int {
+	var parts []string
+
+	// Try both separators
+	if strings.Contains(s, "-") {
+		parts = strings.Split(s, "-")
+	} else if strings.Contains(s, ",") {
+		parts = strings.Split(s, ",")
+	}
+
+	// Parse the two parts
+	if len(parts) == 2 {
+		start, err1 := strconv.Atoi(strings.TrimSpace(parts[0]))
+		end, err2 := strconv.Atoi(strings.TrimSpace(parts[1]))
+		if err1 == nil && err2 == nil {
+			return [2]int{start, end}
+		}
+	}
+
+	return [2]int{0, 0} // Invalid format
+}
+
+// parseEnvVars parses environment variables in format "KEY1=value1,KEY2=value2"
+// and populates the provided environment map
+func parseEnvVars(envString string, envMap map[string]string) {
+	if envString == "" {
+		return
+	}
+	for _, envPair := range strings.Split(envString, ",") {
+		if parts := strings.SplitN(strings.TrimSpace(envPair), "=", 2); len(parts) == 2 {
+			envMap[parts[0]] = parts[1]
+		}
+	}
+}
+
+// parseHeaders parses HTTP headers in format "KEY1=value1;KEY2=value2"
+// and populates the provided environment map
+func parseHeaders(envString string, envMap map[string]string) {
+	if envString == "" {
+		return
+	}
+	for _, envPair := range strings.Split(envString, ";") {
+		if parts := strings.SplitN(strings.TrimSpace(envPair), "=", 2); len(parts) == 2 {
+			envMap[parts[0]] = parts[1]
+		}
+	}
+}

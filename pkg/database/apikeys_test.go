@@ -44,3 +44,4 @@ func TestListKeysIncludesAllOwners(t *testing.T) {
 			t.Errorf("owner %q missing from listing", want)
 		}
 	}
+}

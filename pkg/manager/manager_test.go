@@ -105,3 +105,6 @@ func TestDeleteInstance_RemovesFromDatabase(t *testing.T) {
 				Port:  8080,
 			},
 		},
+	}
+
+	_, err = mgr.CreateInstance("test-instance", options)

@@ -226,3 +226,398 @@ func (im *instanceManager) UpdateInstance(name string, options *instance.Options
 	}
 
 	// Check if instance is remote and delegate to remote operation
+	if node := im.getNodeForInstance(inst); node != nil {
+		ctx := context.Background()
+		remoteInst, err := im.remote.updateInstance(ctx, node, name, options)
+		if err != nil {
+			return nil, err
+		}
+
+		// Update the local stub with all remote data (preserving Nodes)
+		im.updateLocalInstanceFromRemote(inst, remoteInst)
+
+		// Persist the updated remote instance locally
+		if err := im.persistInstance(inst); err != nil {
+			return nil, fmt.Errorf("failed to persist updated remote instance %s: %w", name, err)
+		}
+
+		return inst, nil
+	}
+
+	if options == nil {
+		return nil, fmt.Errorf("instance options cannot be nil")
+	}
+
+	err := options.BackendOptions.ValidateInstanceOptions()
+	if err != nil {
+		return nil, err
+	}
+
+	if err := im.validateCustomBackend(options); err != nil {
+		return nil, err
+	}
+
+	// Lock this specific instance only
+	lock := im.lockInstance(name)
+	lock.Lock()
+	defer lock.Unlock()
+
+	// Handle port changes
+	oldPort := inst.GetPort()
+	newPort := im.getPortFromOptions(options)
+	var allocatedPort int
+
+	if newPort != oldPort {
+		// Port is changing - need to release old and allocate new
+		if newPort == 0 {
+			// Auto-allocate new port
+			allocatedPort, err = im.ports.allocate(name)
+			if err != nil {
+				return nil, fmt.Errorf("failed to allocate new port: %w", err)
+			}
+			im.setPortInOptions(options, allocatedPort)
+		} else {
+			// Use specified port
+			if err := im.ports.allocateSpecific(newPort, name); err != nil {
+				return nil, fmt.Errorf("failed to allocate port %d: %w", newPort, err)
+			}
+			allocatedPort = newPort
+		}
+
+		// Release old port
+		if oldPort > 0 {
+			if err := im.ports.release(oldPort); err != nil {
+				// Rollback new port allocation
+				im.ports.release(allocatedPort)
+				return nil, fmt.Errorf("failed to release old port %d: %w", oldPort, err)
+			}
+		}
+	}
+
+	// Check if instance is running before updating options
+	wasRunning := inst.IsRunning()
+
+	// If the instance is running, stop it first
+	if wasRunning {
+		if err := inst.Stop(); err != nil {
+			return nil, fmt.Errorf("failed to stop instance %s for update: %w", name, err)
+		}
+	}
+
+	// Now update the options while the instance is stopped
+	inst.SetOptions(options)
+
+	// If it was running before, start it again with the new options
+	if wasRunning {
+		if err := inst.Start(); err != nil {
+			return nil, fmt.Errorf("failed to start instance %s after update: %w", name, err)
+		}
+	}
+
+	if err := im.persistInstance(inst); err != nil {
+		return nil, fmt.Errorf("failed to persist updated instance %s: %w", name, err)
+	}
+
+	return inst, nil
+}
+
+// DeleteInstance removes stopped instance by its name.
+//
+// For remote instances we always complete the local cleanup (registry,
+// persistence, node map) so a stale gateway record can be evicted even
+// when the remote node is unreachable or already in the desired state.
+// Errors from the remote delete are surfaced only if they are not a
+// not-found signal, so transient outages don't block recovery.
+func (im *instanceManager) DeleteInstance(name string) error {
+	inst, exists := im.registry.get(name)
+	if !exists {
+		return fmt.Errorf("%w: %s", ErrInstanceNotFound, name)
+	}
+
+	// Check if instance is remote and delegate to remote operation
+	if node := im.getNodeForInstance(inst); node != nil {
+		ctx := context.Background()
+		if err := im.remote.deleteInstance(ctx, node, name); err != nil && !IsNotFoundError(err) {
+			return err
+		}
+
+		// Clean up local tracking
+		im.remote.removeInstance(name)
+		im.registry.remove(name)
+
+		// Delete the instance's persistence
+		if err := im.db.Delete(name); err != nil {
+			return fmt.Errorf("failed to delete remote instance %s: %w", name, err)
+		}
+
+		return nil
+	}
+
+	// Lock this specific instance and clean up the lock on completion
+	lock := im.lockInstance(name)
+	lock.Lock()
+	defer im.unlockAndCleanup(name)
+
+	status := inst.GetStatus()
+	if status == instance.Running || status == instance.Restarting {
+		return fmt.Errorf("instance with name %s is still running, stop it before deleting", name)
+	}
+
+	// Release port (use ReleaseByInstance for proper cleanup)
+	im.ports.releaseByInstance(name)
+
+	// Remove from registry
+	if err := im.registry.remove(name); err != nil {
+		return fmt.Errorf("failed to remove instance from registry: %w", err)
+	}
+
+	// Delete from persistence
+	if err := im.db.Delete(name); err != nil {
+		return fmt.Errorf("failed to delete instance from persistence %s: %w", name, err)
+	}
+
+	return nil
+}
+
+// StartInstance starts a stopped instance and returns it.
+// If the instance is already running, it returns an error.
+func (im *instanceManager) StartInstance(name string) (*instance.Instance, error) {
+	inst, exists := im.registry.get(name)
+	if !exists {
+		return nil, fmt.Errorf("%w: %s", ErrInstanceNotFound, name)
+	}
+
+	// Check if instance is remote and delegate to remote operation
+	if node := im.getNodeForInstance(inst); node != nil {
+		ctx := context.Background()
+		remoteInst, err := im.remote.startInstance(ctx, node, name)
+		if err != nil {
+			return nil, err
+		}
+
+		// Update the local stub with all remote data (preserving Nodes)
+		im.updateLocalInstanceFromRemote(inst, remoteInst)
+
+		return inst, nil
+	}
+
+	// Lock this specific instance only
+	lock := im.lockInstance(name)
+	lock.Lock()
+	defer lock.Unlock()
+
+	// Idempotent: if already running, just return success
+	if inst.IsRunning() {
+		return inst, nil
+	}
+
+	if err := inst.Start(); err != nil {
+		return nil, fmt.Errorf("failed to start instance %s: %w", name, err)
+	}
+
+	// Persist instance (best-effort, don't fail if persistence fails)
+	if err := im.persistInstance(inst); err != nil {
+		log.Printf("Warning: failed to persist instance %s: %v", name, err)
+	}
+
+	return inst, nil
+}
+
+func (im *instanceManager) AtMaxRunning() bool {
+	if im.globalConfig.Instances.MaxRunningInstances == -1 {
+		return false
+	}
+
+	// Count only local running instances (each node has its own limits)
+	localRunningCount := 0
+	for _, inst := range im.registry.listRunning() {
+		if !inst.IsRemote() {
+			localRunningCount++
+		}
+	}
+
+	return localRunningCount >= im.globalConfig.Instances.MaxRunningInstances
+}
+
+// StopInstance stops a running instance and returns it.
+func (im *instanceManager) StopInstance(name string) (*instance.Instance, error) {
+	inst, exists := im.registry.get(name)
+	if !exists {
+		return nil, fmt.Errorf("%w: %s", ErrInstanceNotFound, name)
+	}
+
+	// Check if instance is remote and delegate to remote operation
+	if node := im.getNodeForInstance(inst); node != nil {
+		ctx := context.Background()
+		remoteInst, err := im.remote.stopInstance(ctx, node, name)
+		if err != nil {
+			return nil, err
+		}
+
+		// Update the local stub with all remote data (preserving Nodes)
+		im.updateLocalInstanceFromRemote(inst, remoteInst)
+
+		return inst, nil
+	}
+
+	// Lock this specific instance only
+	lock := im.lockInstance(name)
+	lock.Lock()
+	defer lock.Unlock()
+
+	// Idempotent: if already stopped, just return success
+	if !inst.IsRunning() {
+		return inst, nil
+	}
+
+	if err := inst.Stop(); err != nil {
+		return nil, fmt.Errorf("failed to stop instance %s: %w", name, err)
+	}
+
+	// Persist instance (best-effort, don't fail if persistence fails)
+	if err := im.persistInstance(inst); err != nil {
+		log.Printf("Warning: failed to persist instance %s: %v", name, err)
+	}
+
+	return inst, nil
+}
+
+// RestartInstance stops and then starts an instance, returning the updated instance.
+func (im *instanceManager) RestartInstance(name string) (*instance.Instance, error) {
+	inst, exists := im.registry.get(name)
+	if !exists {
+		return nil, fmt.Errorf("%w: %s", ErrInstanceNotFound, name)
+	}
+
+	// Check if instance is remote and delegate to remote operation
+	if node := im.getNodeForInstance(inst); node != nil {
+		ctx := context.Background()
+		remoteInst, err := im.remote.restartInstance(ctx, node, name)
+		if err != nil {
+			return nil, err
+		}
+
+		// Update the local stub with all remote data (preserving Nodes)
+		im.updateLocalInstanceFromRemote(inst, remoteInst)
+
+		return inst, nil
+	}
+
+	// Lock this specific instance for the entire restart operation to ensure atomicity
+	lock := im.lockInstance(name)
+	lock.Lock()
+	defer lock.Unlock()
+
+	// Stop the instance
+	if inst.IsRunning() {
+		if err := inst.Stop(); err != nil {
+			return nil, fmt.Errorf("failed to stop instance %s: %w", name, err)
+		}
+	}
+
+	// Start the instance
+	if err := inst.Start(); err != nil {
+		return nil, fmt.Errorf("failed to start instance %s: %w", name, err)
+	}
+
+	// Persist the restarted instance
+	if err := im.persistInstance(inst); err != nil {
+		log.Printf("Warning: failed to persist instance %s: %v", name, err)
+	}
+
+	return inst, nil
+}
+
+// GetInstanceLogs retrieves the logs for a specific instance by its name.
+func (im *instanceManager) GetInstanceLogs(name string, numLines int) (string, error) {
+	inst, exists := im.registry.get(name)
+	if !exists {
+		return "", fmt.Errorf("%w: %s", ErrInstanceNotFound, name)
+	}
+
+	// Check if instance is remote and delegate to remote operation
+	if node := im.getNodeForInstance(inst); node != nil {
+		ctx := context.Background()
+		return im.remote.getInstanceLogs(ctx, node, name, numLines)
+	}
+
+	// Get logs from the local instance
+	return inst.GetLogs(numLines)
+}
+
+// getPortFromOptions extracts the port from backend-specific options
+func (im *instanceManager) getPortFromOptions(options *instance.Options) int {
+	return options.BackendOptions.GetPort()
+}
+
+// setPortInOptions sets the port in backend-specific options
+func (im *instanceManager) setPortInOptions(options *instance.Options, port int) {
+	options.BackendOptions.SetPort(port)
+}
+
+// validateCustomBackend checks the backends.custom.<name> entry exists and
+// provides a command; merged args must contain {port}, and {model} requires
+// a model set. Runs in the manager because options lack config access.
+func (im *instanceManager) validateCustomBackend(options *instance.Options) error {
+	if options.BackendOptions.BackendType != backends.BackendTypeCustom {
+		return nil
+	}
+
+	customOpts := options.BackendOptions.CustomServerOptions
+	if customOpts == nil {
+		return validation.ValidationError(fmt.Errorf("custom backend options cannot be nil for custom backend"))
+	}
+
+	settings, exists := im.globalConfig.Backends.Custom[customOpts.Name]
+	if !exists {
+		return validation.ValidationError(fmt.Errorf("custom backend '%s' is not defined in config", customOpts.Name))
+	}
+
+	command := settings.Command
+	if options.CommandOverride != "" {
+		command = options.CommandOverride
+	}
+	if command == "" {
+		return validation.ValidationError(fmt.Errorf("custom backend '%s' has no command configured", customOpts.Name))
+	}
+
+	mergedArgs := slices.Concat(settings.Args, customOpts.Args)
+	hasPortPlaceholder := slices.ContainsFunc(mergedArgs, func(arg string) bool {
+		return strings.Contains(arg, "{port}")
+	})
+	if !hasPortPlaceholder {
+		return validation.ValidationError(fmt.Errorf("custom backend '%s' args must contain the {port} placeholder so the server learns its port", customOpts.Name))
+	}
+
+	hasModelPlaceholder := slices.ContainsFunc(mergedArgs, func(arg string) bool {
+		return strings.Contains(arg, "{model}")
+	})
+	if hasModelPlaceholder && customOpts.Model == "" {
+		return validation.ValidationError(fmt.Errorf("custom backend '%s' args use the {model} placeholder but no model is set", customOpts.Name))
+	}
+
+	return nil
+}
+
+// EvictLRUInstance finds and stops the least recently used running instance.
+func (im *instanceManager) EvictLRUInstance(group string) error {
+	return im.lifecycle.evictLRU(group)
+}
+
+// CountRunningInGroup returns the number of local running instances belonging to the given group.
+func (im *instanceManager) CountRunningInGroup(group string) int {
+	count := 0
+	for _, inst := range im.registry.listRunning() {
+		if inst.IsRemote() {
+			continue
+		}
+		instGroup := ""
+		if inst.GetOptions() != nil {
+			instGroup = inst.GetOptions().Group
+		}
+		if instGroup == group {
+			count++
+		}
+	}
+	return count
+}

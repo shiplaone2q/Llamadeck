@@ -129,3 +129,6 @@ describe('InstanceModal - Form Logic and Validation', () => {
       render(
         <InstanceDialog
           open={true}
+          onOpenChange={mockOnOpenChange}
+          onSave={mockOnSave}
+        />

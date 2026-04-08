@@ -38,3 +38,49 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quick Start: quick-start.md
+  - Configuration: configuration.md
+  - Authentication: authentication.md
+  - Managing Instances: managing-instances.md
+  - Managing Models: managing-models.md
+  - Custom Backends: custom-backends.md
+  - API Reference: api-reference.md
+  - Troubleshooting: troubleshooting.md
+
+plugins:
+  - search
+  - git-revision-date-localized
+  - mike:
+      version_selector: true
+      css_dir: css
+      javascript_dir: js
+      canonical_version: null
+  - neoteroi.mkdocsoad:
+      use_pymdownx: true
+
+hooks:
+  - docs/readme_sync.py
+  - docs/fix_line_endings.py
+
+extra:
+  version:
+    provider: mike
+    default: stable
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/lordmathis/llamadeck
+
+extra_css:
+- css/css-v1.1.3.css

@@ -74,3 +74,29 @@ func TestWaitForHealthy_CustomHealthPath(t *testing.T) {
 		// The server 404s /health; success here would mean the
 		// configured path was ignored and /health was probed anyway.
 		if err := newTestInstance("/health").process.waitForHealthy(1); err == nil {
+			t.Error("expected timeout on /health (server returns 404), got healthy")
+		}
+	})
+}
+
+func TestBuildCommand_RemovedCustomEntryReturnsError(t *testing.T) {
+	inst := &Instance{Name: "gone"}
+	inst.options = newOptions(&Options{
+		BackendOptions: backends.Options{
+			BackendType:         backends.BackendTypeCustom,
+			CustomServerOptions: &backends.CustomServerOptions{Name: "gone"},
+		},
+	})
+	inst.globalBackendSettings = &config.BackendConfig{
+		Custom: map[string]config.BackendSettings{},
+	}
+	inst.process = newProcess(inst)
+
+	_, err := inst.process.buildCommand()
+	if err == nil {
+		t.Fatal("expected error for removed custom backend entry, got none")
+	}
+	if !strings.Contains(err.Error(), "no backend command configured") {
+		t.Errorf("expected clear error message, got: %v", err)
+	}
+}

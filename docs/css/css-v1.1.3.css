@@ -426,3 +426,7 @@
 .nt-group-4 .period {
   color: var(--nt-group-4-main);
   background-color: var(--nt-group-4-main-bg);
+}
+
+.nt-group-5 .nt-plan-group-summary,
+.nt-group-5 .nt-timeline-dot {

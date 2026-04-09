@@ -170,3 +170,220 @@ const InstanceDialog: React.FC<InstanceDialogProps> = ({
         }
         // Skip empty arrays
         if (Array.isArray(value) && value.length === 0) {
+          return;
+        }
+        (cleanOptions as Record<string, unknown>)[typedKey] = value;
+      }
+    });
+
+    onSave(instanceName, cleanOptions);
+    onOpenChange(false);
+  };
+
+  const handleCancel = () => {
+    onOpenChange(false);
+  };
+
+
+  const handleCommandParsed = (parsedOptions: CreateInstanceOptions) => {
+    setFormData(prev => ({
+      ...prev,
+      ...parsedOptions,
+    }));
+    setShowParseDialog(false);
+  };
+
+  const handleImportFile = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const content = e.target?.result as string;
+        const importedData = JSON.parse(content) as { name?: string; options?: CreateInstanceOptions };
+
+        if (!importedData.name || !importedData.options) {
+          alert('Invalid instance file: Missing required fields (name, options)');
+          return;
+        }
+
+        if (!isEditing && typeof importedData.name === 'string') {
+          handleNameChange(importedData.name);
+        }
+
+        if (importedData.options) {
+          setFormData(prev => ({
+            ...prev,
+            ...importedData.options,
+          }));
+        }
+
+        event.target.value = '';
+      } catch (error) {
+        console.error('Failed to parse instance file:', error);
+        alert(`Failed to parse instance file: ${error instanceof Error ? error.message : 'Invalid JSON'}`);
+      }
+    };
+
+    reader.readAsText(file);
+  };
+
+  const tabs = ["general", "backend", "advanced"];
+
+  const handleNext = () => {
+    const currentIndex = tabs.indexOf(activeTab);
+    if (currentIndex < tabs.length - 1) {
+      setActiveTab(tabs[currentIndex + 1]);
+    }
+  };
+
+  const handleBack = () => {
+    const currentIndex = tabs.indexOf(activeTab);
+    if (currentIndex > 0) {
+      setActiveTab(tabs[currentIndex - 1]);
+    }
+  };
+
+  const isLastTab = activeTab === tabs[tabs.length - 1];
+  const isFirstTab = activeTab === tabs[0];
+
+  // Save button label logic
+  let saveButtonLabel = "Create Instance";
+  if (isEditing) {
+    if (instance?.status === "running") {
+      saveButtonLabel = "Update & Restart Instance";
+    } else {
+      saveButtonLabel = "Update Instance";
+    }
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-4xl max-h-[80vh] overflow-hidden flex flex-col">
+        <DialogHeader>
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <DialogTitle>
+                {isEditing ? "Edit Instance" : "Create New Instance"}
+              </DialogTitle>
+              <DialogDescription>
+                {isEditing
+                  ? "Modify the instance configuration below."
+                  : "Configure your new llama-server instance below."}
+              </DialogDescription>
+            </div>
+            {!isEditing && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={handleImportFile}
+                title="Import instance configuration from JSON file"
+                className="ml-2"
+              >
+                <Upload className="h-4 w-4 mr-2" />
+                Import
+              </Button>
+            )}
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+        </DialogHeader>
+
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col min-h-0">
+          <TabsList className="w-full justify-start">
+            <TabsTrigger value="general">General</TabsTrigger>
+            <TabsTrigger value="backend">Backend</TabsTrigger>
+            <TabsTrigger value="advanced">Advanced</TabsTrigger>
+          </TabsList>
+
+          <div className="flex-1 overflow-y-auto">
+            <TabsContent value="general" className="h-full">
+              <GeneralTab
+                instanceName={instanceName}
+                nameError={nameError}
+                isEditing={isEditing}
+                formData={formData}
+                onNameChange={handleNameChange}
+                onChange={handleFieldChange}
+              />
+            </TabsContent>
+
+            <TabsContent value="backend" className="h-full">
+              <BackendTab
+                formData={formData}
+                onBackendFieldChange={handleBackendFieldChange}
+                onChange={handleFieldChange}
+                onParseCommand={() => setShowParseDialog(true)}
+              />
+            </TabsContent>
+
+            <TabsContent value="advanced" className="h-full">
+              <AdvancedTab
+                formData={formData}
+                onBackendFieldChange={handleBackendFieldChange}
+              />
+            </TabsContent>
+          </div>
+        </Tabs>
+
+        <DialogFooter className="pt-4 border-t">
+          <Button
+            variant="outline"
+            onClick={handleCancel}
+            data-testid="dialog-cancel-button"
+          >
+            Cancel
+          </Button>
+          {!isFirstTab && (
+            <Button
+              variant="outline"
+              onClick={handleBack}
+            >
+              Back
+            </Button>
+          )}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="inline-flex">
+                  <Button
+                    onClick={isLastTab ? handleSave : handleNext}
+                    disabled={!instanceName.trim() || !!nameError}
+                    data-testid={isLastTab ? "dialog-save-button" : "dialog-next-button"}
+                  >
+                    {isLastTab ? saveButtonLabel : "Next"}
+                  </Button>
+                </span>
+              </TooltipTrigger>
+              {(!instanceName.trim() || !!nameError) && (
+                <TooltipContent>
+                  <p>{nameError || "Instance name is required"}</p>
+                </TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
+        </DialogFooter>
+      </DialogContent>
+
+      <ParseCommandDialog
+        open={showParseDialog}
+        onOpenChange={setShowParseDialog}
+        onParsed={handleCommandParsed}
+        backendType={formData.backend_type || BackendType.LLAMA_CPP}
+      />
+    </Dialog>
+  );
+};
+
+export default InstanceDialog;

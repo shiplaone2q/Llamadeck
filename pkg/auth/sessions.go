@@ -44,3 +44,5 @@ func RandomToken() string {
 func (s *SessionStore) Create(sub, name, email string) *Session {
 	id := RandomToken()
 
+	sess := &Session{
+		ID:        id,

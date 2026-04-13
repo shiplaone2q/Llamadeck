@@ -94,3 +94,6 @@ func ScanCache(cacheDir, nodeName string) ([]CachedModel, error) {
 	}
 
 	return models, nil
+}
+
+func parseHFRepoDirName(dirName string) string {

@@ -103,3 +103,4 @@ vllm serve microsoft/DialoGPT-medium --port 8081
        - "https://yourdomain.com"
    ```
 
+## Authentication Issues

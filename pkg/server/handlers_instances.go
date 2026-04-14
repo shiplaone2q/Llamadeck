@@ -137,3 +137,5 @@ func (h *Handler) UpdateInstance() http.HandlerFunc {
 			writeError(w, http.StatusBadRequest, "invalid_request", "Invalid request body")
 			return
 		}
+
+		inst, err := h.InstanceManager.UpdateInstance(validatedName, &options)

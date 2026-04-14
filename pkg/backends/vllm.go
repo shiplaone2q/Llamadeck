@@ -88,3 +88,7 @@ type VllmServerOptions struct {
 	LoraModules                   string  `json:"lora_modules,omitempty"`
 	PromptAdapters                string  `json:"prompt_adapters,omitempty"`
 	MaxPromptAdapterToken         int     `json:"max_prompt_adapter_token,omitempty"`
+	Device                        string  `json:"device,omitempty"`
+	SchedulerDelay                float64 `json:"scheduler_delay,omitempty"`
+	EnableChunkedPrefill          bool    `json:"enable_chunked_prefill,omitempty"`
+	SpeculativeModel              string  `json:"speculative_model,omitempty"`

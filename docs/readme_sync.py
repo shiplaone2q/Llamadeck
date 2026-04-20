@@ -53,3 +53,4 @@ def add_line_breaks(content):
     lines = content.split('\n')
     processed_lines = []
 
+    for line in lines:

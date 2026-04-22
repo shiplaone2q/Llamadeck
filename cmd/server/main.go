@@ -84,3 +84,5 @@ func main() {
 	modelManager := models.NewManager(cfg.Backends.LlamaCpp.CacheDir, cfg.Backends.LlamaCpp.DownloadTimeout, cfg.Version)
 
 	var oidcService *server.OIDCService
+	if cfg.Auth.OIDC.Enabled() {
+		oidcService, err = server.NewOIDCService(cfg.Auth)

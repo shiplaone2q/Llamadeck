@@ -66,3 +66,7 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
   }
 
   const selectedNode = formData.nodes && formData.nodes.length > 0 ? formData.nodes[0] : ''
+
+  return (
+    <Card>
+      <CardHeader>

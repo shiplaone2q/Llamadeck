@@ -101,3 +101,6 @@ func (s *JobStore) List() []*Job {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
+	jobs := make([]*Job, 0, len(s.jobs))
+	for _, job := range s.jobs {
+		jobCopy := *job

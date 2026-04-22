@@ -70,3 +70,4 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
     if (e.key === 'Enter' && !isSubmitDisabled) {
       // Create a synthetic FormEvent to satisfy handleSubmit's type
       const syntheticEvent = {
+        preventDefault: () => {},

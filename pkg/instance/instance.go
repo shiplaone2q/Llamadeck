@@ -146,3 +146,5 @@ func (i *Instance) Restart() error {
 func (i *Instance) WaitForHealthy(timeout int) error {
 	if i.process == nil {
 		return fmt.Errorf("instance %s has no process component (remote instances cannot be health checked locally)", i.Name)
+	}
+	return i.process.waitForHealthy(timeout)

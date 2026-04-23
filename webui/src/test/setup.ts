@@ -44,3 +44,4 @@ const createMockFetch = () => {
   return vi.fn((url: string) => {
     // Handle API endpoints that return JSON
     if (url.includes('/api/v1/')) {
+      return Promise.resolve(

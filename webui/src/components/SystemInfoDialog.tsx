@@ -108,3 +108,5 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
               <p className="text-sm text-gray-500 mt-1">
                 Information for {BACKEND_OPTIONS.find(b => b.value === selectedBackend)?.label} backend is not yet implemented.
               </p>
+            </div>
+          </div>

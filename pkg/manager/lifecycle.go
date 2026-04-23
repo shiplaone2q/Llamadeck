@@ -79,3 +79,7 @@ func (l *lifecycleManager) checkTimeouts() {
 	// Get all instances from registry
 	instances := l.registry.list()
 
+	var timeoutInstances []string
+
+	// Identify instances that should timeout
+	for _, inst := range instances {

@@ -72,3 +72,5 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 
 	return args
 }
+
+// BuildDockerCommand builds a Docker command with the specified configuration and arguments

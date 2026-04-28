@@ -100,3 +100,7 @@ describe('NodesList', () => {
 
     renderNodesList();
 
+    expect(screen.getByText('Loading nodes...')).toBeInTheDocument();
+  });
+
+  it('displays error message when node loading fails', async () => {

@@ -38,3 +38,6 @@ describe('API Error Handling', () => {
   it('handles 204 No Content responses', async () => {
     const mockResponse = new Response(null, {
       status: 204,
+      statusText: 'No Content'
+    })
+    mockFetch.mockResolvedValue(mockResponse)

@@ -79,3 +79,4 @@ func (a *APIAuthMiddleware) InferenceAuthMiddleware() func(http.Handler) http.Ha
 				next.ServeHTTP(w, r)
 				return
 			}
+

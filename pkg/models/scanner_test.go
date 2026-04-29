@@ -97,3 +97,7 @@ func TestScanCache(t *testing.T) {
 	if !hasGGUF {
 		t.Error("expected GGUF file in results")
 	}
+	if !hasMMProj {
+		t.Error("expected MMProj file in results")
+	}
+}

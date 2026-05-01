@@ -178,3 +178,7 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 
 	filenames := make(map[string]bool)
 	for _, task := range plan.Tasks {
+		filenames[task.Filename] = true
+	}
+
+	for _, name := range []string{"config.json", "tokenizer.json", "tokenizer_config.json", "model.safetensors", "model-00001-of-00002.safetensors", "model-00002-of-00002.safetensors"} {

@@ -180,3 +180,4 @@ type LlamaServerOptions struct {
 	Host                 string   `json:"host,omitempty"`                   // --host HOST
 	Port                 int      `json:"port,omitempty"`                   // --port PORT
 	Path                 string   `json:"path,omitempty"`                   // --path PATH
+	APIPrefix            string   `json:"api_prefix,omitempty"`             // --api-prefix PREFIX

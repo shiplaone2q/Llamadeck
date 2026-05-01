@@ -197,3 +197,4 @@ func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 					return fmt.Errorf("expected ctx_size 4096, got %d", opts.CtxSize)
 				}
 				return nil
+			},

@@ -118,3 +118,7 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 					writeError(w, http.StatusBadRequest, "invalid_instance_id", fmt.Sprintf("Instance ID %d does not exist", p.InstanceID))
 					return
 				}
+			}
+		}
+
+		// Generate plain-text key

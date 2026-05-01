@@ -75,3 +75,5 @@ func TestExpandEnvVars(t *testing.T) {
 		{
 			name:     "empty input",
 			input:    "",
+			envVars:  nil,
+			expected: "",

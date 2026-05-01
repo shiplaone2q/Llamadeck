@@ -77,3 +77,6 @@ func TestExpandEnvVars(t *testing.T) {
 			input:    "",
 			envVars:  nil,
 			expected: "",
+		},
+		{
+			name:     "no placeholders",

@@ -84,3 +84,6 @@ describe('InstanceList - State Management and UI Logic', () => {
 
       renderInstanceList(mockEditInstance)
 
+      // Should show loading state immediately
+      expect(screen.getByText('Loading instances...')).toBeInTheDocument()
+      expect(screen.getByLabelText('Loading')).toBeInTheDocument()

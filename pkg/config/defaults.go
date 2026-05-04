@@ -99,3 +99,5 @@ func getDefaultConfig(dataDir string) AppConfig {
 }
 
 // getDefaultLlamaCacheDir returns the default platform specific cache directory for llama.cpp models
+func getDefaultLlamaCacheDir() string {
+	homeDir, _ := os.UserHomeDir()

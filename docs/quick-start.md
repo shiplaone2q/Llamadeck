@@ -88,3 +88,7 @@ Once created, you can:
 
 - **Start** the instance by clicking the start button
 - **Monitor** its status in real-time
+- **View logs** by clicking the logs button
+- **Stop** the instance when needed
+
+## Create an Inference API Key

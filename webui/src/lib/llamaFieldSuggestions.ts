@@ -27,3 +27,4 @@ export function getLlamaFieldSuggestions(input: string): FieldSuggestion[] {
       const kebabName = snakeToKebab(field)
       suggestionsMap.set(kebabName, {
         name: kebabName,
+        type: getLlamaCppFieldType(field)

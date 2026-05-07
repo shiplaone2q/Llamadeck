@@ -57,3 +57,7 @@ func (o *CustomServerOptions) Validate() error {
 
 	if o.Port < 0 || o.Port > 65535 {
 		return validation.ValidationError(fmt.Errorf("invalid port range: %d", o.Port))
+	}
+
+	return nil
+}

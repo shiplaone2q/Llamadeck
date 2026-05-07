@@ -112,3 +112,5 @@ func TestAuthorizedForGroups(t *testing.T) {
 		t.Error("expected missing/empty groups to be denied when the gate is on")
 	}
 }
+
+func newSessionMiddleware() (*APIAuthMiddleware, *auth.SessionStore) {

@@ -71,3 +71,4 @@ const LoginDialog: React.FC<LoginDialogProps> = ({
       // Create a synthetic FormEvent to satisfy handleSubmit's type
       const syntheticEvent = {
         preventDefault: () => {},
+      } as React.FormEvent<HTMLFormElement>;

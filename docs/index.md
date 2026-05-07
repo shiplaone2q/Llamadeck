@@ -32,3 +32,4 @@ If you need help or have questions:
 - Visit the [GitHub repository](https://github.com/lordmathis/llamadeck)
 - Review the [Configuration Guide](configuration.md) for advanced settings
 
+## License

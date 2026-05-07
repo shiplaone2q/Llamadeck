@@ -74,3 +74,7 @@ func BuildCommandArgs(options any, multipleFlags map[string]struct{}) []string {
 }
 
 // BuildDockerCommand builds a Docker command with the specified configuration and arguments
+func BuildDockerCommand(backendConfig *config.BackendSettings, instanceArgs []string) (string, []string, error) {
+	// Start with configured Docker arguments (should include "run", "--rm", etc.)
+	dockerArgs := make([]string, len(backendConfig.Docker.Args))
+	copy(dockerArgs, backendConfig.Docker.Args)

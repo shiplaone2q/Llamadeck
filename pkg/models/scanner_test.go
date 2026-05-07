@@ -101,3 +101,4 @@ func TestScanCache(t *testing.T) {
 		t.Error("expected MMProj file in results")
 	}
 }
+

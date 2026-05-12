@@ -84,3 +84,4 @@ func newFakeIdP(t *testing.T) *fakeIdP {
 	t.Cleanup(idp.server.Close)
 	return idp
 }
+

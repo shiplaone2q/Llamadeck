@@ -126,3 +126,5 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
     setInstancePermissions(prev => ({
       ...prev,
       [instanceId]: {
+        selected: checked,
+        canStart: prev[instanceId]?.canStart ?? true,

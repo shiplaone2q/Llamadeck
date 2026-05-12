@@ -163,3 +163,7 @@ afterEach(() => {
       const user = userEvent.setup()
       const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false)
 
+      render(
+        <InstanceCard
+          instance={stoppedInstance}
+          startInstance={mockStartInstance}

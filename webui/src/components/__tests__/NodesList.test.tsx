@@ -104,3 +104,5 @@ describe('NodesList', () => {
   });
 
   it('displays error message when node loading fails', async () => {
+    vi.mocked(nodesApi.list).mockRejectedValue(
+      new Error('Failed to connect to server'),

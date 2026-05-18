@@ -85,3 +85,5 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
     try {
       await llamaCppModelsApi.deleteJob(jobId, node)
     } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to delete download'
+      setError(message)

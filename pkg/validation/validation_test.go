@@ -76,3 +76,7 @@ func TestValidateInstanceOptions_PortValidation(t *testing.T) {
 			options := backends.Options{
 				BackendType: backends.BackendTypeLlamaCpp,
 				LlamaServerOptions: &backends.LlamaServerOptions{
+					Port: tt.port,
+				},
+			}
+

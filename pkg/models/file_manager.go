@@ -65,3 +65,6 @@ func (fm *FileManager) HFHubRoot() string {
 	})
 	return fm.hubRootVal
 }
+
+func (fm *FileManager) HFRepoDirName(repo string) string {
+	parts := strings.Split(repo, "/")

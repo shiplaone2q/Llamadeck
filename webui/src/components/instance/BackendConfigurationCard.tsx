@@ -63,3 +63,6 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
 
         {/* Execution Context Section */}
         <ExecutionContextSection
+          formData={formData}
+          onChange={onChange}
+        />

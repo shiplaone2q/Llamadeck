@@ -149,3 +149,536 @@ backends:
       command: my-server
       args: ["serve"]
     other-engine:
+      command: other-server
+      args: ["serve"]
+      environment:
+        ENGINE_DEBUG: "1"
+`
+
+	err = os.WriteFile(configFile, []byte(configContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to write test config file: %v", err)
+	}
+
+	cfg, err = config.LoadConfig(configFile)
+	if err != nil {
+		t.Fatalf("LoadConfig failed: %v", err)
+	}
+
+	if len(cfg.Backends.Custom) != 2 {
+		t.Fatalf("Expected 2 custom backends, got %d", len(cfg.Backends.Custom))
+	}
+
+	engine := cfg.Backends.Custom["my-engine"]
+	if engine.Command != "my-server" {
+		t.Errorf("Expected my-engine command 'my-server', got %q", engine.Command)
+	}
+	if len(engine.Args) != 1 || engine.Args[0] != "serve" {
+		t.Errorf("Expected my-engine args ['serve'], got %v", engine.Args)
+	}
+
+	other := cfg.Backends.Custom["other-engine"]
+	if other.Environment["ENGINE_DEBUG"] != "1" {
+		t.Errorf("Expected other-engine env ENGINE_DEBUG=1, got %v", other.Environment)
+	}
+}
+
+func TestLoadConfig_EnvironmentOverrides(t *testing.T) {
+	// Set environment variables
+	envVars := map[string]string{
+		"LLAMADECK_HOST":                  "0.0.0.0",
+		"LLAMADECK_PORT":                  "3000",
+		"LLAMADECK_INSTANCE_PORT_RANGE":   "5000-6000",
+		"LLAMADECK_LOGS_DIR":              "/env/logs",
+		"LLAMADECK_MAX_INSTANCES":         "20",
+		"LLAMADECK_DEFAULT_IDLE_TIMEOUT":  "60",
+		"LLAMADECK_DEFAULT_AUTO_RESTART":  "false",
+		"LLAMADECK_DEFAULT_MAX_RESTARTS":  "7",
+		"LLAMADECK_DEFAULT_RESTART_DELAY": "15",
+	}
+
+	// Set env vars and ensure cleanup
+	for key, value := range envVars {
+		os.Setenv(key, value)
+		defer os.Unsetenv(key)
+	}
+
+	cfg, err := config.LoadConfig("nonexistent-file.yaml")
+	if err != nil {
+		t.Fatalf("LoadConfig failed: %v", err)
+	}
+
+	// Verify environment overrides
+	if cfg.Server.Host != "0.0.0.0" {
+		t.Errorf("Expected host '0.0.0.0', got %q", cfg.Server.Host)
+	}
+	if cfg.Server.Port != 3000 {
+		t.Errorf("Expected port 3000, got %d", cfg.Server.Port)
+	}
+	if cfg.Instances.PortRange != [2]int{5000, 6000} {
+		t.Errorf("Expected port range [5000, 6000], got %v", cfg.Instances.PortRange)
+	}
+	if cfg.Instances.LogsDir != "/env/logs" {
+		t.Errorf("Expected logs directory '/env/logs', got %q", cfg.Instances.LogsDir)
+	}
+	if cfg.Instances.MaxInstances != 20 {
+		t.Errorf("Expected max instances 20, got %d", cfg.Instances.MaxInstances)
+	}
+	if cfg.Backends.LlamaCpp.Command != "llama-server" {
+		t.Errorf("Expected default llama command 'llama-server', got %q", cfg.Backends.LlamaCpp.Command)
+	}
+	if cfg.Instances.DefaultIdleTimeout != 60 {
+		t.Errorf("Expected idle timeout 60, got %d", cfg.Instances.DefaultIdleTimeout)
+	}
+	if cfg.Instances.DefaultAutoRestart {
+		t.Error("Expected auto restart to be false")
+	}
+	if cfg.Instances.DefaultMaxRestarts != 7 {
+		t.Errorf("Expected max restarts 7, got %d", cfg.Instances.DefaultMaxRestarts)
+	}
+	if cfg.Instances.DefaultRestartDelay != 15 {
+		t.Errorf("Expected restart delay 15, got %d", cfg.Instances.DefaultRestartDelay)
+	}
+}
+
+func TestLoadConfig_FileAndEnvironmentPrecedence(t *testing.T) {
+	// Create a temporary config file
+	tempDir := t.TempDir()
+	configFile := filepath.Join(tempDir, "test-config.yaml")
+
+	configContent := `
+server:
+  host: "file-host"
+  port: 8888
+instances:
+  max_instances: 5
+`
+
+	err := os.WriteFile(configFile, []byte(configContent), 0644)
+	if err != nil {
+		t.Fatalf("Failed to write test config file: %v", err)
+	}
+
+	// Set some environment variables (should override file)
+	os.Setenv("LLAMADECK_HOST", "env-host")
+	os.Setenv("LLAMADECK_MAX_INSTANCES", "15")
+	defer os.Unsetenv("LLAMADECK_HOST")
+	defer os.Unsetenv("LLAMADECK_MAX_INSTANCES")
+
+	cfg, err := config.LoadConfig(configFile)
+	if err != nil {
+		t.Fatalf("LoadConfig failed: %v", err)
+	}
+
+	// Environment should override file
+	if cfg.Server.Host != "env-host" {
+		t.Errorf("Expected env override 'env-host', got %q", cfg.Server.Host)
+	}
+	if cfg.Instances.MaxInstances != 15 {
+		t.Errorf("Expected env override 15, got %d", cfg.Instances.MaxInstances)
+	}
+	// File should override defaults
+	if cfg.Server.Port != 8888 {
+		t.Errorf("Expected file value 8888, got %d", cfg.Server.Port)
+	}
+}
+
+func TestLoadConfig_OIDCGroupGate(t *testing.T) {
+	tempDir := t.TempDir()
+	configFile := filepath.Join(tempDir, "test-config.yaml")
+
+	configContent := `
+auth:
+  oidc:
+    issuer_url: "https://auth.example.com"
+    client_id: "llamadeck"
+    allowed_groups: ["llamadeck-users", "admins"]
+    groups_claim: "roles"
+`
+	if err := os.WriteFile(configFile, []byte(configContent), 0644); err != nil {
+		t.Fatalf("Failed to write test config file: %v", err)
+	}
+
+	cfg, err := config.LoadConfig(configFile)
+	if err != nil {
+		t.Fatalf("LoadConfig failed: %v", err)
+	}
+	if got := cfg.Auth.OIDC.AllowedGroups; len(got) != 2 || got[0] != "llamadeck-users" || got[1] != "admins" {
+		t.Errorf("allowed_groups = %v, expected [llamadeck-users admins]", got)
+	}
+	if cfg.Auth.OIDC.GroupsClaim != "roles" {
+		t.Errorf("groups_claim = %q, expected %q", cfg.Auth.OIDC.GroupsClaim, "roles")
+	}
+
+	os.Setenv("LLAMADECK_AUTH_OIDC_ALLOWED_GROUPS", "env-admins")
+	defer os.Unsetenv("LLAMADECK_AUTH_OIDC_ALLOWED_GROUPS")
+
+	cfg, err = config.LoadConfig(configFile)
+	if err != nil {
+		t.Fatalf("LoadConfig failed: %v", err)
+	}
+	if got := cfg.Auth.OIDC.AllowedGroups; len(got) != 1 || got[0] != "env-admins" {
+		t.Errorf("env override allowed_groups = %v, expected [env-admins]", got)
+	}
+}
+
+func TestParsePortRange(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected [2]int
+	}{
+		{"hyphen format", "8000-9000", [2]int{8000, 9000}},
+		{"comma format", "8000,9000", [2]int{8000, 9000}},
+		{"with spaces", "8000 - 9000", [2]int{8000, 9000}},
+		{"comma with spaces", "8000 , 9000", [2]int{8000, 9000}},
+		{"single number", "8000", [2]int{0, 0}},
+		{"invalid format", "not-a-range", [2]int{0, 0}},
+		{"non-numeric", "start-end", [2]int{0, 0}},
+		{"empty string", "", [2]int{0, 0}},
+		{"too many parts", "8000-9000-10000", [2]int{0, 0}},
+		{"negative numbers", "-1000--500", [2]int{0, 0}}, // Invalid parsing
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := config.ParsePortRange(tt.input)
+			if result != tt.expected {
+				t.Errorf("ParsePortRange(%q) = %v, expected %v", tt.input, result, tt.expected)
+			}
+		})
+	}
+}
+
+func TestGetBackendSettings_NewStructuredConfig(t *testing.T) {
+	bc := &config.BackendConfig{
+		LlamaCpp: config.BackendSettings{
+			Command: "custom-llama",
+			Args:    []string{"--verbose"},
+			Docker: &config.DockerSettings{
+				Enabled:     true,
+				Image:       "custom-llama:latest",
+				Args:        []string{"--gpus", "all"},
+				Environment: map[string]string{"CUDA_VISIBLE_DEVICES": "1"},
+			},
+		},
+		VLLM: config.BackendSettings{
+			Command: "custom-vllm",
+			Args:    []string{"serve", "--debug"},
+		},
+		MLX: config.BackendSettings{
+			Command: "custom-mlx",
+			Args:    []string{},
+		},
+	}
+
+	// Test llama-cpp with Docker
+	settings := getBackendSettings(bc, "llama-cpp")
+	if settings.Command != "custom-llama" {
+		t.Errorf("Expected command 'custom-llama', got %q", settings.Command)
+	}
+	if len(settings.Args) != 1 || settings.Args[0] != "--verbose" {
+		t.Errorf("Expected args ['--verbose'], got %v", settings.Args)
+	}
+	if settings.Docker == nil || !settings.Docker.Enabled {
+		t.Error("Expected Docker to be enabled")
+	}
+	if settings.Docker.Image != "custom-llama:latest" {
+		t.Errorf("Expected Docker image 'custom-llama:latest', got %q", settings.Docker.Image)
+	}
+
+	// Test vLLM without Docker
+	settings = getBackendSettings(bc, "vllm")
+	if settings.Command != "custom-vllm" {
+		t.Errorf("Expected command 'custom-vllm', got %q", settings.Command)
+	}
+	if len(settings.Args) != 2 || settings.Args[0] != "serve" || settings.Args[1] != "--debug" {
+		t.Errorf("Expected args ['serve', '--debug'], got %v", settings.Args)
+	}
+	if settings.Docker != nil && settings.Docker.Enabled {
+		t.Error("Expected Docker to be disabled or nil")
+	}
+
+	// Test MLX
+	settings = getBackendSettings(bc, "mlx")
+	if settings.Command != "custom-mlx" {
+		t.Errorf("Expected command 'custom-mlx', got %q", settings.Command)
+	}
+}
+
+func TestLoadConfig_BackendEnvironmentVariables(t *testing.T) {
+	// Test that backend environment variables work correctly
+	envVars := map[string]string{
+		"LLAMADECK_LLAMACPP_COMMAND":        "env-llama",
+		"LLAMADECK_LLAMACPP_ARGS":           "--verbose --threads 4",
+		"LLAMADECK_LLAMACPP_DOCKER_ENABLED": "true",
+		"LLAMADECK_LLAMACPP_DOCKER_IMAGE":   "env-llama:latest",
+		"LLAMADECK_LLAMACPP_DOCKER_ARGS":    "run --rm --network host --gpus all",
+		"LLAMADECK_LLAMACPP_DOCKER_ENV":     "CUDA_VISIBLE_DEVICES=0,OMP_NUM_THREADS=4",
+		"LLAMADECK_VLLM_COMMAND":            "env-vllm",
+		"LLAMADECK_VLLM_DOCKER_ENABLED":     "false",
+		"LLAMADECK_VLLM_DOCKER_IMAGE":       "env-vllm:latest",
+		"LLAMADECK_VLLM_DOCKER_ENV":         "PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512,CUDA_VISIBLE_DEVICES=1",
+		"LLAMADECK_MLX_COMMAND":             "env-mlx",
+	}
+
+	// Set env vars and ensure cleanup
+	for key, value := range envVars {
+		os.Setenv(key, value)
+		defer os.Unsetenv(key)
+	}
+
+	cfg, err := config.LoadConfig("nonexistent-file.yaml")
+	if err != nil {
+		t.Fatalf("LoadConfig failed: %v", err)
+	}
+
+	// Verify llama-cpp environment overrides
+	if cfg.Backends.LlamaCpp.Command != "env-llama" {
+		t.Errorf("Expected llama command 'env-llama', got %q", cfg.Backends.LlamaCpp.Command)
+	}
+	expectedArgs := []string{"--verbose", "--threads", "4"}
+	if len(cfg.Backends.LlamaCpp.Args) != len(expectedArgs) {
+		t.Errorf("Expected llama args %v, got %v", expectedArgs, cfg.Backends.LlamaCpp.Args)
+	}
+	if !cfg.Backends.LlamaCpp.Docker.Enabled {
+		t.Error("Expected llama Docker to be enabled")
+	}
+	if cfg.Backends.LlamaCpp.Docker.Image != "env-llama:latest" {
+		t.Errorf("Expected llama Docker image 'env-llama:latest', got %q", cfg.Backends.LlamaCpp.Docker.Image)
+	}
+	expectedDockerArgs := []string{"run", "--rm", "--network", "host", "--gpus", "all"}
+	if len(cfg.Backends.LlamaCpp.Docker.Args) != len(expectedDockerArgs) {
+		t.Errorf("Expected llama Docker args %v, got %v", expectedDockerArgs, cfg.Backends.LlamaCpp.Docker.Args)
+	}
+	if cfg.Backends.LlamaCpp.Docker.Environment["CUDA_VISIBLE_DEVICES"] != "0" {
+		t.Errorf("Expected CUDA_VISIBLE_DEVICES=0, got %q", cfg.Backends.LlamaCpp.Docker.Environment["CUDA_VISIBLE_DEVICES"])
+	}
+	if cfg.Backends.LlamaCpp.Docker.Environment["OMP_NUM_THREADS"] != "4" {
+		t.Errorf("Expected OMP_NUM_THREADS=4, got %q", cfg.Backends.LlamaCpp.Docker.Environment["OMP_NUM_THREADS"])
+	}
+
+	// Verify vLLM environment overrides
+	if cfg.Backends.VLLM.Command != "env-vllm" {
+		t.Errorf("Expected vLLM command 'env-vllm', got %q", cfg.Backends.VLLM.Command)
+	}
+	if cfg.Backends.VLLM.Docker.Enabled {
+		t.Error("Expected vLLM Docker to be disabled")
+	}
+	if cfg.Backends.VLLM.Docker.Environment["PYTORCH_CUDA_ALLOC_CONF"] != "max_split_size_mb:512" {
+		t.Errorf("Expected PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512, got %q", cfg.Backends.VLLM.Docker.Environment["PYTORCH_CUDA_ALLOC_CONF"])
+	}
+
+	// Verify MLX environment overrides
+	if cfg.Backends.MLX.Command != "env-mlx" {
+		t.Errorf("Expected MLX command 'env-mlx', got %q", cfg.Backends.MLX.Command)
+	}
+}
+
+func TestLoadConfig_LocalNode(t *testing.T) {
+	t.Run("default local node", func(t *testing.T) {
+		cfg, err := config.LoadConfig("nonexistent-file.yaml")
+		if err != nil {
+			t.Fatalf("LoadConfig failed: %v", err)
+		}
+
+		if cfg.LocalNode != "main" {
+			t.Errorf("Expected default local node 'main', got %q", cfg.LocalNode)
+		}
+	})
+
+	t.Run("local node from file", func(t *testing.T) {
+		tempDir := t.TempDir()
+		configFile := filepath.Join(tempDir, "test-config.yaml")
+
+		configContent := `
+local_node: "worker1"
+nodes:
+  worker1:
+    address: ""
+  worker2:
+    address: "http://192.168.1.10:8080"
+    api_key: "test-key"
+`
+
+		err := os.WriteFile(configFile, []byte(configContent), 0644)
+		if err != nil {
+			t.Fatalf("Failed to write test config file: %v", err)
+		}
+
+		cfg, err := config.LoadConfig(configFile)
+		if err != nil {
+			t.Fatalf("LoadConfig failed: %v", err)
+		}
+
+		if cfg.LocalNode != "worker1" {
+			t.Errorf("Expected local node 'worker1', got %q", cfg.LocalNode)
+		}
+
+		// Verify nodes map (includes default "main" + worker1 + worker2)
+		if len(cfg.Nodes) != 2 {
+			t.Errorf("Expected 2 nodes (default worker1 + worker2), got %d", len(cfg.Nodes))
+		}
+
+		// Verify local node exists and is empty
+		localNode, exists := cfg.Nodes["worker1"]
+		if !exists {
+			t.Error("Expected local node 'worker1' to exist in nodes map")
+		}
+		if localNode.Address != "" {
+			t.Errorf("Expected local node address to be empty, got %q", localNode.Address)
+		}
+		if localNode.APIKey != "" {
+			t.Errorf("Expected local node api_key to be empty, got %q", localNode.APIKey)
+		}
+
+		// Verify remote node
+		remoteNode, exists := cfg.Nodes["worker2"]
+		if !exists {
+			t.Error("Expected remote node 'worker2' to exist in nodes map")
+		}
+		if remoteNode.Address != "http://192.168.1.10:8080" {
+			t.Errorf("Expected remote node address 'http://192.168.1.10:8080', got %q", remoteNode.Address)
+		}
+
+		// Verify default main node still exists
+		_, exists = cfg.Nodes["main"]
+		if exists {
+			t.Error("Default 'main' node should not exist when local_node is overridden")
+		}
+	})
+
+	t.Run("custom local node name in config", func(t *testing.T) {
+		tempDir := t.TempDir()
+		configFile := filepath.Join(tempDir, "test-config.yaml")
+
+		configContent := `
+local_node: "primary"
+nodes:
+  primary:
+    address: ""
+  worker1:
+    address: "http://192.168.1.10:8080"
+`
+
+		err := os.WriteFile(configFile, []byte(configContent), 0644)
+		if err != nil {
+			t.Fatalf("Failed to write test config file: %v", err)
+		}
+
+		cfg, err := config.LoadConfig(configFile)
+		if err != nil {
+			t.Fatalf("LoadConfig failed: %v", err)
+		}
+
+		if cfg.LocalNode != "primary" {
+			t.Errorf("Expected local node 'primary', got %q", cfg.LocalNode)
+		}
+
+		// Verify nodes map includes default "main" + primary + worker1
+		if len(cfg.Nodes) != 2 {
+			t.Errorf("Expected 2 nodes (primary + worker1), got %d", len(cfg.Nodes))
+		}
+
+		localNode, exists := cfg.Nodes["primary"]
+		if !exists {
+			t.Error("Expected local node 'primary' to exist in nodes map")
+		}
+		if localNode.Address != "" {
+			t.Errorf("Expected local node address to be empty, got %q", localNode.Address)
+		}
+	})
+
+	t.Run("local node from environment variable", func(t *testing.T) {
+		os.Setenv("LLAMADECK_LOCAL_NODE", "custom-node")
+		defer os.Unsetenv("LLAMADECK_LOCAL_NODE")
+
+		cfg, err := config.LoadConfig("nonexistent-file.yaml")
+		if err != nil {
+			t.Fatalf("LoadConfig failed: %v", err)
+		}
+
+		if cfg.LocalNode != "custom-node" {
+			t.Errorf("Expected local node 'custom-node' from env var, got %q", cfg.LocalNode)
+		}
+	})
+}
+
+func TestLoadConfig_DotEnvAndExpansion(t *testing.T) {
+	tempDir := t.TempDir()
+
+	dotenvContent := "TEST_API_KEY=sk-proj-abc123\nTEST_CUDA_DEVICE=2\n"
+	dotenvPath := filepath.Join(tempDir, ".env")
+	if err := os.WriteFile(dotenvPath, []byte(dotenvContent), 0644); err != nil {
+		t.Fatalf("Failed to write .env: %v", err)
+	}
+
+	configContent := `
+server:
+  port: ${TEST_PORT:-9090}
+auth:
+  management_keys:
+    - ${TEST_API_KEY}
+backends:
+  llama-cpp:
+    environment:
+      CUDA_VISIBLE_DEVICES: ${TEST_CUDA_DEVICE:-0}
+      HF_TOKEN: ${TEST_HF_TOKEN}
+`
+	configFile := filepath.Join(tempDir, "test-config.yaml")
+	if err := os.WriteFile(configFile, []byte(configContent), 0644); err != nil {
+		t.Fatalf("Failed to write config: %v", err)
+	}
+
+	cfg, err := config.LoadConfig(configFile)
+	if err != nil {
+		t.Fatalf("LoadConfig failed: %v", err)
+	}
+
+	if cfg.Server.Port != 9090 {
+		t.Errorf("Expected port 9090 from default, got %d", cfg.Server.Port)
+	}
+
+	if len(cfg.Auth.ManagementKeys) != 1 || cfg.Auth.ManagementKeys[0] != "sk-proj-abc123" {
+		t.Errorf("Expected management key from .env, got %v", cfg.Auth.ManagementKeys)
+	}
+
+	if cfg.Backends.LlamaCpp.Environment["CUDA_VISIBLE_DEVICES"] != "2" {
+		t.Errorf("Expected CUDA_VISIBLE_DEVICES=2 from .env, got %q", cfg.Backends.LlamaCpp.Environment["CUDA_VISIBLE_DEVICES"])
+	}
+
+	if cfg.Backends.LlamaCpp.Environment["HF_TOKEN"] != "${TEST_HF_TOKEN}" {
+		t.Errorf("Expected unresolved placeholder for unset HF_TOKEN, got %q", cfg.Backends.LlamaCpp.Environment["HF_TOKEN"])
+	}
+}
+
+func TestLoadConfig_DotEnvEnvPrecedence(t *testing.T) {
+	tempDir := t.TempDir()
+
+	os.Setenv("TEST_PREC_KEY", "from-process-env")
+	defer os.Unsetenv("TEST_PREC_KEY")
+
+	dotenvContent := "TEST_PREC_KEY=from-dotenv\n"
+	dotenvPath := filepath.Join(tempDir, ".env")
+	if err := os.WriteFile(dotenvPath, []byte(dotenvContent), 0644); err != nil {
+		t.Fatalf("Failed to write .env: %v", err)
+	}
+
+	configContent := `
+server:
+  host: ${TEST_PREC_KEY}
+`
+	configFile := filepath.Join(tempDir, "test-config.yaml")
+	if err := os.WriteFile(configFile, []byte(configContent), 0644); err != nil {
+		t.Fatalf("Failed to write config: %v", err)
+	}
+
+	cfg, err := config.LoadConfig(configFile)
+	if err != nil {
+		t.Fatalf("LoadConfig failed: %v", err)
+	}
+
+	if cfg.Server.Host != "from-process-env" {
+		t.Errorf("Expected process env to take precedence, got %q", cfg.Server.Host)
+	}
+}

@@ -41,3 +41,5 @@ func TestSessionStoreSweep(t *testing.T) {
 	expired := NewSessionStore(-time.Second)
 	expired.Create("user-1", "Alice", "alice@example.com")
 	expired.sweep(time.Now())
+	if n := len(expired.sessions); n != 0 {
+		t.Errorf("sweep left %d expired sessions behind", n)

@@ -104,3 +104,90 @@ vllm serve microsoft/DialoGPT-medium --port 8081
    ```
 
 ## Authentication Issues
+
+**Problem:** API requests failing with authentication errors
+
+**Solutions:**
+1. **Disable authentication temporarily:**
+   ```yaml
+   auth:
+     require_management_auth: false
+     require_inference_auth: false
+   ```
+
+2. **Configure management API keys:**
+   ```yaml
+   auth:
+     management_keys:
+       - "your-management-key"
+   ```
+
+   For inference API keys, create them via the web UI (Settings → API Keys) after logging in with your management key.
+
+3. **Use correct Authorization header:**
+   ```bash
+   curl -H "Authorization: Bearer your-api-key" \
+     http://localhost:8080/api/v1/instances
+   ```
+
+## Remote Node Issues
+
+### Node Configuration
+
+**Problem:** Remote instances not appearing or cannot be managed
+
+**Solutions:**
+1. **Verify node configuration:**
+   ```yaml
+   local_node: "main"  # Must match a key in nodes map
+   nodes:
+     main:
+       address: ""     # Empty for local node
+     worker1:
+       address: "http://worker1.internal:8080"
+       api_key: "secure-key"  # Must match worker1's management key
+   ```
+
+2. **Check node name consistency:**
+   - `local_node` on each node must match what other nodes call it
+   - Node names are case-sensitive
+
+3. **Test remote node connectivity:**
+   ```bash
+   curl -H "Authorization: Bearer remote-node-key" \
+     http://remote-node:8080/api/v1/instances
+   ```
+
+## Debugging and Logs
+
+### Viewing Instance Logs
+
+```bash
+# Get instance logs via API
+curl http://localhost:8080/api/v1/instances/{name}/logs
+
+# Or check log files directly
+tail -f ~/.local/share/llamadeck/logs/{instance-name}.log
+```
+
+### Enable Debug Logging
+
+```bash
+export LLAMADECK_LOG_LEVEL=debug
+llamadeck
+```
+
+## Getting Help
+
+When reporting issues, include:
+
+1. **System information:**
+   ```bash
+   llamadeck --version
+   ```
+
+2. **Configuration file** (remove sensitive keys)
+
+3. **Relevant log output**
+
+4. **Steps to reproduce the issue**

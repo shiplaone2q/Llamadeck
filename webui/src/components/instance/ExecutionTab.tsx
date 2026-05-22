@@ -72,3 +72,13 @@ const ExecutionTab: React.FC<ExecutionTabProps> = ({
 
       <EnvVarsInput
         id="environment"
+        label="Environment Variables"
+        value={formData.environment}
+        onChange={(value) => onChange('environment', value)}
+        description="Custom environment variables for the instance"
+      />
+    </div>
+  )
+}
+
+export default ExecutionTab

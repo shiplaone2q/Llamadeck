@@ -42,3 +42,29 @@ function InstanceList({ editInstance }: InstanceListProps) {
         <p className="text-foreground text-lg mb-2">No instances found</p>
         <p className="text-muted-foreground text-sm">Create your first instance to get started</p>
       </div>
+    )
+  }
+
+  return (
+    <div className="space-y-4">
+      <h2 className="text-xl font-semibold text-foreground mb-6">
+        Instances ({instances.length})
+      </h2>
+      
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {instances.map((instance) => (
+          <MemoizedInstanceCard 
+            key={instance.name} 
+            instance={instance}
+            startInstance={() => { void startInstance(instance.name) }}
+            stopInstance={() => { void stopInstance(instance.name) }}
+            deleteInstance={() => { void deleteInstance(instance.name) }}
+            editInstance={editInstance}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default InstanceList

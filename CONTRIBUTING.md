@@ -76,3 +76,7 @@ All the following must pass:
    cd webui
    npm run test:run
    npm run type-check
+   npm run build
+   ```
+
+### API Documentation

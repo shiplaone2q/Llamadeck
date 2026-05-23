@@ -52,3 +52,6 @@ How a request is handled depends on the instance's state and the key's access le
 
 "Capacity" considers both the instance's [group limit](managing-instances.md#instance-groups) and the global `max_running_instances`. The two 503 responses use distinct error types so clients can tell them apart.
 
+### Managing Keys
+
+#### Via Web UI

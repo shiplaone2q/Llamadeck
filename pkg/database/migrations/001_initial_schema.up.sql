@@ -57,3 +57,4 @@ CREATE TABLE IF NOT EXISTS key_permissions (
 -- -----------------------------------------------------------------------------
 CREATE INDEX IF NOT EXISTS idx_api_keys_user_id ON api_keys(user_id);
 CREATE INDEX IF NOT EXISTS idx_api_keys_expires_at ON api_keys(expires_at);
+CREATE INDEX IF NOT EXISTS idx_key_permissions_instance_id ON key_permissions(instance_id);

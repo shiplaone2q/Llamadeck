@@ -52,3 +52,7 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
         </p>
       </div>
 
+      <div className="flex gap-2">
+        <Button
+          variant="outline"
+          size="sm"

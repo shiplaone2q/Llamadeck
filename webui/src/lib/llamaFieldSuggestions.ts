@@ -28,3 +28,7 @@ export function getLlamaFieldSuggestions(input: string): FieldSuggestion[] {
       suggestionsMap.set(kebabName, {
         name: kebabName,
         type: getLlamaCppFieldType(field)
+      })
+    })
+
+  allAltKeys.forEach(altKey => {

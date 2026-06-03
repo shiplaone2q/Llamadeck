@@ -95,3 +95,5 @@ func (h *Handler) OpenAIListInstances() http.HandlerFunc {
 
 		// For each llama.cpp instance, try to fetch models and add them as separate entries
 		for _, inst := range instances {
+
+			if inst.GetBackendType() == backends.BackendTypeLlamaCpp && inst.IsRunning() {

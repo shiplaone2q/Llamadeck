@@ -69,3 +69,5 @@ class ModelsPollingService {
       // Continue polling even on error - don't break the polling loop
     }
   }
+
+  /**

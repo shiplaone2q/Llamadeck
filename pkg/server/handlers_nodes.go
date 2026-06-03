@@ -64,3 +64,6 @@ func (h *Handler) ListNodes() http.HandlerFunc {
 // @Produces json
 // @Param name path string true "Node Name"
 // @Success 200 {object} NodeResponse "Node details"
+// @Failure 400 {string} string "Invalid name format"
+// @Failure 404 {string} string "Node not found"
+// @Failure 500 {string} string "Internal Server Error"

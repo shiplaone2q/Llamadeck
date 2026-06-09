@@ -147,3 +147,6 @@ describe("InstancesContext", () => {
   describe("Initial Loading", () => {
     it("loads instances on mount", async () => {
       renderWithProvider(<TestComponent />);
+
+      // Should start loading
+      expect(screen.getByTestId("loading")).toHaveTextContent("true");

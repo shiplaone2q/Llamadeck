@@ -64,3 +64,4 @@ func (r *instanceRegistry) add(inst *instance.Instance) error {
 		return fmt.Errorf("cannot add nil instance")
 	}
 
+	r.mu.Lock()

@@ -68,3 +68,4 @@ function InstanceCard({
   const handleDelete = () => {
     if (
       confirm(`Are you sure you want to delete instance "${instance.name}"?`)
+    ) {

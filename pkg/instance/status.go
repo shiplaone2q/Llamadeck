@@ -87,3 +87,4 @@ func (st *status) set(newStatus Status) {
 	st.mu.Lock()
 	oldStatus := st.s
 	st.s = newStatus
+	callback := st.onStatusChange

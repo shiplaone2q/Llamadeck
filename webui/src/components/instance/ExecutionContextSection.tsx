@@ -47,3 +47,7 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
           value={formData.docker_enabled}
           onChange={(value) => onChange('docker_enabled', value)}
           description="Run backend in Docker container"
+        />
+      )}
+
+      {/* Command Override - only shown when Docker is disabled or backend is MLX */}

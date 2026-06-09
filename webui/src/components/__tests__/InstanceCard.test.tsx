@@ -167,3 +167,4 @@ afterEach(() => {
         <InstanceCard
           instance={stoppedInstance}
           startInstance={mockStartInstance}
+          stopInstance={mockStopInstance}

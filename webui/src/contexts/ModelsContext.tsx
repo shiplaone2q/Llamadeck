@@ -87,3 +87,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to delete download'
       setError(message)
+      throw err
+    }
+  }, [])

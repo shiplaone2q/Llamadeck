@@ -85,3 +85,7 @@ func newProxy(instance *Instance) (*proxy, error) {
 		// Get host/port from process
 		host := p.instance.options.GetHost()
 		port := p.instance.options.GetPort()
+		if port == 0 {
+			return nil, fmt.Errorf("instance %s has no port assigned", p.instance.Name)
+		}
+		p.targetURL, err = url.Parse(fmt.Sprintf("http://%s:%d", host, port))

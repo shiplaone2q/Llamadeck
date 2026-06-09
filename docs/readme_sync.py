@@ -54,3 +54,4 @@ def add_line_breaks(content):
     processed_lines = []
 
     for line in lines:
+        if line.strip():  # Only add spaces to non-empty lines

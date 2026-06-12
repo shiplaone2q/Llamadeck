@@ -45,3 +45,5 @@ export default function ModelsList() {
         </Alert>
       )}
 
+      <ModelsTable rows={rows} />
+    </div>

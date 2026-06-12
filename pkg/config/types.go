@@ -81,3 +81,4 @@ type DatabaseConfig struct {
 	ConnMaxLifetime    time.Duration `yaml:"connection_max_lifetime" json:"connection_max_lifetime" swaggertype:"string" example:"1h"`
 }
 
+// InstancesConfig contains instance management configuration

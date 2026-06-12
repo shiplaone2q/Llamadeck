@@ -102,3 +102,5 @@ func TestParseVllmCommand(t *testing.T) {
 				}
 				return
 			}
+
+			if err != nil {

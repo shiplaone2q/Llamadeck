@@ -100,3 +100,6 @@ func (db *sqliteDB) ListKeys(ctx context.Context) ([]*auth.APIKey, error) {
 	`
 
 	rows, err := db.QueryContext(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query API keys: %w", err)
+	}

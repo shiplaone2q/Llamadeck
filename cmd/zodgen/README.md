@@ -36,3 +36,7 @@ The tool generates two schemas:
 ### Alt Keys Schema
 
 The alt keys schema includes alternative command-line flag names extracted from the comments. For example:
+
+- `-t, --threads N` → alt key: `t`
+- `-n, --predict, --n-predict N` → alt keys: `n`, `n-predict`
+- `-v, --verbose, --log-verbose` → alt keys: `v`, `log-verbose`

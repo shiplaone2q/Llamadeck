@@ -140,3 +140,5 @@ func (db *sqliteDB) Update(ctx context.Context, inst *instance.Instance) error {
 	}
 
 	// Convert instance to database row
+	row, err := db.instanceToRow(inst)
+	if err != nil {

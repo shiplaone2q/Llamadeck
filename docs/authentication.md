@@ -55,3 +55,7 @@ How a request is handled depends on the instance's state and the key's access le
 ### Managing Keys
 
 #### Via Web UI
+
+1. Open the web UI and log in with a management API key
+2. Navigate to **Settings → API Keys**
+3. Click **Create API Key**

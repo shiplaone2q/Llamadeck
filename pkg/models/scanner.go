@@ -98,3 +98,7 @@ func ScanCache(cacheDir, nodeName string) ([]CachedModel, error) {
 
 func parseHFRepoDirName(dirName string) string {
 	if !strings.HasPrefix(dirName, "models--") {
+		return ""
+	}
+
+	trimmed := strings.TrimPrefix(dirName, "models--")

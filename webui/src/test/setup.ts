@@ -45,3 +45,5 @@ const createMockFetch = () => {
     // Handle API endpoints that return JSON
     if (url.includes('/api/v1/')) {
       return Promise.resolve(
+        new Response(JSON.stringify({}), {
+          status: 200,

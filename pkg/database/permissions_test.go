@@ -84,3 +84,6 @@ func TestGetPermissionsReturnsFlags(t *testing.T) {
 	db := newTestDB(t)
 	insertTestInstance(t, db, 20, "m20")
 	insertTestInstance(t, db, 21, "m21")
+
+	now := time.Now().Unix()
+	key := &auth.APIKey{

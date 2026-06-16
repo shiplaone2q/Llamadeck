@@ -135,3 +135,6 @@ export const nodesApi = {
   // GET /nodes - returns map of node name to NodeResponse
   list: () => apiCall<NodesMap>("/nodes"),
 
+  // GET /nodes/{name}
+  get: (name: string) => apiCall<NodeResponse>(`/nodes/${encodeURIComponent(name)}`),
+

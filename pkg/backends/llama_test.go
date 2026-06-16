@@ -201,3 +201,5 @@ func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 		},
 		{
 			name:     "gpu layers alternatives",
+			jsonData: `{"ngl": 16}`,
+			checkFn: func(opts backends.LlamaServerOptions) error {

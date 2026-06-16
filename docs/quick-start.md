@@ -92,3 +92,5 @@ Once created, you can:
 - **Stop** the instance when needed
 
 ## Create an Inference API Key
+
+To make inference requests to your instances, you'll need an inference API key:

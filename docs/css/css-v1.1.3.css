@@ -430,3 +430,7 @@
 
 .nt-group-5 .nt-plan-group-summary,
 .nt-group-5 .nt-timeline-dot {
+  color: var(--nt-group-5-dark);
+  background-color: var(--nt-group-5-dark-bg);
+}
+.nt-group-5 .period {

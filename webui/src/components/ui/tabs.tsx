@@ -73,3 +73,7 @@ function TabsTrigger({
       {...props}
     />
   )
+}
+
+function TabsContent({
+  className,

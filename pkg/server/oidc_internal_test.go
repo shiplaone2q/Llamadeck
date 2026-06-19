@@ -114,3 +114,5 @@ func TestAuthorizedForGroups(t *testing.T) {
 }
 
 func newSessionMiddleware() (*APIAuthMiddleware, *auth.SessionStore) {
+	middleware := NewAPIAuthMiddleware(config.AuthConfig{}, nil)
+	store := auth.NewSessionStore(time.Hour)

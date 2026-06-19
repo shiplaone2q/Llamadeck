@@ -82,3 +82,4 @@ type DatabaseConfig struct {
 }
 
 // InstancesConfig contains instance management configuration
+type InstancesConfig struct {

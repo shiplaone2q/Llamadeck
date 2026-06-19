@@ -482,3 +482,4 @@ definitions:
       status:
         $ref: '#/definitions/server.NodeHealthStatus'
     type: object
+  server.NodeHealthStatus:

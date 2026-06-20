@@ -62,3 +62,6 @@ describe('nodeHealthService', () => {
     // resubscribe within the 2s cache TTL: must not replay the cached failure
     const fetchUrls: string[] = [];
     global.fetch = vi.fn((input: RequestInfo | URL) => {
+      fetchUrls.push(String(input));
+      return Promise.resolve(okBody('healthy'));
+    }) as unknown as typeof fetch;

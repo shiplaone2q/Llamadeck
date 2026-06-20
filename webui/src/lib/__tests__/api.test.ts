@@ -41,3 +41,5 @@ describe('API Error Handling', () => {
       statusText: 'No Content'
     })
     mockFetch.mockResolvedValue(mockResponse)
+
+    const result = await instancesApi.delete('test-instance')

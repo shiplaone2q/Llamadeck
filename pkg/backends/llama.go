@@ -181,3 +181,6 @@ type LlamaServerOptions struct {
 	Port                 int      `json:"port,omitempty"`                   // --port PORT
 	Path                 string   `json:"path,omitempty"`                   // --path PATH
 	APIPrefix            string   `json:"api_prefix,omitempty"`             // --api-prefix PREFIX
+	WebUIConfig          string   `json:"webui_config,omitempty"`           // --webui-config JSON
+	WebUIConfigFile      string   `json:"webui_config_file,omitempty"`      // --webui-config-file PATH
+	WebUI                bool     `json:"webui,omitempty"`                  // --webui

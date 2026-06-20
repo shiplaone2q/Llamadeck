@@ -184,3 +184,7 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 	for _, name := range []string{"config.json", "tokenizer.json", "tokenizer_config.json", "model.safetensors", "model-00001-of-00002.safetensors", "model-00002-of-00002.safetensors"} {
 		if !filenames[name] {
 			t.Errorf("expected file %q in plan tasks", name)
+		}
+	}
+
+	if filenames["pytorch_model.bin"] {

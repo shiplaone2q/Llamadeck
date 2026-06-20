@@ -525,3 +525,7 @@
                 "parameters": [
                     {
                         "description": "Command to parse",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {

@@ -60,3 +60,5 @@ describe('nodeHealthService', () => {
     unsubscribe();
 
     // resubscribe within the 2s cache TTL: must not replay the cached failure
+    const fetchUrls: string[] = [];
+    global.fetch = vi.fn((input: RequestInfo | URL) => {

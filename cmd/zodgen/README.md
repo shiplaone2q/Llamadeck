@@ -40,3 +40,6 @@ The alt keys schema includes alternative command-line flag names extracted from 
 - `-t, --threads N` → alt key: `t`
 - `-n, --predict, --n-predict N` → alt keys: `n`, `n-predict`
 - `-v, --verbose, --log-verbose` → alt keys: `v`, `log-verbose`
+
+These alt keys can be used in preset.ini files and will be suggested for autocompletion.
+

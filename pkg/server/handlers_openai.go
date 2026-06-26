@@ -97,3 +97,160 @@ func (h *Handler) OpenAIListInstances() http.HandlerFunc {
 		for _, inst := range instances {
 
 			if inst.GetBackendType() == backends.BackendTypeLlamaCpp && inst.IsRunning() {
+				// Try to fetch models from the instance
+				models, err := fetchLlamaCppModels(inst)
+				if err != nil {
+					log.Printf("Failed to fetch models from instance %s: %v", inst.Name, err)
+					continue
+				}
+
+				for _, model := range models {
+					openaiInstances = append(openaiInstances, OpenAIInstance{
+						ID:      inst.Name + "/" + model.ID,
+						Object:  "model",
+						Created: inst.Created,
+						OwnedBy: inst.Name,
+					})
+				}
+
+				if len(models) > 1 {
+					// Skip adding the instance name if multiple models are present
+					continue
+				}
+			}
+
+			// Add instance name as single entry (for non-llama.cpp or if model fetch failed)
+			openaiInstances = append(openaiInstances, OpenAIInstance{
+				ID:      inst.Name,
+				Object:  "model",
+				Created: inst.Created,
+				OwnedBy: "llamadeck",
+			})
+		}
+
+		openaiResponse := OpenAIListInstancesResponse{
+			Object: "list",
+			Data:   openaiInstances,
+		}
+
+		writeJSON(w, http.StatusOK, openaiResponse)
+	}
+}
+
+// OpenAIProxy godoc
+// @Summary OpenAI-compatible proxy endpoint
+// @Description Handles all POST requests to /v1/*, routing to the appropriate instance based on the request body. Requires API key authentication via the `Authorization` header.
+// @Tags OpenAI
+// @Security ApiKeyAuth
+// @Accept json
+// @Produces json
+// @Success 200 "OpenAI response"
+// @Failure 400 {string} string "Invalid request body or instance name"
+// @Failure 404 {string} string "Instance does not exist"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /v1/ [post]
+func (h *Handler) OpenAIProxy() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// Read the entire body first
+		bodyBytes, err := io.ReadAll(r.Body)
+		if err != nil {
+			writeError(w, http.StatusBadRequest, "invalid_request", "Failed to read request body")
+			return
+		}
+		r.Body.Close()
+
+		// Parse the body to extract instance name
+		var requestBody map[string]any
+		if err := json.Unmarshal(bodyBytes, &requestBody); err != nil {
+			writeError(w, http.StatusBadRequest, "invalid_request", "Invalid request body")
+			return
+		}
+
+		reqModelName, ok := requestBody["model"].(string)
+		if !ok || reqModelName == "" {
+			writeError(w, http.StatusBadRequest, "invalid_request", "Model name is required")
+			return
+		}
+
+		// Parse instance name and model name from <instance_name>/<model_name> format
+		var instanceName string
+		var modelName string
+
+		// Check if model name contains "/"
+		if idx := strings.Index(reqModelName, "/"); idx != -1 {
+			// Split into instance and model parts
+			instanceName = reqModelName[:idx]
+			modelName = reqModelName[idx+1:]
+		} else {
+			instanceName = reqModelName
+			modelName = reqModelName
+		}
+
+		// Validate instance name at the entry point
+		validatedName, err := validation.ValidateInstanceName(instanceName)
+		if err != nil {
+			writeError(w, http.StatusBadRequest, "invalid_instance_name", err.Error())
+			return
+		}
+
+		// Route to the appropriate inst based on instance name
+		inst, err := h.InstanceManager.GetInstance(validatedName)
+		if err != nil {
+			writeInstanceLookupError(w, err)
+			return
+		}
+
+		// Check instance permissions and resolve lifecycle flags in one query
+		perm, err := h.authMiddleware.ResolveInstancePermission(r.Context(), inst.ID)
+		if err != nil {
+			writeError(w, http.StatusForbidden, "permission_denied", err.Error())
+			return
+		}
+
+		// Check if instance is shutting down before autostart logic
+		if inst.GetStatus() == instance.ShuttingDown {
+			writeError(w, http.StatusServiceUnavailable, "instance_shutting_down", "Instance is shutting down")
+			return
+		}
+
+		if inst.IsRemote() {
+			modelName = reqModelName
+		} else if !strings.Contains(reqModelName, "/") {
+			opts := inst.GetOptions()
+			if opts != nil {
+				backendModel := opts.BackendOptions.GetModel()
+				if backendModel != "" {
+					modelName = backendModel
+				}
+			}
+		}
+
+		if !inst.IsRemote() && !inst.IsRunning() {
+			if err := h.ensureInstanceRunning(inst, perm.CanStart, perm.CanEvict); err != nil {
+				writeStartError(w, err)
+				return
+			}
+		}
+
+		// Update the request body with the actual model name
+		requestBody["model"] = modelName
+
+		// Re-marshal the updated body
+		bodyBytes, err = json.Marshal(requestBody)
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "marshal_error", "Failed to update request body")
+			return
+		}
+
+		// Recreate the request body from the bytes we read
+		r.Body = io.NopCloser(bytes.NewReader(bodyBytes))
+		r.ContentLength = int64(len(bodyBytes))
+
+		// Use instance's ServeHTTP which tracks inflight requests and handles shutting down state
+		err = inst.ServeHTTP(w, r)
+		if err != nil {
+			// Error is already handled in ServeHTTP (response written)
+			return
+		}
+	}
+}

@@ -108,3 +108,98 @@ describe('NodesList', () => {
       new Error('Failed to connect to server'),
     );
 
+    renderNodesList();
+
+    expect(await screen.findByText('Error loading nodes')).toBeInTheDocument();
+    expect(screen.getByText('Failed to connect to server')).toBeInTheDocument();
+  });
+
+  it('shows empty state when no nodes exist', async () => {
+    vi.mocked(nodesApi.list).mockResolvedValue({});
+
+    renderNodesList();
+
+    expect(await screen.findByText('No nodes found')).toBeInTheDocument();
+    expect(screen.queryByText(/Nodes \(/)).not.toBeInTheDocument();
+  });
+
+  it('renders nodes with local node first and local/remote labels', async () => {
+    renderNodesList();
+
+    expect(await screen.findByText('Nodes (3)')).toBeInTheDocument();
+    expect(screen.getByText('main')).toBeInTheDocument();
+    expect(screen.getByText('worker-1')).toBeInTheDocument();
+    expect(screen.getByText('worker-2')).toBeInTheDocument();
+    expect(screen.getByText('Local')).toBeInTheDocument();
+    expect(screen.getAllByText('Remote')).toHaveLength(2);
+
+    const names = [
+      screen.getByText('main'),
+      screen.getByText('worker-1'),
+      screen.getByText('worker-2'),
+    ];
+    expect(
+      names[0].compareDocumentPosition(names[1]) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      names[1].compareDocumentPosition(names[2]) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it('shows the address as a tooltip when hovering a remote node', async () => {
+    const user = userEvent.setup();
+    renderNodesList();
+
+    await screen.findByText('Nodes (3)');
+    expect(screen.queryByText('http://worker-1:8080')).not.toBeInTheDocument();
+
+    const remoteTypes = screen.getAllByTestId('node-remote');
+    await user.hover(remoteTypes[0]);
+    expect(await screen.findByTestId('node-address')).toHaveTextContent(
+      'http://worker-1:8080',
+    );
+  });
+
+  it('renders health status and latency per node', async () => {
+    renderNodesList();
+
+    expect(await screen.findAllByText('Healthy')).toHaveLength(3);
+    expect(screen.getAllByText('12ms')).toHaveLength(2);
+    expect(screen.getAllByText('—')).toHaveLength(1);
+  });
+
+  it('renders unreachable with error and no latency for a down node', async () => {
+    vi.mocked(nodeHealthService.subscribe).mockImplementation(
+      (name: string, cb: (health: NodeHealth) => void) => {
+        cb(
+          name === 'worker-1'
+            ? {
+                state: 'unreachable',
+                error: 'connection refused',
+                lastChecked: new Date(),
+              }
+            : healthy,
+        );
+        return () => {};
+      },
+    );
+
+    renderNodesList();
+
+    await screen.findByText('Nodes (3)');
+    expect(screen.getByText('Unreachable')).toBeInTheDocument();
+    expect(screen.getByTitle('connection refused')).toBeInTheDocument();
+    expect(screen.getAllByText('12ms')).toHaveLength(1);
+    expect(screen.getAllByText('—')).toHaveLength(2);
+  });
+
+  it('shows checking state while health is unknown', async () => {
+    vi.mocked(nodeHealthService.subscribe).mockReturnValue(() => {});
+
+    renderNodesList();
+
+    expect(await screen.findAllByText('Checking')).toHaveLength(3);
+  });
+});

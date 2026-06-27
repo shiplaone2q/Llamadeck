@@ -83,3 +83,93 @@ func (l *lifecycleManager) checkTimeouts() {
 
 	// Identify instances that should timeout
 	for _, inst := range instances {
+		// Skip remote instances - they are managed by their respective nodes
+		if inst.IsRemote() {
+			continue
+		}
+
+		// Only check running instances
+		if !l.registry.isRunning(inst.Name) {
+			continue
+		}
+
+		if inst.ShouldTimeout() {
+			// Never idle-stop an instance that is actively serving a request:
+			// the stop path only gives in-flight work a 30 s grace, which is
+			// far too short for long generations.
+			if inflight := inst.GetInflightRequests(); inflight > 0 {
+				log.Printf("Instance %s timed out but has %d in-flight request(s); deferring idle stop", inst.Name, inflight)
+				continue
+			}
+			timeoutInstances = append(timeoutInstances, inst.Name)
+		}
+	}
+
+	// Stop the timed-out instances
+	for _, name := range timeoutInstances {
+		log.Printf("Instance %s has timed out, stopping it", name)
+		if _, err := l.manager.StopInstance(name); err != nil {
+			log.Printf("Error stopping instance %s: %v", name, err)
+		} else {
+			log.Printf("Instance %s stopped successfully", name)
+		}
+	}
+}
+
+// EvictLRU finds and stops the least recently used running instance.
+// This is called when max running instances limit is reached.
+// If groupLabel is provided, only instances in that group are considered for eviction.
+// If groupLabel is empty, all running instances are considered.
+func (l *lifecycleManager) evictLRU(groupLabel string) error {
+	if !l.enableLRU {
+		return fmt.Errorf("LRU eviction is not enabled")
+	}
+
+	// Get all running instances
+	runningInstances := l.registry.listRunning()
+
+	var lruInstance *instance.Instance
+
+	for _, inst := range runningInstances {
+		// Skip remote instances - they are managed by their respective nodes
+		if inst.IsRemote() {
+			continue
+		}
+
+		// Skip instances without idle timeout
+		if inst.GetOptions() != nil && inst.GetOptions().IdleTimeout != nil && *inst.GetOptions().IdleTimeout <= 0 {
+			continue
+		}
+
+		// If groupLabel is specified, only consider instances in that group
+		if groupLabel != "" {
+			instGroup := ""
+			if inst.GetOptions() != nil {
+				instGroup = inst.GetOptions().Group
+			}
+			if instGroup != groupLabel {
+				continue
+			}
+		}
+
+		if lruInstance == nil {
+			lruInstance = inst
+		}
+
+		if inst.LastRequestTime() < lruInstance.LastRequestTime() {
+			lruInstance = inst
+		}
+	}
+
+	if lruInstance == nil {
+		if groupLabel != "" {
+			return fmt.Errorf("failed to find lru instance in group %s", groupLabel)
+		}
+		return fmt.Errorf("failed to find lru instance")
+	}
+
+	// Evict the LRU instance
+	log.Printf("Evicting LRU instance %s", lruInstance.Name)
+	_, err := l.manager.StopInstance(lruInstance.Name)
+	return err
+}

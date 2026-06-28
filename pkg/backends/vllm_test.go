@@ -104,3 +104,311 @@ func TestParseVllmCommand(t *testing.T) {
 			}
 
 			if err != nil {
+				t.Errorf("unexpected error: %v", err)
+				return
+			}
+
+			if result == nil {
+				t.Errorf("expected result but got nil")
+				return
+			}
+
+			if tt.validate != nil {
+				tt.validate(t, result)
+			}
+		})
+	}
+}
+
+func TestParseVllmCommandArrays(t *testing.T) {
+	command := "vllm serve test-model --middleware auth.py --middleware=cors.py --api-key key1 --api-key key2"
+
+	var opts backends.VllmServerOptions
+	resultAny, err := opts.ParseCommand(command)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	result, ok := resultAny.(*backends.VllmServerOptions)
+	if !ok {
+		t.Fatalf("expected *VllmServerOptions, got %T", resultAny)
+	}
+
+	expectedMiddleware := []string{"auth.py", "cors.py"}
+	if len(result.Middleware) != len(expectedMiddleware) {
+		t.Errorf("expected %d middleware items, got %d", len(expectedMiddleware), len(result.Middleware))
+	}
+	for i, v := range expectedMiddleware {
+		if i >= len(result.Middleware) || result.Middleware[i] != v {
+			t.Errorf("expected middleware[%d]=%s got %s", i, v, result.Middleware[i])
+		}
+	}
+
+	expectedAPIKeys := []string{"key1", "key2"}
+	if len(result.APIKey) != len(expectedAPIKeys) {
+		t.Errorf("expected %d api keys, got %d", len(expectedAPIKeys), len(result.APIKey))
+	}
+	for i, v := range expectedAPIKeys {
+		if i >= len(result.APIKey) || result.APIKey[i] != v {
+			t.Errorf("expected api_key[%d]=%s got %s", i, v, result.APIKey[i])
+		}
+	}
+}
+
+func TestVllmBuildCommandArgs_BooleanFields(t *testing.T) {
+	tests := []struct {
+		name     string
+		options  backends.VllmServerOptions
+		expected []string
+		excluded []string
+	}{
+		{
+			name: "enable_log_outputs true",
+			options: backends.VllmServerOptions{
+				EnableLogOutputs: true,
+			},
+			expected: []string{"--enable-log-outputs"},
+		},
+		{
+			name: "enable_log_outputs false",
+			options: backends.VllmServerOptions{
+				EnableLogOutputs: false,
+			},
+			excluded: []string{"--enable-log-outputs"},
+		},
+		{
+			name: "multiple booleans",
+			options: backends.VllmServerOptions{
+				EnableLogOutputs:    true,
+				TrustRemoteCode:     true,
+				EnablePrefixCaching: true,
+				DisableLogStats:     false,
+			},
+			expected: []string{"--enable-log-outputs", "--trust-remote-code", "--enable-prefix-caching"},
+			excluded: []string{"--disable-log-stats"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			args := tt.options.BuildCommandArgs()
+
+			for _, expectedArg := range tt.expected {
+				if !testutil.Contains(args, expectedArg) {
+					t.Errorf("Expected argument %q not found in %v", expectedArg, args)
+				}
+			}
+
+			for _, excludedArg := range tt.excluded {
+				if testutil.Contains(args, excludedArg) {
+					t.Errorf("Excluded argument %q found in %v", excludedArg, args)
+				}
+			}
+		})
+	}
+}
+
+func TestVllmBuildCommandArgs_ZeroValues(t *testing.T) {
+	options := backends.VllmServerOptions{
+		Port:                 0,     // Should be excluded
+		TensorParallelSize:   0,     // Should be excluded
+		GPUMemoryUtilization: 0,     // Should be excluded
+		Model:                "",    // Should be excluded (positional arg)
+		Host:                 "",    // Should be excluded
+		EnableLogOutputs:     false, // Should be excluded
+	}
+
+	args := options.BuildCommandArgs()
+
+	// Zero values should not appear in arguments
+	excludedArgs := []string{
+		"--port", "0",
+		"--tensor-parallel-size", "0",
+		"--gpu-memory-utilization", "0",
+		"--host", "",
+		"--enable-log-outputs",
+	}
+
+	for _, excludedArg := range excludedArgs {
+		if testutil.Contains(args, excludedArg) {
+			t.Errorf("Zero value argument %q should not be present in %v", excludedArg, args)
+		}
+	}
+
+	// Model should not be present as positional arg when empty
+	if len(args) > 0 && args[0] == "" {
+		t.Errorf("Empty model should not be present as positional argument")
+	}
+}
+
+func TestVllmBuildCommandArgs_ArrayFields(t *testing.T) {
+	options := backends.VllmServerOptions{
+		AllowedOrigins: []string{"http://localhost:3000", "https://example.com"},
+		AllowedMethods: []string{"GET", "POST"},
+		Middleware:     []string{"middleware1", "middleware2", "middleware3"},
+	}
+
+	args := options.BuildCommandArgs()
+
+	// Check that each array value appears with its flag
+	expectedOccurrences := map[string][]string{
+		"--allowed-origins": {"http://localhost:3000", "https://example.com"},
+		"--allowed-methods": {"GET", "POST"},
+		"--middleware":      {"middleware1", "middleware2", "middleware3"},
+	}
+
+	for flag, values := range expectedOccurrences {
+		for _, value := range values {
+			if !testutil.ContainsFlagWithValue(args, flag, value) {
+				t.Errorf("Expected %s %s, not found in %v", flag, value, args)
+			}
+		}
+	}
+}
+
+func TestVllmBuildCommandArgs_EmptyArrays(t *testing.T) {
+	options := backends.VllmServerOptions{
+		AllowedOrigins: []string{}, // Empty array should not generate args
+		Middleware:     []string{}, // Empty array should not generate args
+	}
+
+	args := options.BuildCommandArgs()
+
+	excludedArgs := []string{"--allowed-origins", "--middleware"}
+	for _, excludedArg := range excludedArgs {
+		if testutil.Contains(args, excludedArg) {
+			t.Errorf("Empty array should not generate argument %q in %v", excludedArg, args)
+		}
+	}
+}
+
+func TestVllmBuildCommandArgs_PositionalModel(t *testing.T) {
+	options := backends.VllmServerOptions{
+		Model:                "microsoft/DialoGPT-medium",
+		Port:                 8080,
+		Host:                 "localhost",
+		TensorParallelSize:   2,
+		GPUMemoryUtilization: 0.8,
+		EnableLogOutputs:     true,
+	}
+
+	args := options.BuildCommandArgs()
+
+	// Check that model is the first positional argument (not a --model flag)
+	if len(args) == 0 || args[0] != "microsoft/DialoGPT-medium" {
+		t.Errorf("Expected model 'microsoft/DialoGPT-medium' as first positional argument, got args: %v", args)
+	}
+
+	// Check that --model flag is NOT present (since model should be positional)
+	if testutil.Contains(args, "--model") {
+		t.Errorf("Found --model flag, but model should be positional argument in args: %v", args)
+	}
+
+	// Check other flags
+	if !testutil.ContainsFlagWithValue(args, "--tensor-parallel-size", "2") {
+		t.Errorf("Expected --tensor-parallel-size 2 not found in %v", args)
+	}
+	if !testutil.ContainsFlagWithValue(args, "--gpu-memory-utilization", "0.8") {
+		t.Errorf("Expected --gpu-memory-utilization 0.8 not found in %v", args)
+	}
+	if !testutil.Contains(args, "--enable-log-outputs") {
+		t.Errorf("Expected --enable-log-outputs not found in %v", args)
+	}
+	if !testutil.ContainsFlagWithValue(args, "--host", "localhost") {
+		t.Errorf("Expected --host localhost not found in %v", args)
+	}
+	if !testutil.ContainsFlagWithValue(args, "--port", "8080") {
+		t.Errorf("Expected --port 8080 not found in %v", args)
+	}
+}
+
+func TestParseVllmCommand_ExtraArgs(t *testing.T) {
+	tests := []struct {
+		name      string
+		command   string
+		expectErr bool
+		validate  func(*testing.T, *backends.VllmServerOptions)
+	}{
+		{
+			name:      "extra args with known fields",
+			command:   "vllm serve llama-model --tensor-parallel-size 2 --unknown-flag value --new-bool-flag",
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.VllmServerOptions) {
+				if opts.Model != "llama-model" {
+					t.Errorf("expected model 'llama-model', got '%s'", opts.Model)
+				}
+				if opts.TensorParallelSize != 2 {
+					t.Errorf("expected tensor_parallel_size 2, got %d", opts.TensorParallelSize)
+				}
+				if opts.ExtraArgs == nil {
+					t.Fatal("expected extra_args to be non-nil")
+				}
+				if val, ok := opts.ExtraArgs["unknown_flag"]; !ok || val != "value" {
+					t.Errorf("expected extra_args[unknown_flag]='value', got '%s'", val)
+				}
+				if val, ok := opts.ExtraArgs["new_bool_flag"]; !ok || val != "true" {
+					t.Errorf("expected extra_args[new_bool_flag]='true', got '%s'", val)
+				}
+			},
+		},
+		{
+			name:      "only extra args",
+			command:   "vllm serve model --experimental-feature --custom-param test",
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.VllmServerOptions) {
+				if opts.ExtraArgs == nil {
+					t.Fatal("expected extra_args to be non-nil")
+				}
+				if val, ok := opts.ExtraArgs["experimental_feature"]; !ok || val != "true" {
+					t.Errorf("expected extra_args[experimental_feature]='true', got '%s'", val)
+				}
+				if val, ok := opts.ExtraArgs["custom_param"]; !ok || val != "test" {
+					t.Errorf("expected extra_args[custom_param]='test', got '%s'", val)
+				}
+			},
+		},
+		{
+			name:      "extra args without model positional",
+			command:   "vllm serve --model my-model --new-feature enabled --beta-flag",
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.VllmServerOptions) {
+				if opts.Model != "my-model" {
+					t.Errorf("expected model 'my-model', got '%s'", opts.Model)
+				}
+				if opts.ExtraArgs == nil {
+					t.Fatal("expected extra_args to be non-nil")
+				}
+				if val, ok := opts.ExtraArgs["new_feature"]; !ok || val != "enabled" {
+					t.Errorf("expected extra_args[new_feature]='enabled', got '%s'", val)
+				}
+				if val, ok := opts.ExtraArgs["beta_flag"]; !ok || val != "true" {
+					t.Errorf("expected extra_args[beta_flag]='true', got '%s'", val)
+				}
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var opts backends.VllmServerOptions
+			result, err := opts.ParseCommand(tt.command)
+
+			if tt.expectErr && err == nil {
+				t.Error("expected error but got none")
+				return
+			}
+			if !tt.expectErr && err != nil {
+				t.Errorf("unexpected error: %v", err)
+				return
+			}
+
+			if !tt.expectErr && tt.validate != nil {
+				vllmOpts, ok := result.(*backends.VllmServerOptions)
+				if !ok {
+					t.Fatal("result is not *VllmServerOptions")
+				}
+				tt.validate(t, vllmOpts)
+			}
+		})
+	}
+}

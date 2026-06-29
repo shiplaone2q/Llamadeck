@@ -73,3 +73,5 @@ const basicMlxFieldsConfig: Record<string, {
   },
   min_p: {
     label: 'Min-P',
+    placeholder: '0.0',
+    description: 'Default min-p sampling (default: 0.0, disables min-p)'

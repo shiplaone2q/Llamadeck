@@ -102,3 +102,6 @@ func TestScanCache(t *testing.T) {
 	}
 }
 
+func TestScanCache_HardLinks(t *testing.T) {
+	tmpDir := t.TempDir()
+

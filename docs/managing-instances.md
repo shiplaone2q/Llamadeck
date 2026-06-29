@@ -124,3 +124,4 @@ curl -X POST http://localhost:8080/api/v1/instances/my-llama-instance \
 
 # Create vLLM instance with environment variables
 curl -X POST http://localhost:8080/api/v1/instances/my-vllm-instance \
+  -H "Content-Type: application/json" \

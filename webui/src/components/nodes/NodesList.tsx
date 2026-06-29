@@ -78,3 +78,4 @@ function NodesList() {
   const entries = nodes ? Object.entries(nodes) : [];
   const localNode = config?.local_node;
 
+  entries.sort(([a], [b]) => {

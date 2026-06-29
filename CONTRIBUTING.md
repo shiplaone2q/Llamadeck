@@ -80,3 +80,7 @@ All the following must pass:
    ```
 
 ### API Documentation
+
+If changes affect API endpoints, update Swagger documentation:
+
+```bash

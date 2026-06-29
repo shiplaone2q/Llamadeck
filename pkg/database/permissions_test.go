@@ -87,3 +87,5 @@ func TestGetPermissionsReturnsFlags(t *testing.T) {
 
 	now := time.Now().Unix()
 	key := &auth.APIKey{
+		KeyHash:        "hash",
+		Name:           "k2",

@@ -100,3 +100,5 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       
       // Update in map directly
       setInstancesMap(prev => {
+        const newMap = new Map(prev)
+        newMap.set(name, updatedInstance)

@@ -92,3 +92,7 @@ type VllmServerOptions struct {
 	SchedulerDelay                float64 `json:"scheduler_delay,omitempty"`
 	EnableChunkedPrefill          bool    `json:"enable_chunked_prefill,omitempty"`
 	SpeculativeModel              string  `json:"speculative_model,omitempty"`
+	SpeculativeModelQuantization  string  `json:"speculative_model_quantization,omitempty"`
+	SpeculativeRevision           string  `json:"speculative_revision,omitempty"`
+	SpeculativeMaxModelLen        int     `json:"speculative_max_model_len,omitempty"`
+	SpeculativeDisableByBatchSize int     `json:"speculative_disable_by_batch_size,omitempty"`

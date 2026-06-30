@@ -150,3 +150,4 @@ describe("InstancesContext", () => {
 
       // Should start loading
       expect(screen.getByTestId("loading")).toHaveTextContent("true");
+

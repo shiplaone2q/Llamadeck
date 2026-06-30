@@ -140,3 +140,6 @@ func (h *Handler) UpdateInstance() http.HandlerFunc {
 
 		inst, err := h.InstanceManager.UpdateInstance(validatedName, &options)
 		if err != nil {
+			if errors.Is(err, manager.ErrInstanceNotFound) {
+				writeError(w, http.StatusNotFound, "not_found", err.Error())
+				return

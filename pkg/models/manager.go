@@ -88,3 +88,4 @@ func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, e
 	job.CancelFunc = cancel
 
 	go m.downloadWorker(ctx, job, format)
+

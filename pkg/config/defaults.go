@@ -105,3 +105,4 @@ func getDefaultLlamaCacheDir() string {
 	case "windows":
 		if localAppData := os.Getenv("LOCALAPPDATA"); localAppData != "" {
 			return filepath.Join(localAppData, "llama.cpp", "cache")
+		}

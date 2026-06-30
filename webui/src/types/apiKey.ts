@@ -22,3 +22,6 @@ export interface CreateKeyRequest {
 }
 
 export interface InstancePermissionSpec {
+  instance_id: number
+  can_start?: boolean   // defaults to true
+  can_evict?: boolean   // defaults to true

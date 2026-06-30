@@ -88,3 +88,7 @@ function App() {
         />
         <main className="container mx-auto max-w-4xl px-4 py-8">
           {/* Tab Navigation */}
+          <div className="border-b border-border mb-6">
+            <div className="flex gap-4">
+              <button
+                type="button"

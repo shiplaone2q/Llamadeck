@@ -110,3 +110,6 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
               </p>
             </div>
           </div>
+        </div>
+      )
+    }

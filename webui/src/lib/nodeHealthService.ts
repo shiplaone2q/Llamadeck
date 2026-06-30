@@ -89,3 +89,6 @@ class NodeHealthService {
 
   private async refreshHealth(nodeName: string): Promise<void> {
     try {
+      const health = await this.performHealthCheck(nodeName);
+      this.notifyCallbacks(nodeName, health);
+    } catch (error) {

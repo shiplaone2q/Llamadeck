@@ -79,3 +79,5 @@ function NodesList() {
   const localNode = config?.local_node;
 
   entries.sort(([a], [b]) => {
+    if (a === localNode && b !== localNode) return -1;
+    if (b === localNode && a !== localNode) return 1;

@@ -69,3 +69,7 @@ function InstanceCard({
     if (
       confirm(`Are you sure you want to delete instance "${instance.name}"?`)
     ) {
+      deleteInstance(instance.name);
+    }
+  };
+

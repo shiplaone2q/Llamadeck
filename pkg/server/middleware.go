@@ -80,3 +80,6 @@ func (a *APIAuthMiddleware) InferenceAuthMiddleware() func(http.Handler) http.Ha
 				return
 			}
 
+			// Extract API key from request
+			apiKey := a.extractAPIKey(r)
+			if apiKey == "" {

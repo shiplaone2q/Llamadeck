@@ -96,3 +96,5 @@ Once created, you can:
 To make inference requests to your instances, you'll need an inference API key:
 
 1. In the web UI, click the **Settings** icon (gear icon in the top-right)
+2. Navigate to the **API Keys** tab
+3. Click **Create API Key**

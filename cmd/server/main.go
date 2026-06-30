@@ -86,3 +86,4 @@ func main() {
 	var oidcService *server.OIDCService
 	if cfg.Auth.OIDC.Enabled() {
 		oidcService, err = server.NewOIDCService(cfg.Auth)
+		if err != nil {

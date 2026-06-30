@@ -138,3 +138,4 @@ export const nodesApi = {
   // GET /nodes/{name}
   get: (name: string) => apiCall<NodeResponse>(`/nodes/${encodeURIComponent(name)}`),
 
+  // GET /nodes/{name}/health

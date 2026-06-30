@@ -108,3 +108,4 @@ func TestDeleteInstance_RemovesFromDatabase(t *testing.T) {
 	}
 
 	_, err = mgr.CreateInstance("test-instance", options)
+	if err != nil {

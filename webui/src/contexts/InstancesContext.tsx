@@ -102,3 +102,7 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       setInstancesMap(prev => {
         const newMap = new Map(prev)
         newMap.set(name, updatedInstance)
+        return newMap
+      })
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update instance')

@@ -99,3 +99,5 @@ func TestParseMlxCommand(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			var opts backends.MlxServerOptions
 			resultAny, err := opts.ParseCommand(tt.command)
+			result, _ := resultAny.(*backends.MlxServerOptions)
+

@@ -133,3 +133,5 @@ describe('InstanceModal - Form Logic and Validation', () => {
           onSave={mockOnSave}
         />
       )
+
+      // Fill required name

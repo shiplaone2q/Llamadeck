@@ -81,3 +81,4 @@ function NodesList() {
   entries.sort(([a], [b]) => {
     if (a === localNode && b !== localNode) return -1;
     if (b === localNode && a !== localNode) return 1;
+    return a.localeCompare(b);

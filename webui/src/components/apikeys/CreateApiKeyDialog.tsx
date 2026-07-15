@@ -129,3 +129,5 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
         selected: checked,
         canStart: prev[instanceId]?.canStart ?? true,
         canEvict: prev[instanceId]?.canEvict ?? true,
+      },
+    }));

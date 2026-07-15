@@ -75,3 +75,5 @@ const basicMlxFieldsConfig: Record<string, {
     label: 'Min-P',
     placeholder: '0.0',
     description: 'Default min-p sampling (default: 0.0, disables min-p)'
+  },
+  max_tokens: {

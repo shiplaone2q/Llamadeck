@@ -65,3 +65,4 @@ describe('nodeHealthService', () => {
       fetchUrls.push(String(input));
       return Promise.resolve(okBody('healthy'));
     }) as unknown as typeof fetch;
+

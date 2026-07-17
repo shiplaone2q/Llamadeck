@@ -74,3 +74,6 @@ func TestDeleteModel(t *testing.T) {
 			t.Errorf("body %q missing model_not_found code", rec.Body.String())
 		}
 	})
+
+	t.Run("missing ref", func(t *testing.T) {
+		fm := models.NewFileManager(cache)

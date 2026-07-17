@@ -437,3 +437,7 @@
   color: var(--nt-group-5-main);
   background-color: var(--nt-group-5-main-bg);
 }
+
+.nt-group-6 .nt-plan-group-summary,
+.nt-group-6 .nt-timeline-dot {
+  color: var(--nt-group-6-dark);

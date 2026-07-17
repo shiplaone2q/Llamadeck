@@ -80,3 +80,4 @@ func TestExpandEnvVars(t *testing.T) {
 		},
 		{
 			name:     "no placeholders",
+			input:    "just a normal string",

@@ -66,3 +66,4 @@ func TestResolveInstancePermission(t *testing.T) {
 			wantEvict: true,
 		},
 		{
+			name:      "per_instance key can_start false",

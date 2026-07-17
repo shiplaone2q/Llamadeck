@@ -146,3 +146,6 @@ func (h *Handler) LlamaCppProxy() http.HandlerFunc {
 
 // parseHelper parses a backend command and returns the parsed options
 func parseHelper(w http.ResponseWriter, r *http.Request, backend interface {
+	ParseCommand(string) (any, error)
+}) (any, bool) {
+	var req ParseCommandRequest

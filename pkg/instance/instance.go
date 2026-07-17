@@ -148,3 +148,6 @@ func (i *Instance) WaitForHealthy(timeout int) error {
 		return fmt.Errorf("instance %s has no process component (remote instances cannot be health checked locally)", i.Name)
 	}
 	return i.process.waitForHealthy(timeout)
+}
+
+func (i *Instance) GetBackendType() backends.BackendType {

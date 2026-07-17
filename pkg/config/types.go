@@ -86,3 +86,4 @@ type InstancesConfig struct {
 	// Port range for instances (e.g., 8000,9000)
 	PortRange [2]int `yaml:"port_range" json:"port_range"`
 
+	// Automatically create the data directory if it doesn't exist

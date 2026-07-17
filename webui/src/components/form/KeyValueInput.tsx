@@ -112,3 +112,7 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
       updateParent(newPairs)
     }
   }
+
+  return (
+    <div className={`grid gap-2 ${className || ''}`}>
+      <Label htmlFor={id}>

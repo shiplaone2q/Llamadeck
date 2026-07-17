@@ -93,3 +93,6 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
       <ExtraArgsInput
         id={fieldKey}
         label="Extra Arguments"
+        value={value as Record<string, string> | undefined}
+        onChange={(newValue) => onChange(fieldKey, newValue)}
+        description="Additional command line arguments to pass to the backend"

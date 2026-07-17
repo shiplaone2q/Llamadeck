@@ -57,3 +57,4 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
 
         setSuggestionPosition({ top, left })
       }
+    } else {

@@ -87,3 +87,4 @@ jobs:
       - name: Build binary
         env:
           GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}

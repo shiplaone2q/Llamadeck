@@ -114,3 +114,4 @@ export const LlamaCppBackendOptionsSchema = z.object({
   dry_sequence_breaker: z.array(z.string()).optional(), // --dry-sequence-breaker STRING
   adaptive_target: z.number().optional(), // --adaptive-target N
   adaptive_decay: z.number().optional(), // --adaptive-decay N
+  dynatemp_range: z.number().optional(), // --dynatemp-range N

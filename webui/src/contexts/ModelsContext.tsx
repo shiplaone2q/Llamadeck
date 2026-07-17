@@ -90,3 +90,6 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
       throw err
     }
   }, [])
+
+  const deleteModel = useCallback(async (repo: string, tag?: string, node?: string) => {
+    setError(null)

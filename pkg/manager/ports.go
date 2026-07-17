@@ -98,3 +98,7 @@ func (p *portAllocator) release(port int) error {
 	p.clearBit(port)
 	delete(p.allocated, port)
 
+	return nil
+}
+
+// releaseByInstance releases all ports allocated to the given instance.

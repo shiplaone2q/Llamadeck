@@ -119,3 +119,7 @@ const LogsDialog: React.FC<LogsDialogProps> = ({
     a.href = url
     a.download = `${instanceName}-logs.txt`
     document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }

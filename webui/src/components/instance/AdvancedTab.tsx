@@ -62,3 +62,5 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
                     fieldKey={fieldKey}
                     value={(formData.backend_options as Record<string, unknown>)?.[fieldKey] as string | number | boolean | string[] | undefined}
                     onChange={onBackendFieldChange}
+                  />
+                ))}

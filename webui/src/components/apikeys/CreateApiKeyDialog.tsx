@@ -131,3 +131,4 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
         canEvict: prev[instanceId]?.canEvict ?? true,
       },
     }));
+  };

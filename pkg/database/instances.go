@@ -144,3 +144,5 @@ func (db *sqliteDB) Update(ctx context.Context, inst *instance.Instance) error {
 	if err != nil {
 		return fmt.Errorf("failed to convert instance to row: %w", err)
 	}
+
+	// Update in database

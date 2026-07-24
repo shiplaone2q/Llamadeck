@@ -78,3 +78,5 @@ func BuildDockerCommand(backendConfig *config.BackendSettings, instanceArgs []st
 	// Start with configured Docker arguments (should include "run", "--rm", etc.)
 	dockerArgs := make([]string, len(backendConfig.Docker.Args))
 	copy(dockerArgs, backendConfig.Docker.Args)
+
+	// Add environment variables

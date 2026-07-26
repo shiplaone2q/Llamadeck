@@ -146,3 +146,183 @@ func (db *sqliteDB) Update(ctx context.Context, inst *instance.Instance) error {
 	}
 
 	// Update in database
+	query := `
+		UPDATE instances SET
+			status = ?, updated_at = ?, options_json = ?
+		WHERE name = ?
+	`
+
+	result, err := db.DB.ExecContext(ctx, query,
+		row.Status, row.UpdatedAt, row.OptionsJSON, row.Name,
+	)
+
+	if err != nil {
+		return fmt.Errorf("failed to update instance: %w", err)
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return fmt.Errorf("failed to get rows affected: %w", err)
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("instance not found: %s", inst.Name)
+	}
+
+	return nil
+}
+
+// UpdateStatus updates only the status of an instance (optimized operation)
+func (db *sqliteDB) UpdateStatus(ctx context.Context, name string, status instance.Status) error {
+	// Convert status to string
+	statusJSON, err := status.MarshalJSON()
+	if err != nil {
+		return fmt.Errorf("failed to marshal status: %w", err)
+	}
+	var statusStr string
+	if err := json.Unmarshal(statusJSON, &statusStr); err != nil {
+		return fmt.Errorf("failed to unmarshal status string: %w", err)
+	}
+
+	query := `
+		UPDATE instances SET
+			status = ?,
+			updated_at = ?
+		WHERE name = ?
+	`
+
+	result, err := db.DB.ExecContext(ctx, query, statusStr, time.Now().Unix(), name)
+	if err != nil {
+		return fmt.Errorf("failed to update instance status: %w", err)
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return fmt.Errorf("failed to get rows affected: %w", err)
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("instance not found: %s", name)
+	}
+
+	return nil
+}
+
+// DeleteInstance removes an instance from the database
+func (db *sqliteDB) DeleteInstance(ctx context.Context, name string) error {
+	query := `DELETE FROM instances WHERE name = ?`
+
+	result, err := db.DB.ExecContext(ctx, query, name)
+	if err != nil {
+		return fmt.Errorf("failed to delete instance: %w", err)
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return fmt.Errorf("failed to get rows affected: %w", err)
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("instance not found: %s", name)
+	}
+
+	return nil
+}
+
+// instanceToRow converts an Instance to a database row
+func (db *sqliteDB) instanceToRow(inst *instance.Instance) (*instanceRow, error) {
+	opts := inst.GetOptions()
+	if opts == nil {
+		return nil, fmt.Errorf("instance options cannot be nil")
+	}
+
+	// Marshal options to JSON using the existing MarshalJSON method
+	optionsJSON, err := json.Marshal(opts)
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal options: %w", err)
+	}
+
+	// Convert status to string
+	statusJSON, err := inst.GetStatus().MarshalJSON()
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal status: %w", err)
+	}
+	var statusStr string
+	if err := json.Unmarshal(statusJSON, &statusStr); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal status string: %w", err)
+	}
+
+	return &instanceRow{
+		Name:        inst.Name,
+		Status:      statusStr,
+		CreatedAt:   inst.Created,
+		UpdatedAt:   time.Now().Unix(),
+		OptionsJSON: string(optionsJSON),
+	}, nil
+}
+
+// rowToInstance converts a database row to an Instance
+func (db *sqliteDB) rowToInstance(row *instanceRow) (*instance.Instance, error) {
+	// Unmarshal options from JSON using the existing UnmarshalJSON method
+	var opts instance.Options
+	if err := json.Unmarshal([]byte(row.OptionsJSON), &opts); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal options: %w", err)
+	}
+
+	// Build complete instance JSON with all fields
+	instanceJSON, err := json.Marshal(map[string]any{
+		"id":      row.ID,
+		"name":    row.Name,
+		"created": row.CreatedAt,
+		"status":  row.Status,
+		"options": json.RawMessage(row.OptionsJSON),
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal instance: %w", err)
+	}
+
+	// Unmarshal into a complete Instance
+	var inst instance.Instance
+	if err := json.Unmarshal(instanceJSON, &inst); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal instance: %w", err)
+	}
+
+	// The UnmarshalJSON doesn't handle BackendOptions and Nodes (they have json:"-" tags)
+	// So we need to explicitly set the options again to ensure they're properly set
+	inst.SetOptions(&opts)
+
+	return &inst, nil
+}
+
+// Database interface implementation
+
+// Save saves an instance to the database (insert or update)
+func (db *sqliteDB) Save(inst *instance.Instance) error {
+	ctx := context.Background()
+
+	// Try to get existing instance
+	existing, err := db.GetByName(ctx, inst.Name)
+	if err != nil {
+		// Instance doesn't exist, create it
+		return db.Create(ctx, inst)
+	}
+
+	// Instance exists, update it
+	if existing != nil {
+		return db.Update(ctx, inst)
+	}
+
+	return db.Create(ctx, inst)
+}
+
+// Delete removes an instance from the database
+func (db *sqliteDB) Delete(name string) error {
+	ctx := context.Background()
+	return db.DeleteInstance(ctx, name)
+}
+
+// LoadAll loads all instances from the database
+func (db *sqliteDB) LoadAll() ([]*instance.Instance, error) {
+	ctx := context.Background()
+	return db.GetAll(ctx)
+}

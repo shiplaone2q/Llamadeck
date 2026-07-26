@@ -23,3 +23,4 @@ const EnvVarsInput: React.FC<EnvVarsInputProps> = (props) => {
   )
 }
 
+export default EnvVarsInput

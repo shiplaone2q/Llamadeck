@@ -80,3 +80,76 @@ func (l *logger) create() error {
 
 	return nil
 }
+
+func (l *logger) readOutput(rc io.ReadCloser) {
+	defer rc.Close()
+	scanner := bufio.NewScanner(rc)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if lg := l.logFile; lg != nil {
+			fmt.Fprintln(lg, line)
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		if lg := l.logFile; lg != nil {
+			fmt.Fprintf(lg, "\n=== Error reading output for instance %s: %v ===\n", l.name, err)
+		}
+	}
+}
+
+func (l *logger) close() {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+
+	lg := l.logFile
+	if lg == nil {
+		return
+	}
+
+	ts := time.Now().Format("2006-01-02 15:04:05")
+	fmt.Fprintf(lg, "=== Instance %s stopped at %s ===\n\n", l.name, ts)
+
+	_ = lg.Close()
+	l.logFile = nil
+}
+
+// getLogs retrieves the last n lines of logs from the instance
+func (l *logger) getLogs(num_lines int) (string, error) {
+	l.mu.RLock()
+	defer l.mu.RUnlock()
+
+	if l.logFilePath == "" {
+		return "", fmt.Errorf("log file not created for instance %s", l.name)
+	}
+
+	file, err := os.Open(l.logFilePath)
+	if err != nil {
+		return "", fmt.Errorf("failed to open log file: %w", err)
+	}
+	defer file.Close()
+
+	if num_lines <= 0 {
+		content, err := io.ReadAll(file)
+		if err != nil {
+			return "", fmt.Errorf("failed to read log file: %w", err)
+		}
+		return string(content), nil
+	}
+
+	var lines []string
+	scanner := bufio.NewScanner(file)
+
+	// Read all lines into a slice
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	if err := scanner.Err(); err != nil {
+		return "", fmt.Errorf("error reading file: %w", err)
+	}
+
+	// Return the last N lines
+	start := max(len(lines)-num_lines, 0)
+
+	return strings.Join(lines[start:], "\n"), nil
+}

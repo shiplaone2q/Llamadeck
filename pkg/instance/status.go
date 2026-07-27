@@ -88,3 +88,31 @@ func (st *status) set(newStatus Status) {
 	oldStatus := st.s
 	st.s = newStatus
 	callback := st.onStatusChange
+	st.mu.Unlock()
+
+	// Call the callback outside the lock to avoid potential deadlocks
+	if callback != nil {
+		callback(oldStatus, newStatus)
+	}
+}
+
+// isRunning returns true if the status is Running
+func (st *status) isRunning() bool {
+	st.mu.RLock()
+	defer st.mu.RUnlock()
+	return st.s == Running
+}
+
+// MarshalJSON implements json.Marshaler for status wrapper
+func (st *status) MarshalJSON() ([]byte, error) {
+	st.mu.RLock()
+	defer st.mu.RUnlock()
+	return st.s.MarshalJSON()
+}
+
+// UnmarshalJSON implements json.Unmarshaler for status wrapper
+func (st *status) UnmarshalJSON(data []byte) error {
+	st.mu.Lock()
+	defer st.mu.Unlock()
+	return st.s.UnmarshalJSON(data)
+}

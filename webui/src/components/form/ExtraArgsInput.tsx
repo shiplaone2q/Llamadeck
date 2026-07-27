@@ -21,3 +21,7 @@ const ExtraArgsInput: React.FC<ExtraArgsInputProps> = (props) => {
       helperText="Additional command line arguments to pass to the backend. Leave value empty for boolean flags."
       allowEmptyValues={true}
     />
+  )
+}
+
+export default ExtraArgsInput

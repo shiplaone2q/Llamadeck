@@ -46,3 +46,54 @@ func (s *SessionStore) Create(sub, name, email string) *Session {
 
 	sess := &Session{
 		ID:        id,
+		Sub:       sub,
+		Name:      name,
+		Email:     email,
+		ExpiresAt: time.Now().Add(s.ttl),
+	}
+
+	s.mu.Lock()
+	s.sessions[sess.ID] = sess
+	s.mu.Unlock()
+
+	// Sweep expired sessions asynchronously.
+	go s.sweep(time.Now())
+
+	return sess
+}
+
+// sweep deletes sessions that expired before cutoff.
+func (s *SessionStore) sweep(cutoff time.Time) {
+	s.mu.Lock()
+	for id, sess := range s.sessions {
+		if cutoff.After(sess.ExpiresAt) {
+			delete(s.sessions, id)
+		}
+	}
+	s.mu.Unlock()
+}
+
+// Get returns the session for id, or nil when it is unknown or expired.
+func (s *SessionStore) Get(id string) *Session {
+	s.mu.RLock()
+	sess, ok := s.sessions[id]
+	s.mu.RUnlock()
+
+	if !ok {
+		return nil
+	}
+
+	if time.Now().After(sess.ExpiresAt) {
+		s.Delete(id)
+		return nil
+	}
+
+	return sess
+}
+
+// Delete removes the session for id if present.
+func (s *SessionStore) Delete(id string) {
+	s.mu.Lock()
+	delete(s.sessions, id)
+	s.mu.Unlock()
+}

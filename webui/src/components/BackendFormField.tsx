@@ -96,3 +96,119 @@ const BackendFormField: React.FC<BackendFormFieldProps> = ({ fieldKey, value, on
         value={value as Record<string, string> | undefined}
         onChange={(newValue) => onChange(fieldKey, newValue)}
         description="Additional command line arguments to pass to the backend"
+      />
+    )
+  }
+
+  // Get configuration for basic fields, or use field name for advanced fields
+  const config = basicBackendFieldsConfig[fieldKey] || { label: fieldKey }
+
+  // Get type from Zod schema
+  const fieldType = getBackendFieldType(fieldKey)
+
+  const handleChange = (newValue: string | number | boolean | string[] | undefined) => {
+    onChange(fieldKey, newValue)
+  }
+
+  const renderField = () => {
+    switch (fieldType) {
+      case 'boolean':
+        return (
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id={fieldKey}
+              checked={typeof value === 'boolean' ? value : false}
+              onCheckedChange={(checked) => handleChange(checked)}
+            />
+            <Label htmlFor={fieldKey} className="text-sm font-normal">
+              {config.label}
+              {config.description && (
+                <span className="text-muted-foreground ml-1">- {config.description}</span>
+              )}
+            </Label>
+          </div>
+        )
+
+      case 'number':
+        return (
+          <div className="grid gap-2">
+            <Label htmlFor={fieldKey}>
+              {config.label}
+            </Label>
+            <Input
+              id={fieldKey}
+              type="number"
+              step="any" // This allows decimal numbers
+              value={typeof value === 'string' || typeof value === 'number' ? value : ''}
+              onChange={(e) => {
+                const numValue = e.target.value ? parseFloat(e.target.value) : undefined
+                // Only update if the parsed value is valid or the input is empty
+                if (e.target.value === '' || (numValue !== undefined && !Number.isNaN(numValue))) {
+                  handleChange(numValue)
+                }
+              }}
+              placeholder={config.placeholder}
+            />
+            {config.description && (
+              <p className="text-sm text-muted-foreground">{config.description}</p>
+            )}
+          </div>
+        )
+
+      case 'array':
+        return (
+          <div className="grid gap-2">
+            <Label htmlFor={fieldKey}>
+              {config.label}
+            </Label>
+            <Input
+              id={fieldKey}
+              type="text"
+              value={isEditingArray ? localArrayValue : (Array.isArray(value) ? value.join(' ') : '')}
+              onChange={(e) => {
+                setLocalArrayValue(e.target.value)
+                const arrayValue = e.target.value ? parseArgs(e.target.value) : undefined
+                onChange(fieldKey, arrayValue)
+              }}
+              onFocus={() => {
+                setIsEditingArray(true)
+                if (Array.isArray(value)) {
+                  setLocalArrayValue(value.join(' '))
+                }
+              }}
+              onBlur={() => {
+                setIsEditingArray(false)
+              }}
+              placeholder={config.placeholder}
+            />
+            {config.description && (
+              <p className="text-sm text-muted-foreground">{config.description}</p>
+            )}
+            <p className="text-xs text-muted-foreground">Space-separated, like on a command line; quote values containing spaces</p>
+          </div>
+        )
+      default:
+        return (
+          <div className="grid gap-2">
+            <Label htmlFor={fieldKey}>
+              {config.label}
+            </Label>
+            <Input
+              id={fieldKey}
+              type="text"
+              value={typeof value === 'string' || typeof value === 'number' ? value : ''}
+              onChange={(e) => handleChange(e.target.value || undefined)}
+              placeholder={config.placeholder}
+            />
+            {config.description && (
+              <p className="text-sm text-muted-foreground">{config.description}</p>
+            )}
+          </div>
+        )
+    }
+  }
+
+  return <div className="space-y-2">{renderField()}</div>
+}
+
+export default BackendFormField

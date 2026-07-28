@@ -29,3 +29,4 @@ Servers that download models or run long setup on first start may exceed the on-
 
 ## Health Checks
 
+After launching the command, llamadeck polls the entry's `health_path` until it returns a 2xx response, and only then marks the instance ready.

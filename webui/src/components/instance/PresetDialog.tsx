@@ -56,3 +56,6 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
   }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>

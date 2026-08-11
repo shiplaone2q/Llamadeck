@@ -32,3 +32,6 @@ export function getLlamaFieldSuggestions(input: string): FieldSuggestion[] {
     })
 
   allAltKeys.forEach(altKey => {
+    if (!suggestionsMap.has(altKey)) {
+      suggestionsMap.set(altKey, {
+        name: altKey,

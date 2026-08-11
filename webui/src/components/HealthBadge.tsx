@@ -48,3 +48,6 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
   };
 
   const getText = () => {
+    switch (health.state) {
+      case "ready":
+        return "Ready";

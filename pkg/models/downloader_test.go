@@ -188,3 +188,5 @@ func TestBuildDownloadPlan_Safetensors(t *testing.T) {
 	}
 
 	if filenames["pytorch_model.bin"] {
+		t.Error("expected pytorch_model.bin to be excluded when safetensors are present")
+	}

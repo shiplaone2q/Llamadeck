@@ -51,3 +51,4 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
       )}
 
       {/* Command Override - only shown when Docker is disabled or backend is MLX */}
+      {(formData.backend_type === BackendType.MLX_LM || formData.docker_enabled !== true) && (

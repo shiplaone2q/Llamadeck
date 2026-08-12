@@ -184,3 +184,7 @@ type LlamaServerOptions struct {
 	WebUIConfig          string   `json:"webui_config,omitempty"`           // --webui-config JSON
 	WebUIConfigFile      string   `json:"webui_config_file,omitempty"`      // --webui-config-file PATH
 	WebUI                bool     `json:"webui,omitempty"`                  // --webui
+	NoWebUI              bool     `json:"no_webui,omitempty"`               // --no-webui
+	Embedding            bool     `json:"embedding,omitempty"`              // --embedding, --embeddings
+	Reranking            bool     `json:"reranking,omitempty"`              // --rerank, --reranking
+	APIKey               string   `json:"api_key,omitempty"`                // --api-key KEY

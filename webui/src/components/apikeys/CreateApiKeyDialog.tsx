@@ -132,3 +132,7 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
       },
     }));
   };
+
+  const handleTierChange = (instanceId: number, tier: InstanceTier) => {
+    setInstancePermissions(prev => ({
+      ...prev,

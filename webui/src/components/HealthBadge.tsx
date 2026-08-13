@@ -51,3 +51,4 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
     switch (health.state) {
       case "ready":
         return "Ready";
+      case "starting":

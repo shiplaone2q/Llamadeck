@@ -143,3 +143,7 @@ export const nodesApi = {
     apiCall<NodeHealthResponse>(`/nodes/${encodeURIComponent(name)}/health`),
 };
 
+// Instance API functions
+export const instancesApi = {
+  // GET /instances
+  list: () => apiCall<Instance[]>("/instances"),

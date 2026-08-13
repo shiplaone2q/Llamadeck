@@ -122,3 +122,5 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 		}
 
 		// Generate plain-text key
+		plainTextKey, err := auth.GenerateKey("llamadeck")
+		if err != nil {

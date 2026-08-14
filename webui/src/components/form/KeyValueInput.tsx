@@ -116,3 +116,6 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
   return (
     <div className={`grid gap-2 ${className || ''}`}>
       <Label htmlFor={id}>
+        {label}
+      </Label>
+      <div className="space-y-2">

@@ -157,3 +157,176 @@ func parseRemoteResponse(resp *http.Response, result any) error {
 	}
 
 	if resp.StatusCode == http.StatusNotFound {
+		return &RemoteNotFoundError{
+			Err: fmt.Errorf("remote returned 404: %s", string(body)),
+		}
+	}
+
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		return fmt.Errorf("API request failed with status %d: %s", resp.StatusCode, string(body))
+	}
+
+	if result != nil {
+		if err := json.Unmarshal(body, result); err != nil {
+			return fmt.Errorf("failed to unmarshal response: %w", err)
+		}
+	}
+
+	return nil
+}
+
+// --- Remote CRUD operations ---
+
+// createInstance creates a new instance on a remote node.
+func (rm *remoteManager) createInstance(ctx context.Context, node *config.NodeConfig, name string, opts *instance.Options) (*instance.Instance, error) {
+	escapedName := url.PathEscape(name)
+
+	path := fmt.Sprintf("%s%s/", apiBasePath, escapedName)
+
+	resp, err := rm.makeRemoteRequest(ctx, node, "POST", path, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	var inst instance.Instance
+	if err := parseRemoteResponse(resp, &inst); err != nil {
+		return nil, err
+	}
+
+	return &inst, nil
+}
+
+// getInstance retrieves an instance by name from a remote node.
+func (rm *remoteManager) getInstance(ctx context.Context, node *config.NodeConfig, name string) (*instance.Instance, error) {
+
+	escapedName := url.PathEscape(name)
+
+	path := fmt.Sprintf("%s%s/", apiBasePath, escapedName)
+	resp, err := rm.makeRemoteRequest(ctx, node, "GET", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var inst instance.Instance
+	if err := parseRemoteResponse(resp, &inst); err != nil {
+		return nil, err
+	}
+
+	return &inst, nil
+}
+
+// updateInstance updates an existing instance on a remote node.
+func (rm *remoteManager) updateInstance(ctx context.Context, node *config.NodeConfig, name string, opts *instance.Options) (*instance.Instance, error) {
+
+	escapedName := url.PathEscape(name)
+
+	path := fmt.Sprintf("%s%s/", apiBasePath, escapedName)
+
+	resp, err := rm.makeRemoteRequest(ctx, node, "PUT", path, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	var inst instance.Instance
+	if err := parseRemoteResponse(resp, &inst); err != nil {
+		return nil, err
+	}
+
+	return &inst, nil
+}
+
+// deleteInstance deletes an instance from a remote node.
+func (rm *remoteManager) deleteInstance(ctx context.Context, node *config.NodeConfig, name string) error {
+
+	escapedName := url.PathEscape(name)
+
+	path := fmt.Sprintf("%s%s/", apiBasePath, escapedName)
+	resp, err := rm.makeRemoteRequest(ctx, node, "DELETE", path, nil)
+	if err != nil {
+		return err
+	}
+
+	return parseRemoteResponse(resp, nil)
+}
+
+// startInstance starts an instance on a remote node.
+func (rm *remoteManager) startInstance(ctx context.Context, node *config.NodeConfig, name string) (*instance.Instance, error) {
+
+	escapedName := url.PathEscape(name)
+
+	path := fmt.Sprintf("%s%s/start", apiBasePath, escapedName)
+	resp, err := rm.makeRemoteRequest(ctx, node, "POST", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var inst instance.Instance
+	if err := parseRemoteResponse(resp, &inst); err != nil {
+		return nil, err
+	}
+
+	return &inst, nil
+}
+
+// stopInstance stops an instance on a remote node.
+func (rm *remoteManager) stopInstance(ctx context.Context, node *config.NodeConfig, name string) (*instance.Instance, error) {
+
+	escapedName := url.PathEscape(name)
+
+	path := fmt.Sprintf("%s%s/stop", apiBasePath, escapedName)
+	resp, err := rm.makeRemoteRequest(ctx, node, "POST", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var inst instance.Instance
+	if err := parseRemoteResponse(resp, &inst); err != nil {
+		return nil, err
+	}
+
+	return &inst, nil
+}
+
+// restartInstance restarts an instance on a remote node.
+func (rm *remoteManager) restartInstance(ctx context.Context, node *config.NodeConfig, name string) (*instance.Instance, error) {
+	escapedName := url.PathEscape(name)
+
+	path := fmt.Sprintf("%s%s/restart", apiBasePath, escapedName)
+	resp, err := rm.makeRemoteRequest(ctx, node, "POST", path, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var inst instance.Instance
+	if err := parseRemoteResponse(resp, &inst); err != nil {
+		return nil, err
+	}
+
+	return &inst, nil
+}
+
+// getInstanceLogs retrieves logs for an instance from a remote node.
+func (rm *remoteManager) getInstanceLogs(ctx context.Context, node *config.NodeConfig, name string, numLines int) (string, error) {
+
+	escapedName := url.PathEscape(name)
+
+	path := fmt.Sprintf("%s%s/logs?lines=%d", apiBasePath, escapedName, numLines)
+	resp, err := rm.makeRemoteRequest(ctx, node, "GET", path, nil)
+	if err != nil {
+		return "", err
+	}
+
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		return "", fmt.Errorf("API request failed with status %d: %s", resp.StatusCode, string(body))
+	}
+
+	// Logs endpoint returns plain text (Content-Type: text/plain)
+	return string(body), nil
+}

@@ -93,3 +93,72 @@ describe('BackendFormField - models_preset Field States', () => {
           fieldKey="models_preset"
           value="/custom/path/to/preset.ini"
           onChange={mockOnChange}
+          formData={formData}
+        />
+      )
+
+      expect(screen.getByLabelText('Models Preset Path')).toBeInTheDocument()
+      expect(screen.getByText('Custom')).toBeInTheDocument()
+      expect(screen.getByDisplayValue('/custom/path/to/preset.ini')).toBeInTheDocument()
+    })
+  })
+
+  describe('models_preset badge visibility transitions', () => {
+    it('transitions from Auto to Custom when user types custom path', () => {
+      const formData: CreateInstanceOptions = {
+        preset_ini: '[model1]\nmodel = /path/to/model.gguf\n'
+      }
+
+      const { rerender } = render(
+        <BackendFormField
+          fieldKey="models_preset"
+          value=""
+          onChange={mockOnChange}
+          formData={formData}
+        />
+      )
+
+      expect(screen.getByText('Auto')).toBeInTheDocument()
+      expect(screen.queryByText('Custom')).not.toBeInTheDocument()
+
+      rerender(
+        <BackendFormField
+          fieldKey="models_preset"
+          value="/custom/path.ini"
+          onChange={mockOnChange}
+          formData={formData}
+        />
+      )
+
+      expect(screen.queryByText('Auto')).not.toBeInTheDocument()
+      expect(screen.getByText('Custom')).toBeInTheDocument()
+    })
+
+    it('transitions from Custom to no badge when user clears value', () => {
+      const formData: CreateInstanceOptions = {}
+
+      const { rerender } = render(
+        <BackendFormField
+          fieldKey="models_preset"
+          value="/custom/path.ini"
+          onChange={mockOnChange}
+          formData={formData}
+        />
+      )
+
+      expect(screen.getByText('Custom')).toBeInTheDocument()
+
+      rerender(
+        <BackendFormField
+          fieldKey="models_preset"
+          value=""
+          onChange={mockOnChange}
+          formData={formData}
+        />
+      )
+
+      expect(screen.queryByText('Custom')).not.toBeInTheDocument()
+      expect(screen.queryByText('Auto')).not.toBeInTheDocument()
+    })
+  })
+})

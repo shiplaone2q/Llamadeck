@@ -77,3 +77,169 @@ type Handler struct {
 	// two concurrent requests can each see room (or evict the other's LRU)
 	// and start two models in the same group. The health wait deliberately
 	// runs outside this lock so unrelated starts don't serialize behind a
+	// model load.
+	startMu sync.Mutex
+}
+
+// NewHandler creates a new Handler instance with the provided instance manager and configuration.
+// oidcService may be nil to run without OIDC login.
+func NewHandler(im manager.InstanceManager, mm *models.Manager, cfg config.AppConfig, authStore database.AuthStore, oidcService *OIDCService) *Handler {
+	handler := &Handler{
+		InstanceManager: im,
+		modelManager:    mm,
+		cfg:             cfg,
+		httpClient: &http.Client{
+			Timeout: 30 * time.Second,
+		},
+		authStore: authStore,
+		oidc:      oidcService,
+	}
+	handler.authMiddleware = NewAPIAuthMiddleware(cfg.Auth, authStore)
+	if oidcService != nil {
+		handler.authMiddleware.sessions = oidcService.Sessions
+	}
+	return handler
+}
+
+// getInstance retrieves an instance by name from request query parameters
+func (h *Handler) getInstance(r *http.Request) (*instance.Instance, error) {
+	name := chi.URLParam(r, "name")
+	validatedName, err := validation.ValidateInstanceName(name)
+	if err != nil {
+		return nil, fmt.Errorf("invalid instance name: %w", err)
+	}
+
+	inst, err := h.InstanceManager.GetInstance(validatedName)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get instance by name: %w", err)
+	}
+
+	return inst, nil
+}
+
+// ensureInstanceRunning ensures that an instance is running by starting it if on-demand start is enabled.
+// canStart controls whether the key may auto-start a stopped instance; canEvict controls whether it may
+// trigger LRU eviction of other instances to make room. It performs hierarchical eviction when allowed:
+// group quota check first, then global capacity check.
+func (h *Handler) ensureInstanceRunning(inst *instance.Instance, canStart bool, canEvict bool) error {
+	if !canStart {
+		return ErrInstanceNotRunning
+	}
+
+	// See Handler.startMu for why the start section is serialized.
+	h.startMu.Lock()
+	startErr := h.maybeStartLocked(inst, canEvict)
+	h.startMu.Unlock()
+	if startErr != nil {
+		return startErr
+	}
+
+	// The health wait is deliberately outside the start lock: it can run up
+	// to OnDemandStartTimeout (a full model load), and serializing unrelated
+	// instance starts behind it is the slow path startMu exists to avoid.
+	if err := inst.WaitForHealthy(h.cfg.Instances.OnDemandStartTimeout); err != nil {
+		return fmt.Errorf("instance failed to become healthy: %w", err)
+	}
+
+	return nil
+}
+
+// maybeStartLocked starts inst if it is not already running, enforcing group
+// quotas and global capacity. Callers must hold h.startMu. It re-checks
+// IsRunning() under the lock because the caller's check (done before we took
+// the lock) may be stale: a concurrent request may have started this same
+// instance in the meantime, and calling StartInstance on an already-running
+// instance would surface as a spurious 500 for requests that should just be
+// served.
+func (h *Handler) maybeStartLocked(inst *instance.Instance, canEvict bool) error {
+	options := inst.GetOptions()
+	if options == nil || options.OnDemandStart == nil || !*options.OnDemandStart {
+		return fmt.Errorf("instance is not running and on-demand start is not enabled")
+	}
+
+	// A concurrent request already started it while we waited for the lock —
+	// nothing to do; the caller waits for health below.
+	if inst.IsRunning() {
+		return nil
+	}
+
+	if !h.cfg.Instances.EnableLRUEviction {
+		return h.rejectIfAtCapacity()
+	}
+
+	if canEvict {
+		if err := h.evictFromGroupQuota(options.Group); err != nil {
+			return err
+		}
+		if err := h.evictFromGlobalCapacity(); err != nil {
+			return err
+		}
+	} else {
+		// Cannot evict — fail if at capacity.
+		if h.InstanceManager.AtMaxRunning() {
+			return ErrMaxInstancesReached
+		}
+	}
+
+	if _, err := h.InstanceManager.StartInstance(inst.Name); err != nil {
+		return fmt.Errorf("failed to start instance: %w", err)
+	}
+
+	return nil
+}
+
+func (h *Handler) rejectIfAtCapacity() error {
+	if h.InstanceManager.AtMaxRunning() {
+		return ErrMaxInstancesReached
+	}
+	return nil
+}
+
+// writeStartError maps an ensureInstanceRunning error to the appropriate HTTP response.
+// Shared by every auto-start call site.
+func writeStartError(w http.ResponseWriter, err error) {
+	switch {
+	case errors.Is(err, ErrInstanceNotRunning):
+		writeError(w, http.StatusServiceUnavailable, "instance_not_running", err.Error())
+	case errors.Is(err, ErrMaxInstancesReached):
+		writeError(w, http.StatusServiceUnavailable, "max_instances_reached", err.Error())
+	default:
+		writeError(w, http.StatusInternalServerError, "instance_start_failed", err.Error())
+	}
+}
+
+// writeInstanceLookupError writes 404 for not-found, 400 for anything else
+func writeInstanceLookupError(w http.ResponseWriter, err error) {
+	if errors.Is(err, manager.ErrInstanceNotFound) {
+		writeError(w, http.StatusNotFound, "not_found", err.Error())
+		return
+	}
+	writeError(w, http.StatusBadRequest, "invalid_instance", err.Error())
+}
+
+func (h *Handler) evictFromGroupQuota(group string) error {
+	if group == "" {
+		return nil
+	}
+	groupLimit, hasLimit := h.cfg.Instances.GroupLimits[group]
+	if !hasLimit {
+		return nil
+	}
+	if h.InstanceManager.CountRunningInGroup(group) < groupLimit {
+		return nil
+	}
+	if err := h.InstanceManager.EvictLRUInstance(group); err != nil {
+		return fmt.Errorf("cannot start instance, failed to evict from group %s: %w", group, err)
+	}
+	return nil
+}
+
+func (h *Handler) evictFromGlobalCapacity() error {
+	if !h.InstanceManager.AtMaxRunning() {
+		return nil
+	}
+	if err := h.InstanceManager.EvictLRUInstance(""); err != nil {
+		return fmt.Errorf("cannot start instance, failed to evict instance: %w", err)
+	}
+	return nil
+}

@@ -83,3 +83,6 @@ func (a *APIAuthMiddleware) InferenceAuthMiddleware() func(http.Handler) http.Ha
 			// Extract API key from request
 			apiKey := a.extractAPIKey(r)
 			if apiKey == "" {
+				a.unauthorized(w, "Missing API key")
+				return
+			}

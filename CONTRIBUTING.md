@@ -84,3 +84,7 @@ All the following must pass:
 If changes affect API endpoints, update Swagger documentation:
 
 ```bash
+# Install swag if needed
+go install github.com/swaggo/swag/cmd/swag@latest
+
+# Update Swagger comments in pkg/server/handlers.go

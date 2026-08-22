@@ -103,3 +103,114 @@ func (db *sqliteDB) ListKeys(ctx context.Context) ([]*auth.APIKey, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to query API keys: %w", err)
 	}
+	defer rows.Close()
+
+	var keys []*auth.APIKey
+	for rows.Next() {
+		var key auth.APIKey
+		var expiresAt sql.NullInt64
+		var lastUsedAt sql.NullInt64
+
+		err := rows.Scan(
+			&key.ID, &key.KeyHash, &key.Name, &key.UserID, &key.PermissionMode,
+			&expiresAt, &key.CreatedAt, &key.UpdatedAt, &lastUsedAt,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("failed to scan API key: %w", err)
+		}
+
+		if expiresAt.Valid {
+			key.ExpiresAt = &expiresAt.Int64
+		}
+		if lastUsedAt.Valid {
+			key.LastUsedAt = &lastUsedAt.Int64
+		}
+
+		keys = append(keys, &key)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("failed to iterate API keys: %w", err)
+	}
+
+	return keys, nil
+}
+
+// GetActiveKeys retrieves all non-expired API keys
+func (db *sqliteDB) GetActiveKeys(ctx context.Context) ([]*auth.APIKey, error) {
+	query := `
+		SELECT id, key_hash, name, user_id, permission_mode, expires_at, created_at, updated_at, last_used_at
+		FROM api_keys
+		WHERE expires_at IS NULL OR expires_at > ?
+		ORDER BY created_at DESC
+	`
+
+	now := time.Now().Unix()
+	rows, err := db.QueryContext(ctx, query, now)
+	if err != nil {
+		return nil, fmt.Errorf("failed to query active API keys: %w", err)
+	}
+	defer rows.Close()
+
+	var keys []*auth.APIKey
+	for rows.Next() {
+		var key auth.APIKey
+		var expiresAt sql.NullInt64
+		var lastUsedAt sql.NullInt64
+
+		err := rows.Scan(
+			&key.ID, &key.KeyHash, &key.Name, &key.UserID, &key.PermissionMode,
+			&expiresAt, &key.CreatedAt, &key.UpdatedAt, &lastUsedAt,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("failed to scan API key: %w", err)
+		}
+
+		if expiresAt.Valid {
+			key.ExpiresAt = &expiresAt.Int64
+		}
+		if lastUsedAt.Valid {
+			key.LastUsedAt = &lastUsedAt.Int64
+		}
+
+		keys = append(keys, &key)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("failed to iterate active API keys: %w", err)
+	}
+
+	return keys, nil
+}
+
+// DeleteKey removes an API key (cascades to permissions)
+func (db *sqliteDB) DeleteKey(ctx context.Context, id int) error {
+	query := `DELETE FROM api_keys WHERE id = ?`
+
+	result, err := db.ExecContext(ctx, query, id)
+	if err != nil {
+		return fmt.Errorf("failed to delete API key: %w", err)
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return fmt.Errorf("failed to get rows affected: %w", err)
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("API key not found")
+	}
+
+	return nil
+}
+
+// TouchKey updates the last_used_at timestamp
+func (db *sqliteDB) TouchKey(ctx context.Context, id int) error {
+	query := `UPDATE api_keys SET last_used_at = ?, updated_at = ? WHERE id = ?`
+
+	now := time.Now().Unix()
+	_, err := db.ExecContext(ctx, query, now, now, id)
+	if err != nil {
+		return fmt.Errorf("failed to update last used timestamp: %w", err)
+	}
+
+	return nil
+}

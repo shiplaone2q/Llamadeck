@@ -106,3 +106,86 @@ func getDefaultLlamaCacheDir() string {
 		if localAppData := os.Getenv("LOCALAPPDATA"); localAppData != "" {
 			return filepath.Join(localAppData, "llama.cpp", "cache")
 		}
+		return filepath.Join("AppData", "Local", "llama.cpp", "cache")
+	case "darwin":
+		return filepath.Join(homeDir, "Library", "Caches", "llama.cpp")
+	default:
+		if xdgCacheHome := os.Getenv("XDG_CACHE_HOME"); xdgCacheHome != "" {
+			return filepath.Join(xdgCacheHome, "llama.cpp")
+		}
+		return filepath.Join(homeDir, ".cache", "llama.cpp")
+	}
+}
+
+// getDefaultDataDir returns platform-specific default data directory
+func getDefaultDataDir() string {
+	switch runtime.GOOS {
+	case "windows":
+		// Try PROGRAMDATA first (system-wide), fallback to LOCALAPPDATA (user)
+		if programData := os.Getenv("PROGRAMDATA"); programData != "" {
+			return filepath.Join(programData, "llamadeck")
+		}
+		if localAppData := os.Getenv("LOCALAPPDATA"); localAppData != "" {
+			return filepath.Join(localAppData, "llamadeck")
+		}
+		return "C:\\ProgramData\\llamadeck" // Final fallback
+
+	case "darwin":
+		// For macOS, use user's Application Support directory
+		if homeDir, _ := os.UserHomeDir(); homeDir != "" {
+			return filepath.Join(homeDir, "Library", "Application Support", "llamadeck")
+		}
+		return "/usr/local/var/llamadeck" // Fallback
+
+	default:
+		// Linux and other Unix-like systems
+		if homeDir, _ := os.UserHomeDir(); homeDir != "" {
+			return filepath.Join(homeDir, ".local", "share", "llamadeck")
+		}
+		return "/var/lib/llamadeck" // Final fallback
+	}
+}
+
+func getPlatformConfigDirs() []string {
+	homeDir, _ := os.UserHomeDir()
+
+	switch runtime.GOOS {
+	case "windows":
+		var dirs []string
+		if appData := os.Getenv("APPDATA"); appData != "" {
+			dirs = append(dirs, filepath.Join(appData, "llamadeck"))
+		} else if homeDir != "" {
+			dirs = append(dirs, filepath.Join(homeDir, "llamadeck"))
+		}
+		if programData := os.Getenv("PROGRAMDATA"); programData != "" {
+			dirs = append(dirs, filepath.Join(programData, "llamadeck"))
+		}
+		return dirs
+	case "darwin":
+		var dirs []string
+		if homeDir != "" {
+			dirs = append(dirs, filepath.Join(homeDir, "Library", "Application Support", "llamadeck"))
+		}
+		dirs = append(dirs, "/Library/Application Support/llamadeck")
+		return dirs
+	default:
+		var dirs []string
+		if homeDir != "" {
+			dirs = append(dirs, filepath.Join(homeDir, ".config", "llamadeck"))
+		}
+		dirs = append(dirs, "/etc/llamadeck")
+		return dirs
+	}
+}
+
+func getDefaultConfigLocations() []string {
+	var locations []string
+	locations = append(locations, "llamadeck.yaml")
+	locations = append(locations, "config.yaml")
+
+	for _, dir := range getPlatformConfigDirs() {
+		locations = append(locations, filepath.Join(dir, "config.yaml"))
+	}
+
+	return locations
+}

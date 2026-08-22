@@ -55,3 +55,4 @@ describe('IniEditor - suggestion popup keyboard navigation', () => {
 
     expect(screen.queryByText(first.name)).not.toBeInTheDocument()
   })
+})

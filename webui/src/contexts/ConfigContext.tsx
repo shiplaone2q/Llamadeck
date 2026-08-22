@@ -59,3 +59,4 @@ export const useConfig = (): ConfigContextType => {
     throw new Error('useConfig must be used within a ConfigProvider')
   }
   return context
+}

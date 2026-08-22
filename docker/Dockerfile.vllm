@@ -17,3 +17,4 @@ WORKDIR /data
 EXPOSE 8080
 
 # Set llamactl as the entrypoint
+ENTRYPOINT ["llamactl"]

@@ -67,3 +67,69 @@ const BackendConfigurationCard: React.FC<BackendConfigurationCardProps> = ({
           onChange={onChange}
         />
 
+        {/* Basic Backend Options */}
+        {basicBackendFields.length > 0 && (
+          <div className="space-y-4">
+            <h3 className="text-md font-medium">Basic Backend Options</h3>
+            {basicBackendFields.map((fieldKey) => (
+              <BackendFormField
+                key={fieldKey}
+                fieldKey={fieldKey}
+                value={(formData.backend_options as Record<string, unknown>)?.[fieldKey] as string | number | boolean | string[] | undefined}
+                onChange={onBackendFieldChange}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Advanced Backend Options */}
+        {advancedBackendFields.length > 0 && (
+          <div className="space-y-4">
+            <Button
+              variant="ghost"
+              onClick={() => setShowAdvanced(!showAdvanced)}
+              className="flex items-center gap-2 p-0 h-auto font-medium"
+            >
+              {showAdvanced ? (
+                <ChevronDown className="h-4 w-4" />
+              ) : (
+                <ChevronRight className="h-4 w-4" />
+              )}
+              Advanced Backend Options
+              <span className="text-muted-foreground text-sm font-normal">
+                ({advancedBackendFields.length} options)
+              </span>
+            </Button>
+
+            {showAdvanced && (
+              <div className="space-y-4 pl-6 border-l-2 border-muted">
+                {advancedBackendFields
+                  .sort()
+                  .map((fieldKey) => (
+                    <BackendFormField
+                      key={fieldKey}
+                      fieldKey={fieldKey}
+                      value={(formData.backend_options as Record<string, unknown>)?.[fieldKey] as string | number | boolean | string[] | undefined}
+                      onChange={onBackendFieldChange}
+                    />
+                  ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Extra Arguments - Always visible */}
+        <div className="space-y-4">
+          <BackendFormField
+            key="extra_args"
+            fieldKey="extra_args"
+            value={(formData.backend_options as Record<string, unknown>)?.extra_args as Record<string, string> | undefined}
+            onChange={onBackendFieldChange}
+          />
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+export default BackendConfigurationCard

@@ -100,3 +100,5 @@ func TestCustomValidate(t *testing.T) {
 		name      string
 		options   *backends.CustomServerOptions
 		expectErr bool
+	}{
+		{name: "nil options", options: nil, expectErr: true},

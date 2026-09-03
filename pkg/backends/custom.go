@@ -65,3 +65,7 @@ func (o *CustomServerOptions) Validate() error {
 // SubstituteArgs returns a copy of args with {port} and {model} replaced.
 // The input slice is never modified.
 func (o *CustomServerOptions) SubstituteArgs(args []string) []string {
+	if o == nil {
+		return []string{}
+	}
+

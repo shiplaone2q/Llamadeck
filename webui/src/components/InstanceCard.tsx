@@ -76,3 +76,4 @@ function InstanceCard({
   const handleEdit = () => {
     editInstance(instance);
   };
+

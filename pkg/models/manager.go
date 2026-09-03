@@ -89,3 +89,7 @@ func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, e
 
 	go m.downloadWorker(ctx, job, format)
 
+	return job.ID, nil
+}
+
+func (m *Manager) downloadWorker(ctx context.Context, job *Job, format ModelFormat) {

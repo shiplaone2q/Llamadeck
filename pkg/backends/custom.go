@@ -69,3 +69,25 @@ func (o *CustomServerOptions) SubstituteArgs(args []string) []string {
 		return []string{}
 	}
 
+	out := make([]string, len(args))
+	for i, arg := range args {
+		arg = strings.ReplaceAll(arg, "{port}", strconv.Itoa(o.Port))
+		arg = strings.ReplaceAll(arg, "{model}", o.Model)
+		out[i] = arg
+	}
+
+	return out
+}
+
+func (o *CustomServerOptions) BuildCommandArgs() []string {
+	return o.SubstituteArgs(o.Args)
+}
+
+func (o *CustomServerOptions) BuildDockerArgs() []string {
+	return o.BuildCommandArgs()
+}
+
+// ParseCommand is unsupported: a custom backend has no flag grammar to parse.
+func (o *CustomServerOptions) ParseCommand(command string) (any, error) {
+	return nil, validation.ValidationError(fmt.Errorf("parse-command is not supported for custom backends"))
+}

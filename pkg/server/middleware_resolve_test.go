@@ -67,3 +67,77 @@ func TestResolveInstancePermission(t *testing.T) {
 		},
 		{
 			name:      "per_instance key can_start false",
+			ctx:       withKey(context.Background(), perInstanceKey),
+			store:     &stubAuthStore{perm: &auth.KeyPermission{KeyID: 1, InstanceID: instID, CanStart: false, CanEvict: true}},
+			wantStart: false,
+			wantEvict: true,
+		},
+		{
+			name:      "per_instance key can_evict false",
+			ctx:       withKey(context.Background(), perInstanceKey),
+			store:     &stubAuthStore{perm: &auth.KeyPermission{KeyID: 1, InstanceID: instID, CanStart: true, CanEvict: false}},
+			wantStart: true,
+			wantEvict: false,
+		},
+		{
+			name:    "per_instance key no permission row denied",
+			ctx:     withKey(context.Background(), perInstanceKey),
+			store:   &stubAuthStore{perm: nil, err: nil},
+			wantErr: true,
+		},
+		{
+			name:    "per_instance key db error propagated",
+			ctx:     withKey(context.Background(), perInstanceKey),
+			store:   &stubAuthStore{perm: nil, err: errors.New("db down")},
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			mw := newResolveMiddleware(tt.store)
+			perm, err := mw.ResolveInstancePermission(tt.ctx, instID)
+			if tt.wantErr {
+				if err == nil {
+					t.Fatalf("expected error, got nil (perm=%+v)", perm)
+				}
+				if perm != nil {
+					t.Fatalf("expected nil perm on error, got %+v", perm)
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("unexpected error: %v", err)
+			}
+			if perm == nil {
+				t.Fatal("expected non-nil perm")
+			}
+			if perm.CanStart != tt.wantStart {
+				t.Errorf("CanStart = %v, want %v", perm.CanStart, tt.wantStart)
+			}
+			if perm.CanEvict != tt.wantEvict {
+				t.Errorf("CanEvict = %v, want %v", perm.CanEvict, tt.wantEvict)
+			}
+		})
+	}
+}
+
+// TestCheckInstancePermissionWrapper verifies the wrapper mirrors ResolveInstancePermission.
+func TestCheckInstancePermissionWrapper(t *testing.T) {
+	const instID = 3
+	perInstanceKey := &auth.APIKey{ID: 1, PermissionMode: auth.PermissionModePerInstance}
+
+	t.Run("allowed returns nil", func(t *testing.T) {
+		mw := newResolveMiddleware(&stubAuthStore{perm: &auth.KeyPermission{InstanceID: instID, CanStart: true, CanEvict: true}})
+		if err := mw.CheckInstancePermission(withKey(context.Background(), perInstanceKey), instID); err != nil {
+			t.Errorf("expected nil error for allowed, got %v", err)
+		}
+	})
+
+	t.Run("denied returns error", func(t *testing.T) {
+		mw := newResolveMiddleware(&stubAuthStore{perm: nil})
+		if err := mw.CheckInstancePermission(withKey(context.Background(), perInstanceKey), instID); err == nil {
+			t.Errorf("expected error for denied, got nil")
+		}
+	})
+}

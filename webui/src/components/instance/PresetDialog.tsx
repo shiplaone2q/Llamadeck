@@ -59,3 +59,54 @@ const PresetDialog: React.FC<PresetDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-4xl max-h-[80vh] overflow-hidden flex flex-col">
+        <DialogHeader>
+          <DialogTitle>Model Presets (preset.ini)</DialogTitle>
+          <DialogDescription>
+            Optional: Configure multiple models for router mode. Leave empty to run without router mode.
+            This will auto-set models-preset option unless you specify a custom path.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          <IniEditor
+            value={formData.preset_ini || ''}
+            onChange={(value) => onChange('preset_ini', value)}
+            className="h-full"
+          />
+        </div>
+
+        <DialogFooter>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              onClick={handleImport}
+              className="flex items-center gap-2"
+            >
+              <Upload className="h-4 w-4" />
+              Import
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleExport}
+              className="flex items-center gap-2"
+            >
+              <Download className="h-4 w-4" />
+              Export
+            </Button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".ini"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+          </div>
+          <Button onClick={() => onOpenChange(false)}>Done</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+export default PresetDialog

@@ -106,3 +106,109 @@ export const InstancesProvider = ({ children }: InstancesProviderProps) => {
       })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to update instance')
+    }
+  }, [])
+
+  const startInstance = useCallback(async (name: string) => {
+    try {
+      setError(null)
+      await instancesApi.start(name)
+
+      // Update only this instance's status
+      updateInstanceInMap(name, { status: "running" })
+
+      // Trigger health check after starting
+      healthService.checkHealthAfterOperation(name, 'start')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to start instance')
+    }
+  }, [updateInstanceInMap])
+
+  const stopInstance = useCallback(async (name: string) => {
+    try {
+      setError(null)
+      await instancesApi.stop(name)
+
+      // Update only this instance's status
+      updateInstanceInMap(name, { status: "stopped" })
+
+      // Trigger health check after stopping
+      healthService.checkHealthAfterOperation(name, 'stop')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to stop instance')
+    }
+  }, [updateInstanceInMap])
+
+  const restartInstance = useCallback(async (name: string) => {
+    try {
+      setError(null)
+      await instancesApi.restart(name)
+
+      // Update only this instance's status
+      updateInstanceInMap(name, { status: "running" })
+
+      // Trigger health check after restarting
+      healthService.checkHealthAfterOperation(name, 'restart')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to restart instance')
+    }
+  }, [updateInstanceInMap])
+
+  const deleteInstance = useCallback(async (name: string) => {
+    try {
+      setError(null)
+      await instancesApi.delete(name)
+      
+      // Remove from map directly
+      setInstancesMap(prev => {
+        const newMap = new Map(prev)
+        newMap.delete(name)
+        return newMap
+      })
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to delete instance')
+    }
+  }, [])
+
+  // Only fetch instances when auth is ready and user is authenticated
+  useEffect(() => {
+    if (!authLoading) {
+      if (isAuthenticated) {
+        void fetchInstances()
+      } else {
+        // Clear instances when not authenticated
+        setInstancesMap(new Map())
+        setLoading(false)
+        setError(null)
+      }
+    }
+  }, [authLoading, isAuthenticated, fetchInstances])
+
+  const value: InstancesContextType = {
+    instances,
+    loading,
+    error,
+    fetchInstances,
+    createInstance,
+    updateInstance,
+    startInstance,
+    stopInstance,
+    restartInstance,
+    deleteInstance,
+    clearError,
+  }
+
+  return (
+    <InstancesContext.Provider value={value}>
+      {children}
+    </InstancesContext.Provider>
+  )
+}
+
+export const useInstances = (): InstancesContextType => {
+  const context = useContext(InstancesContext)
+  if (context === undefined) {
+    throw new Error('useInstances must be used within an InstancesProvider')
+  }
+  return context
+}

@@ -135,3 +135,152 @@ describe('InstanceModal - Form Logic and Validation', () => {
       )
 
       // Fill required name
+      await user.type(screen.getByLabelText(/Instance Name/), 'my-instance')
+
+      // Navigate to the advanced tab where the save button is
+      const advancedTab = screen.getByRole('tab', { name: /Advanced/i })
+      await user.click(advancedTab)
+
+      // Submit form
+      await user.click(screen.getByTestId('dialog-save-button'))
+
+      expect(mockOnSave).toHaveBeenCalledWith('my-instance', {
+        auto_restart: true,
+        backend_type: BackendType.LLAMA_CPP,
+        docker_enabled: false,
+        idle_timeout: 30,
+        max_restarts: 3,
+        on_demand_start: false,
+        restart_delay: 5
+      })
+    })
+  })
+
+  describe('Edit Mode', () => {
+    const mockInstance: Instance = {
+      id: 1,
+      name: 'existing-instance',
+      status: 'stopped',
+      options: {
+        backend_type: BackendType.LLAMA_CPP,
+        backend_options: { model: 'test-model.gguf', gpu_layers: 10 },
+        auto_restart: false
+      }
+    }
+
+    it('pre-fills form with existing instance data', () => {
+      render(
+        <InstanceDialog
+          open={true}
+          onOpenChange={mockOnOpenChange}
+          onSave={mockOnSave}
+          instance={mockInstance}
+        />
+      )
+
+      // Name should be pre-filled and disabled
+      const nameInput = screen.getByDisplayValue('existing-instance')
+      expect(nameInput).toBeDisabled()
+      expect(screen.getByText('Edit Instance')).toBeInTheDocument()
+    })
+
+    it('shows correct button text for running instances', async () => {
+      const user = userEvent.setup()
+      const runningInstance: Instance = { ...mockInstance, status: 'running' }
+
+      render(
+        <InstanceDialog
+          open={true}
+          onOpenChange={mockOnOpenChange}
+          onSave={mockOnSave}
+          instance={runningInstance}
+        />
+      )
+
+      const advancedTab = screen.getByRole('tab', { name: /Advanced/i })
+      await user.click(advancedTab)
+
+      expect(screen.getByText('Update & Restart Instance')).toBeInTheDocument()
+    })
+  })
+
+  describe('Auto Restart Configuration', () => {
+    it('shows and hides restart options based on auto restart checkbox', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <InstanceDialog
+          open={true}
+          onOpenChange={mockOnOpenChange}
+          onSave={mockOnSave}
+        />
+      )
+
+      await waitFor(() => {
+        expect(screen.getByLabelText(/Instance Name/)).toBeInTheDocument()
+      })
+
+      // Expand the Auto Restart Configuration section
+      const autoRestartHeading = screen.getByText('Auto Restart Configuration')
+      await user.click(autoRestartHeading)
+
+      // Auto restart should be enabled by default
+      await waitFor(() => {
+        const autoRestartCheckbox = screen.getByRole('checkbox', { name: /Auto Restart/i })
+        expect(autoRestartCheckbox).toBeChecked()
+      })
+
+      // Restart options should be visible
+      expect(screen.getByLabelText(/Max Restarts/)).toBeInTheDocument()
+      expect(screen.getByLabelText(/Restart Delay/)).toBeInTheDocument()
+
+      // Disable auto restart
+      const autoRestartCheckbox = screen.getByRole('checkbox', { name: /Auto Restart/i })
+      await user.click(autoRestartCheckbox)
+
+      // Restart options should be hidden
+      await waitFor(() => {
+        expect(screen.queryByLabelText(/Max Restarts/)).not.toBeInTheDocument()
+        expect(screen.queryByLabelText(/Restart Delay/)).not.toBeInTheDocument()
+      })
+    })
+  })
+
+  describe('Modal Controls', () => {
+    it('closes modal on cancel and after successful save', async () => {
+      const user = userEvent.setup()
+
+      const { rerender } = render(
+        <InstanceDialog
+          open={true}
+          onOpenChange={mockOnOpenChange}
+          onSave={mockOnSave}
+        />
+      )
+
+      // Test cancel
+      await user.click(screen.getByTestId('dialog-cancel-button'))
+      expect(mockOnOpenChange).toHaveBeenCalledWith(false)
+
+      // Reset and test save
+      mockOnOpenChange.mockClear()
+      rerender(
+        <InstanceDialog
+          open={true}
+          onOpenChange={mockOnOpenChange}
+          onSave={mockOnSave}
+        />
+      )
+
+      await user.type(screen.getByLabelText(/Instance Name/), 'test')
+
+      const advancedTab = screen.getByRole('tab', { name: /Advanced/i })
+      await user.click(advancedTab)
+
+      await user.click(screen.getByTestId('dialog-save-button'))
+
+      expect(mockOnSave).toHaveBeenCalled()
+      expect(mockOnOpenChange).toHaveBeenCalledWith(false)
+    })
+  })
+})

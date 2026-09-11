@@ -39,3 +39,4 @@ func (h *Handler) ConfigHandler() http.HandlerFunc {
 		}
 		writeJSON(w, http.StatusOK, sanitizedConfig)
 	}
+}

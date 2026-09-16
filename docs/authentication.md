@@ -59,3 +59,6 @@ How a request is handled depends on the instance's state and the key's access le
 1. Open the web UI and log in with a management API key
 2. Navigate to **Settings → API Keys**
 3. Click **Create API Key**
+4. Configure the key:
+    - **Name**: A descriptive name
+    - **Permission Mode**: *Full Access* or *Per-Instance Access*

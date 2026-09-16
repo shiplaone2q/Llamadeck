@@ -150,3 +150,4 @@ func parseHelper(w http.ResponseWriter, r *http.Request, backend interface {
 }) (any, bool) {
 	var req ParseCommandRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		writeError(w, http.StatusBadRequest, "invalid_request", "Invalid JSON body")

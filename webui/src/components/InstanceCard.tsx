@@ -77,3 +77,7 @@ function InstanceCard({
     editInstance(instance);
   };
 
+  const handleLogs = () => {
+    setIsLogsOpen(true);
+  };
+

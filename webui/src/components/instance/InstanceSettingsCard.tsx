@@ -70,3 +70,4 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
   return (
     <Card>
       <CardHeader>
+        <CardTitle>Instance Settings</CardTitle>

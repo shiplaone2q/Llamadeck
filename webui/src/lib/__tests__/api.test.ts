@@ -43,3 +43,4 @@ describe('API Error Handling', () => {
     mockFetch.mockResolvedValue(mockResponse)
 
     const result = await instancesApi.delete('test-instance')
+    expect(result).toBeUndefined()

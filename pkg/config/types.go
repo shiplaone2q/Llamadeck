@@ -87,3 +87,6 @@ type InstancesConfig struct {
 	PortRange [2]int `yaml:"port_range" json:"port_range"`
 
 	// Automatically create the data directory if it doesn't exist
+	AutoCreateDirs bool `yaml:"auto_create_dirs" json:"auto_create_dirs"`
+
+	// Maximum number of instances that can be created

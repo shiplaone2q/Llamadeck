@@ -55,3 +55,4 @@ func Open(config *Config) (*sqliteDB, error) {
 	if config == nil {
 		return nil, fmt.Errorf("database config cannot be nil")
 	}
+

@@ -62,3 +62,6 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
           <Upload className="h-4 w-4" />
           Import
         </Button>
+        <Button
+          variant="outline"
+          size="sm"

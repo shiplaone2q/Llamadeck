@@ -71,3 +71,4 @@ class ModelsPollingService {
   }
 
   /**
+   * Start polling for jobs

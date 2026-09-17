@@ -100,3 +100,6 @@ func (o *MlxServerOptions) Validate() error {
 	return nil
 }
 
+// BuildCommandArgs converts to command line arguments
+func (o *MlxServerOptions) BuildCommandArgs() []string {
+	multipleFlags := map[string]struct{}{} // MLX doesn't currently have []string fields

@@ -66,3 +66,6 @@ func (r *instanceRegistry) add(inst *instance.Instance) error {
 
 	r.mu.Lock()
 	defer r.mu.Unlock()
+
+	if _, exists := r.instances[inst.Name]; exists {
+		return fmt.Errorf("instance %s already exists", inst.Name)

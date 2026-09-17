@@ -118,3 +118,5 @@ func (h *Handler) DownloadModel() http.HandlerFunc {
 		if req.Repo == "" {
 			writeError(w, http.StatusBadRequest, "invalid_request", "repo is required")
 			return
+		}
+

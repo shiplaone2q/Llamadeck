@@ -96,3 +96,4 @@ function App() {
                 className={cn(
                   "px-4 py-2 border-b-2 transition-colors",
                   activeTab === 'instances'
+                    ? "border-primary text-foreground"

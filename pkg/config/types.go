@@ -90,3 +90,7 @@ type InstancesConfig struct {
 	AutoCreateDirs bool `yaml:"auto_create_dirs" json:"auto_create_dirs"`
 
 	// Maximum number of instances that can be created
+	MaxInstances int `yaml:"max_instances" json:"max_instances"`
+
+	// Maximum number of instances that can be running at the same time
+	MaxRunningInstances int `yaml:"max_running_instances,omitempty" json:"max_running_instances,omitempty"`

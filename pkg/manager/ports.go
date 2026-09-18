@@ -104,3 +104,7 @@ func (p *portAllocator) release(port int) error {
 // releaseByInstance releases all ports allocated to the given instance.
 // This is useful for cleanup when deleting or updating an instance.
 // Returns the number of ports released.
+func (p *portAllocator) releaseByInstance(instanceName string) int {
+	if instanceName == "" {
+		return 0
+	}

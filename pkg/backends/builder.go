@@ -80,3 +80,5 @@ func BuildDockerCommand(backendConfig *config.BackendSettings, instanceArgs []st
 	copy(dockerArgs, backendConfig.Docker.Args)
 
 	// Add environment variables
+	for key, value := range backendConfig.Docker.Environment {
+		dockerArgs = append(dockerArgs, "-e", fmt.Sprintf("%s=%s", key, value))

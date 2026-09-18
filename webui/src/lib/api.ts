@@ -147,3 +147,5 @@ export const nodesApi = {
 export const instancesApi = {
   // GET /instances
   list: () => apiCall<Instance[]>("/instances"),
+
+  // GET /instances/{name}

@@ -151,3 +151,6 @@ func (i *Instance) WaitForHealthy(timeout int) error {
 }
 
 func (i *Instance) GetBackendType() backends.BackendType {
+	opts := i.GetOptions()
+	if opts == nil {
+		return backends.BackendTypeUnknown

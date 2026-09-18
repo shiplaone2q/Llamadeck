@@ -77,3 +77,5 @@ func TestDeleteModel(t *testing.T) {
 
 	t.Run("missing ref", func(t *testing.T) {
 		fm := models.NewFileManager(cache)
+		repoDir := fm.HFRepoDir("org/model")
+		if err := os.MkdirAll(filepath.Join(repoDir, "refs"), 0755); err != nil {

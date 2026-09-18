@@ -119,3 +119,6 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
         {label}
       </Label>
       <div className="space-y-2">
+        {pairs.map((pair, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: pairs are index-addressed throughout this component and inputs are controlled
+          <div key={index} className="flex gap-2 items-center">

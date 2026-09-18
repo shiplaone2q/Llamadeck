@@ -93,3 +93,5 @@ func (m *Manager) StartDownload(repo, tag string, format ModelFormat) (string, e
 }
 
 func (m *Manager) downloadWorker(ctx context.Context, job *Job, format ModelFormat) {
+	log.Printf("[%s] Starting download: %s:%s", job.ID, job.Repo, job.Tag)
+	m.jobStore.UpdateStatus(job.ID, JobStatusDownloading)

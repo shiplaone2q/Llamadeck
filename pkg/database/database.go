@@ -56,3 +56,5 @@ func Open(config *Config) (*sqliteDB, error) {
 		return nil, fmt.Errorf("database config cannot be nil")
 	}
 
+	if config.Path == "" {
+		return nil, fmt.Errorf("database path cannot be empty")

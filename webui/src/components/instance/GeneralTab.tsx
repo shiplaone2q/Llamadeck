@@ -69,3 +69,6 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
     formData.nodes && formData.nodes.length > 0 ? formData.nodes[0] : "";
 
   return (
+    <div className="space-y-6 py-4">
+      <div className="grid gap-2">
+        <Label htmlFor="name">

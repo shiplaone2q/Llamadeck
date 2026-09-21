@@ -155,3 +155,7 @@ describe("InstancesContext", () => {
       await waitFor(() => {
         expect(instancesApi.list).toHaveBeenCalledOnce();
       });
+
+      // Should display loaded instances
+      await waitFor(() => {
+        expect(screen.getByTestId("loading")).toHaveTextContent("false");

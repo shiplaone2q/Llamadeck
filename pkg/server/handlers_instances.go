@@ -146,3 +146,7 @@ func (h *Handler) UpdateInstance() http.HandlerFunc {
 			}
 			writeError(w, http.StatusInternalServerError, "update_failed", "Failed to update instance: "+err.Error())
 			return
+		}
+
+		writeJSON(w, http.StatusOK, inst)
+	}

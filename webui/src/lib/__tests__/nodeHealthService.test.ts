@@ -69,3 +69,6 @@ describe('nodeHealthService', () => {
     let received: { state: string } | undefined;
     const unsubscribe2 = nodeHealthService.subscribe('main', (h) => {
       received = h;
+    });
+    await new Promise((r) => setTimeout(r, 10));
+    unsubscribe2();

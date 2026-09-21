@@ -56,3 +56,7 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
       case "restarting":
         return "Restarting";
       case "shutting_down":
+        return "Shutting Down";
+      case "stopped":
+        return "Stopped";
+      case "failed":

@@ -143,3 +143,6 @@ func (h *Handler) UpdateInstance() http.HandlerFunc {
 			if errors.Is(err, manager.ErrInstanceNotFound) {
 				writeError(w, http.StatusNotFound, "not_found", err.Error())
 				return
+			}
+			writeError(w, http.StatusInternalServerError, "update_failed", "Failed to update instance: "+err.Error())
+			return

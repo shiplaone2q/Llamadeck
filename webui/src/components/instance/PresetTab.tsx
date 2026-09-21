@@ -65,3 +65,6 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
         <Button
           variant="outline"
           size="sm"
+          onClick={handleExport}
+          className="flex items-center gap-2"
+        >

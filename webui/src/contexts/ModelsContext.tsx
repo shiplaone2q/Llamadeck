@@ -95,3 +95,4 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
     setError(null)
     try {
       await llamaCppModelsApi.deleteModel(repo, tag, node)
+      // Refresh models list after deletion

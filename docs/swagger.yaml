@@ -483,3 +483,5 @@ definitions:
         $ref: '#/definitions/server.NodeHealthStatus'
     type: object
   server.NodeHealthStatus:
+    enum:
+    - healthy

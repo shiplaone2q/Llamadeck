@@ -96,3 +96,7 @@ type VllmServerOptions struct {
 	SpeculativeRevision           string  `json:"speculative_revision,omitempty"`
 	SpeculativeMaxModelLen        int     `json:"speculative_max_model_len,omitempty"`
 	SpeculativeDisableByBatchSize int     `json:"speculative_disable_by_batch_size,omitempty"`
+	NgptSpeculativeLength         int     `json:"ngpt_speculative_length,omitempty"`
+	SpeculativeDisableMqa         bool    `json:"speculative_disable_mqa,omitempty"`
+	ModelLoaderExtraConfig        string  `json:"model_loader_extra_config,omitempty"`
+	IgnorePatterns                string  `json:"ignore_patterns,omitempty"`

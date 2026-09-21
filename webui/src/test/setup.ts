@@ -51,3 +51,5 @@ const createMockFetch = () => {
         })
       )
     }
+    // Default response for other requests
+    return Promise.resolve(

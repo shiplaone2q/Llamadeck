@@ -93,3 +93,5 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
 
   const deleteModel = useCallback(async (repo: string, tag?: string, node?: string) => {
     setError(null)
+    try {
+      await llamaCppModelsApi.deleteModel(repo, tag, node)

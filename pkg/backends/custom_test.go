@@ -102,3 +102,6 @@ func TestCustomValidate(t *testing.T) {
 		expectErr bool
 	}{
 		{name: "nil options", options: nil, expectErr: true},
+		{name: "missing name", options: &backends.CustomServerOptions{}, expectErr: true},
+		{
+			name: "port out of range",

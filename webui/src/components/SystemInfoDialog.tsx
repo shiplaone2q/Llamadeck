@@ -113,3 +113,6 @@ const SystemInfoDialog: React.FC<SystemInfoDialogProps> = ({
         </div>
       )
     }
+
+    if (loading && !backendInfo) {
+      return (

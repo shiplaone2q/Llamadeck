@@ -71,3 +71,6 @@ const InstanceSettingsCard: React.FC<InstanceSettingsCardProps> = ({
     <Card>
       <CardHeader>
         <CardTitle>Instance Settings</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        {/* Instance Name */}

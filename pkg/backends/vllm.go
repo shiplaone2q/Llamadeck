@@ -100,3 +100,4 @@ type VllmServerOptions struct {
 	SpeculativeDisableMqa         bool    `json:"speculative_disable_mqa,omitempty"`
 	ModelLoaderExtraConfig        string  `json:"model_loader_extra_config,omitempty"`
 	IgnorePatterns                string  `json:"ignore_patterns,omitempty"`
+	PreloadedLoraModules          string  `json:"preloaded_lora_modules,omitempty"`

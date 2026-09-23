@@ -101,3 +101,5 @@ func TestParseMlxCommand(t *testing.T) {
 			resultAny, err := opts.ParseCommand(tt.command)
 			result, _ := resultAny.(*backends.MlxServerOptions)
 
+			if tt.expectErr {
+				if err == nil {

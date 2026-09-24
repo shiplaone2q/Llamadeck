@@ -27,3 +27,4 @@ function Checkbox({
   )
 }
 
+export { Checkbox }

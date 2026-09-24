@@ -96,3 +96,78 @@ export const ModelsProvider = ({ children }: ModelsProviderProps) => {
     try {
       await llamaCppModelsApi.deleteModel(repo, tag, node)
       // Refresh models list after deletion
+      await fetchModels()
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to delete model'
+      setError(message)
+      throw err
+    }
+  }, [fetchModels])
+
+  // Subscribe to polling service updates
+  useEffect(() => {
+    if (!isAuthenticated) {
+      return
+    }
+
+    let previousActiveCount = 0
+
+    const unsubscribe = modelsPollingService.subscribe((jobs) => {
+      setActiveJobs(jobs)
+
+      // If we just completed downloads (went from active to no active jobs)
+      // refresh the models list to show newly downloaded models
+      if (previousActiveCount > 0 && jobs.length === 0) {
+        void fetchModels()
+      }
+
+      previousActiveCount = jobs.length
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [isAuthenticated, fetchModels])
+
+  // Fetch models when auth is ready and user is authenticated
+  useEffect(() => {
+    if (!authLoading) {
+      if (isAuthenticated) {
+        void fetchModels()
+      } else {
+        // Clear state when not authenticated
+        setModels([])
+        setActiveJobs([])
+        setLoading(false)
+        setError(null)
+      }
+    }
+  }, [authLoading, isAuthenticated, fetchModels])
+
+  const value: ModelsContextType = {
+    models,
+    activeJobs,
+    loading,
+    error,
+    fetchModels,
+    startDownload,
+    cancelDownload,
+    deleteDownload,
+    deleteModel,
+    clearError,
+  }
+
+  return (
+    <ModelsContext.Provider value={value}>
+      {children}
+    </ModelsContext.Provider>
+  )
+}
+
+export const useModels = (): ModelsContextType => {
+  const context = useContext(ModelsContext)
+  if (context === undefined) {
+    throw new Error('useModels must be used within a ModelsProvider')
+  }
+  return context
+}

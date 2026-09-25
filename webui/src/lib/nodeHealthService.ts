@@ -92,3 +92,36 @@ class NodeHealthService {
       const health = await this.performHealthCheck(nodeName);
       this.notifyCallbacks(nodeName, health);
     } catch (error) {
+      // performHealthCheck catches API errors; this guards the unexpected
+      console.error(`Node health check failed for ${nodeName}:`, error);
+    }
+  }
+
+  private stopHealthCheck(nodeName: string): void {
+    const interval = this.intervals.get(nodeName);
+    if (interval) {
+      clearInterval(interval);
+      this.intervals.delete(nodeName);
+    }
+  }
+
+  private notifyCallbacks(nodeName: string, health: NodeHealth): void {
+    const callbacks = this.callbacks.get(nodeName);
+    if (callbacks) {
+      callbacks.forEach((callback) => {
+        callback(health);
+      });
+    }
+  }
+
+  destroy(): void {
+    this.intervals.forEach((interval) => {
+      clearInterval(interval);
+    });
+    this.intervals.clear();
+    this.callbacks.clear();
+    this.healthCache.clear();
+  }
+}
+
+export const nodeHealthService = new NodeHealthService();

@@ -22,3 +22,4 @@ export default defineConfig({
     },
     // ensures relative asset paths to support being served behind a subpath
     base: "./"
+});

@@ -11,3 +11,4 @@ export function useNodeHealth(nodeName: string): NodeHealth | undefined {
   }, [nodeName]);
 
   return health;
+}

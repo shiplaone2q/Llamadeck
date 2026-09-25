@@ -53,3 +53,23 @@ const createMockFetch = () => {
     }
     // Default response for other requests
     return Promise.resolve(
+      new Response(null, { status: 200 })
+    )
+  })
+}
+
+// Clean up before each test
+beforeEach(() => {
+  localStorage.clear()
+  // Set up default fetch mock
+  global.fetch = createMockFetch() as typeof fetch
+})
+
+afterEach(() => {
+  localStorage.clear()
+  vi.restoreAllMocks()
+})
+
+afterEach(() => {
+  localStorage.clear()
+})

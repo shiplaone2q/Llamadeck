@@ -30,3 +30,4 @@ export async function handleApiError(response: Response): Promise<void> {
     const errorMessage = await parseErrorResponse(response.clone())
     throw new Error(errorMessage)
   }
+}

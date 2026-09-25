@@ -61,3 +61,5 @@ func parseDotEnv(data []byte) map[string]string {
 		lineStr = strings.TrimSpace(lineStr)
 
 		eqIdx := strings.Index(lineStr, "=")
+		if eqIdx < 0 {
+			continue

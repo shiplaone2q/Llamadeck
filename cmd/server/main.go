@@ -87,3 +87,60 @@ func main() {
 	if cfg.Auth.OIDC.Enabled() {
 		oidcService, err = server.NewOIDCService(cfg.Auth)
 		if err != nil {
+			// Degrade to key-only auth only
+			log.Printf("Warning: OIDC login unavailable, continuing without it: %v", err)
+			oidcService = nil
+		} else {
+			log.Printf("OIDC login enabled (issuer: %s)", cfg.Auth.OIDC.IssuerURL)
+		}
+	}
+
+	// Create a new handler with the instance manager
+	handler := server.NewHandler(instanceManager, modelManager, cfg, db, oidcService)
+
+	// Setup the router with the handler
+	r := server.SetupRouter(handler)
+
+	// Handle graceful shutdown
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
+
+	server := http.Server{
+		Addr:    fmt.Sprintf("%s:%d", cfg.Server.Host, cfg.Server.Port),
+		Handler: r,
+	}
+
+	go func() {
+		log.Printf("Llamadeck server listening on %s:%d", cfg.Server.Host, cfg.Server.Port)
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Printf("Error starting server: %v\n", err)
+		}
+	}()
+
+	// Wait for shutdown signal
+	<-stop
+	log.Println("Shutting down server...")
+
+	// Create shutdown context with timeout
+	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer shutdownCancel()
+
+	// Shutdown HTTP server gracefully
+	if err := server.Shutdown(shutdownCtx); err != nil {
+		log.Printf("Error shutting down server: %v\n", err)
+	} else {
+		log.Println("Server shut down gracefully.")
+	}
+
+	// Stop all instances and cleanup
+	instanceManager.Shutdown()
+
+	// Stop model manager background jobs
+	modelManager.Close()
+
+	if err := db.Close(); err != nil {
+		log.Printf("Error closing database: %v\n", err)
+	}
+
+	log.Println("Exiting llamadeck.")
+}

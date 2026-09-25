@@ -8,3 +8,4 @@ DROP TABLE IF EXISTS api_keys;
 -- Drop instance related indexes and tables
 DROP INDEX IF EXISTS idx_instances_status;
 DROP INDEX IF EXISTS idx_instances_name;
+DROP TABLE IF EXISTS instances;

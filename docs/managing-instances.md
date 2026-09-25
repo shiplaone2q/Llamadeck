@@ -125,3 +125,319 @@ curl -X POST http://localhost:8080/api/v1/instances/my-llama-instance \
 # Create vLLM instance with environment variables
 curl -X POST http://localhost:8080/api/v1/instances/my-vllm-instance \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "backend_type": "vllm",
+    "backend_options": {
+      "model": "microsoft/DialoGPT-medium",
+      "tensor_parallel_size": 2,
+      "gpu_memory_utilization": 0.9
+    },
+    "on_demand_start": true,
+    "environment": {
+      "CUDA_VISIBLE_DEVICES": "0,1"
+    },
+    "nodes": ["worker1", "worker2"]
+  }'
+
+# Create MLX instance (macOS only)
+curl -X POST http://localhost:8080/api/v1/instances/my-mlx-instance \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "backend_type": "mlx_lm",
+    "backend_options": {
+      "model": "mlx-community/Mistral-7B-Instruct-v0.3-4bit",
+      "temp": 0.7,
+      "max_tokens": 2048
+    },
+    "nodes": ["main"]
+  }'
+
+# Create custom backend instance
+curl -X POST http://localhost:8080/api/v1/instances/my-custom-instance \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "backend_type": "custom",
+    "backend_options": {
+      "name": "my-engine",
+      "model": "org/model-name",
+      "args": ["--port", "{port}"]
+    },
+    "nodes": ["main"]
+  }'
+```
+
+## Start Instance
+
+**Via Web UI**
+1. Click the **"Start"** button on an instance card
+2. Watch the status change to "Unknown"
+3. Monitor progress in the logs
+4. Instance status changes to "Ready" when ready
+
+**Via API**
+```bash
+curl -X POST http://localhost:8080/api/v1/instances/{name}/start \
+  -H "Authorization: Bearer <token>"
+```
+
+## Stop Instance
+
+**Via Web UI**
+1. Click the **"Stop"** button on an instance card
+2. Instance gracefully shuts down
+
+**Via API**
+```bash
+curl -X POST http://localhost:8080/api/v1/instances/{name}/stop \
+  -H "Authorization: Bearer <token>"
+```
+
+## Edit Instance
+
+**Via Web UI**
+1. Click the **"Edit"** button on an instance card
+2. Modify settings in the configuration dialog
+3. Changes require instance restart to take effect
+4. Click **"Update & Restart"** to apply changes
+
+**Via API**
+Modify instance settings:
+
+```bash
+curl -X PUT http://localhost:8080/api/v1/instances/{name} \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "backend_options": {
+      "threads": 8,
+      "context_size": 4096
+    }
+  }'
+```
+
+!!! note
+    Configuration changes require restarting the instance to take effect.
+
+
+## Export Instance
+
+**Via Web UI**
+1. Click the **"More actions"** button (three dots) on an instance card
+2. Click **"Export"** to download the instance configuration as a JSON file
+
+## View Logs
+
+**Via Web UI**
+
+1. Click the **"Logs"** button on any instance card
+2. Real-time log viewer opens
+
+**Via API**
+Check instance status in real-time:
+
+```bash
+# Get instance logs
+curl http://localhost:8080/api/v1/instances/{name}/logs \
+  -H "Authorization: Bearer <token>"
+```
+
+## Delete Instance
+
+**Via Web UI**
+1. Click the **"Delete"** button on an instance card
+2. Only stopped instances can be deleted
+3. Confirm deletion in the dialog
+
+**Via API**
+```bash
+curl -X DELETE http://localhost:8080/api/v1/instances/{name} \
+  -H "Authorization: Bearer <token>"
+```
+
+## Multi-Model llama.cpp Instances
+
+!!! info "llama.cpp Router Mode"
+    llama.cpp instances support [**router mode**](https://huggingface.co/blog/ggml-org/model-management-in-llamacpp), allowing a single instance to serve multiple models dynamically. Models are loaded on-demand from the llama.cpp cache without restarting the instance.
+
+### Creating a Multi-Model Instance
+
+**Via Web UI**
+
+1. Click **"Create Instance"**
+2. Select **Backend Type**: "Llama Server"
+3. Leave **Backend Options** empty `{}` or omit the model field
+4. Create the instance
+
+**Via API**
+
+```bash
+# Create instance without specifying a model (router mode)
+curl -X POST http://localhost:8080/api/v1/instances/my-router \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "backend_type": "llama_cpp",
+    "backend_options": {},
+    "nodes": ["main"]
+  }'
+```
+
+### Managing Models
+
+**Via Web UI**
+
+1. Start the router mode instance
+2. Instance card displays a badge showing loaded/total models (e.g., "2/5 models")
+3. Click the **"Models"** button on the instance card
+4. Models dialog opens showing:
+    - All available models from llama.cpp instance
+    - Status indicator (loaded, loading, or unloaded)
+    - Load/Unload buttons for each model
+5. Click **"Load"** to load a model into memory
+6. Click **"Unload"** to free up memory
+
+**Via API**
+
+```bash
+# List available models
+curl http://localhost:8080/api/v1/llama-cpp/my-router/models \
+  -H "Authorization: Bearer <token>"
+
+# Load a model
+curl -X POST http://localhost:8080/api/v1/llama-cpp/my-router/models/Mistral-7B-Instruct-v0.3.Q4_K_M.gguf/load \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{"model": "Mistral-7B-Instruct-v0.3.Q4_K_M.gguf"}'
+
+# Unload a model
+curl -X POST http://localhost:8080/api/v1/llama-cpp/my-router/models/Mistral-7B-Instruct-v0.3.Q4_K_M.gguf/unload \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{"model": "Mistral-7B-Instruct-v0.3.Q4_K_M.gguf"}'
+```
+
+### Using Multi-Model Instances
+
+When making inference requests to a multi-model instance, specify the model using the format `instance_name/model_name`:
+
+```bash
+# OpenAI-compatible chat completion with specific model
+curl -X POST http://localhost:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <inference-key>" \
+  -d '{
+    "model": "my-router/Mistral-7B-Instruct-v0.3.Q4_K_M.gguf",
+    "messages": [
+      {"role": "user", "content": "Hello!"}
+    ]
+  }'
+
+# List all available models (includes multi-model instances)
+curl http://localhost:8080/v1/models \
+  -H "Authorization: Bearer <inference-key>"
+```
+
+The response from `/v1/models` will include each model from multi-model instances as separate entries in the format `instance_name/model_name`.
+
+### Model Discovery
+
+Models are automatically discovered from the llama.cpp cache directory. The default cache locations are:
+
+- **Linux/macOS**: `~/.cache/llama.cpp/`
+- **Windows**: `%LOCALAPPDATA%\llama.cpp\`
+
+Place your GGUF model files in the cache directory, and they will appear in the models list when you start a router mode instance.
+
+## Instance Groups
+
+Instance groups allow you to organize instances into named groups with separate running limits. This is useful when you want to prevent resource-heavy models from occupying all available slots.
+
+### How It Works
+
+When an instance is assigned to a group, starting it triggers a two-stage check:
+
+1. **Group Quota Check** - If the instance's group has a configured limit and the limit is reached, the least recently used instance in that group is evicted first.
+2. **Global Capacity Check** - If the global `max_running_instances` limit is reached, the least recently used instance across **all** groups is evicted.
+
+Unlabeled instances (no group assigned) only trigger the global check. Group limits apply only to local instances; remote nodes manage their own resources independently.
+
+### Configuration
+
+Define group limits in your configuration file:
+
+```yaml
+instances:
+  max_running_instances: 4
+  group_limits:
+    large: 1    # Only 1 "large" instance running at a time
+    small: 3    # Up to 3 "small" instances running at a time
+```
+
+### Assigning a Group
+
+**Via Web UI**
+
+1. When creating or editing an instance, set the **Group** field in the General tab
+2. Existing group names from other instances are suggested automatically
+
+**Via API**
+
+Set the `group` field in the instance options:
+
+```bash
+curl -X POST http://localhost:8080/api/v1/instances/my-large-model \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "backend_type": "llama_cpp",
+    "backend_options": {
+      "model": "/path/to/30b-model.gguf",
+      "gpu_layers": 32
+    },
+    "group": "large",
+    "nodes": ["main"]
+  }'
+```
+
+### Example Scenario
+
+With `group_limits: {large: 1, small: 3}` and `max_running_instances: 4`:
+
+- Starting a "large" group instance evicts the least recently used "large" instance if the group limit (1) is reached
+- Starting a "small" group instance evicts the least recently used "small" instance if the group limit (3) is reached
+- If the global limit (4) is reached, the least recently used instance across all groups is evicted
+- The global limit always takes precedence over group limits
+
+## Instance Proxy
+
+Llamadeck proxies all requests to the underlying backend instances (llama-server, MLX, or vLLM).
+
+```bash
+# Proxy requests to the instance
+curl http://localhost:8080/api/v1/instances/{name}/proxy/ \
+  -H "Authorization: Bearer <token>"
+```
+
+All backends provide OpenAI-compatible endpoints. Check the respective documentation:
+- [llama-server docs](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md)
+- [MLX-LM docs](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/SERVER.md)
+- [vLLM docs](https://docs.vllm.ai/en/latest/)
+
+### Instance Health
+
+**Via Web UI**
+
+1. The health status badge is displayed on each instance card
+
+**Via API**
+
+Check the health status of your instances:
+
+```bash
+curl http://localhost:8080/api/v1/instances/{name}/proxy/health \
+  -H "Authorization: Bearer <token>"
+```
+

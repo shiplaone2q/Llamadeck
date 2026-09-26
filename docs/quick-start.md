@@ -99,3 +99,176 @@ To make inference requests to your instances, you'll need an inference API key:
 2. Navigate to the **API Keys** tab
 3. Click **Create API Key**
 4. Configure your key:
+    - **Name**: Give it a descriptive name (e.g., "Production Key", "Development Key")
+    - **Expiration**: Optionally set an expiration date for the key
+    - **Permissions**: Choose whether the key can access all instances or only specific ones, and set per-instance access levels (see [Authentication](authentication.md) for details)
+5. Click **Create**
+6. **Copy the generated key** - it will only be shown once!
+
+The key will look like: `llamadeck-...`
+
+You can create multiple inference keys with different permissions for different use cases (e.g., one for development, one for production, or keys limited to specific instances).
+
+## Example Configurations
+
+Here are basic example configurations for each backend:
+
+**llama.cpp backend:**
+```json
+{
+  "name": "llama2-7b",
+  "backend_type": "llama_cpp",
+  "backend_options": {
+    "model": "/path/to/llama-2-7b-chat.gguf",
+    "threads": 4,
+    "ctx_size": 2048,
+    "gpu_layers": 32
+  },
+  "nodes": ["main"]
+}
+```
+
+**MLX backend (macOS only):**
+```json
+{
+  "name": "mistral-mlx",
+  "backend_type": "mlx_lm",
+  "backend_options": {
+    "model": "mlx-community/Mistral-7B-Instruct-v0.3-4bit",
+    "temp": 0.7,
+    "max_tokens": 2048
+  },
+  "nodes": ["main"]
+}
+```
+
+**vLLM backend:**
+```json
+{
+  "name": "dialogpt-vllm",
+  "backend_type": "vllm",
+  "backend_options": {
+    "model": "microsoft/DialoGPT-medium",
+    "tensor_parallel_size": 2,
+    "gpu_memory_utilization": 0.9
+  },
+  "nodes": ["main"]
+}
+```
+
+**Remote node deployment example:**
+```json
+{
+  "name": "distributed-model",
+  "backend_type": "llama_cpp",
+  "backend_options": {
+    "model": "/path/to/model.gguf",
+    "gpu_layers": 32
+  },
+  "nodes": ["worker1"]
+}
+```
+
+## Docker Support
+
+Llamadeck can run backends in Docker containers. To enable Docker for a backend, add a `docker` section to that backend in your YAML configuration file (e.g. `config.yaml`) as shown below:
+
+```yaml
+backends:
+  vllm:
+    command: "vllm"
+    args: ["serve"]
+    docker:
+      enabled: true
+      image: "vllm/vllm-openai:latest"
+      args: ["run", "--rm", "--network", "host", "--gpus", "all", "--shm-size", "1g"]
+```
+
+## Using the API
+
+You can also manage instances via the REST API:
+
+```bash
+# List all instances
+curl http://localhost:8080/api/v1/instances
+
+# Create a new llama.cpp instance
+curl -X POST http://localhost:8080/api/v1/instances/my-model \
+  -H "Content-Type: application/json" \
+  -d '{
+    "backend_type": "llama_cpp",
+    "backend_options": {
+      "model": "/path/to/model.gguf"
+    }
+  }'
+
+# Start an instance
+curl -X POST http://localhost:8080/api/v1/instances/my-model/start
+```
+
+## OpenAI Compatible API
+
+Llamadeck provides OpenAI-compatible endpoints, making it easy to integrate with existing OpenAI client libraries and tools.
+
+### Chat Completions
+
+Once you have an instance running, you can use it with the OpenAI-compatible chat completions endpoint:
+
+```bash
+curl -X POST http://localhost:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "my-model",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hello! Can you help me write a Python function?"
+      }
+    ],
+    "max_tokens": 150,
+    "temperature": 0.7
+  }'
+```
+
+### Using with Python OpenAI Client
+
+You can also use the official OpenAI Python client:
+
+```python
+from openai import OpenAI
+
+# Point the client to your Llamadeck server
+client = OpenAI(
+    base_url="http://localhost:8080/v1",
+    api_key="your-inference-api-key"  # Use the inference API key from terminal or config
+)
+
+# Create a chat completion
+response = client.chat.completions.create(
+    model="my-model",  # Use the name of your instance
+    messages=[
+        {"role": "user", "content": "Explain quantum computing in simple terms"}
+    ],
+    max_tokens=200,
+    temperature=0.7
+)
+
+print(response.choices[0].message.content)
+```
+
+!!! note "API Key"
+    If you disabled authentication in your config, you can use any value for `api_key` (e.g., `"not-needed"`). Otherwise, use the inference API key you created via the web UI (Settings → API Keys).
+
+### List Available Models
+
+Get a list of running instances (models) in OpenAI-compatible format:
+
+```bash
+curl http://localhost:8080/v1/models
+```
+
+## Next Steps
+
+- Manage instances [Managing Instances](managing-instances.md)
+- Explore the [API Reference](api-reference.md)
+- Configure advanced settings in the [Configuration](configuration.md) guide

@@ -97,3 +97,4 @@ func TestEvictLRUInstance_Success(t *testing.T) {
 	inst1.UpdateLastRequestTime()
 
 	mockTime.SetTime(mockTime.Now().Add(1 * time.Minute))
+	inst2.UpdateLastRequestTime()

@@ -77,3 +77,5 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
                 {address || 'no address configured'}
               </span>
             </TooltipContent>
+          </Tooltip>
+        )}

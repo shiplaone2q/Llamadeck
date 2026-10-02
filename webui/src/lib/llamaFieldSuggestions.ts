@@ -38,3 +38,6 @@ export function getLlamaFieldSuggestions(input: string): FieldSuggestion[] {
         type: getLlamaCppAltKeyType(altKey)
       })
     }
+  })
+
+  const suggestions = Array.from(suggestionsMap.values())

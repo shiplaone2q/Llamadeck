@@ -89,3 +89,31 @@ func TestGetPermissionsReturnsFlags(t *testing.T) {
 	key := &auth.APIKey{
 		KeyHash:        "hash",
 		Name:           "k2",
+		UserID:         "system",
+		PermissionMode: auth.PermissionModePerInstance,
+		CreatedAt:      now,
+		UpdatedAt:      now,
+	}
+	perms := []auth.KeyPermission{
+		{InstanceID: 20, CanStart: false, CanEvict: true},
+		{InstanceID: 21, CanStart: true, CanEvict: false},
+	}
+	if err := db.CreateKey(context.Background(), key, perms); err != nil {
+		t.Fatalf("CreateKey: %v", err)
+	}
+
+	got, err := db.GetPermissions(context.Background(), key.ID)
+	if err != nil {
+		t.Fatalf("GetPermissions: %v", err)
+	}
+	if len(got) != 2 {
+		t.Fatalf("expected 2 permissions, got %d", len(got))
+	}
+	// GetPermissions orders by instance_id.
+	if got[0].InstanceID != 20 || got[0].CanStart != false || got[0].CanEvict != true {
+		t.Errorf("perm[0] = %+v, want {InstanceID:20 CanStart:false CanEvict:true}", got[0])
+	}
+	if got[1].InstanceID != 21 || got[1].CanStart != true || got[1].CanEvict != false {
+		t.Errorf("perm[1] = %+v, want {InstanceID:21 CanStart:true CanEvict:false}", got[1])
+	}
+}

@@ -124,3 +124,261 @@ func (h *Handler) CreateKey() http.HandlerFunc {
 		// Generate plain-text key
 		plainTextKey, err := auth.GenerateKey("llamadeck")
 		if err != nil {
+			writeError(w, http.StatusInternalServerError, "key_generation_failed", "Failed to generate API key")
+			return
+		}
+
+		// Hash key
+		keyHash, err := auth.HashKey(plainTextKey)
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "key_hashing_failed", "Failed to hash API key")
+			return
+		}
+
+		// Keys created from an OIDC session belong to that user, stored as
+		// their email, everything else is attributed to "system".
+		userID := "system"
+		if sess := UserFromContext(r.Context()); sess != nil {
+			userID = sess.Email
+			if userID == "" {
+				userID = sess.Sub
+			}
+		}
+		now := time.Now().Unix()
+		apiKey := &auth.APIKey{
+			KeyHash:        keyHash,
+			Name:           req.Name,
+			UserID:         userID,
+			PermissionMode: req.PermissionMode,
+			ExpiresAt:      req.ExpiresAt,
+			CreatedAt:      now,
+			UpdatedAt:      now,
+		}
+
+		// Convert Permissions to KeyPermissions, resolving nil flags to true
+		var keyPermissions []auth.KeyPermission
+		for _, p := range req.Permissions {
+			canStart := true
+			if p.CanStart != nil {
+				canStart = *p.CanStart
+			}
+			canEvict := true
+			if p.CanEvict != nil {
+				canEvict = *p.CanEvict
+			}
+			keyPermissions = append(keyPermissions, auth.KeyPermission{
+				KeyID:      0, // Will be set by database after key creation
+				InstanceID: p.InstanceID,
+				CanStart:   canStart,
+				CanEvict:   canEvict,
+			})
+		}
+
+		// Create in database
+		err = h.authStore.CreateKey(r.Context(), apiKey, keyPermissions)
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "creation_failed", fmt.Sprintf("Failed to create API key: %v", err))
+			return
+		}
+
+		// Return response with plain-text key (only shown once)
+		response := CreateKeyResponse{
+			ID:             apiKey.ID,
+			Name:           apiKey.Name,
+			UserID:         apiKey.UserID,
+			PermissionMode: apiKey.PermissionMode,
+			ExpiresAt:      apiKey.ExpiresAt,
+			CreatedAt:      apiKey.CreatedAt,
+			UpdatedAt:      apiKey.UpdatedAt,
+			LastUsedAt:     apiKey.LastUsedAt,
+			Key:            plainTextKey,
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(response)
+	}
+}
+
+// ListKeys godoc
+// @Summary List all API keys
+// @Description Returns a list of all API keys for the system user (excludes key hash and plain-text key)
+// @Tags Keys
+// @Security ApiKeyAuth
+// @Produce json
+// @Success 200 {array} KeyResponse "List of API keys"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /api/v1/auth/keys [get]
+func (h *Handler) ListKeys() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		keys, err := h.authStore.ListKeys(r.Context())
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "fetch_failed", fmt.Sprintf("Failed to fetch API keys: %v", err))
+			return
+		}
+
+		// Remove key_hash from all keys
+		response := make([]KeyResponse, 0, len(keys))
+		for _, key := range keys {
+			response = append(response, KeyResponse{
+				ID:             key.ID,
+				Name:           key.Name,
+				UserID:         key.UserID,
+				PermissionMode: key.PermissionMode,
+				ExpiresAt:      key.ExpiresAt,
+				CreatedAt:      key.CreatedAt,
+				UpdatedAt:      key.UpdatedAt,
+				LastUsedAt:     key.LastUsedAt,
+			})
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+	}
+}
+
+// GetKey godoc
+// @Summary Get details of a specific API key
+// @Description Returns details for a specific API key by ID (excludes key hash and plain-text key)
+// @Tags Keys
+// @Security ApiKeyAuth
+// @Produce json
+// @Param id path int true "Key ID"
+// @Success 200 {object} KeyResponse "API key details"
+// @Failure 400 {string} string "Invalid key ID"
+// @Failure 404 {string} string "API key not found"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /api/v1/auth/keys/{id} [get]
+func (h *Handler) GetKey() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		idStr := chi.URLParam(r, "id")
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			writeError(w, http.StatusBadRequest, "invalid_id", "Invalid key ID")
+			return
+		}
+
+		key, err := h.authStore.GetKeyByID(r.Context(), id)
+		if err != nil {
+			if err.Error() == "API key not found" {
+				writeError(w, http.StatusNotFound, "not_found", "API key not found")
+				return
+			}
+			writeError(w, http.StatusInternalServerError, "fetch_failed", fmt.Sprintf("Failed to fetch API key: %v", err))
+			return
+		}
+
+		// Remove key_hash from response
+		response := KeyResponse{
+			ID:             key.ID,
+			Name:           key.Name,
+			UserID:         key.UserID,
+			PermissionMode: key.PermissionMode,
+			ExpiresAt:      key.ExpiresAt,
+			CreatedAt:      key.CreatedAt,
+			UpdatedAt:      key.UpdatedAt,
+			LastUsedAt:     key.LastUsedAt,
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+	}
+}
+
+// DeleteKey godoc
+// @Summary Delete an API key
+// @Description Deletes an API key by ID
+// @Tags Keys
+// @Security ApiKeyAuth
+// @Param id path int true "Key ID"
+// @Success 204 "API key deleted successfully"
+// @Failure 400 {string} string "Invalid key ID"
+// @Failure 404 {string} string "API key not found"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /api/v1/auth/keys/{id} [delete]
+func (h *Handler) DeleteKey() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		idStr := chi.URLParam(r, "id")
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			writeError(w, http.StatusBadRequest, "invalid_id", "Invalid key ID")
+			return
+		}
+
+		err = h.authStore.DeleteKey(r.Context(), id)
+		if err != nil {
+			if err.Error() == "API key not found" {
+				writeError(w, http.StatusNotFound, "not_found", "API key not found")
+				return
+			}
+			writeError(w, http.StatusInternalServerError, "deletion_failed", fmt.Sprintf("Failed to delete API key: %v", err))
+			return
+		}
+
+		w.WriteHeader(http.StatusNoContent)
+	}
+}
+
+// GetKeyPermissions godoc
+// @Summary Get API key permissions
+// @Description Returns the instance-level permissions for a specific API key (includes instance names)
+// @Tags Keys
+// @Security ApiKeyAuth
+// @Produce json
+// @Param id path int true "Key ID"
+// @Success 200 {array} KeyPermissionResponse "List of key permissions"
+// @Failure 400 {string} string "Invalid key ID"
+// @Failure 404 {string} string "API key not found"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /api/v1/auth/keys/{id}/permissions [get]
+func (h *Handler) GetKeyPermissions() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		idStr := chi.URLParam(r, "id")
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			writeError(w, http.StatusBadRequest, "invalid_id", "Invalid key ID")
+			return
+		}
+
+		// Verify key exists
+		_, err = h.authStore.GetKeyByID(r.Context(), id)
+		if err != nil {
+			if err.Error() == "API key not found" {
+				writeError(w, http.StatusNotFound, "not_found", "API key not found")
+				return
+			}
+			writeError(w, http.StatusInternalServerError, "fetch_failed", fmt.Sprintf("Failed to fetch API key: %v", err))
+			return
+		}
+
+		permissions, err := h.authStore.GetPermissions(r.Context(), id)
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "fetch_failed", fmt.Sprintf("Failed to fetch permissions: %v", err))
+			return
+		}
+
+		// Get instance names for the permissions
+		instances, err := h.InstanceManager.ListInstances()
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "fetch_instances_failed", fmt.Sprintf("Failed to fetch instances: %v", err))
+			return
+		}
+		instanceNameMap := make(map[int]string)
+		for _, inst := range instances {
+			instanceNameMap[inst.ID] = inst.Name
+		}
+
+		response := make([]KeyPermissionResponse, 0, len(permissions))
+		for _, perm := range permissions {
+			response = append(response, KeyPermissionResponse{
+				InstanceID:   perm.InstanceID,
+				InstanceName: instanceNameMap[perm.InstanceID],
+				CanStart:     perm.CanStart,
+				CanEvict:     perm.CanEvict,
+			})
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+	}
+}

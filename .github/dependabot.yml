@@ -41,3 +41,4 @@ updates:
       npm-development:
         dependency-type: "development"
     labels:
+      - "dependencies"

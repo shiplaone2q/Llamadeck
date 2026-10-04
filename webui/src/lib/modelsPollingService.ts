@@ -72,3 +72,58 @@ class ModelsPollingService {
 
   /**
    * Start polling for jobs
+   */
+  private startPolling(): void {
+    // Don't start if already polling
+    if (this.interval) {
+      return
+    }
+
+    // Reset counters
+    this.emptyPollCount = 0
+
+    // Perform initial poll immediately
+    void this.pollJobs()
+
+    // Set up interval for subsequent polls
+    this.interval = setInterval(() => {
+      void this.pollJobs()
+    }, this.POLL_INTERVAL)
+  }
+
+  /**
+   * Stop polling for jobs
+   */
+  private stopPolling(): void {
+    if (this.interval) {
+      clearInterval(this.interval)
+      this.interval = null
+    }
+  }
+
+  /**
+   * Notify that a download was just started (so we should keep polling)
+   */
+  downloadStarted(): void {
+    this.expectingJobs = true
+    this.emptyPollCount = 0
+
+    // Ensure polling is active
+    if (!this.interval && this.callbacks.size > 0) {
+      this.startPolling()
+    } else {
+      // Trigger immediate poll
+      void this.pollJobs()
+    }
+  }
+
+  /**
+   * Clean up service
+   */
+  destroy(): void {
+    this.stopPolling()
+    this.callbacks.clear()
+  }
+}
+
+export const modelsPollingService = new ModelsPollingService()

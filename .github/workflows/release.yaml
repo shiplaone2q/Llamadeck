@@ -88,3 +88,113 @@ jobs:
         env:
           GOOS: ${{ matrix.goos }}
           GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: 1
+          CC: ${{ matrix.cc }}
+        shell: bash
+        run: |
+          # Set binary extension for Windows
+          BINARY_NAME="llamadeck"
+          if [ "${{ matrix.goos }}" = "windows" ]; then
+            BINARY_NAME="${BINARY_NAME}.exe"
+          fi
+          
+          # Build the binary
+          go build -ldflags="-s -w -X main.version=${{ github.ref_name }} -X main.commit=${{ github.sha }} -X main.date=$(date -u +%Y-%m-%dT%H:%M:%SZ)" -o "${BINARY_NAME}" ./cmd/server
+          
+          # Create archive
+          ARCHIVE_OS="${{ matrix.goos }}"
+          if [ "${{ matrix.goos }}" = "darwin" ]; then
+            ARCHIVE_OS="macos"
+          fi
+          ARCHIVE_NAME="llamadeck-${{ github.ref_name }}-${ARCHIVE_OS}-${{ matrix.goarch }}"
+          
+          if [ "${{ matrix.goos }}" = "windows" ]; then
+            # Use 7z on Windows (pre-installed)
+            7z a "${ARCHIVE_NAME}.zip" "${BINARY_NAME}"
+            echo "ASSET_PATH=${ARCHIVE_NAME}.zip" >> $GITHUB_ENV
+          else
+            tar -czf "${ARCHIVE_NAME}.tar.gz" "${BINARY_NAME}"
+            echo "ASSET_PATH=${ARCHIVE_NAME}.tar.gz" >> $GITHUB_ENV
+          fi
+          
+          echo "ASSET_NAME=${ARCHIVE_NAME}" >> $GITHUB_ENV
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: llamadeck-${{ github.ref_name }}-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: |
+            *.tar.gz
+            *.zip
+          retention-days: 1
+
+  release:
+    name: Create Release
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Prepare release assets
+        run: |
+          mkdir -p release-assets
+          find artifacts/ -name "*.tar.gz" -o -name "*.zip" | while read file; do
+            cp "$file" release-assets/
+          done
+          ls -la release-assets/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          files: release-assets/*
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  checksums:
+    name: Generate Checksums
+    needs: [release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Prepare assets and generate checksums
+        run: |
+          mkdir -p assets
+          
+          # Copy all archives to assets directory
+          find artifacts/ -name "*.tar.gz" -o -name "*.zip" | while read file; do
+            cp "$file" assets/
+          done
+          
+          # List what we have
+          echo "Files found:"
+          ls -la assets/
+          
+          # Generate checksums if we have files
+          cd assets
+          if [ "$(ls -A .)" ]; then
+            sha256sum * > checksums.txt
+            echo "Generated checksums:"
+            cat checksums.txt
+          else
+            echo "No files found to checksum"
+            exit 1
+          fi
+
+      - name: Upload checksums to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: assets/checksums.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -59,3 +59,4 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
   )
 }
 
+export default ArrayInput

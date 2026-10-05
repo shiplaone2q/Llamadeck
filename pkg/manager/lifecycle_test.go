@@ -98,3 +98,120 @@ func TestEvictLRUInstance_Success(t *testing.T) {
 
 	mockTime.SetTime(mockTime.Now().Add(1 * time.Minute))
 	inst2.UpdateLastRequestTime()
+
+	mockTime.SetTime(mockTime.Now().Add(1 * time.Minute))
+	inst3.UpdateLastRequestTime()
+
+	// Evict LRU instance (should be inst1)
+	if err := manager.EvictLRUInstance(""); err != nil {
+		t.Fatalf("EvictLRUInstance failed: %v", err)
+	}
+
+	// Verify inst1 is stopped
+	if inst1.IsRunning() {
+		t.Error("Expected instance-1 to be stopped after eviction")
+	}
+
+	// Verify inst2 and inst3 are still running
+	if !inst2.IsRunning() {
+		t.Error("Expected instance-2 to still be running")
+	}
+	if !inst3.IsRunning() {
+		t.Error("Expected instance-3 to still be running")
+	}
+}
+
+func TestEvictLRUInstance_NoRunningInstances(t *testing.T) {
+	manager := createTestManager(t)
+	defer manager.Shutdown()
+
+	err := manager.EvictLRUInstance("")
+	if err == nil {
+		t.Error("Expected error when no running instances exist")
+	}
+	if err.Error() != "failed to find lru instance" {
+		t.Errorf("Expected 'failed to find lru instance' error, got: %v", err)
+	}
+}
+
+func TestEvictLRUInstance_OnlyEvictsTimeoutEnabledInstances(t *testing.T) {
+	manager := createTestManager(t)
+	defer manager.Shutdown()
+
+	// Create mix of instances: some with timeout enabled, some disabled
+	// Only timeout-enabled instances should be eligible for eviction
+	validTimeout := 1
+	zeroTimeout := 0
+	instWithTimeout := createInstanceWithTimeout(t, manager, "with-timeout", "/path/to/model-with-timeout.gguf", &validTimeout)
+	instNoTimeout := createInstanceWithTimeout(t, manager, "no-timeout-1", "/path/to/model-no-timeout1.gguf", &zeroTimeout)
+
+	// Set all instances to running
+	instances := []*instance.Instance{instWithTimeout, instNoTimeout}
+	for _, inst := range instances {
+		inst.SetStatus(instance.Running)
+		inst.UpdateLastRequestTime()
+	}
+	defer func() {
+		// Reset instances to stopped to avoid shutdown panics
+		for _, inst := range instances {
+			if inst.IsRunning() {
+				inst.SetStatus(instance.Stopped)
+			}
+		}
+	}()
+
+	// Evict LRU instance - should only consider the one with timeout
+	err := manager.EvictLRUInstance("")
+	if err != nil {
+		t.Fatalf("EvictLRUInstance failed: %v", err)
+	}
+
+	// Verify only the instance with timeout was evicted
+	if instWithTimeout.IsRunning() {
+		t.Error("Expected with-timeout instance to be stopped after eviction")
+	}
+	if !instNoTimeout.IsRunning() {
+		t.Error("Expected no-timeout instance to still be running")
+	}
+}
+
+// Helper function to create instances with different timeout configurations
+func createInstanceWithTimeout(t *testing.T, manager manager.InstanceManager, name, model string, timeout *int) *instance.Instance {
+	t.Helper()
+	options := &instance.Options{
+		IdleTimeout: timeout,
+		BackendOptions: backends.Options{
+			BackendType: backends.BackendTypeLlamaCpp,
+			LlamaServerOptions: &backends.LlamaServerOptions{
+				Model: model,
+			},
+		},
+	}
+	inst, err := manager.CreateInstance(name, options)
+	if err != nil {
+		t.Fatalf("CreateInstance failed: %v", err)
+	}
+	return inst
+}
+
+// Helper for timeout tests
+type MockTimeProvider struct {
+	currentTime time.Time
+	mu          sync.RWMutex
+}
+
+func NewMockTimeProvider(t time.Time) *MockTimeProvider {
+	return &MockTimeProvider{currentTime: t}
+}
+
+func (m *MockTimeProvider) Now() time.Time {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+	return m.currentTime
+}
+
+func (m *MockTimeProvider) SetTime(t time.Time) {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	m.currentTime = t
+}

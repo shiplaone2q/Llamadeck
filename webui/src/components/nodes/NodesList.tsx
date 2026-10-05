@@ -87,3 +87,45 @@ function NodesList() {
   if (entries.length === 0) {
     return (
       <div className="text-center py-12 text-muted-foreground">
+        <HardDrive className="h-12 w-12 mx-auto mb-4 opacity-50" />
+        <p className="text-lg mb-2">No nodes found</p>
+        <p className="text-sm">
+          Add nodes in the configuration file to get started
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <h2 className="text-xl font-semibold text-foreground mb-6">
+        Nodes ({entries.length})
+      </h2>
+
+      <TooltipProvider>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Type</TableHead>
+              <TableHead>Latency</TableHead>
+              <TableHead>Status</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {entries.map(([name, node]) => (
+              <NodeRow
+                key={name}
+                name={name}
+                address={node.address}
+                isLocal={name === localNode}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TooltipProvider>
+    </div>
+  );
+}
+
+export default NodesList;

@@ -72,3 +72,10 @@ describe('nodeHealthService', () => {
     });
     await new Promise((r) => setTimeout(r, 10));
     unsubscribe2();
+
+    expect(fetchUrls.some((url) => url.includes('/nodes/main/health'))).toBe(
+      true,
+    );
+    expect(received?.state).toBe('healthy');
+  });
+});

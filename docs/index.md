@@ -34,3 +34,4 @@ If you need help or have questions:
 
 ## License
 
+MIT License - see the [LICENSE](https://github.com/lordmathis/llamadeck/blob/main/LICENSE) file.

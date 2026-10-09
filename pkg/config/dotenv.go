@@ -65,3 +65,4 @@ func parseDotEnv(data []byte) map[string]string {
 			continue
 		}
 
+		key := strings.TrimSpace(lineStr[:eqIdx])

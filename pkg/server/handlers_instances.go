@@ -150,3 +150,4 @@ func (h *Handler) UpdateInstance() http.HandlerFunc {
 
 		writeJSON(w, http.StatusOK, inst)
 	}
+}

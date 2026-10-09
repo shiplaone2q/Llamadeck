@@ -108,3 +108,7 @@ func (p *portAllocator) releaseByInstance(instanceName string) int {
 	if instanceName == "" {
 		return 0
 	}
+
+	p.mu.Lock()
+	defer p.mu.Unlock()
+

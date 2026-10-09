@@ -158,3 +158,6 @@ func (i *Instance) GetBackendType() backends.BackendType {
 	return opts.BackendOptions.BackendType
 }
 
+// GetOptions returns the current options
+func (i *Instance) GetOptions() *Options {
+	if i.options == nil {

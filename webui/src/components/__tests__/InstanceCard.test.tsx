@@ -168,3 +168,4 @@ afterEach(() => {
           instance={stoppedInstance}
           startInstance={mockStartInstance}
           stopInstance={mockStopInstance}
+          deleteInstance={mockDeleteInstance}

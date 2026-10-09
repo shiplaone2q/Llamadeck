@@ -66,3 +66,7 @@ func parseDotEnv(data []byte) map[string]string {
 		}
 
 		key := strings.TrimSpace(lineStr[:eqIdx])
+		value := strings.TrimSpace(lineStr[eqIdx+1:])
+
+		if len(value) >= 2 {
+			if (value[0] == '"' && value[len(value)-1] == '"') ||

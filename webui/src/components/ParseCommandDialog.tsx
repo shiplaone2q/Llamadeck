@@ -65,3 +65,5 @@ const ParseCommandDialog: React.FC<ParseCommandDialogProps> = ({
       toast.success('Command parsed successfully');
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to parse command';
+      setError(errorMessage);
+      toast.error('Failed to parse command', {

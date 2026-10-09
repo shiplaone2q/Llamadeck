@@ -44,3 +44,6 @@ describe('API Error Handling', () => {
 
     const result = await instancesApi.delete('test-instance')
     expect(result).toBeUndefined()
+  })
+
+  it('builds query parameters correctly for logs', async () => {

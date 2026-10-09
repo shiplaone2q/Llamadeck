@@ -81,3 +81,4 @@ function InstanceCard({
     setIsLogsOpen(true);
   };
 
+  const handleModels = () => {

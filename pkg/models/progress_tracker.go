@@ -36,3 +36,4 @@ func (pt *ProgressTracker) UpdateCurrentFile(jobID string, filename string) {
 	if job, ok := pt.jobStore.jobs[jobID]; ok {
 		job.Progress.CurrentFile = filename
 	}
+}

@@ -97,3 +97,69 @@ function App() {
                   "px-4 py-2 border-b-2 transition-colors",
                   activeTab === 'instances'
                     ? "border-primary text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Instances
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('models')}
+                className={cn(
+                  "px-4 py-2 border-b-2 transition-colors",
+                  activeTab === 'models'
+                    ? "border-primary text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Models
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('nodes')}
+                className={cn(
+                  "px-4 py-2 border-b-2 transition-colors",
+                  activeTab === 'nodes'
+                    ? "border-primary text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Nodes
+              </button>
+            </div>
+          </div>
+
+          {/* Tab Content */}
+          {activeTab === 'instances' && <InstanceList editInstance={handleEditInstance} />}
+          {activeTab === 'models' && (
+            <ModelsProvider>
+              <ModelsList />
+            </ModelsProvider>
+          )}
+          {activeTab === 'nodes' && <NodesList />}
+        </main>
+
+        <InstanceDialog
+          open={isInstanceModalOpen}
+          onOpenChange={setIsInstanceModalOpen}
+          onSave={handleSaveInstance}
+          instance={editingInstance}
+        />
+
+        <SystemInfoDialog
+          open={isSystemInfoModalOpen}
+          onOpenChange={setIsSystemInfoModalOpen}
+        />
+
+        <SettingsDialog
+          open={isSettingsModalOpen}
+          onOpenChange={setIsSettingsModalOpen}
+        />
+
+        <Toaster />
+      </div>
+    </ThemeProvider>
+  );
+}
+
+export default App;

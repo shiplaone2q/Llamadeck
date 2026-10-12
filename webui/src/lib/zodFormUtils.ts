@@ -79,3 +79,148 @@ const basicMlxFieldsConfig: Record<string, {
   max_tokens: {
     label: 'Max Tokens',
     placeholder: '512',
+    description: 'Default maximum number of tokens to generate (default: 512)'
+  }
+}
+
+// vLLM backend-specific basic fields
+const basicVllmFieldsConfig: Record<string, {
+  label: string
+  description?: string
+  placeholder?: string
+}> = {
+  model: {
+    label: 'Model',
+    placeholder: 'microsoft/DialoGPT-medium',
+    description: 'The name or path of the Hugging Face model to use'
+  },
+  tensor_parallel_size: {
+    label: 'Tensor Parallel Size',
+    placeholder: '1',
+    description: 'Number of GPUs to use for distributed serving'
+  },
+  gpu_memory_utilization: {
+    label: 'GPU Memory Utilization',
+    placeholder: '0.9',
+    description: 'The fraction of GPU memory to be used for the model executor'
+  }
+}
+
+// Custom backend-specific basic fields
+const basicCustomFieldsConfig: Record<string, {
+  label: string
+  description?: string
+  placeholder?: string
+}> = {
+  name: {
+    label: 'Custom Backend Name',
+    placeholder: 'my-backend',
+    description: 'Name of the backends.custom.<name> config entry to use'
+  },
+  model: {
+    label: 'Model',
+    placeholder: 'org/model-name',
+    description: 'Model identifier reported to clients; use {model} in args to inject it'
+  },
+  host: {
+    label: 'Host',
+    placeholder: '127.0.0.1',
+    description: 'Host the proxy and health check connect to'
+  },
+  port: {
+    label: 'Port',
+    placeholder: 'auto-assigned',
+    description: 'Leave empty for automatic port allocation'
+  },
+  args: {
+    label: 'Arguments',
+    placeholder: 'serve --port {port}',
+    description: 'Arguments appended after the config args; {port} is required so the server learns its port'
+  }
+}
+
+// Backend field configuration lookup
+const backendFieldConfigs = {
+  mlx_lm: basicMlxFieldsConfig,
+  vllm: basicVllmFieldsConfig,
+  llama_cpp: basicLlamaCppFieldsConfig,
+  custom: basicCustomFieldsConfig,
+} as const
+
+const backendFieldGetters = {
+  mlx_lm: getAllMlxFieldKeys,
+  vllm: getAllVllmFieldKeys,
+  llama_cpp: getAllLlamaCppFieldKeys,
+  custom: getAllCustomFieldKeys,
+} as const
+
+export function getBasicBackendFields(backendType?: string): string[] {
+  const normalizedType = (backendType || 'llama_cpp') as keyof typeof backendFieldConfigs
+  const config = backendFieldConfigs[normalizedType] || basicLlamaCppFieldsConfig
+  return Object.keys(config)
+}
+
+export function getAdvancedBackendFields(backendType?: string): string[] {
+  const normalizedType = (backendType || 'llama_cpp') as keyof typeof backendFieldGetters
+  const fieldGetter = backendFieldGetters[normalizedType] || getAllLlamaCppFieldKeys
+  const basicConfig = backendFieldConfigs[normalizedType] || basicLlamaCppFieldsConfig
+
+  return fieldGetter().filter(key => !(key in basicConfig) && key !== 'extra_args')
+}
+
+// Combined backend fields config for use in BackendFormField.
+// Custom goes first: 'model' collides across backends and the built-in
+// entries must keep winning so existing forms stay unchanged.
+export const basicBackendFieldsConfig: Record<string, {
+  label: string
+  description?: string
+  placeholder?: string
+}> = {
+  ...basicCustomFieldsConfig,
+  ...basicLlamaCppFieldsConfig,
+  ...basicMlxFieldsConfig,
+  ...basicVllmFieldsConfig
+}
+
+// Get field type for any backend option (union type)
+export function getBackendFieldType(key: string): 'text' | 'number' | 'boolean' | 'array' {
+  // Try to get type from LlamaCpp schema first
+  try {
+    if (LlamaCppBackendOptionsSchema.shape && key in LlamaCppBackendOptionsSchema.shape) {
+      return getLlamaCppFieldType(key as keyof LlamaCppBackendOptions)
+    }
+  } catch {
+    // Schema might not be available
+  }
+
+  // Try MLX schema
+  try {
+    if (MlxBackendOptionsSchema.shape && key in MlxBackendOptionsSchema.shape) {
+      return getMlxFieldType(key as keyof MlxBackendOptions)
+    }
+  } catch {
+    // Schema might not be available
+  }
+
+  // Try vLLM schema
+  try {
+    if (VllmBackendOptionsSchema.shape && key in VllmBackendOptionsSchema.shape) {
+      return getVllmFieldType(key as keyof VllmBackendOptions)
+    }
+  } catch {
+    // Schema might not be available
+  }
+
+  // Try Custom schema (keys unique to it, e.g. args)
+  try {
+    if (CustomBackendOptionsSchema.shape && key in CustomBackendOptionsSchema.shape) {
+      return getCustomFieldType(key as keyof CustomBackendOptions)
+    }
+  } catch {
+    // Schema might not be available
+  }
+
+  // Default fallback
+  return 'text'
+}
+

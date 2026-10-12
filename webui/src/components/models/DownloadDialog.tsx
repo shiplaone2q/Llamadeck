@@ -81,3 +81,118 @@ export default function DownloadDialog({ open, onOpenChange }: DownloadDialogPro
     e.preventDefault()
 
     if (!validateModel(model)) return
+
+    setIsSubmitting(true)
+    try {
+      const colonIdx = model.lastIndexOf(':')
+      const repo = colonIdx !== -1 ? model.substring(0, colonIdx) : model
+      const tag = colonIdx !== -1 ? model.substring(colonIdx + 1) : undefined
+
+      await startDownload(repo, tag, selectedNode, format)
+      onOpenChange(false)
+      setModel('')
+      setModelError('')
+    } catch (error) {
+      console.error('Failed to start download:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleCancel = () => {
+    onOpenChange(false)
+    setModel('')
+    setModelError('')
+  }
+
+  const nodeOptions = Object.keys(nodes).map(nodeName => ({
+    value: nodeName,
+    label: nodeName
+  }))
+
+  const helpText = format === ModelFormat.GGUF
+    ? 'Format: org/model:quant (e.g. Q4_K_M)'
+    : 'Format: org/model. Downloads all weights and config files.'
+
+  const placeholder = format === ModelFormat.GGUF
+    ? 'bartowski/Llama-3.2-3B-Instruct-GGUF:Q4_K_M'
+    : 'meta-llama/Llama-3.2-3B'
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent>
+        <form onSubmit={handleSubmit}>
+          <DialogHeader>
+            <DialogTitle>Download Model</DialogTitle>
+            <DialogDescription>
+              Download a model from HuggingFace to your local cache
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            {!loadingNodes && Object.keys(nodes).length > 0 && (
+              <SelectInput
+                id="node"
+                label="Node"
+                value={selectedNode}
+                onChange={setSelectedNode}
+                options={nodeOptions}
+                description="Select the node where the model will be downloaded"
+                disabled={isSubmitting}
+              />
+            )}
+
+            <SelectInput
+              id="format"
+              label="Format"
+              value={format}
+              onChange={(v) => {
+                setFormat((v as ModelFormat) || ModelFormat.GGUF)
+                if (modelError) validateModel(model)
+              }}
+              options={formatOptions}
+              description="Select the model format to download"
+              disabled={isSubmitting}
+            />
+
+            <div>
+              <Label htmlFor="model">Model *</Label>
+              <Input
+                id="model"
+                value={model}
+                onChange={(e) => {
+                  setModel(e.target.value)
+                  if (modelError) validateModel(e.target.value)
+                }}
+                onBlur={(e) => validateModel(e.target.value)}
+                placeholder={placeholder}
+                className={modelError ? 'border-red-500' : ''}
+                disabled={isSubmitting}
+              />
+              {modelError && (
+                <p className="text-sm text-red-500 mt-1">{modelError}</p>
+              )}
+              <p className="text-sm text-muted-foreground mt-1">
+                {helpText}
+              </p>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleCancel}
+              disabled={isSubmitting}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" disabled={!model || !!modelError || isSubmitting}>
+              {isSubmitting ? 'Starting...' : 'Start Download'}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
+}

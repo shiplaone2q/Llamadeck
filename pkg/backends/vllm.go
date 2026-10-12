@@ -104,3 +104,168 @@ type VllmServerOptions struct {
 
 	// OpenAI server specific options
 	UDS                            string   `json:"uds,omitempty"`
+	UvicornLogLevel                string   `json:"uvicorn_log_level,omitempty"`
+	ResponseRole                   string   `json:"response_role,omitempty"`
+	SSLKeyfile                     string   `json:"ssl_keyfile,omitempty"`
+	SSLCertfile                    string   `json:"ssl_certfile,omitempty"`
+	SSLCACerts                     string   `json:"ssl_ca_certs,omitempty"`
+	SSLCertReqs                    int      `json:"ssl_cert_reqs,omitempty"`
+	RootPath                       string   `json:"root_path,omitempty"`
+	Middleware                     []string `json:"middleware,omitempty"`
+	ReturnTokensAsTokenIDS         bool     `json:"return_tokens_as_token_ids,omitempty"`
+	DisableFrontendMultiprocessing bool     `json:"disable_frontend_multiprocessing,omitempty"`
+	EnableAutoToolChoice           bool     `json:"enable_auto_tool_choice,omitempty"`
+	ToolCallParser                 string   `json:"tool_call_parser,omitempty"`
+	ToolServer                     string   `json:"tool_server,omitempty"`
+	ChatTemplate                   string   `json:"chat_template,omitempty"`
+	ChatTemplateContentFormat      string   `json:"chat_template_content_format,omitempty"`
+	AllowCredentials               bool     `json:"allow_credentials,omitempty"`
+	AllowedOrigins                 []string `json:"allowed_origins,omitempty"`
+	AllowedMethods                 []string `json:"allowed_methods,omitempty"`
+	AllowedHeaders                 []string `json:"allowed_headers,omitempty"`
+	APIKey                         []string `json:"api_key,omitempty"`
+	EnableLogOutputs               bool     `json:"enable_log_outputs,omitempty"`
+	EnableTokenUsage               bool     `json:"enable_token_usage,omitempty"`
+	EnableAsyncEngineDebug         bool     `json:"enable_async_engine_debug,omitempty"`
+	EngineUseRay                   bool     `json:"engine_use_ray,omitempty"`
+	DisableLogRequests             bool     `json:"disable_log_requests,omitempty"`
+	MaxLogLen                      int      `json:"max_log_len,omitempty"`
+
+	// Additional engine configuration
+	Task                      string `json:"task,omitempty"`
+	MultiModalConfig          string `json:"multi_modal_config,omitempty"`
+	LimitMmPerPrompt          string `json:"limit_mm_per_prompt,omitempty"`
+	EnableSleepMode           bool   `json:"enable_sleep_mode,omitempty"`
+	EnableChunkingRequest     bool   `json:"enable_chunking_request,omitempty"`
+	CompilationConfig         string `json:"compilation_config,omitempty"`
+	DisableSlidingWindowMask  bool   `json:"disable_sliding_window_mask,omitempty"`
+	EnableTRTLLMEngineLatency bool   `json:"enable_trtllm_engine_latency,omitempty"`
+	OverridePoolingConfig     string `json:"override_pooling_config,omitempty"`
+	OverrideNeuronConfig      string `json:"override_neuron_config,omitempty"`
+	OverrideKVCacheALIGNSize  int    `json:"override_kv_cache_align_size,omitempty"`
+
+	// ExtraArgs are additional command line arguments.
+	// Example: {"verbose": "", "log-file": "/logs/vllm.log"}
+	ExtraArgs map[string]string `json:"extra_args,omitempty"`
+}
+
+// UnmarshalJSON implements custom JSON unmarshaling to collect unknown fields into ExtraArgs
+func (o *VllmServerOptions) UnmarshalJSON(data []byte) error {
+	// First unmarshal into a map to capture all fields
+	var raw map[string]any
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+
+	// Create a temporary struct for standard unmarshaling
+	type tempOptions VllmServerOptions
+	temp := tempOptions{}
+
+	// Standard unmarshal first
+	if err := json.Unmarshal(data, &temp); err != nil {
+		return err
+	}
+
+	// Copy to our struct
+	*o = VllmServerOptions(temp)
+
+	// Get all known canonical field names from struct tags
+	knownFields := getKnownFieldNames(o)
+
+	// Collect unknown fields into ExtraArgs
+	if o.ExtraArgs == nil {
+		o.ExtraArgs = make(map[string]string)
+	}
+	for key, value := range raw {
+		if !knownFields[key] {
+			o.ExtraArgs[key] = fmt.Sprintf("%v", value)
+		}
+	}
+
+	return nil
+}
+
+func (o *VllmServerOptions) GetModel() string {
+	return o.Model
+}
+
+func (o *VllmServerOptions) GetPort() int {
+	return o.Port
+}
+
+func (o *VllmServerOptions) SetPort(port int) {
+	o.Port = port
+}
+
+func (o *VllmServerOptions) GetHost() string {
+	return o.Host
+}
+
+func (o *VllmServerOptions) Validate() error {
+	if o == nil {
+		return validation.ValidationError(fmt.Errorf("vLLM server options cannot be nil for vLLM backend"))
+	}
+
+	if o.Port < 0 || o.Port > 65535 {
+		return validation.ValidationError(fmt.Errorf("invalid port range: %d", o.Port))
+	}
+
+	return nil
+}
+
+// BuildCommandArgs converts VllmServerOptions to command line arguments
+// For vLLM native, model is a positional argument after "serve"
+func (o *VllmServerOptions) BuildCommandArgs() []string {
+	var args []string
+
+	// Add model as positional argument if specified (for native execution)
+	if o.Model != "" {
+		args = append(args, o.Model)
+	}
+
+	// Create a copy without Model field to avoid --model flag
+	optionsCopy := *o
+	optionsCopy.Model = ""
+
+	// Use package-level multipleFlags variable
+
+	flagArgs := BuildCommandArgs(&optionsCopy, vllmMultiValuedFlags)
+	args = append(args, flagArgs...)
+
+	// Append extra args at the end
+	args = append(args, convertExtraArgsToFlags(o.ExtraArgs)...)
+
+	return args
+}
+
+func (o *VllmServerOptions) BuildDockerArgs() []string {
+	var args []string
+
+	// Use package-level multipleFlags variable
+	flagArgs := BuildCommandArgs(o, vllmMultiValuedFlags)
+	args = append(args, flagArgs...)
+
+	// Append extra args at the end
+	args = append(args, convertExtraArgsToFlags(o.ExtraArgs)...)
+
+	return args
+}
+
+// ParseCommand parses a vLLM serve command string into VllmServerOptions
+// Supports multiple formats:
+// 1. Full command: "vllm serve --model MODEL_NAME --other-args"
+// 2. Full path: "/usr/local/bin/vllm serve --model MODEL_NAME"
+// 3. Serve only: "serve --model MODEL_NAME --other-args"
+// 4. Args only: "--model MODEL_NAME --other-args"
+// 5. Multiline commands with backslashes
+func (o *VllmServerOptions) ParseCommand(command string) (any, error) {
+	executableNames := []string{"vllm"}
+	subcommandNames := []string{"serve"}
+
+	var vllmOptions VllmServerOptions
+	if err := parseCommand(command, executableNames, subcommandNames, vllmMultiValuedFlags, &vllmOptions); err != nil {
+		return nil, err
+	}
+
+	return &vllmOptions, nil
+}

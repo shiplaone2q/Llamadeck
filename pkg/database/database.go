@@ -59,3 +59,69 @@ func Open(config *Config) (*sqliteDB, error) {
 	if config.Path == "" {
 		return nil, fmt.Errorf("database path cannot be empty")
 	}
+
+	// Ensure that database directory exists
+	dbDir := filepath.Dir(config.Path)
+	if dbDir != "." && dbDir != "/" {
+		// Directory will be created by manager if auto_create_dirs is enabled
+		log.Printf("Database will be created at: %s", config.Path)
+	}
+
+	// Open SQLite database with proper options
+	// - _journal_mode=WAL: Write-Ahead Logging for better concurrency
+	// - _busy_timeout=5000: Wait up to 5 seconds if database is locked
+	// - _foreign_keys=1: Enable foreign key constraints
+	dsn := fmt.Sprintf("file:%s?_journal_mode=WAL&_busy_timeout=5000&_foreign_keys=1", config.Path)
+
+	sqlDB, err := sql.Open("sqlite3", dsn)
+	if err != nil {
+		return nil, fmt.Errorf("failed to open database: %w", err)
+	}
+
+	// Configure connection pool
+	if config.MaxOpenConnections > 0 {
+		sqlDB.SetMaxOpenConns(config.MaxOpenConnections)
+	}
+	if config.MaxIdleConnections > 0 {
+		sqlDB.SetMaxIdleConns(config.MaxIdleConnections)
+	}
+	if config.ConnMaxLifetime > 0 {
+		sqlDB.SetConnMaxLifetime(config.ConnMaxLifetime)
+	}
+
+	// Verify database connection
+	if err := sqlDB.Ping(); err != nil {
+		sqlDB.Close()
+		return nil, fmt.Errorf("failed to ping database: %w", err)
+	}
+
+	log.Printf("Database connection established: %s", config.Path)
+
+	return &sqliteDB{
+		DB:     sqlDB,
+		config: config,
+	}, nil
+}
+
+// Close closes database connection
+func (db *sqliteDB) Close() error {
+	if db.DB != nil {
+		log.Println("Closing database connection")
+
+		// Checkpoint WAL to merge changes back to main database file
+		if _, err := db.DB.Exec("PRAGMA wal_checkpoint(TRUNCATE)"); err != nil {
+			log.Printf("Warning: Failed to checkpoint WAL: %v", err)
+		}
+
+		return db.DB.Close()
+	}
+	return nil
+}
+
+// HealthCheck verifies that database is accessible
+func (db *sqliteDB) HealthCheck() error {
+	if db.DB == nil {
+		return fmt.Errorf("database connection is nil")
+	}
+	return db.DB.Ping()
+}

@@ -75,3 +75,4 @@ func currentVersionString(version uint, err error) string {
 		return "none"
 	}
 	return fmt.Sprintf("%d", version)
+}

@@ -69,3 +69,7 @@ func (r *instanceRegistry) add(inst *instance.Instance) error {
 
 	if _, exists := r.instances[inst.Name]; exists {
 		return fmt.Errorf("instance %s already exists", inst.Name)
+	}
+
+	r.instances[inst.Name] = inst
+

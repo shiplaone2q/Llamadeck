@@ -16,3 +16,4 @@ func setProcAttrs(cmd *exec.Cmd) {
 // the force-kill after the grace period.
 func signalStop(cmd *exec.Cmd) {
 	// No-op on Windows — see setProcAttrs.
+}

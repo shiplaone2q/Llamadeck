@@ -103,3 +103,6 @@ func TestParseMlxCommand(t *testing.T) {
 
 			if tt.expectErr {
 				if err == nil {
+					t.Errorf("expected error but got none")
+				}
+				return

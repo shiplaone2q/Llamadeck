@@ -120,3 +120,7 @@ func (h *Handler) DownloadModel() http.HandlerFunc {
 			return
 		}
 
+		format := req.Format
+		if format == "" {
+			format = models.FormatGGUF
+		}

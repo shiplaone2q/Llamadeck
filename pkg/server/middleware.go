@@ -86,3 +86,5 @@ func (a *APIAuthMiddleware) InferenceAuthMiddleware() func(http.Handler) http.Ha
 				a.unauthorized(w, "Missing API key")
 				return
 			}
+
+			// Try database authentication first

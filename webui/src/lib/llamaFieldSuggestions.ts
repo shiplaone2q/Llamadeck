@@ -41,3 +41,8 @@ export function getLlamaFieldSuggestions(input: string): FieldSuggestion[] {
   })
 
   const suggestions = Array.from(suggestionsMap.values())
+
+  if (!query) return suggestions.slice(0, 20)
+
+  return suggestions.filter(s => s.name.startsWith(query))
+}

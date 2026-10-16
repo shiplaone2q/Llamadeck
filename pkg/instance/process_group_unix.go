@@ -20,3 +20,4 @@ func signalStop(cmd *exec.Cmd) {
 		return
 	}
 	_ = cmd.Process.Signal(syscall.SIGINT)
+}

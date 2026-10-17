@@ -52,3 +52,25 @@ const ExecutionContextSection: React.FC<ExecutionContextSectionProps> = ({
 
       {/* Command Override - only shown when Docker is disabled or backend is MLX */}
       {(formData.backend_type === BackendType.MLX_LM || formData.docker_enabled !== true) && (
+        <TextInput
+          id="command_override"
+          label="Command Override"
+          value={formData.command_override || ''}
+          onChange={(value) => onChange('command_override', value)}
+          placeholder={getCommandPlaceholder()}
+          description="Custom path to backend executable (leave empty to use config default)"
+        />
+      )}
+
+      <EnvVarsInput
+        id="environment"
+        label="Environment Variables"
+        value={formData.environment}
+        onChange={(value) => onChange('environment', value)}
+        description="Custom environment variables for the instance"
+      />
+    </div>
+  )
+}
+
+export default ExecutionContextSection

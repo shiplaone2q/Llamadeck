@@ -63,3 +63,4 @@ const BackendConfiguration: React.FC<BackendConfigurationProps> = ({
   )
 }
 
+export default BackendConfiguration

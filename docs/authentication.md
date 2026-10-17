@@ -62,3 +62,112 @@ How a request is handled depends on the instance's state and the key's access le
 4. Configure the key:
     - **Name**: A descriptive name
     - **Permission Mode**: *Full Access* or *Per-Instance Access*
+    - **Expiration**: Optional expiration date
+    - **Instance Permissions** *(per-instance only)*: Check each instance and choose its access level
+5. Click **Create**
+6. **Copy the generated key** — it is only shown once
+
+Expand an existing key in the list to review its per-instance access levels.
+
+#### Via API
+
+All key endpoints require a management API key (`<token>` below).
+
+**Create a per-instance key with custom access levels:**
+
+```bash
+curl -X POST http://localhost:8080/api/v1/auth/keys \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{
+    "name": "Production Key",
+    "permission_mode": "per_instance",
+    "permissions": [
+      {"instance_id": 1, "can_start": true,  "can_evict": true},
+      {"instance_id": 2, "can_start": true,  "can_evict": false},
+      {"instance_id": 3, "can_start": false}
+    ]
+  }'
+```
+
+`can_start` and `can_evict` default to `true` when omitted. `instance_id` values correspond to the IDs returned by `GET /api/v1/instances`.
+
+**List keys:**
+
+```bash
+curl http://localhost:8080/api/v1/auth/keys \
+  -H "Authorization: Bearer <token>"
+```
+
+**View a key's instance permissions:**
+
+```bash
+curl http://localhost:8080/api/v1/auth/keys/{id}/permissions \
+  -H "Authorization: Bearer <token>"
+```
+
+```json
+[
+  {"instance_id": 1, "instance_name": "my-llama-model", "can_start": true, "can_evict": true},
+  {"instance_id": 2, "instance_name": "other-model",    "can_start": true, "can_evict": false}
+]
+```
+
+**Delete a key:**
+
+```bash
+curl -X DELETE http://localhost:8080/api/v1/auth/keys/{id} \
+  -H "Authorization: Bearer <token>"
+```
+
+### Use Cases
+
+- **Production vs. development**: Give production keys *Can start and evict* so requests always succeed; give development keys *Can start on demand* so they never disrupt production workloads.
+- **Read-only consumers**: Use *Use running only* for dashboards or monitoring tools that should reuse a warm instance but never spin one up.
+- **Shared clusters**: Limit disruptive eviction rights to a small set of trusted keys so noisy neighbors can't evict each other's models.
+
+## OIDC / SSO Login
+
+The web UI can authenticate users through an OpenID Connect provider (Authentik, Keycloak, Authelia, etc.) instead of a management API key. OIDC login is enabled when both `issuer_url` and `client_id` are set; management API keys keep working alongside it, and inference endpoints always use API keys.
+
+```yaml
+auth:
+  oidc:
+    issuer_url: "https://authentik.example.com/application/o/llamadeck/"  # IdP issuer URL
+    client_id: "llamadeck"                  # OAuth2 client ID registered with the IdP
+    client_secret: "your-client-secret"    # OAuth2 client secret
+    # redirect_url: ""                     # Optional; derived from the request when empty
+    # scopes: [openid, profile, email]     # Default scopes
+    # allowed_groups: []                   # Restrict login to these groups (empty = all IdP users)
+    # groups_claim: "groups"               # ID-token claim carrying group names
+    # session_ttl: 12h                     # Session lifetime (default: 12h)
+    # secure_cookie: true                  # Set false only for plain-HTTP LAN deployments
+```
+
+Environment variable equivalents (`LLAMADECK_AUTH_OIDC_*`) are listed in the [configuration reference](configuration.md#oidc-sso-login).
+
+### Setting up the IdP client
+
+1. Create a confidential OAuth2/OIDC client in your IdP (Authentik: provider type *OAuth2/OpenID Connect*; Keycloak: client with *Client authentication* enabled)
+2. Set the redirect URI to `https://<your-llamadeck-host>/api/v1/auth/oidc/callback` — under a subpath proxy, use the full external path
+3. Configure the `auth.oidc` block above and restart llamadeck. If discovery fails at startup (IdP unreachable, wrong issuer), llamadeck logs the error and runs without OIDC until the problem is fixed — management-key login keeps working.
+
+### Restricting logins to specific groups
+
+By default, every user your IdP authenticates can log in. When the IdP serves more users than should have access to llamadeck, set `allowed_groups` to require membership in at least one listed group:
+
+```yaml
+auth:
+  oidc:
+    allowed_groups: ["llamadeck-users"]
+```
+
+- Groups are read from the ID token's `groups` claim (Authelia, Authentik, Keycloak, and Dex can all emit it — sometimes a mapper must be enabled). If your IdP exposes membership under a different claim, point `groups_claim` at it.
+- The check is fail-closed: if the claim is missing or unreadable, login is denied and the reason is logged with the claim names the token actually carried — check the llamadeck log if a legitimate user cannot get in.
+- Membership is evaluated at login only. Removing a user from the group does not terminate their existing session; access ends when the session expires (`session_ttl`, default 12h) or llamadeck restarts. Lower `session_ttl` if you need faster revocation.
+
+### Notes
+
+- Keep `require_management_auth: true` when enabling OIDC — otherwise management endpoints stay unauthenticated and login only adds session support. llamadeck logs a warning at startup for this combination.
+- Behind a TLS-terminating reverse proxy, either forward `X-Forwarded-Proto`/`X-Forwarded-Host` or set `redirect_url` explicitly. Under a subpath proxy, set `redirect_url` to the full external callback path.
+- API keys created while logged in via SSO show the user's email as their owner.

@@ -103,3 +103,159 @@ func main() {
 	fmt.Printf("Ignored (utility): %d\n", len(ignored))
 	fmt.Printf("Conflicts: %d\n", len(conflicts))
 }
+
+func runLlamaServerHelp() (string, error) {
+	cmd := exec.Command("llama-server", "--help")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		// llama-server --help may return non-zero exit code, but we still get output
+		if len(output) == 0 {
+			return "", fmt.Errorf("failed to run llama-server --help: %w", err)
+		}
+	}
+	return string(output), nil
+}
+
+func parseHelpFlags(content string) []FlagInfo {
+	// Match any flag: one or two dashes followed by alphanumeric/dash characters
+	// Must start with a letter after the dash(es) to avoid matching things like -1, -2
+	// Must be preceded by whitespace or start of line to avoid matching mid-word dashes
+	flagPattern := regexp.MustCompile(`(?m)(?:^|\s)(-{1,2}[a-zA-Z][-a-zA-Z0-9]*)`)
+
+	// Find all flags in the entire output
+	allMatches := flagPattern.FindAllStringSubmatch(content, -1)
+
+	// Deduplicate and filter
+	seen := make(map[string]bool)
+	var flags []FlagInfo
+
+	for _, match := range allMatches {
+		if len(match) < 2 {
+			continue
+		}
+		flag := match[1] // Extract the captured flag (group 1)
+
+		// Skip if already seen
+		if seen[flag] {
+			continue
+		}
+
+		// Skip separator lines (just dashes)
+		if regexp.MustCompile(`^-+$`).MatchString(flag) {
+			continue
+		}
+
+		seen[flag] = true
+		flags = append(flags, FlagInfo{
+			Flag: flag,
+		})
+	}
+
+	return flags
+}
+
+func testFlagAndGetField(flag string) (string, bool) {
+	// Try parsing with different value types
+	testValues := []string{
+		"",          // Boolean flag (no value)
+		"1",         // Integer
+		"0.5",       // Float
+		"test",      // String
+		"/tmp/test", // Path/file
+		"localhost", // Hostname
+		"auto",      // Enum-like
+	}
+
+	for _, value := range testValues {
+		baseline := &backends.LlamaServerOptions{}
+		opts := &backends.LlamaServerOptions{}
+
+		var testCommand string
+		if value == "" {
+			testCommand = fmt.Sprintf("llama-server %s", flag)
+		} else {
+			testCommand = fmt.Sprintf("llama-server %s %s", flag, value)
+		}
+
+		result, err := opts.ParseCommand(testCommand)
+		if err == nil && result != nil {
+			// ParseCommand returns a new struct with parsed values
+			// Convert result to *LlamaServerOptions
+			if parsedOpts, ok := result.(*backends.LlamaServerOptions); ok {
+				// Find which field changed
+				fieldName := findChangedField(baseline, parsedOpts)
+				// Only consider it working if it actually set a real struct field
+				// Flags that only go into ExtraArgs are not properly supported
+				if fieldName != "" && fieldName != "ExtraArgs" {
+					return fieldName, true
+				}
+			}
+		}
+	}
+
+	// If all attempts failed, the flag is not supported
+	return "", false
+}
+
+func findChangedField(baseline, modified *backends.LlamaServerOptions) string {
+	baseVal := reflect.ValueOf(baseline).Elem()
+	modVal := reflect.ValueOf(modified).Elem()
+	baseType := baseVal.Type()
+
+	for i := 0; i < baseVal.NumField(); i++ {
+		baseField := baseVal.Field(i)
+		modField := modVal.Field(i)
+
+		// Skip if not comparable or unexported
+		if !baseField.CanInterface() || !modField.CanInterface() {
+			continue
+		}
+
+		// Check if the field changed
+		if !reflect.DeepEqual(baseField.Interface(), modField.Interface()) {
+			return baseType.Field(i).Name
+		}
+	}
+
+	return ""
+}
+
+type Conflict struct {
+	Field string
+	Flags []string
+}
+
+func findConflicts(fieldToFlags map[string][]string) []Conflict {
+	var conflicts []Conflict
+
+	for field, flags := range fieldToFlags {
+		if len(flags) < 2 {
+			continue
+		}
+
+		// Check if there are both positive and negative versions
+		hasPositive := false
+		hasNegative := false
+
+		for _, flag := range flags {
+			if strings.HasPrefix(flag, "--no-") {
+				hasNegative = true
+			} else if after, ok := strings.CutPrefix(flag, "--"); ok {
+				// Check if this flag has a corresponding --no- version in the list
+				noFlag := "--no-" + after
+				if slices.Contains(flags, noFlag) {
+					hasPositive = true
+				}
+			}
+		}
+
+		if hasPositive && hasNegative {
+			conflicts = append(conflicts, Conflict{
+				Field: field,
+				Flags: flags,
+			})
+		}
+	}
+
+	return conflicts
+}

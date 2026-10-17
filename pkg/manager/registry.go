@@ -73,3 +73,49 @@ func (r *instanceRegistry) add(inst *instance.Instance) error {
 
 	r.instances[inst.Name] = inst
 
+	// Initialize running state if the instance is running
+	if inst.IsRunning() {
+		r.running.Store(inst.Name, struct{}{})
+	}
+
+	return nil
+}
+
+// Remove removes an instance from the registry.
+// Returns an error if the instance doesn't exist.
+func (r *instanceRegistry) remove(name string) error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
+	if _, exists := r.instances[name]; !exists {
+		return fmt.Errorf("instance %s not found", name)
+	}
+
+	delete(r.instances, name)
+	r.running.Delete(name)
+
+	return nil
+}
+
+// MarkRunning marks an instance as running using lock-free sync.Map.
+func (r *instanceRegistry) markRunning(name string) {
+	r.running.Store(name, struct{}{})
+}
+
+// MarkStopped marks an instance as stopped using lock-free sync.Map.
+func (r *instanceRegistry) markStopped(name string) {
+	r.running.Delete(name)
+}
+
+// IsRunning checks if an instance is running using lock-free sync.Map.
+func (r *instanceRegistry) isRunning(name string) bool {
+	_, isRunning := r.running.Load(name)
+	return isRunning
+}
+
+// Count returns the total number of instances in the registry.
+func (r *instanceRegistry) count() int {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+	return len(r.instances)
+}

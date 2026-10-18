@@ -33,3 +33,4 @@ func expandEnvVars(data []byte) []byte {
 
 func expandString(s string) string {
 	return string(expandEnvVars([]byte(s)))
+}

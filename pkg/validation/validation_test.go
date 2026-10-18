@@ -80,3 +80,10 @@ func TestValidateInstanceOptions_PortValidation(t *testing.T) {
 				},
 			}
 
+			err := options.ValidateInstanceOptions()
+			if (err != nil) != tt.wantErr {
+				t.Errorf("ValidateInstanceOptions(port=%d) error = %v, wantErr %v", tt.port, err, tt.wantErr)
+			}
+		})
+	}
+}

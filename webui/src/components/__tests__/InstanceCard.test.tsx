@@ -169,3 +169,223 @@ afterEach(() => {
           startInstance={mockStartInstance}
           stopInstance={mockStopInstance}
           deleteInstance={mockDeleteInstance}
+          editInstance={mockEditInstance}
+        />
+      )
+
+      // First click "More actions" to reveal the delete button
+      const moreActionsButton = screen.getByTitle('More actions')
+      await user.click(moreActionsButton)
+
+      const deleteButton = screen.getByTitle('Delete instance')
+      await user.click(deleteButton)
+
+      expect(confirmSpy).toHaveBeenCalled()
+      expect(mockDeleteInstance).not.toHaveBeenCalled()
+
+      confirmSpy.mockRestore()
+    })
+  })
+
+  describe('Button State Based on Instance Status', () => {
+    it('disables start button and enables stop button for running instance', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <InstanceCard
+          instance={runningInstance}
+          startInstance={mockStartInstance}
+          stopInstance={mockStopInstance}
+          deleteInstance={mockDeleteInstance}
+          editInstance={mockEditInstance}
+        />
+      )
+
+      expect(screen.queryByTitle('Start instance')).not.toBeInTheDocument()
+      expect(screen.getByTitle('Stop instance')).not.toBeDisabled()
+
+      // Expand more actions to access delete button
+      const moreActionsButton = screen.getByTitle('More actions')
+      await user.click(moreActionsButton)
+
+      expect(screen.getByTitle('Delete instance')).toBeDisabled() // Can't delete running instance
+    })
+
+    it('enables start button and disables stop button for stopped instance', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <InstanceCard
+          instance={stoppedInstance}
+          startInstance={mockStartInstance}
+          stopInstance={mockStopInstance}
+          deleteInstance={mockDeleteInstance}
+          editInstance={mockEditInstance}
+        />
+      )
+
+      expect(screen.getByTitle('Start instance')).not.toBeDisabled()
+      expect(screen.queryByTitle('Stop instance')).not.toBeInTheDocument()
+
+      // Expand more actions to access delete button
+      const moreActionsButton = screen.getByTitle('More actions')
+      await user.click(moreActionsButton)
+
+      expect(screen.getByTitle('Delete instance')).not.toBeDisabled() // Can delete stopped instance
+    })
+
+    it('edit and logs buttons are always enabled', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <InstanceCard
+          instance={runningInstance}
+          startInstance={mockStartInstance}
+          stopInstance={mockStopInstance}
+          deleteInstance={mockDeleteInstance}
+          editInstance={mockEditInstance}
+        />
+      )
+
+      expect(screen.getByTitle('Edit instance')).not.toBeDisabled()
+
+      // Expand more actions to access logs button
+      const moreActionsButton = screen.getByTitle('More actions')
+      await user.click(moreActionsButton)
+
+      expect(screen.getByTitle('View logs')).not.toBeDisabled()
+    })
+  })
+
+  describe('Instance Information Display', () => {
+    it('displays instance name correctly', () => {
+      render(
+        <InstanceCard
+          instance={stoppedInstance}
+          startInstance={mockStartInstance}
+          stopInstance={mockStopInstance}
+          deleteInstance={mockDeleteInstance}
+          editInstance={mockEditInstance}
+        />
+      )
+
+      expect(screen.getByText('test-instance')).toBeInTheDocument()
+    })
+
+    it('shows health badge for running instances', () => {
+      render(
+        <InstanceCard
+          instance={runningInstance}
+          startInstance={mockStartInstance}
+          stopInstance={mockStopInstance}
+          deleteInstance={mockDeleteInstance}
+          editInstance={mockEditInstance}
+        />
+      )
+
+      // Health badge should be present for running instances
+      // The exact text depends on the health status from the mock
+      expect(screen.getByText('Ready')).toBeInTheDocument()
+    })
+
+    it('does not show health badge for stopped instances', () => {
+      render(
+        <InstanceCard
+          instance={stoppedInstance}
+          startInstance={mockStartInstance}
+          stopInstance={mockStopInstance}
+          deleteInstance={mockDeleteInstance}
+          editInstance={mockEditInstance}
+        />
+      )
+
+      // Health badge should not be present for stopped instances
+      expect(screen.queryByText('Ready')).not.toBeInTheDocument()
+    })
+  })
+
+  describe('Integration with LogsModal', () => {
+    it('passes correct props to LogsModal', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <InstanceCard
+          instance={runningInstance}
+          startInstance={mockStartInstance}
+          stopInstance={mockStopInstance}
+          deleteInstance={mockDeleteInstance}
+          editInstance={mockEditInstance}
+        />
+      )
+
+      // First click "More actions" to reveal the logs button
+      const moreActionsButton = screen.getByTitle('More actions')
+      await user.click(moreActionsButton)
+
+      // Open logs dialog
+      await user.click(screen.getByTitle('View logs'))
+
+      // Verify dialog opened with correct instance data
+      expect(screen.getByText('Logs: running-instance')).toBeInTheDocument()
+
+      // Close dialog to test close functionality
+      const closeButtons = screen.getAllByText('Close')
+      const dialogCloseButton = closeButtons.find(button =>
+        button.closest('[data-slot="dialog-content"]')
+      )
+      expect(dialogCloseButton).toBeTruthy()
+      await user.click(dialogCloseButton!)
+
+      // Modal should close
+      expect(screen.queryByText('Logs: running-instance')).not.toBeInTheDocument()
+    })
+  })
+
+  describe('Error Edge Cases', () => {
+    it('handles instance with minimal data', () => {
+      const minimalInstance: Instance = {
+        id: 3,
+        name: 'minimal',
+        status: 'stopped',
+        options: {}
+      }
+
+      render(
+        <InstanceCard
+          instance={minimalInstance}
+          startInstance={mockStartInstance}
+          stopInstance={mockStopInstance}
+          deleteInstance={mockDeleteInstance}
+          editInstance={mockEditInstance}
+        />
+      )
+
+      // Should still render basic structure
+      expect(screen.getByText('minimal')).toBeInTheDocument()
+      expect(screen.getByTitle('Start instance')).toBeInTheDocument()
+    })
+
+    it('handles instance with undefined options', () => {
+      const instanceWithoutOptions: Instance = {
+        id: 4,
+        name: 'no-options',
+        status: 'running',
+        options: undefined
+      }
+
+      render(
+        <InstanceCard
+          instance={instanceWithoutOptions}
+          startInstance={mockStartInstance}
+          stopInstance={mockStopInstance}
+          deleteInstance={mockDeleteInstance}
+          editInstance={mockEditInstance}
+        />
+      )
+
+      // Should still work
+      expect(screen.getByText('no-options')).toBeInTheDocument()
+      expect(screen.getByTitle('Stop instance')).not.toBeDisabled()
+    })
+  })
+})

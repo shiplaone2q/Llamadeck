@@ -79,3 +79,7 @@ func TestDeleteModel(t *testing.T) {
 		fm := models.NewFileManager(cache)
 		repoDir := fm.HFRepoDir("org/model")
 		if err := os.MkdirAll(filepath.Join(repoDir, "refs"), 0755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(repoDir, "refs", "main"), []byte("abcdef1234567890abcdef1234567890abcdef12"), 0644); err != nil {
+			t.Fatal(err)

@@ -64,3 +64,7 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
                     onChange={onBackendFieldChange}
                   />
                 ))}
+            </div>
+          )}
+        </div>
+      )}

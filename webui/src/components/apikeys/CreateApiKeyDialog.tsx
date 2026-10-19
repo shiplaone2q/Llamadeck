@@ -137,3 +137,5 @@ function CreateApiKeyDialog({ open, onOpenChange, onKeyCreated }: CreateApiKeyDi
     setInstancePermissions(prev => ({
       ...prev,
       [instanceId]: {
+        selected: true,
+        canStart: tier !== "running",

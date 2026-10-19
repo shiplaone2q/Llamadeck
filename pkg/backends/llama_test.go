@@ -204,3 +204,5 @@ func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 			jsonData: `{"ngl": 16}`,
 			checkFn: func(opts backends.LlamaServerOptions) error {
 				if opts.GPULayers != 16 {
+					return fmt.Errorf("expected gpu_layers 32, got %d", opts.GPULayers)
+				}

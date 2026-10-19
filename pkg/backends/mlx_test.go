@@ -106,3 +106,7 @@ func TestParseMlxCommand(t *testing.T) {
 					t.Errorf("expected error but got none")
 				}
 				return
+			}
+
+			if err != nil {
+				t.Errorf("unexpected error: %v", err)

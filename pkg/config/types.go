@@ -98,3 +98,104 @@ type InstancesConfig struct {
 	// Group-specific limits for running instances (group name -> max count)
 	GroupLimits map[string]int `yaml:"group_limits,omitempty" json:"group_limits,omitempty"`
 
+	// Enable LRU eviction for instance logs
+	EnableLRUEviction bool `yaml:"enable_lru_eviction" json:"enable_lru_eviction"`
+
+	// Default idle timeout for instances in minutes (0 means no timeout)
+	DefaultIdleTimeout int `yaml:"default_idle_timeout" json:"default_idle_timeout"`
+
+	// Default auto-restart setting for new instances
+	DefaultAutoRestart bool `yaml:"default_auto_restart" json:"default_auto_restart"`
+
+	// Default max restarts for new instances
+	DefaultMaxRestarts int `yaml:"default_max_restarts" json:"default_max_restarts"`
+
+	// Default restart delay for new instances (in seconds)
+	DefaultRestartDelay int `yaml:"default_restart_delay" json:"default_restart_delay"`
+
+	// Default on-demand start setting for new instances
+	DefaultOnDemandStart bool `yaml:"default_on_demand_start" json:"default_on_demand_start"`
+
+	// How long to wait for an instance to start on demand (in seconds)
+	OnDemandStartTimeout int `yaml:"on_demand_start_timeout,omitempty" json:"on_demand_start_timeout,omitempty"`
+
+	// Interval for checking instance timeouts (in minutes)
+	TimeoutCheckInterval int `yaml:"timeout_check_interval" json:"timeout_check_interval"`
+
+	// Logs directory override (relative to data_dir if not absolute)
+	LogsDir string `yaml:"logs_dir" json:"logs_dir"`
+
+	// Instances directory for instance working directories (preset.ini, etc.)
+	InstancesDir string `yaml:"instances_dir" json:"instances_dir"`
+
+	// Log rotation enabled
+	LogRotationEnabled bool `yaml:"log_rotation_enabled" default:"true"`
+
+	// Maximum log file size in MB before rotation
+	LogRotationMaxSize int `yaml:"log_rotation_max_size" default:"100"`
+
+	// Whether to compress rotated log files
+	LogRotationCompress bool `yaml:"log_rotation_compress" default:"false"`
+}
+
+// AuthConfig contains authentication settings
+type AuthConfig struct {
+
+	// Require authentication for OpenAI compatible inference endpoints
+	RequireInferenceAuth bool `yaml:"require_inference_auth" json:"require_inference_auth"`
+
+	// Require authentication for management endpoints
+	RequireManagementAuth bool `yaml:"require_management_auth" json:"require_management_auth"`
+
+	// List of keys for management endpoints
+	ManagementKeys []string `yaml:"management_keys" json:"management_keys"`
+
+	// OpenID Connect login for the WebUI (optional)
+	OIDC OIDCConfig `yaml:"oidc,omitempty" json:"oidc"`
+}
+
+// OIDCConfig contains OpenID Connect settings. OIDC login is enabled when
+// IssuerURL and ClientID are both set; all other fields have usable defaults.
+type OIDCConfig struct {
+
+	// Issuer URL of the IdP, e.g. https://authentik.example/application/o/llamadeck/
+	IssuerURL string `yaml:"issuer_url" json:"issuer_url"`
+
+	// OAuth2 client ID registered with the IdP
+	ClientID string `yaml:"client_id" json:"client_id"`
+
+	// OAuth2 client secret
+	ClientSecret string `yaml:"client_secret,omitempty" json:"client_secret,omitempty"`
+
+	// Redirect URL override; derived from the request when empty. Set this
+	// when running behind a TLS-terminating proxy that does not forward
+	// X-Forwarded-Proto/X-Forwarded-Host, or when serving under a subpath.
+	RedirectURL string `yaml:"redirect_url,omitempty" json:"redirect_url,omitempty"`
+
+	// Scopes requested from the IdP (default: openid, profile, email)
+	Scopes []string `yaml:"scopes,omitempty" json:"scopes,omitempty"`
+
+	// Groups allowed to log in, matched against the groups claim. Empty =
+	// every user the IdP authenticates is allowed (current behavior).
+	AllowedGroups []string `yaml:"allowed_groups,omitempty" json:"allowed_groups,omitempty"`
+
+	// Name of the ID-token claim carrying the user's groups (default: "groups").
+	// Override for IdPs that expose membership under a different claim (e.g. "roles").
+	GroupsClaim string `yaml:"groups_claim,omitempty" json:"groups_claim,omitempty"`
+
+	// Session lifetime (default: 12h)
+	SessionTTL time.Duration `yaml:"session_ttl,omitempty" json:"session_ttl,omitempty" swaggertype:"string" example:"12h"`
+
+	// Mark the session cookie Secure; disable only on plain-HTTP LAN deployments
+	SecureCookie bool `yaml:"secure_cookie" json:"secure_cookie"`
+}
+
+// Enabled reports whether OIDC login is configured
+func (c OIDCConfig) Enabled() bool {
+	return c.IssuerURL != "" && c.ClientID != ""
+}
+
+type NodeConfig struct {
+	Address string `yaml:"address" json:"address"`
+	APIKey  string `yaml:"api_key,omitempty" json:"api_key,omitempty"`
+}

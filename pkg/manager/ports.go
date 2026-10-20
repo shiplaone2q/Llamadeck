@@ -112,3 +112,65 @@ func (p *portAllocator) releaseByInstance(instanceName string) int {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 
+	portsToRelease := make([]int, 0)
+	for port, name := range p.allocated {
+		if name == instanceName {
+			portsToRelease = append(portsToRelease, port)
+		}
+	}
+
+	for _, port := range portsToRelease {
+		p.clearBit(port)
+		delete(p.allocated, port)
+	}
+
+	return len(portsToRelease)
+}
+
+// --- Internal bitmap operations ---
+
+// portToBitPos converts a port number to bitmap array index and bit position.
+func (p *portAllocator) portToBitPos(port int) (index int, bit uint) {
+	offset := port - p.minPort
+	index = offset / 64
+	bit = uint(offset % 64)
+	return
+}
+
+// setBit marks a port as allocated in the bitmap.
+func (p *portAllocator) setBit(port int) {
+	index, bit := p.portToBitPos(port)
+	p.bitmap[index] |= (1 << bit)
+}
+
+// clearBit marks a port as free in the bitmap.
+func (p *portAllocator) clearBit(port int) {
+	index, bit := p.portToBitPos(port)
+	p.bitmap[index] &^= (1 << bit)
+}
+
+// isBitSet checks if a port is allocated in the bitmap.
+func (p *portAllocator) isBitSet(port int) bool {
+	index, bit := p.portToBitPos(port)
+	return (p.bitmap[index] & (1 << bit)) != 0
+}
+
+// findFirstFreeBit scans the bitmap to find the first unallocated port.
+// Returns the port number or an error if no ports are available.
+func (p *portAllocator) findFirstFreeBit() (int, error) {
+	for i, word := range p.bitmap {
+		if word != ^uint64(0) { // Not all bits are set (some ports are free)
+			// Find the first 0 bit in this word
+			// XOR with all 1s to flip bits, then find first 1 (which was 0)
+			bit := bits.TrailingZeros64(^word)
+			port := p.minPort + (i * 64) + bit
+
+			// Ensure we don't go beyond maxPort due to bitmap rounding
+			if port <= p.maxPort {
+				return port, nil
+			}
+		}
+	}
+
+	return 0, fmt.Errorf("no available ports in range [%d-%d]", p.minPort, p.maxPort)
+}

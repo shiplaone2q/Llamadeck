@@ -22,3 +22,4 @@ function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
   );
 }
 
+export default SettingsDialog;

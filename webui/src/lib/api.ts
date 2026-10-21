@@ -149,3 +149,187 @@ export const instancesApi = {
   list: () => apiCall<Instance[]>("/instances"),
 
   // GET /instances/{name}
+  get: (name: string) => apiCall<Instance>(`/instances/${encodeURIComponent(name)}`),
+
+  // POST /instances/{name}
+  create: (name: string, options: CreateInstanceOptions) =>
+    apiCall<Instance>(`/instances/${encodeURIComponent(name)}`, {
+      method: "POST",
+      body: JSON.stringify(options),
+    }),
+
+  // PUT /instances/{name}
+  update: (name: string, options: CreateInstanceOptions) =>
+    apiCall<Instance>(`/instances/${encodeURIComponent(name)}`, {
+      method: "PUT",
+      body: JSON.stringify(options),
+    }),
+
+  // DELETE /instances/{name}
+  delete: (name: string) =>
+    apiCall<void>(`/instances/${encodeURIComponent(name)}`, {
+      method: "DELETE",
+    }),
+
+  // POST /instances/{name}/start
+  start: (name: string) =>
+    apiCall<Instance>(`/instances/${encodeURIComponent(name)}/start`, {
+      method: "POST",
+    }),
+
+  // POST /instances/{name}/stop
+  stop: (name: string) =>
+    apiCall<Instance>(`/instances/${encodeURIComponent(name)}/stop`, {
+      method: "POST",
+    }),
+
+  // POST /instances/{name}/restart
+  restart: (name: string) =>
+    apiCall<Instance>(`/instances/${encodeURIComponent(name)}/restart`, {
+      method: "POST",
+    }),
+
+  // GET /instances/{name}/logs
+  getLogs: (name: string, lines?: number) => {
+    const params = lines ? `?lines=${lines}` : "";
+    return apiCall<string>(`/instances/${encodeURIComponent(name)}/logs${params}`, {}, "text");
+  },
+
+  // GET /instances/{name}/proxy/health
+  getHealth: (name: string) => apiCall<Record<string, unknown>>(`/instances/${encodeURIComponent(name)}/proxy/health`),
+};
+
+// Auth API types
+export interface WhoamiUser {
+  sub: string
+  name?: string
+  email?: string
+}
+
+export interface WhoamiResponse {
+  authenticated: boolean
+  oidc_enabled: boolean
+  user: WhoamiUser | null
+}
+
+// Auth API functions
+export const authApi = {
+  // GET /auth/whoami - reports session state and whether OIDC login exists
+  whoami: () => apiCall<WhoamiResponse>("/auth/whoami"),
+};
+
+// API Keys API functions
+export const apiKeysApi = {
+  // GET /auth/keys
+  list: () => apiCall<ApiKey[]>("/auth/keys"),
+
+  // GET /auth/keys/{id}
+  get: (id: number) => apiCall<ApiKey>(`/auth/keys/${id}`),
+
+  // POST /auth/keys
+  create: (request: CreateKeyRequest) =>
+    apiCall<CreateKeyResponse>("/auth/keys", {
+      method: "POST",
+      body: JSON.stringify(request),
+    }),
+
+  // DELETE /auth/keys/{id}
+  delete: (id: number) =>
+    apiCall<void>(`/auth/keys/${id}`, {
+      method: "DELETE",
+    }),
+
+  // GET /auth/keys/{id}/permissions
+  getPermissions: (id: number) =>
+    apiCall<KeyPermissionResponse[]>(`/auth/keys/${id}/permissions`),
+};
+
+// Llama.cpp model management types
+export interface Model {
+  id: string;
+  object: string;
+  owned_by: string;
+  created: number;
+  in_cache: boolean;
+  path: string;
+  status?: {
+    value: string; // "loaded" | "loading" | "unloaded"
+    args: string[];
+  };
+}
+
+export interface ModelsListResponse {
+  object: string;
+  data: Model[];
+}
+
+// Llama.cpp model management API functions
+export const llamaCppApi = {
+  // GET /llama-cpp/{name}/models
+  getModels: async (instanceName: string): Promise<Model[]> => {
+    const response = await apiCall<ModelsListResponse>(
+      `/llama-cpp/${encodeURIComponent(instanceName)}/models`
+    );
+    return response.data;
+  },
+
+  // POST /llama-cpp/{name}/models/{model}/load
+  loadModel: (instanceName: string, modelName: string) =>
+    apiCall<{ success: boolean }>(
+      `/llama-cpp/${encodeURIComponent(instanceName)}/models/${encodeURIComponent(modelName)}/load`,
+      {
+        method: "POST",
+        body: JSON.stringify({ model: modelName }),
+      }
+    ),
+
+  // POST /llama-cpp/{name}/models/{model}/unload
+  unloadModel: (instanceName: string, modelName: string) =>
+    apiCall<{ success: boolean }>(
+      `/llama-cpp/${encodeURIComponent(instanceName)}/models/${encodeURIComponent(modelName)}/unload`,
+      {
+        method: "POST",
+        body: JSON.stringify({ model: modelName }),
+      }
+    ),
+};
+
+// Models cache management API functions
+export const llamaCppModelsApi = {
+  // Download management
+  startDownload: (repo: string, tag?: string, node?: string, format?: ModelFormat) => {
+    const repoWithTag = tag ? `${repo}:${tag}` : repo;
+    const params = node ? `?node=${encodeURIComponent(node)}` : '';
+    return apiCall<{ job_id: string; repo: string; tag: string }>(
+      `/models/download${params}`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ repo: repoWithTag, format: format || 'gguf' })
+      }
+    );
+  },
+
+  getJob: (jobId: string, node?: string) =>
+    apiCall<DownloadJob>(`/models/jobs/${jobId}${node ? `?node=${encodeURIComponent(node)}` : ''}`),
+
+  listJobs: (node?: string) =>
+    apiCall<{ jobs: DownloadJob[] }>(`/models/jobs${node ? `?node=${encodeURIComponent(node)}` : ''}`),
+
+  deleteJob: (jobId: string, node?: string) =>
+    apiCall<void>(`/models/jobs/${jobId}${node ? `?node=${encodeURIComponent(node)}` : ''}`, {
+      method: 'DELETE'
+    }),
+
+  // Cache management
+  listModels: (node?: string) =>
+    apiCall<CachedModel[]>(`/models${node ? `?node=${encodeURIComponent(node)}` : ''}`),
+
+  deleteModel: (repo: string, tag?: string, node?: string) => {
+    const params = new URLSearchParams({ repo })
+    if (tag) params.append('tag', tag)
+    if (node) params.append('node', node)
+    return apiCall<void>(`/models?${params}`, {
+      method: 'DELETE'
+    })
+  }
+};

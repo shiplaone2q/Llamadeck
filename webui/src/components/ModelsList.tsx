@@ -48,3 +48,4 @@ export default function ModelsList() {
       <ModelsTable rows={rows} />
     </div>
   )
+}

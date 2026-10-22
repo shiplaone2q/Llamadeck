@@ -60,3 +60,24 @@ const HealthBadge: React.FC<HealthBadgeProps> = ({ health }) => {
       case "stopped":
         return "Stopped";
       case "failed":
+        return "Failed";
+    }
+  };
+
+  return (
+    <Badge
+      variant={getVariant()}
+      className={`flex items-center gap-1.5 ${
+        health.state === "ready"
+          ? "bg-green-100 text-green-800 border-green-200 dark:bg-green-900 dark:text-green-200 dark:border-green-800"
+          : ""
+      }`}
+      title={health.error || `Source: ${health.source}`}
+    >
+      {getIcon()}
+      <span className="text-xs">{getText()}</span>
+    </Badge>
+  );
+};
+
+export default HealthBadge;

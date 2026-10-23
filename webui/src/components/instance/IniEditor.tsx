@@ -62,3 +62,139 @@ const IniEditor: React.FC<IniEditorProps> = ({ value, onChange, className }) => 
     }
   }
 
+  const applySuggestion = (suggestion: FieldSuggestion) => {
+    const text = value
+    const textBeforeCursor = text.substring(0, cursorPosition)
+    const textAfterCursor = text.substring(cursorPosition)
+
+    const lines = textBeforeCursor.split('\n')
+    const lastLine = lines[lines.length - 1] || ''
+    const linesBeforeLast = lines.slice(0, -1).join('\n')
+
+    const leadingWhitespace = lastLine.match(/^\s*/)?.[0] || ''
+
+    const newText = (linesBeforeLast ? `${linesBeforeLast}\n` : '') +
+                    leadingWhitespace +
+                    suggestion.name +
+                    ' = ' +
+                    textAfterCursor
+
+    onChange(newText)
+    setShowSuggestions(false)
+
+    setTimeout(() => {
+      if (textareaRef.current) {
+        const newCursorPos = (linesBeforeLast ? linesBeforeLast.length + 1 : 0) +
+                            leadingWhitespace.length +
+                            suggestion.name.length +
+                            3
+        textareaRef.current.focus()
+        textareaRef.current.setSelectionRange(newCursorPos, newCursorPos)
+      }
+    }, 0)
+  }
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (!showSuggestions) {
+      return
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      consumedKeyRef.current = e.key
+      setSelectedIndex((prev) => (prev + 1) % suggestions.length)
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      consumedKeyRef.current = e.key
+      setSelectedIndex((prev) => (prev - 1 + suggestions.length) % suggestions.length)
+    } else if (e.key === 'Enter' || e.key === 'Tab') {
+      e.preventDefault()
+      consumedKeyRef.current = e.key
+      if (suggestions.length > 0) {
+        applySuggestion(suggestions[selectedIndex])
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault()
+      consumedKeyRef.current = e.key
+      setShowSuggestions(false)
+    }
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newValue = e.target.value
+    onChange(newValue)
+    setCursorPosition(e.target.selectionStart)
+    updateSuggestions(newValue, e.target.selectionStart)
+  }
+
+  const handleCursorChange = (e?: Event) => {
+    if (e && 'key' in e && e.key === consumedKeyRef.current) {
+      consumedKeyRef.current = null
+      return
+    }
+    if (textareaRef.current) {
+      setCursorPosition(textareaRef.current.selectionStart)
+      updateSuggestions(value, textareaRef.current.selectionStart)
+    }
+  }
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: DOM listener effect intentionally re-binds on value change; handleCursorChange closes over the current value
+  useEffect(() => {
+    const textarea = textareaRef.current
+    if (textarea) {
+      textarea.addEventListener('keyup', handleCursorChange)
+      textarea.addEventListener('click', handleCursorChange)
+      return () => {
+        textarea.removeEventListener('keyup', handleCursorChange)
+        textarea.removeEventListener('click', handleCursorChange)
+      }
+    }
+  }, [value])
+
+  return (
+    <div className={`relative ${className}`}>
+      <Textarea
+        ref={textareaRef}
+        value={value}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        placeholder="# Edit your preset.ini file here
+# Field names will autocomplete as you type
+# Example:
+[my-model]
+model = /path/to/model.gguf
+gpu-layers = 35"
+        className="font-mono text-sm min-h-[300px]"
+        spellCheck={false}
+      />
+      {showSuggestions && suggestions.length > 0 && (
+        <div
+          className="absolute z-50 w-64 max-h-48 overflow-y-auto rounded-md border bg-popover p-1 shadow-md"
+          style={{
+            top: `${suggestionPosition.top}px`,
+            left: `${suggestionPosition.left}px`
+          }}
+        >
+          {suggestions.map((suggestion, index) => (
+            // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard navigation is handled by the textarea onKeyDown above
+            // biome-ignore lint/a11y/noStaticElementInteractions: keyboard navigation is handled by the textarea onKeyDown above
+            <div
+              key={suggestion.name}
+              className={`flex flex-col rounded-sm px-2 py-1.5 text-sm cursor-pointer ${
+                index === selectedIndex
+                  ? 'bg-accent text-accent-foreground'
+                  : 'hover:bg-accent/50'
+              }`}
+              onClick={() => applySuggestion(suggestion)}
+            >
+              <span className="font-medium">{suggestion.name}</span>
+              <span className="text-xs text-muted-foreground capitalize">{suggestion.type}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default IniEditor

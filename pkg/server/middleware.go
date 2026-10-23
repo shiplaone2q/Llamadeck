@@ -88,3 +88,171 @@ func (a *APIAuthMiddleware) InferenceAuthMiddleware() func(http.Handler) http.Ha
 			}
 
 			// Try database authentication first
+			var foundKey *auth.APIKey
+			if a.requireInferenceAuth && a.authStore != nil {
+				activeKeys, err := a.authStore.GetActiveKeys(r.Context())
+				if err != nil {
+					log.Printf("Failed to get active inference keys: %v", err)
+					// Continue to management key fallback
+				} else {
+					for _, key := range activeKeys {
+						if auth.VerifyKey(apiKey, key.KeyHash) {
+							foundKey = key
+							// Async update last_used_at
+							go func(keyID int) {
+								ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+								defer cancel()
+								if err := a.authStore.TouchKey(ctx, keyID); err != nil {
+									log.Printf("Failed to update last used timestamp for key %d: %v", keyID, err)
+								}
+							}(key.ID)
+							break
+						}
+					}
+				}
+			}
+
+			// If no database key found, try management key authentication (config-based)
+			if foundKey == nil {
+				if !a.isValidManagementKey(apiKey) {
+					a.unauthorized(w, "Invalid API key")
+					return
+				}
+				// Management key was used, continue without adding APIKey to context
+			} else {
+				// Add APIKey to context for permission checking
+				ctx := context.WithValue(r.Context(), apiKeyContextKey, foundKey)
+				r = r.WithContext(ctx)
+			}
+
+			next.ServeHTTP(w, r)
+		})
+	}
+}
+
+// ManagementAuthMiddleware returns middleware for management endpoints.
+// Requests are authenticated either by a valid OIDC session cookie or by a
+// management API key.
+func (a *APIAuthMiddleware) ManagementAuthMiddleware() func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			if r.Method == "OPTIONS" {
+				next.ServeHTTP(w, r)
+				return
+			}
+
+			if sess := sessionFromRequest(r, a.sessions); sess != nil {
+				ctx := context.WithValue(r.Context(), userContextKey, sess)
+				next.ServeHTTP(w, r.WithContext(ctx))
+				return
+			}
+
+			// Extract API key from request
+			apiKey := a.extractAPIKey(r)
+			if apiKey == "" {
+				a.unauthorized(w, "Missing API key")
+				return
+			}
+
+			// Check if key exists in managementKeys map using constant-time comparison
+			if !a.isValidManagementKey(apiKey) {
+				a.unauthorized(w, "Invalid API key")
+				return
+			}
+
+			next.ServeHTTP(w, r)
+		})
+	}
+}
+
+// ResolveInstancePermission returns the effective permission for the authenticated
+// key on the given instance. Management keys and allow_all keys short-circuit with a
+// synthetic record (CanStart=true, CanEvict=true) and no DB query. Returns an error
+// if a per_instance key has no matching permission row.
+func (a *APIAuthMiddleware) ResolveInstancePermission(ctx context.Context, instanceID int) (*auth.KeyPermission, error) {
+	// Extract APIKey from context
+	apiKey, ok := ctx.Value(apiKeyContextKey).(*auth.APIKey)
+	if !ok {
+		// APIKey is nil, management key was used, allow all
+		return &auth.KeyPermission{InstanceID: instanceID, CanStart: true, CanEvict: true}, nil
+	}
+
+	// If permission_mode == "allow_all", allow all
+	if apiKey.PermissionMode == auth.PermissionModeAllowAll {
+		return &auth.KeyPermission{KeyID: apiKey.ID, InstanceID: instanceID, CanStart: true, CanEvict: true}, nil
+	}
+
+	// Check per-instance permissions
+	perm, err := a.authStore.GetInstancePermission(ctx, apiKey.ID, instanceID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to check permission: %w", err)
+	}
+
+	if perm == nil {
+		return nil, fmt.Errorf("permission denied: key does not have access to this instance")
+	}
+
+	return perm, nil
+}
+
+// CheckInstancePermission checks if the authenticated key has permission for the instance.
+// It is a thin wrapper around ResolveInstancePermission for call sites that only need the
+// access (allow/deny) decision.
+func (a *APIAuthMiddleware) CheckInstancePermission(ctx context.Context, instanceID int) error {
+	_, err := a.ResolveInstancePermission(ctx, instanceID)
+	return err
+}
+
+// UserFromContext returns the OIDC session user, or nil when the request was
+// authenticated with an API key.
+func UserFromContext(ctx context.Context) *auth.Session {
+	user, ok := ctx.Value(userContextKey).(*auth.Session)
+	if !ok {
+		return nil
+	}
+	return user
+}
+
+// extractAPIKey extracts the API key from the request
+func (a *APIAuthMiddleware) extractAPIKey(r *http.Request) string {
+	// Check Authorization header: "Bearer sk-..."
+	if auth := r.Header.Get("Authorization"); auth != "" {
+		if after, ok := strings.CutPrefix(auth, "Bearer "); ok {
+			return after
+		}
+	}
+
+	// Check X-API-Key header
+	if apiKey := r.Header.Get("X-API-Key"); apiKey != "" {
+		return apiKey
+	}
+
+	return ""
+}
+
+// isValidManagementKey checks if the provided API key is a valid management key
+func (a *APIAuthMiddleware) isValidManagementKey(providedKey string) bool {
+	for validKey := range a.managementKeys {
+		if len(providedKey) == len(validKey) &&
+			subtle.ConstantTimeCompare([]byte(providedKey), []byte(validKey)) == 1 {
+			return true
+		}
+	}
+	return false
+}
+
+// unauthorized sends an unauthorized response
+func (a *APIAuthMiddleware) unauthorized(w http.ResponseWriter, message string) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusUnauthorized)
+	response := fmt.Sprintf(`{"error": {"message": "%s", "type": "authentication_error"}}`, message)
+	w.Write([]byte(response))
+}
+
+// forbidden sends a forbidden response
+func (a *APIAuthMiddleware) forbidden(w http.ResponseWriter, message string) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusForbidden)
+	response := fmt.Sprintf(`{"error": {"message": "%s", "type": "permission_denied"}}`, message)
+	w.Write([]byte(response))
+}

@@ -56,3 +56,4 @@ func (db *sqliteDB) GetInstancePermission(ctx context.Context, keyID, instanceID
 	}
 
 	return &perm, nil
+}

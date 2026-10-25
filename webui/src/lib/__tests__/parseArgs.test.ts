@@ -23,3 +23,4 @@ describe('parseArgs', () => {
     expect(parseArgs('')).toEqual([])
     expect(parseArgs('   ')).toEqual([])
   })
+})

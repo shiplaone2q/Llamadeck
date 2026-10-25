@@ -5,3 +5,4 @@ export interface NodeHealth {
   latencyMs?: number;
   error?: string;
   lastChecked: Date;
+}

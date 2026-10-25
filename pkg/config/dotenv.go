@@ -70,3 +70,13 @@ func parseDotEnv(data []byte) map[string]string {
 
 		if len(value) >= 2 {
 			if (value[0] == '"' && value[len(value)-1] == '"') ||
+				(value[0] == '\'' && value[len(value)-1] == '\'') {
+				value = value[1 : len(value)-1]
+			}
+		}
+
+		result[key] = value
+	}
+
+	return result
+}

@@ -47,3 +47,19 @@ describe('API Error Handling', () => {
   })
 
   it('builds query parameters correctly for logs', async () => {
+    const mockResponse = new Response('logs', {
+      status: 200,
+      statusText: 'OK'
+    })
+    mockFetch.mockResolvedValue(mockResponse)
+
+    await instancesApi.getLogs('test-instance', 100)
+
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.stringMatching(
+        /^https?:\/\/[^/]+\/api\/v1\/instances\/test-instance\/logs\?lines=100$/
+      ),
+      expect.any(Object)
+    )
+  })
+})

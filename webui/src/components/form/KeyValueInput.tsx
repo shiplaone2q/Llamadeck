@@ -122,3 +122,52 @@ const KeyValueInput: React.FC<KeyValueInputProps> = ({
         {pairs.map((pair, index) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: pairs are index-addressed throughout this component and inputs are controlled
           <div key={index} className="flex gap-2 items-center">
+            <Input
+              placeholder={keyPlaceholder}
+              value={pair.key}
+              onChange={(e) => handleKeyChange(index, e.target.value)}
+              disabled={disabled}
+              className="flex-1"
+            />
+            <Input
+              placeholder={valuePlaceholder}
+              value={pair.value}
+              onChange={(e) => handleValueChange(index, e.target.value)}
+              disabled={disabled}
+              className="flex-1"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => removePair(index)}
+              disabled={disabled}
+              className="shrink-0"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+        ))}
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={addPair}
+          disabled={disabled}
+          className="w-fit"
+        >
+          <Plus className="h-4 w-4 mr-2" />
+          {addButtonText}
+        </Button>
+      </div>
+      {description && (
+        <p className="text-sm text-muted-foreground">{description}</p>
+      )}
+      {helperText && (
+        <p className="text-xs text-muted-foreground">{helperText}</p>
+      )}
+    </div>
+  )
+}
+
+export default KeyValueInput

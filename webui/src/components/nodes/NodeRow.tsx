@@ -79,3 +79,7 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
             </TooltipContent>
           </Tooltip>
         )}
+      </TableCell>
+      <TableCell className="text-muted-foreground">{latency}</TableCell>
+      <TableCell>
+        <NodeStatus health={health} />

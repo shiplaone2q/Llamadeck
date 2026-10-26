@@ -19,3 +19,4 @@ ReactDOM.createRoot(rootElement).render(
       </ConfigProvider>
     </AuthProvider>
   </React.StrictMode>,
+)

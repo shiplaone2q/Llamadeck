@@ -83,3 +83,14 @@ func TestDeleteModel(t *testing.T) {
 		}
 		if err := os.WriteFile(filepath.Join(repoDir, "refs", "main"), []byte("abcdef1234567890abcdef1234567890abcdef12"), 0644); err != nil {
 			t.Fatal(err)
+		}
+
+		rec := request("/api/v1/models?repo=org/model&tag=other")
+		if rec.Code != http.StatusNotFound {
+			t.Errorf("status = %d, want 404 (body: %s)", rec.Code, rec.Body.String())
+		}
+		if !strings.Contains(rec.Body.String(), "model_not_found") {
+			t.Errorf("body %q missing model_not_found code", rec.Body.String())
+		}
+	})
+}

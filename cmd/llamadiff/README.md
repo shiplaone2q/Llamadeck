@@ -37,3 +37,4 @@ These flags exist in llama-server but aren't handled by our parser. You'll need 
 3. Update multi-valued flag list if needed
 
 ### Conflicts
+These indicate fields where multiple flag variants (like `--flag` and `--no-flag`) map to the same struct field. This may be intentional (for boolean flags) or indicate a parsing issue.

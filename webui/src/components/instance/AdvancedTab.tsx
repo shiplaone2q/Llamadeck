@@ -68,3 +68,21 @@ const AdvancedTab: React.FC<AdvancedTabProps> = ({
           )}
         </div>
       )}
+
+      {/* Custom backends have no flag grammar: args are free-form and
+          unknown fields are dropped by the server, so extra_args is meaningless. */}
+      {formData.backend_type !== BackendType.CUSTOM && (
+        <div className="space-y-4">
+          <BackendFormField
+            key="extra_args"
+            fieldKey="extra_args"
+            value={extraArgs}
+            onChange={onBackendFieldChange}
+          />
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default AdvancedTab

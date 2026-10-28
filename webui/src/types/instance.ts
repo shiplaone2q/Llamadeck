@@ -29,3 +29,4 @@ export interface Instance {
   name: string;
   status: InstanceStatus;
   options?: CreateInstanceOptions;
+}

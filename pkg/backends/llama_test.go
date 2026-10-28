@@ -206,3 +206,423 @@ func TestLlamaCppUnmarshalJSON_AlternativeFieldNames(t *testing.T) {
 				if opts.GPULayers != 16 {
 					return fmt.Errorf("expected gpu_layers 32, got %d", opts.GPULayers)
 				}
+				return nil
+			},
+		},
+		{
+			name:     "model alternatives",
+			jsonData: `{"m": "/path/model.gguf"}`,
+			checkFn: func(opts backends.LlamaServerOptions) error {
+				if opts.Model != "/path/model.gguf" {
+					return fmt.Errorf("expected model '/path/model.gguf', got %q", opts.Model)
+				}
+				return nil
+			},
+		},
+		{
+			name:     "temperature alternatives",
+			jsonData: `{"temp": 0.8}`,
+			checkFn: func(opts backends.LlamaServerOptions) error {
+				if opts.Temperature != 0.8 {
+					return fmt.Errorf("expected temperature 0.8, got %f", opts.Temperature)
+				}
+				return nil
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var options backends.LlamaServerOptions
+			err := json.Unmarshal([]byte(tt.jsonData), &options)
+			if err != nil {
+				t.Fatalf("Unmarshal failed: %v", err)
+			}
+
+			if err := tt.checkFn(options); err != nil {
+				t.Error(err)
+			}
+		})
+	}
+}
+
+func TestLlamaCppUnmarshalJSON_InvalidJSON(t *testing.T) {
+	invalidJSON := `{"port": "not-a-number", "invalid": syntax}`
+
+	var options backends.LlamaServerOptions
+	err := json.Unmarshal([]byte(invalidJSON), &options)
+	if err == nil {
+		t.Error("Expected error for invalid JSON")
+	}
+}
+
+func TestLlamaCppUnmarshalJSON_ArrayFields(t *testing.T) {
+	jsonData := `{
+		"lora": ["adapter1.bin", "adapter2.bin"],
+		"override_tensor": ["tensor1", "tensor2"],
+		"dry_sequence_breaker": [".", "!", "?"]
+	}`
+
+	var options backends.LlamaServerOptions
+	err := json.Unmarshal([]byte(jsonData), &options)
+	if err != nil {
+		t.Fatalf("Unmarshal failed: %v", err)
+	}
+
+	expectedLora := []string{"adapter1.bin", "adapter2.bin"}
+	if !reflect.DeepEqual(options.Lora, expectedLora) {
+		t.Errorf("Expected lora %v, got %v", expectedLora, options.Lora)
+	}
+
+	expectedTensors := []string{"tensor1", "tensor2"}
+	if !reflect.DeepEqual(options.OverrideTensor, expectedTensors) {
+		t.Errorf("Expected override_tensor %v, got %v", expectedTensors, options.OverrideTensor)
+	}
+
+	expectedBreakers := []string{".", "!", "?"}
+	if !reflect.DeepEqual(options.DrySequenceBreaker, expectedBreakers) {
+		t.Errorf("Expected dry_sequence_breaker %v, got %v", expectedBreakers, options.DrySequenceBreaker)
+	}
+}
+
+func TestParseLlamaCommand(t *testing.T) {
+	tests := []struct {
+		name      string
+		command   string
+		expectErr bool
+		validate  func(*testing.T, *backends.LlamaServerOptions)
+	}{
+		{
+			name:      "basic command",
+			command:   "llama-server --model /path/to/model.gguf --gpu-layers 32",
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.LlamaServerOptions) {
+				if opts.Model != "/path/to/model.gguf" {
+					t.Errorf("expected model '/path/to/model.gguf', got '%s'", opts.Model)
+				}
+				if opts.GPULayers != 32 {
+					t.Errorf("expected gpu_layers 32, got %d", opts.GPULayers)
+				}
+			},
+		},
+		{
+			name:      "args only",
+			command:   "--model /path/to/model.gguf --ctx-size 4096",
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.LlamaServerOptions) {
+				if opts.Model != "/path/to/model.gguf" {
+					t.Errorf("expected model '/path/to/model.gguf', got '%s'", opts.Model)
+				}
+				if opts.CtxSize != 4096 {
+					t.Errorf("expected ctx_size 4096, got %d", opts.CtxSize)
+				}
+			},
+		},
+		{
+			name:      "mixed flag formats",
+			command:   "llama-server --model=/path/model.gguf --gpu-layers 16 --verbose",
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.LlamaServerOptions) {
+				if opts.Model != "/path/model.gguf" {
+					t.Errorf("expected model '/path/model.gguf', got '%s'", opts.Model)
+				}
+				if opts.GPULayers != 16 {
+					t.Errorf("expected gpu_layers 16, got %d", opts.GPULayers)
+				}
+				if !opts.Verbose {
+					t.Errorf("expected verbose to be true")
+				}
+			},
+		},
+		{
+			name:      "quoted strings",
+			command:   `llama-server --model test.gguf --api-key "sk-1234567890abcdef"`,
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.LlamaServerOptions) {
+				if opts.APIKey != "sk-1234567890abcdef" {
+					t.Errorf("expected api_key 'sk-1234567890abcdef', got '%s'", opts.APIKey)
+				}
+			},
+		},
+		{
+			name:      "multiple value types",
+			command:   "llama-server --model /test/model.gguf --n-gpu-layers 32 --temp 0.7 --verbose --no-mmap",
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.LlamaServerOptions) {
+				if opts.Model != "/test/model.gguf" {
+					t.Errorf("expected model '/test/model.gguf', got '%s'", opts.Model)
+				}
+				if opts.GPULayers != 32 {
+					t.Errorf("expected gpu_layers 32, got %d", opts.GPULayers)
+				}
+				if opts.Temperature != 0.7 {
+					t.Errorf("expected temperature 0.7, got %f", opts.Temperature)
+				}
+				if !opts.Verbose {
+					t.Errorf("expected verbose to be true")
+				}
+				if !opts.NoMmap {
+					t.Errorf("expected no_mmap to be true")
+				}
+			},
+		},
+		{
+			name:      "empty command",
+			command:   "",
+			expectErr: true,
+		},
+		{
+			name:      "unterminated quote",
+			command:   `llama-server --model test.gguf --api-key "unterminated`,
+			expectErr: true,
+		},
+		{
+			name:      "malformed flag",
+			command:   "llama-server ---model test.gguf",
+			expectErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var opts backends.LlamaServerOptions
+			resultAny, err := opts.ParseCommand(tt.command)
+			result, _ := resultAny.(*backends.LlamaServerOptions)
+
+			if tt.expectErr {
+				if err == nil {
+					t.Errorf("expected error but got none")
+				}
+				return
+			}
+
+			if err != nil {
+				t.Errorf("unexpected error: %v", err)
+				return
+			}
+
+			if result == nil {
+				t.Errorf("expected result but got nil")
+				return
+			}
+
+			if tt.validate != nil {
+				tt.validate(t, result)
+			}
+		})
+	}
+}
+
+func TestParseLlamaCommandArrays(t *testing.T) {
+	command := "llama-server --model test.gguf --lora adapter1.bin --lora=adapter2.bin"
+	var opts backends.LlamaServerOptions
+	resultAny, err := opts.ParseCommand(command)
+	result, _ := resultAny.(*backends.LlamaServerOptions)
+
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	if len(result.Lora) != 2 {
+		t.Errorf("expected 2 lora adapters, got %d", len(result.Lora))
+	}
+
+	expected := []string{"adapter1.bin", "adapter2.bin"}
+	for i, v := range expected {
+		if result.Lora[i] != v {
+			t.Errorf("expected lora[%d]=%s got %s", i, v, result.Lora[i])
+		}
+	}
+}
+
+func TestLlamaCppBuildCommandArgs_ExtraArgs(t *testing.T) {
+	options := backends.LlamaServerOptions{
+		Model: "/models/test.gguf",
+		ExtraArgs: map[string]string{
+			"flash-attn": "",               // boolean flag
+			"log-file":   "/logs/test.log", // value flag
+		},
+	}
+
+	args := options.BuildCommandArgs()
+
+	// Check that extra args are present
+	if !testutil.Contains(args, "--flash-attn") {
+		t.Error("Expected --flash-attn flag not found")
+	}
+	if !testutil.Contains(args, "--log-file") || !testutil.Contains(args, "/logs/test.log") {
+		t.Error("Expected --log-file flag or value not found")
+	}
+}
+
+func TestParseLlamaCommand_ExtraArgs(t *testing.T) {
+	tests := []struct {
+		name      string
+		command   string
+		expectErr bool
+		validate  func(*testing.T, *backends.LlamaServerOptions)
+	}{
+		{
+			name:      "extra args with known fields",
+			command:   "llama-server --model /path/to/model.gguf --gpu-layers 32 --unknown-flag value --another-bool-flag",
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.LlamaServerOptions) {
+				if opts.Model != "/path/to/model.gguf" {
+					t.Errorf("expected model '/path/to/model.gguf', got '%s'", opts.Model)
+				}
+				if opts.GPULayers != 32 {
+					t.Errorf("expected gpu_layers 32, got %d", opts.GPULayers)
+				}
+				if opts.ExtraArgs == nil {
+					t.Fatal("expected extra_args to be non-nil")
+				}
+				if val, ok := opts.ExtraArgs["unknown_flag"]; !ok || val != "value" {
+					t.Errorf("expected extra_args[unknown_flag]='value', got '%s'", val)
+				}
+				if val, ok := opts.ExtraArgs["another_bool_flag"]; !ok || val != "true" {
+					t.Errorf("expected extra_args[another_bool_flag]='true', got '%s'", val)
+				}
+			},
+		},
+		{
+			name:      "extra args with alternative field names",
+			command:   "llama-server -m /model.gguf -ngl 16 --custom-arg test --new-feature",
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.LlamaServerOptions) {
+				// Check that alternative names worked for known fields
+				if opts.Model != "/model.gguf" {
+					t.Errorf("expected model '/model.gguf', got '%s'", opts.Model)
+				}
+				if opts.GPULayers != 16 {
+					t.Errorf("expected gpu_layers 16, got %d", opts.GPULayers)
+				}
+				// Check that unknown args went to ExtraArgs
+				if opts.ExtraArgs == nil {
+					t.Fatal("expected extra_args to be non-nil")
+				}
+				if val, ok := opts.ExtraArgs["custom_arg"]; !ok || val != "test" {
+					t.Errorf("expected extra_args[custom_arg]='test', got '%s'", val)
+				}
+				if val, ok := opts.ExtraArgs["new_feature"]; !ok || val != "true" {
+					t.Errorf("expected extra_args[new_feature]='true', got '%s'", val)
+				}
+			},
+		},
+		{
+			name:      "only extra args",
+			command:   "llama-server --experimental-feature --beta-mode enabled",
+			expectErr: false,
+			validate: func(t *testing.T, opts *backends.LlamaServerOptions) {
+				if opts.ExtraArgs == nil {
+					t.Fatal("expected extra_args to be non-nil")
+				}
+				if val, ok := opts.ExtraArgs["experimental_feature"]; !ok || val != "true" {
+					t.Errorf("expected extra_args[experimental_feature]='true', got '%s'", val)
+				}
+				if val, ok := opts.ExtraArgs["beta_mode"]; !ok || val != "enabled" {
+					t.Errorf("expected extra_args[beta_mode]='enabled', got '%s'", val)
+				}
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var opts backends.LlamaServerOptions
+			result, err := opts.ParseCommand(tt.command)
+
+			if tt.expectErr && err == nil {
+				t.Error("expected error but got none")
+				return
+			}
+			if !tt.expectErr && err != nil {
+				t.Errorf("unexpected error: %v", err)
+				return
+			}
+
+			if !tt.expectErr && tt.validate != nil {
+				llamaOpts, ok := result.(*backends.LlamaServerOptions)
+				if !ok {
+					t.Fatal("result is not *LlamaServerOptions")
+				}
+				tt.validate(t, llamaOpts)
+			}
+		})
+	}
+}
+func TestLlamaCppGetCommand_WithOverrides(t *testing.T) {
+	tests := []struct {
+		name            string
+		dockerInConfig  bool
+		dockerEnabled   *bool
+		commandOverride string
+		expected        string
+	}{
+		{
+			name:            "no overrides - use config command",
+			dockerInConfig:  false,
+			dockerEnabled:   nil,
+			commandOverride: "",
+			expected:        "/usr/bin/llama-server",
+		},
+		{
+			name:            "override to enable docker",
+			dockerInConfig:  false,
+			dockerEnabled:   boolPtr(true),
+			commandOverride: "",
+			expected:        "docker",
+		},
+		{
+			name:            "override to disable docker",
+			dockerInConfig:  true,
+			dockerEnabled:   boolPtr(false),
+			commandOverride: "",
+			expected:        "/usr/bin/llama-server",
+		},
+		{
+			name:            "command override",
+			dockerInConfig:  false,
+			dockerEnabled:   nil,
+			commandOverride: "/custom/llama-server",
+			expected:        "/custom/llama-server",
+		},
+		{
+			name:            "docker takes precedence over command override",
+			dockerInConfig:  false,
+			dockerEnabled:   boolPtr(true),
+			commandOverride: "/custom/llama-server",
+			expected:        "docker",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			backendConfig := &config.BackendConfig{
+				LlamaCpp: config.BackendSettings{
+					Command: "/usr/bin/llama-server",
+					Docker: &config.DockerSettings{
+						Enabled: tt.dockerInConfig,
+						Image:   "test-image",
+					},
+				},
+			}
+
+			opts := backends.Options{
+				BackendType: backends.BackendTypeLlamaCpp,
+				LlamaServerOptions: &backends.LlamaServerOptions{
+					Model: "test-model.gguf",
+				},
+			}
+
+			result := opts.GetCommand(backendConfig, tt.dockerEnabled, tt.commandOverride)
+			if result != tt.expected {
+				t.Errorf("GetCommand() = %v, want %v", result, tt.expected)
+			}
+		})
+	}
+}
+
+// Helper function to create bool pointer
+func boolPtr(b bool) *bool {
+	return &b
+}

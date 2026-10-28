@@ -83,3 +83,10 @@ function NodeRow({ name, address, isLocal }: NodeRowProps) {
       <TableCell className="text-muted-foreground">{latency}</TableCell>
       <TableCell>
         <NodeStatus health={health} />
+      </TableCell>
+    </TableRow>
+  );
+}
+
+// Memoize rows so a health update for one node does not re-render the others
+export default memo(NodeRow);

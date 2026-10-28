@@ -82,3 +82,33 @@ func BuildDockerCommand(backendConfig *config.BackendSettings, instanceArgs []st
 	// Add environment variables
 	for key, value := range backendConfig.Docker.Environment {
 		dockerArgs = append(dockerArgs, "-e", fmt.Sprintf("%s=%s", key, value))
+	}
+
+	// Add image name
+	dockerArgs = append(dockerArgs, backendConfig.Docker.Image)
+
+	// Add backend args and instance args
+	dockerArgs = append(dockerArgs, backendConfig.Args...)
+	dockerArgs = append(dockerArgs, instanceArgs...)
+
+	return "docker", dockerArgs, nil
+}
+
+// convertExtraArgsToFlags converts map[string]string to command flags
+// Empty values become boolean flags: {"flag": ""} → ["--flag"]
+// Non-empty values: {"flag": "value"} → ["--flag", "value"]
+func convertExtraArgsToFlags(extraArgs map[string]string) []string {
+	var args []string
+
+	for key, value := range extraArgs {
+		if value == "" {
+			// Boolean flag
+			args = append(args, "--"+key)
+		} else {
+			// Value flag
+			args = append(args, "--"+key, value)
+		}
+	}
+
+	return args
+}

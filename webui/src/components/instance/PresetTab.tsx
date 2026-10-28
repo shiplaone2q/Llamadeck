@@ -71,3 +71,24 @@ const PresetTab: React.FC<PresetTabProps> = ({ formData, onChange }) => {
           <Download className="h-4 w-4" />
           Export
         </Button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".ini"
+          onChange={handleFileChange}
+          className="hidden"
+        />
+      </div>
+
+      <div className="flex-1 min-h-0">
+        <IniEditor
+          value={formData.preset_ini || ''}
+          onChange={(value) => onChange('preset_ini', value)}
+          className="h-full"
+        />
+      </div>
+    </div>
+  )
+}
+
+export default PresetTab

@@ -59,3 +59,4 @@ def add_line_breaks(content):
         else:
             processed_lines.append(line)
 
+    return '\n'.join(processed_lines)

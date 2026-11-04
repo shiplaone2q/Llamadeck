@@ -224,3 +224,6 @@ For detailed configuration options including environment variables, file locatio
 ## License
 
 MIT License - see [LICENSE](LICENSE) file.
+
+
+Readiness is exposed at `/ready`; the compose healthcheck uses it.

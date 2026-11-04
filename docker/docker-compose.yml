@@ -54,3 +54,6 @@ services:
               count: all
               capabilities: [gpu]
     restart: unless-stopped
+
+
+Readiness is exposed at `/ready`; the compose healthcheck uses it.

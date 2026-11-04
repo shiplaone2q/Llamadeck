@@ -227,3 +227,8 @@ MIT License - see [LICENSE](LICENSE) file.
 
 
 Readiness is exposed at `/ready`; the compose healthcheck uses it.
+
+
+## Readiness
+
+The router exposes `/ready`; use it for container healthchecks instead of the index page.
